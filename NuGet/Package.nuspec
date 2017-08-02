@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Microcharts</id>
+    <version>$version$</version>
+    <title>Microcharts</title>
+    <authors>Aloïs Deniel</authors>
+    <owners>Aloïs Deniel</owners>
+    <licenseUrl>https://github.com/aloisdeniel/Microcharts/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/aloisdeniel/Microcharts/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/aloisdeniel/Microcharts/master/Documentation/Logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Create cross-platforms (Xamarin, Windows, ...) simple charts.</description>
+    <copyright>Copyright 2017</copyright>
+    <tags>xamarin ios android chart skia</tags>
+    <dependencies>
+        <group>
+            <dependency id="SkiaSharp" version="1.59.1" />
+        </group>
+        <group targetFramework="MonoAndroid10">
+            <dependency id="SkiaSharp.Views"  version="1.59.1" />
+        </group>
+        <group targetFramework="Microcharts.iOS">
+            <dependency id="SkiaSharp.Views"  version="1.59.1" />
+        </group>
+    </dependencies>
+  </metadata>
+   <files>
+     <!-- Standard -->
+     <file src="..\Sources\Microcharts\bin\Debug\netstandard1.6\Microcharts.dll" target="build\netstandard1.6\Microcharts.dll"/>
+
+     <!-- Android -->
+     <file src="..\Sources\Microcharts.Droid\bin\Debug\Microcharts.dll" target="build\MonoAndroid10\Microcharts.dll"/>
+     <file src="..\Sources\Microcharts.Droid\bin\Debug\Microcharts.Droid.dll" target="build\MonoAndroid10\Microcharts.Droid.dll"/>
+
+     <!-- iOS -->
+	 <file src="..\Sources\Microcharts.iOS\bin\Debug\Microcharts.dll" target="build\Xamarin.iOS10\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.iOS\bin\Debug\Microcharts.iOS.dll" target="build\Xamarin.iOS10\Microcharts.iOS.dll"/>
+   </files>
+</package>
