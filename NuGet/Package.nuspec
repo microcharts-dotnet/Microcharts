@@ -20,21 +20,21 @@
         <group targetFramework="MonoAndroid10">
             <dependency id="SkiaSharp.Views"  version="1.59.1" />
         </group>
-        <group targetFramework="Microcharts.iOS">
+        <group targetFramework="Xamarin.iOS10">
             <dependency id="SkiaSharp.Views"  version="1.59.1" />
         </group>
     </dependencies>
   </metadata>
    <files>
      <!-- Standard -->
-     <file src="..\Sources\Microcharts\bin\Debug\netstandard1.6\Microcharts.dll" target="build\netstandard1.6\Microcharts.dll"/>
+     <file src="../Sources/Microcharts/bin/Debug/netstandard1.6/Microcharts.dll" target="lib/netstandard1.6/Microcharts.dll"/>
 
      <!-- Android -->
-     <file src="..\Sources\Microcharts.Droid\bin\Debug\Microcharts.dll" target="build\MonoAndroid10\Microcharts.dll"/>
-     <file src="..\Sources\Microcharts.Droid\bin\Debug\Microcharts.Droid.dll" target="build\MonoAndroid10\Microcharts.Droid.dll"/>
+     <file src="../Sources/Microcharts.Droid/bin/Debug/Microcharts.dll" target="lib/MonoAndroid10/Microcharts.dll"/>
+     <file src="../Sources/Microcharts.Droid/bin/Debug/Microcharts.Droid.dll" target="lib/MonoAndroid10/Microcharts.Droid.dll"/>
 
      <!-- iOS -->
-	 <file src="..\Sources\Microcharts.iOS\bin\Debug\Microcharts.dll" target="build\Xamarin.iOS10\Microcharts.dll"/>
-	 <file src="..\Sources\Microcharts.iOS\bin\Debug\Microcharts.iOS.dll" target="build\Xamarin.iOS10\Microcharts.iOS.dll"/>
+	 <file src="../Sources/Microcharts.iOS/bin/Debug/Microcharts.dll" target="lib/Xamarin.iOS10/Microcharts.dll"/>
+	 <file src="../Sources/Microcharts.iOS/bin/Debug/Microcharts.iOS.dll" target="lib/Xamarin.iOS10/Microcharts.iOS.dll"/>
    </files>
 </package>
