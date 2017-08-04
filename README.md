@@ -3,7 +3,7 @@
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
 ## Gallery
-
+ 
 ![gallery](Documentation/Gallery.png)
 
 ## Install
@@ -47,6 +47,7 @@ var chart = new BarChart() { Entries = entries };
 // or: var chart = new PointChart() { Entries = entries };
 // or: var chart = new LineChart() { Entries = entries };
 // or: var chart = new DonutChart() { Entries = entries };
+// or: var chart = new RadialGaugeChart() { Entries = entries };
 ```
 
 ### 2°) Add it to your UI!
@@ -112,7 +113,7 @@ protected override void OnCreate(Bundle savedInstanceState)
 
 ## Usage
 
-Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`. They all have several properties to tweak their rendering.
+Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`, `RadialGaugeChart`. They all have several properties to tweak their rendering.
 
 Those charts have a `Draw` method for platforms that haven't built in views.
 
@@ -122,7 +123,7 @@ Built in views are provided for **Xamarin.iOS** and **Xamarin.Android**, but any
 
 ## About
 
-This project are just simple drawings on top of the awesome [SkiaSharp](https://github.com/mono/SkiaSharp) library. The purpose is not to have an heavily customizable charting library. If you want so, simply fork the code, since all of this is fairly simple.
+This project is just simple drawing on top of the awesome [SkiaSharp](https://github.com/mono/SkiaSharp) library. The purpose is not to have an heavily customizable charting library. If you want so, simply fork the code, since all of this is fairly simple. Their is no interaction, nor animation at the moment.
 
 ## Contributions
 
