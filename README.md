@@ -110,6 +110,38 @@ protected override void OnCreate(Bundle savedInstanceState)
 }
 ```
 
+**UWP (Windows 10)**
+
+![uwp-screen](Documentation/UWP-Screenshot.png)
+
+```xml
+<Page
+    x:Class="Microcharts.Samples.Uwp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Microcharts.Samples.Uwp"
+    xmlns:microcharts="using:Microcharts.Uwp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <microcharts:ChartView x:Name="chartView" />
+
+</Page>
+```
+
+```csharp
+public MainPage()
+{
+    this.InitializeComponent();
+
+	var entries = // ... see 1°) above
+	var chart = // ... see 2°) above
+
+	this.chartView.Chart = chart;
+}
+```
+
 ## Usage
 
 Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`. They all have several properties to tweak their rendering.
