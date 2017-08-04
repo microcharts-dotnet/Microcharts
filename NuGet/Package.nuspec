@@ -30,7 +30,7 @@
   </metadata>
    <files>
      <!-- Standard -->
-     <file src="..\Sources\Microcharts\bin\Release\netstandard1.6\Microcharts.dll" target="lib\netstandard1.6\Microcharts.dll"/>
+     <file src="..\Sources\Microcharts\bin\Release\netstandard1.4\Microcharts.dll" target="lib\netstandard1.4\Microcharts.dll"/>
 
      <!-- Android -->
      <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
@@ -41,6 +41,7 @@
 	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.iOS.dll" target="lib\Xamarin.iOS10\Microcharts.iOS.dll"/>
      
      <!-- UWP -->
+	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap\Microcharts.dll"/>
 	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap\Microcharts.Uwp.dll"/>
    </files>
 </package>
