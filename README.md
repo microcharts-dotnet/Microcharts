@@ -112,7 +112,7 @@ protected override void OnCreate(Bundle savedInstanceState)
 
 **UWP (Windows 10)**
 
-![uwp-screen](Documentation/UWP-Screenshot.png)
+![uwp-screen](Documentation/UWP-Screenshot.PNG)
 
 ```xml
 <Page
