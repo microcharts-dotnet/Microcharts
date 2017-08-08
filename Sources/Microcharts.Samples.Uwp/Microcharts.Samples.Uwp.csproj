@@ -135,12 +135,19 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj">
+      <Project>{6fbe798d-bb43-4bb5-9c61-d6dd5b0e623a}</Project>
+      <Name>Microcharts.Samples</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microcharts.Uwp\Microcharts.Uwp.csproj">
       <Project>{4e28fcde-60f6-45ae-b444-701d5f30beff}</Project>
       <Name>Microcharts.Uwp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj">
+      <Project>{de24e243-1c2c-4923-8b2e-53f7b2abc814}</Project>
+      <Name>Microcharts</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="..\Microcharts.Samples.Shared\Microcharts.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

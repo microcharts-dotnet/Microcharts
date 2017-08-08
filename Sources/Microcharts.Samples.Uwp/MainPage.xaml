@@ -16,10 +16,17 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
          
         <microcharts:ChartView Grid.Row="0" x:Name="chart1" />
         <microcharts:ChartView Grid.Row="1" x:Name="chart2" />
         <microcharts:ChartView Grid.Row="2" x:Name="chart3" />
         <microcharts:ChartView Grid.Row="3" x:Name="chart4" />
+
+        <microcharts:ChartView Grid.Row="0" Grid.Column="1" x:Name="chart5" />
     </Grid>
 </Page>

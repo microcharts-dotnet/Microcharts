@@ -104,13 +104,13 @@
 			var radius = (Math.Min(width, height) - 2 * Margin) / 2;
 			var cx = width / 2;
 			var cy = height / 2;
-			var lineWidth = (this.LineSize < 0) ? (radius / (this.Entries.Count() * 2)) : this.LineSize;
+			var lineWidth = (this.LineSize < 0) ? (radius / ((this.Entries.Count() + 1) * 2)) : this.LineSize;
 			var radiusSpace = lineWidth * 2;
 
 			for (int i = 0; i < this.Entries.Count(); i++)
 			{
 				var entry = this.Entries.ElementAt(i);
-				var entryRadius = i * radiusSpace;
+				var entryRadius = (i + 1) * radiusSpace;
 				this.DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
 				this.DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
 			}
