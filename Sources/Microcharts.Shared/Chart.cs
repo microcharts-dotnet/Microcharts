@@ -37,7 +37,7 @@
 		/// Gets or sets the data entries.
 		/// </summary>
 		/// <value>The entries.</value>
-		public IEnumerable<Entry> Entries { get; set; }
+		public IEnumerable<ChartEntry> Entries { get; set; }
 
 		/// <summary>
 		/// Gets or sets the minimum value from entries. If not defined, it will be the minimum between zero and the 
@@ -97,7 +97,7 @@
 		/// <param name="height">Height.</param>
 		/// <param name="entries">Entries.</param>
 		/// <param name="isLeft">If set to <c>true</c> is left.</param>
-		protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<Entry> entries, bool isLeft)
+		protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<ChartEntry> entries, bool isLeft)
 		{
 			var margin = 2 * this.Margin;
 			var availableHeight = height - 2 * margin;

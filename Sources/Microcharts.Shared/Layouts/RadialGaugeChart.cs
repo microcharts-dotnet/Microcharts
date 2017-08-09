@@ -40,8 +40,8 @@
 		private void DrawCaption(SKCanvas canvas, int width, int height)
 		{
 			var range = this.ValueRange;
-			var rightValues = new List<Entry>();
-			var leftValues = new List<Entry>();
+			var rightValues = new List<ChartEntry>();
+			var leftValues = new List<ChartEntry>();
 
 			foreach (var entry in this.Entries)
 			{
@@ -61,7 +61,7 @@
 			this.DrawCaptionElements(canvas, width, height, leftValues, true);
 		}
 
-		public void DrawGaugeArea(SKCanvas canvas, Entry entry, float radius, int cx, int cy, float strokeWidth)
+		public void DrawGaugeArea(SKCanvas canvas, ChartEntry entry, float radius, int cx, int cy, float strokeWidth)
 		{
 			using (var paint = new SKPaint
 			{
@@ -76,7 +76,7 @@
 			}
 		}
 
-		public void DrawGauge(SKCanvas canvas, Entry entry, float radius, int cx, int cy, float strokeWidth)
+		public void DrawGauge(SKCanvas canvas, ChartEntry entry, float radius, int cx, int cy, float strokeWidth)
 		{
 			using (var paint = new SKPaint
 			{

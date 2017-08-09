@@ -5,7 +5,7 @@
 	/// <summary>
 	/// A data entry for a chart.
 	/// </summary>
-	public class Entry
+	public class ChartEntry
 	{
 		#region Constructors
 
@@ -13,7 +13,7 @@
 		/// Initializes a new instance of the <see cref="T:Microcharts.Entry"/> class.
 		/// </summary>
 		/// <param name="value">Value.</param>
-		public Entry(float value)
+		public ChartEntry(float value)
 		{
 			this.Value = value;
 		}
