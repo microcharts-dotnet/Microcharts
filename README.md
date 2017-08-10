@@ -177,6 +177,10 @@ protected override void OnAppearing()
 }
 ```
 
+## Tutorials
+
+* [Video: Charts for Xamarin Forms](https://www.youtube.com/watch?v=tmymWdmf1y4) by [@HoussemDellai](https://github.com/HoussemDellai)
+
 ## Usage
 
 Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`, `RadialGaugeChart`. They all have several properties to tweak their rendering.
