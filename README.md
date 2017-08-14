@@ -26,24 +26,24 @@ Available on NuGet
 ```csharp
 var entries = new[]
 {
-	new Entry(200)
-	{
-		Label = "January",
-		ValueLabel = "200",
-		FillColor = SKColor.Parse("#266489"),
-	},
-	new Entry(400)
-	{
-		Label = "February",
-		ValueLabel = "400",
-		FillColor = SKColor.Parse("#68B9C0"),
-	},
-	new Entry(-100)
-	{
-		Label = "March",
-		ValueLabel = "-100",
-		FillColor = SKColor.Parse("#90D585"),
-	},
+    new Entry(200)
+    {
+        Label = "January",
+        ValueLabel = "200",
+	FillColor = SKColor.Parse("#266489")
+    },
+    new Entry(400)
+    {
+	Label = "February",
+	ValueLabel = "400",
+	FillColor = SKColor.Parse("#68B9C0")
+    },
+    new Entry(-100)
+    {
+	Label = "March",
+	ValueLabel = "-100",
+	FillColor = SKColor.Parse("#90D585")
+    }
 };
 ```
 
@@ -66,19 +66,19 @@ var chart = new BarChart() { Entries = entries };
 ```csharp
 public override void ViewDidLoad()
 {
-	base.ViewDidLoad();
+    base.ViewDidLoad();
 
-	var entries = // ... see 1°) above
-	var chart = // ... see 2°) above
+    var entries = // ... see 1°) above
+    var chart = // ... see 2°) above
 
-	var chartView = new ChartView
-	{
-		Frame = new CGRect(0, 32, this.View.Bounds.Width, 140),
-		AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
-		Chart = chart,
-	};
+    var chartView = new ChartView
+    {
+        Frame = new CGRect(0, 32, this.View.Bounds.Width, 140),
+        AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
+        Chart = chart
+    };
 
-	this.View.Add(chartView);
+    this.View.Add(chartView);
 }
 ```
 
@@ -106,15 +106,15 @@ public override void ViewDidLoad()
 ```csharp
 protected override void OnCreate(Bundle savedInstanceState)
 {
-	base.OnCreate(savedInstanceState);
+    base.OnCreate(savedInstanceState);
 
-	SetContentView(Resource.Layout.Main);
+    SetContentView(Resource.Layout.Main);
 
-	var entries = // ... see 1°) above
-	var chart = // ... see 2°) above
+    var entries = // ... see 1°) above
+    var chart = // ... see 2°) above
 
-	var chartView = FindViewById<ChartView>(Resource.Id.chartView);
-	chartView.Chart = chart;
+    var chartView = FindViewById<ChartView>(Resource.Id.chartView);
+    chartView.Chart = chart;
 }
 ```
 
@@ -143,10 +143,10 @@ public MainPage()
 {
     this.InitializeComponent();
 
-	var entries = // ... see 1°) above
-	var chart = // ... see 2°) above
+    var entries = // ... see 1°) above
+    var chart = // ... see 2°) above
 
-	this.chartView.Chart = chart;
+    this.chartView.Chart = chart;
 }
 ```
 
@@ -168,12 +168,12 @@ public MainPage()
 ```csharp
 protected override void OnAppearing()
 {
-	base.OnAppearing();
+    base.OnAppearing();
 
-	var entries = // ... see 1°) above
-	var chart = // ... see 2°) above
+    var entries = // ... see 1°) above
+    var chart = // ... see 2°) above
 
-	this.chartView.Chart = chart;
+    this.chartView.Chart = chart;
 }
 ```
 
