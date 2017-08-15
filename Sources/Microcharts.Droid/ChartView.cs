@@ -10,25 +10,27 @@
 	{
 		#region Constructors
 
-		public ChartView(Context context) : base(context) 
+		public ChartView(Context context) : base(context)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
 
 		public ChartView(Context context, IAttributeSet attributes) : base(context, attributes)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
 
 		public ChartView(Context context, IAttributeSet attributes, int defStyleAtt) : base(context, attributes, defStyleAtt)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
 
 		public ChartView(IntPtr ptr, JniHandleOwnership jni) : base(ptr, jni)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
+
+		public void Initialize() => this.PaintSurface += OnPaintCanvas;
 
 		#endregion
 
@@ -49,7 +51,7 @@
 
 		private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
 		{
-			if(this.chart != null)
+			if (this.chart != null)
 			{
 				this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
 			}
