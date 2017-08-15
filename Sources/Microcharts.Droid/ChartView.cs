@@ -51,7 +51,7 @@
 
 		private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
 		{
-			if(this.chart != null)
+			if (this.chart != null)
 			{
 				this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
 			}
