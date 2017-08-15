@@ -10,25 +10,27 @@
 	{
 		#region Constructors
 
-		public ChartView(Context context) : base(context) 
+		public ChartView(Context context) : base(context)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
 
 		public ChartView(Context context, IAttributeSet attributes) : base(context, attributes)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
 
 		public ChartView(Context context, IAttributeSet attributes, int defStyleAtt) : base(context, attributes, defStyleAtt)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
 
 		public ChartView(IntPtr ptr, JniHandleOwnership jni) : base(ptr, jni)
 		{
-			this.PaintSurface += OnPaintCanvas;
+			Initialize();
 		}
+
+		public void Initialize() => this.PaintSurface += OnPaintCanvas;
 
 		#endregion
 
