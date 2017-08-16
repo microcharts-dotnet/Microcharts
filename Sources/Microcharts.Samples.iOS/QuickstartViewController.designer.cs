@@ -11,11 +11,11 @@ using UIKit;
 
 namespace Microcharts.Samples.iOS
 {
-	[Register("QuickstartViewController")]
-	partial class QuickstartViewController
-	{
-		void ReleaseDesignerOutlets()
-		{
-		}
-	}
+        [Register("QuickstartViewController")]
+        partial class QuickstartViewController
+        {
+                void ReleaseDesignerOutlets()
+                {
+                }
+        }
 }

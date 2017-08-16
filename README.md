@@ -55,6 +55,7 @@ var chart = new BarChart() { Entries = entries };
 // or: var chart = new LineChart() { Entries = entries };
 // or: var chart = new DonutChart() { Entries = entries };
 // or: var chart = new RadialGaugeChart() { Entries = entries };
+// or: var chart = new RadarChart() { Entries = entries };
 ```
 
 ### 2°) Add it to your UI!
@@ -78,7 +79,7 @@ public override void ViewDidLoad()
         Chart = chart
     };
 
-    this.View.Add(chartView);
+	this.View.AddSubview(chartView);
 }
 ```
 
@@ -177,19 +178,40 @@ protected override void OnAppearing()
 }
 ```
 
+**Xamarin.macOS**
+
+```csharp
+public override void ViewDidLoad()
+{
+	base.ViewDidLoad();
+
+	var entries = // ... see 1°) above
+	var chart = // ... see 2°) above
+
+	var chartView = new ChartView
+	{
+       Frame = this.View.Bounds,
+       AutoresizingMask = NSViewResizingMask.WidthSizable | NSViewResizingMask.HeightSizable,
+		Chart = chart,
+	};
+
+	this.View.AddSubview(chartView);
+}
+```
+
 ## Tutorials
 
 * [Video: Charts for Xamarin Forms](https://www.youtube.com/watch?v=tmymWdmf1y4) by [@HoussemDellai](https://github.com/HoussemDellai)
 
 ## Usage
 
-Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`, `RadialGaugeChart`. They all have several properties to tweak their rendering.
+Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`, `RadialGaugeChart`, `RadarChart`. They all have several properties to tweak their rendering.
 
 Those charts have a `Draw` method for platforms that haven't built in views.
 
 ## Compatibility
 
-Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, but any other **.NET Standard 1.4** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible.
+Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**, but any other **.NET Standard 1.4** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
 
 ## About
 
