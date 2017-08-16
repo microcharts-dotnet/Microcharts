@@ -6,12 +6,13 @@
     xmlns:local="clr-namespace:Microcharts.Samples.Forms" 
     x:Class="Microcharts.Samples.Forms.MainPage">
     <ScrollView>
-        <StackLayout>
-            <microcharts:ChartView x:Name="chart1" HeightRequest="140" />
-            <microcharts:ChartView x:Name="chart2" HeightRequest="140" />
-            <microcharts:ChartView x:Name="chart3" HeightRequest="140" />
-            <microcharts:ChartView x:Name="chart4" HeightRequest="140" />
-            <microcharts:ChartView x:Name="chart5" HeightRequest="140" />
+        <StackLayout Spacing="10" BackgroundColor="#EEEEEE">
+            <microcharts:ChartView x:Name="chart1" HeightRequest="140" BackgroundColor="White" />
+            <microcharts:ChartView x:Name="chart2" HeightRequest="140" BackgroundColor="White" />
+            <microcharts:ChartView x:Name="chart3" HeightRequest="140" BackgroundColor="White" />
+            <microcharts:ChartView x:Name="chart4" HeightRequest="140" BackgroundColor="White" />
+            <microcharts:ChartView x:Name="chart5" HeightRequest="140" BackgroundColor="White" />
+            <microcharts:ChartView x:Name="chart6" HeightRequest="140" BackgroundColor="White" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -10,19 +10,19 @@ using Android.OS;
 
 namespace Microcharts.Samples.Forms.Droid
 {
-	[Activity(Label = "Microcharts.Samples.Forms.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
-	{
-		protected override void OnCreate(Bundle bundle)
-		{
-			TabLayoutResource = Resource.Layout.Tabbar;
-			ToolbarResource = Resource.Layout.Toolbar;
+        [Activity(Label = "Microcharts.Samples.Forms.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+        {
+                protected override void OnCreate(Bundle bundle)
+                {
+                        TabLayoutResource = Resource.Layout.Tabbar;
+                        ToolbarResource = Resource.Layout.Toolbar;
 
-			base.OnCreate(bundle);
+                        base.OnCreate(bundle);
 
-			global::Xamarin.Forms.Forms.Init(this, bundle);
+                        global::Xamarin.Forms.Forms.Init(this, bundle);
 
-			LoadApplication(new App());
-		}
-	}
+                        LoadApplication(new App());
+                }
+        }
 }
