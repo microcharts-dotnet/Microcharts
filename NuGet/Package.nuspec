@@ -26,6 +26,9 @@
         <group targetFramework="uap">
             <dependency id="SkiaSharp.Views"  version="1.59.1" />
         </group>
+        <group targetFramework="xamarinmac">
+            <dependency id="SkiaSharp.Views"  version="1.59.1" />
+        </group>
     </dependencies>
   </metadata>
    <files>
@@ -43,5 +46,9 @@
      <!-- UWP -->
 	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap\Microcharts.dll"/>
 	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap\Microcharts.Uwp.dll"/>
+     
+     <!-- macOS -->
+	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.dll" target="lib\xamarinmac\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.macOS.dll" target="lib\xamarinmac\Microcharts.macOS.dll"/>
    </files>
 </package>
