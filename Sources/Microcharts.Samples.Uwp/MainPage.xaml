@@ -28,5 +28,6 @@
         <microcharts:ChartView Grid.Row="3" x:Name="chart4" />
 
         <microcharts:ChartView Grid.Row="0" Grid.Column="1" x:Name="chart5" />
+        <microcharts:ChartView Grid.Row="1" Grid.Column="1" x:Name="chart6" />
     </Grid>
 </Page>
