@@ -3,7 +3,7 @@
 	using Xamarin.Forms;
 	using SkiaSharp.Views.Forms;
 
-	public class ChartView : SKCanvasView
+    public class ChartView : SKCanvasView
 	{
 		public ChartView()
 		{
