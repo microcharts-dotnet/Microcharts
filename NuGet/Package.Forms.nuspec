@@ -15,8 +15,9 @@
     <tags>xamarin forms ios android chart skia</tags>
     <dependencies>
         <group>
-            <dependency id="Xamarin.Forms" version="2.4.0.269-pre2" />
-            <dependency id="SkiaSharp.Views.Forms" version="1.59.1" />
+            <dependency id="Xamarin.Forms" version="2.4.0.280” />
+            <dependency id=“System.ValueTuple” version=“4.4.0” />
+            <dependency id="SkiaSharp.Views.Forms" version="1.59.1.1” />
         </group>
     </dependencies>
   </metadata>

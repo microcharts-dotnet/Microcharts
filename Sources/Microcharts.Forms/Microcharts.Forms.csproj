@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.269-pre2" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.1" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.280" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
