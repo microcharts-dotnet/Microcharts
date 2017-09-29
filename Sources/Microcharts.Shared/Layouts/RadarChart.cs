@@ -37,7 +37,6 @@ namespace Microcharts
 
         private float ValueRange => this.AbsoluteMaximum - this.AbsoluteMinimum;
 
-
         #endregion
 
         #region Methods
@@ -76,7 +75,7 @@ namespace Microcharts
 
                 var center = new SKPoint(width / 2, height / 2);
                 var radius = ((Math.Min(width, height) - (2 * Margin)) / 2) - captionHeight;
-                var rangeAngle = (float)(((Math.PI * 2) / total));
+                var rangeAngle = (float)((Math.PI * 2) / total);
                 var startAngle = (float)Math.PI;
 
                 var nextEntry = this.Entries.First();
@@ -128,14 +127,14 @@ namespace Microcharts
                     canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
 
                     // Labels
-                    var labelPoint = this.GetPoint(this.MaxValue, center, angle, radius + this.LabelTextSize  + this.PointSize / 2);
+                    var labelPoint = this.GetPoint(this.MaxValue, center, angle, radius + this.LabelTextSize  + (this.PointSize / 2));
                     var alignment = SKTextAlign.Left;
 
                     if ((Math.Abs(angle - (startAngle + Math.PI)) < Epsilon) || (Math.Abs(angle - Math.PI) < Epsilon))
                     {
                         alignment = SKTextAlign.Center;
                     }
-                    else if(angle > (float)(startAngle + Math.PI))
+                    else if (angle > (float)(startAngle + Math.PI))
                     {
                         alignment = SKTextAlign.Right;
                     }
@@ -149,8 +148,7 @@ namespace Microcharts
         /// Finds point cordinates of an entry.
         /// </summary>
         /// <returns>The point.</returns>
-        /// <param name="entry">The entry.</param>
-        /// <param name="sumValue">The sum of all entry values.</param>
+        /// <param name="value">The value.</param>
         /// <param name="center">The center.</param>
         /// <param name="angle">The entry angle.</param>
         /// <param name="radius">The radius.</param>
