@@ -16,7 +16,7 @@
     <dependencies>
         <group>
             <dependency id="SkiaSharp" version="1.59.1" />
-            <dependency id=“System.ValueTuple” version=“4.4.0” />
+            <dependency id="System.ValueTuple" version="4.4.0" />
         </group>
         <group targetFramework="MonoAndroid10">
             <dependency id="SkiaSharp.Views"  version="1.59.1.1" />
