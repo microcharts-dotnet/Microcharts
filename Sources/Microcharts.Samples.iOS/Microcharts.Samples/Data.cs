@@ -87,6 +87,54 @@
 
                 };
 
+                public static Chart[] CreateXamarinSample()
+                {
+                    var entries = new[]
+                    {
+                         new Entry(212)
+                        {
+                            Label = "UWP",
+                            ValueLabel = "212",
+                            Color = SKColor.Parse("#2c3e50")
+                        },
+                        new Entry(248)
+                        {
+                            Label = "Android",
+                            ValueLabel = "248",
+                            Color = SKColor.Parse("#77d065")
+                        },
+                        new Entry(128)
+                        {
+                            Label = "iOS",
+                            ValueLabel = "128",
+                            Color = SKColor.Parse("#b455b6")
+                        },
+                        new Entry(514)
+                        {
+                            Label = "Shared",
+                            ValueLabel = "514",
+                            Color = SKColor.Parse("#3498db")
+                        }
+                    };
+
+                    return new Chart[]
+                    {
+                        new BarChart() { Entries = entries },
+                        new PointChart() { Entries = entries },
+                        new LineChart() 
+                        { 
+                            Entries = entries,
+                            LineMode = LineMode.Straight,
+                            LineSize = 8,
+                            PointMode = PointMode.Square,
+                            PointSize = 18,
+                        },
+                        new DonutChart() { Entries = entries },
+                        new RadialGaugeChart() { Entries = entries },
+                        new RadarChart() { Entries = entries },
+                    };
+                }
+
                 public static Chart[] CreateQuickstart()
                 {
                         var entries = new[]
