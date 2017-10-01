@@ -8,6 +8,11 @@ namespace Microcharts
     using System.Linq;
     using SkiaSharp;
 
+    /// <summary>
+    /// ![chart](../images/Donut.png)
+    /// 
+    /// A donut chart.
+    /// </summary>
     public class DonutChart : Chart
     {
         #region Properties

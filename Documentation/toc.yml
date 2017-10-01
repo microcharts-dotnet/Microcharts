@@ -1,5 +1,7 @@
-- name: Articles
-  href: articles/
-- name: Api Documentation
+- name: Guides
+  href: guides/
+- name: Samples
+  href: samples/
+- name: Api
   href: api/
-  homepage: api/index.md
+  homepage: api/Microcharts.html
