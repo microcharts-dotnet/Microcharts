@@ -8,6 +8,11 @@ namespace Microcharts
     using System.Linq;
     using SkiaSharp;
 
+    /// <summary>
+    /// ![chart](../images/Point.png)
+    /// 
+    /// Point chart.
+    /// </summary>
     public class PointChart : Chart
     {
         #region Properties

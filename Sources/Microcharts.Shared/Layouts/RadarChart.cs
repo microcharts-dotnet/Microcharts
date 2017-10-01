@@ -7,6 +7,11 @@ namespace Microcharts
     using System.Linq;
     using SkiaSharp;
 
+    /// <summary>
+    /// ![chart](../images/Radar.png)
+    /// 
+    /// A radar chart.
+    /// </summary>
     public class RadarChart : Chart
     {
         #region Constants
