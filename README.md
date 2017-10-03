@@ -15,7 +15,7 @@ Available on NuGet
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
 
 
-**Xamarin.Forms (PCL)**
+**Xamarin.Forms (.NET Standard 1.4)**
 
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
