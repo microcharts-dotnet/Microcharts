@@ -4,7 +4,7 @@
 
 ## Gallery
  
-![gallery](Documentation/Gallery.png)
+![gallery](Documentation/images/Gallery.png)
 
 ## Install
 
@@ -15,7 +15,7 @@ Available on NuGet
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
 
 
-**Xamarin.Forms (PCL)**
+**Xamarin.Forms (.NET Standard 1.4)**
 
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
@@ -62,7 +62,7 @@ var chart = new BarChart() { Entries = entries };
 
 **Xamarin.iOS**
 
-![ios-screen](Documentation/iOS-Screenshot.png)
+![ios-screen](Documentation/images/iOS-Screenshot.png)
 
 ```csharp
 public override void ViewDidLoad()
@@ -85,7 +85,7 @@ public override void ViewDidLoad()
 
 **Xamarin.Android**
 
-![android-screen](Documentation/Android-Screenshot.png)
+![android-screen](Documentation/images/Android-Screenshot.png)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -121,7 +121,7 @@ protected override void OnCreate(Bundle savedInstanceState)
 
 **UWP (Windows 10)**
 
-![uwp-screen](Documentation/UWP-Screenshot.PNG)
+![uwp-screen](Documentation/images/UWP-Screenshot.PNG)
 
 ```xml
 <Page

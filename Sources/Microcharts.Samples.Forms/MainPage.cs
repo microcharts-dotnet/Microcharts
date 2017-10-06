@@ -13,8 +13,7 @@ namespace Microcharts.Samples.Forms
                 {
                         base.OnAppearing();
 
-
-                        var charts = Data.CreateQuickstart();
+                        var charts = Data.CreateXamarinSample();
                         this.chart1.Chart = charts[0];
                         this.chart2.Chart = charts[1];
                         this.chart3.Chart = charts[2];

@@ -8,6 +8,11 @@ namespace Microcharts
 
     using SkiaSharp;
 
+    /// <summary>
+    /// ![chart](../images/Bar.png)
+    /// 
+    /// A bar chart.
+    /// </summary>
     public class BarChart : PointChart
     {
         #region Constructors

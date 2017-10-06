@@ -6,6 +6,11 @@ namespace Microcharts
     using System.Linq;
     using SkiaSharp;
 
+    /// <summary>
+    /// ![chart](../images/Line.png)
+    /// 
+    /// Line chart.
+    /// </summary>
     public class LineChart : PointChart
     {
         #region Constructors
