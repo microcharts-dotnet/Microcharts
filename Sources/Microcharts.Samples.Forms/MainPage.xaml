@@ -6,10 +6,10 @@
     xmlns:local="clr-namespace:Microcharts.Samples.Forms" 
     x:Class="Microcharts.Samples.Forms.MainPage">
     <ScrollView>
-        <StackLayout Spacing="10" BackgroundColor="#EEEEEE">
-            <Button Clicked="GenerateData">Generate data</Button>
-            <Button Clicked="ChangeChart">Change chart</Button>
-            <microcharts:ChartView x:Name="chart" HeightRequest="140" BackgroundColor="White" />
+        <StackLayout Spacing="20" BackgroundColor="#EEEEEE">
+            <Button Clicked="GenerateData" Text="Generate data"></Button>
+            <Button Clicked="ChangeChart" Text="Change chart"></Button>
+            <microcharts:ChartView x:Name="chart" HeightRequest="190" BackgroundColor="White" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

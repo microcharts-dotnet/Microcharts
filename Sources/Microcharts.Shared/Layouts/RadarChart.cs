@@ -132,7 +132,9 @@ namespace Microcharts
                     canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
 
                     // Labels
-                    var labelPoint = this.GetPoint(this.MaxValue, center, angle, radius + this.LabelTextSize  + (this.PointSize / 2));
+                    var labelPoint = new SKPoint(0,  radius + this.LabelTextSize  + (this.PointSize / 2));
+                    var rotation = SKMatrix.MakeRotation(angle);
+                    labelPoint = center + rotation.MapPoint(labelPoint);
                     var alignment = SKTextAlign.Left;
 
                     if ((Math.Abs(angle - (startAngle + Math.PI)) < Epsilon) || (Math.Abs(angle - Math.PI) < Epsilon))

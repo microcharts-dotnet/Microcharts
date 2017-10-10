@@ -297,6 +297,7 @@ namespace Microcharts
                     var space = hasOffset ? captionMargin : 0;
                     var captionX = isLeft ? this.Margin : width - this.Margin - this.LabelTextSize;
                     var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * this.AnimationProgress));
+                    var labelColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * this.AnimationProgress));
 
                     using (var paint = new SKPaint
                     {
@@ -317,7 +318,7 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right);
+                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right);
                 }
             }
         }

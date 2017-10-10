@@ -9,6 +9,6 @@
     <Import_RootNamespace>Microcharts.Forms.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ChartView.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="$(MSBuildThisFileDirectory)ChartView.cs" />
   </ItemGroup>
 </Project>
