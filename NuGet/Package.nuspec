@@ -33,6 +33,9 @@
     </dependencies>
   </metadata>
    <files>
+     <!-- PCL -->
+     <file src="..\Sources\Microcharts.Pcl\bin\Release\Microcharts.dll" target="lib\portable-net45+win8+wpa81+wp8\Microcharts.dll"/>
+
      <!-- Standard -->
      <file src="..\Sources\Microcharts\bin\Release\netstandard1.4\Microcharts.dll" target="lib\netstandard1.4\Microcharts.dll"/>
 
