@@ -29,7 +29,7 @@ namespace Microcharts
 
         private bool isAnimated = true, isAnimating = false;
 
-        private TimeSpan animationDuration = TimeSpan.FromSeconds(1);
+        private TimeSpan animationDuration = TimeSpan.FromSeconds(1.5f);
 
         private Task invalidationPlanification;
 

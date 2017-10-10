@@ -46,16 +46,16 @@
 
             if (view.chart != null)
             {
-                handler.Dispose();
+                view.handler.Dispose();
                 view.handler = null;
             }
 
-            view.chart = value;
+            view.chart = e.NewValue as Chart;
             view.Invalidate();
 
             if (view.chart != null)
             {
-                view.handler = this.chart.ObserveInvalidate(view, (v) => v.Invalidate());
+                view.handler = view.chart.ObserveInvalidate(view, (v) => v.Invalidate());
             }
         }
 
