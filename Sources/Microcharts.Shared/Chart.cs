@@ -5,36 +5,156 @@ namespace Microcharts
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Diagnostics;
     using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
     using SkiaSharp;
 
-    public abstract class Chart
+    /// <summary>
+    /// A chart.
+    /// </summary>
+    public abstract class Chart : INotifyPropertyChanged
     {
+        #region Fields
+
+        private IEnumerable<Entry> entries;
+
+        private float animationProgress, margin = 20, labelTextSize = 16;
+
+        private SKColor backgroundColor = SKColors.White;
+
+        private float? internalMinValue, internalMaxValue;
+
+        private bool isAnimated = true, isAnimating = false;
+
+        private TimeSpan animationDuration = TimeSpan.FromSeconds(1);
+
+        private Task invalidationPlanification;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microcharts.Chart"/> class.
+        /// </summary>
+        public Chart()
+        {
+            this.PropertyChanged += this.OnPropertyChanged;
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when property changed.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Occurs when the chart is invalidated.
+        /// </summary>
+        public event EventHandler Invalidated;
+
+        #endregion
+
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Chart"/> is animated when entries change.
+        /// </summary>
+        /// <value><c>true</c> if is animated; otherwise, <c>false</c>.</value>
+        public bool IsAnimated
+        {
+            get => this.isAnimated;
+            set
+            {
+                if (this.Set(ref this.isAnimated, value))
+                {
+                    if (!value)
+                    {
+                        this.AnimationProgress = 1;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:Microcharts.Chart"/> is currently animating.
+        /// </summary>
+        /// <value><c>true</c> if is animating; otherwise, <c>false</c>.</value>
+        public bool IsAnimating
+        {
+            get => this.isAnimating;
+            private set => this.Set(ref this.isAnimating, value);
+        }
+
+        /// <summary>
+        /// Gets the duration of the animation.
+        /// </summary>
+        /// <value>The duration of the animation.</value>
+        public TimeSpan AnimationDuration
+        {
+            get => this.animationDuration;
+            set => this.Set(ref this.animationDuration, value);
+        }
 
         /// <summary>
         /// Gets or sets the global margin.
         /// </summary>
         /// <value>The margin.</value>
-        public float Margin { get; set; } = 20;
+        public float Margin
+        {
+            get => this.margin;
+            set => this.Set(ref this.margin, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the animation progress.
+        /// </summary>
+        /// <value>The animation progress.</value>
+        public float AnimationProgress
+        {
+            get => this.animationProgress;
+            set
+            {
+                value = Math.Min(1, Math.Max(value, 0));
+                this.Set(ref this.animationProgress, value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the text size of the labels.
         /// </summary>
         /// <value>The size of the label text.</value>
-        public float LabelTextSize { get; set; } = 16;
+        public float LabelTextSize
+        {
+            get => this.labelTextSize;
+            set => this.Set(ref this.labelTextSize, value);
+        }
 
         /// <summary>
         /// Gets or sets the color of the chart background.
         /// </summary>
         /// <value>The color of the background.</value>
-        public SKColor BackgroundColor { get; set; } = SKColors.White;
+        public SKColor BackgroundColor
+        {
+            get => this.backgroundColor;
+            set => this.Set(ref this.backgroundColor, value);
+        }
 
         /// <summary>
         /// Gets or sets the data entries.
         /// </summary>
         /// <value>The entries.</value>
-        public IEnumerable<Entry> Entries { get; set; }
+        public IEnumerable<Entry> Entries
+        {
+            get => this.entries;
+            set => this.UpdateEntries(value);
+        }
 
         /// <summary>
         /// Gets or sets the minimum value from entries. If not defined, it will be the minimum between zero and the 
@@ -48,12 +168,12 @@ namespace Microcharts
                 if (!this.Entries.Any())
                 {
                     return 0;
-                } 
+                }
 
                 if (this.InternalMinValue == null)
                 {
                     return Math.Min(0, this.Entries.Min(x => x.Value));
-                } 
+                }
 
                 return Math.Min(this.InternalMinValue.Value, this.Entries.Min(x => x.Value));
             }
@@ -70,15 +190,15 @@ namespace Microcharts
         {
             get
             {
-                if (!this.Entries.Any()) 
+                if (!this.Entries.Any())
                 {
                     return 0;
-                } 
+                }
 
                 if (this.InternalMaxValue == null)
                 {
-                   return Math.Max(0, this.Entries.Max(x => x.Value)); 
-                } 
+                    return Math.Max(0, this.Entries.Max(x => x.Value));
+                }
 
                 return Math.Max(this.InternalMaxValue.Value, this.Entries.Max(x => x.Value));
             }
@@ -90,13 +210,33 @@ namespace Microcharts
         /// Gets or sets the internal minimum value (that can be null).
         /// </summary>
         /// <value>The internal minimum value.</value>
-        protected float? InternalMinValue { get; set; }
+        protected float? InternalMinValue
+        {
+            get => this.internalMinValue;
+            set
+            {
+                if (this.Set(ref this.internalMinValue, value))
+                {
+                    this.RaisePropertyChanged(nameof(this.MinValue));
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the internal max value (that can be null).
         /// </summary>
         /// <value>The internal max value.</value>
-        protected float? InternalMaxValue { get; set; }
+        protected float? InternalMaxValue
+        {
+            get => this.internalMinValue;
+            set
+            {
+                if (this.Set(ref this.internalMaxValue, value))
+                {
+                    this.RaisePropertyChanged(nameof(this.MaxValue));
+                }
+            }
+        }
 
         #endregion
 
@@ -133,15 +273,15 @@ namespace Microcharts
         /// <param name="isLeft">If set to <c>true</c> is left.</param>
         protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<Entry> entries, bool isLeft)
         {
-            var margin = 2 * this.Margin;
-            var availableHeight = height - (2 * margin);
+            var totalMargin = 2 * this.Margin;
+            var availableHeight = height - (2 * totalMargin);
             var x = isLeft ? this.Margin : (width - this.Margin - this.LabelTextSize);
             var ySpace = (availableHeight - this.LabelTextSize) / ((entries.Count <= 1) ? 1 : entries.Count - 1);
 
             for (int i = 0; i < entries.Count; i++)
             {
                 var entry = entries.ElementAt(i);
-                var y = margin + (i * ySpace);
+                var y = totalMargin + (i * ySpace);
                 if (entries.Count <= 1)
                 {
                     y += (availableHeight - this.LabelTextSize) / 2;
@@ -156,11 +296,12 @@ namespace Microcharts
                     var captionMargin = this.LabelTextSize * 0.60f;
                     var space = hasOffset ? captionMargin : 0;
                     var captionX = isLeft ? this.Margin : width - this.Margin - this.LabelTextSize;
+                    var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * this.AnimationProgress));
 
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
-                        Color = entry.Color,
+                        Color = valueColor,
                     })
                     {
                         var rect = SKRect.Create(captionX, y, this.LabelTextSize, this.LabelTextSize);
@@ -176,8 +317,170 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right);
+                    canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Invoked whenever a property changed.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
+        protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(this.AnimationProgress):
+                    this.Invalidate();
+                    break;
+                case nameof(this.LabelTextSize):
+                case nameof(this.MaxValue):
+                case nameof(this.MinValue):
+                case nameof(this.BackgroundColor):
+                    this.PlanifyInvalidate();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Invalidate the chart.
+        /// </summary>
+        protected void Invalidate() => this.Invalidated?.Invoke(this, EventArgs.Empty);
+
+        /// <summary>
+        /// Planifies the invalidation.
+        /// </summary>
+        protected async void PlanifyInvalidate()
+        {
+            if (this.invalidationPlanification != null)
+            {
+                await this.invalidationPlanification;
+            }
+            else
+            {
+                this.invalidationPlanification = Task.Delay(200);
+                await this.invalidationPlanification;
+                this.Invalidate();
+                this.invalidationPlanification = null;
+            }
+        }
+
+
+        #region Weak event handlers
+
+        /// <summary>
+        /// Adds a weak event handler to observe invalidate changes.
+        /// </summary>
+        /// <param name="target">The target instance.</param>
+        /// <param name="onInvalidate">Callback when chart is invalidated.</param>
+        /// <typeparam name="TTarget">The target subsriber type.</typeparam>
+        public InvalidatedWeakEventHandler<TTarget> ObserveInvalidate<TTarget>(TTarget target, Action<TTarget> onInvalidate) 
+            where TTarget : class
+        {
+            var weakHandler = new InvalidatedWeakEventHandler<TTarget>(this, target, onInvalidate);
+            weakHandler.Subsribe();
+            return weakHandler;
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        /// <summary>
+        /// Raises the property change.
+        /// </summary>
+        /// <param name="property">The property name.</param>
+        protected void RaisePropertyChanged([CallerMemberName]string property = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        /// <summary>
+        /// Set the specified field and raise a property change if new value is different.
+        /// </summary>
+        /// <returns>The set.</returns>
+        /// <param name="field">The field reference.</param>
+        /// <param name="value">The new value.</param>
+        /// <param name="property">The property name.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        protected bool Set<T>(ref T field, T value, [CallerMemberName]string property = null)
+        {
+            if (!EqualityComparer<T>.Equals(field, property))
+            {
+                field = value;
+                this.RaisePropertyChanged(property);
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        protected async Task AnimateAsync(bool entrance)
+        {
+            var watch = new Stopwatch();
+
+            var start = entrance ? 0 : 1;
+            var end = entrance ? 1 : 0;
+            var range = end - start;
+            var step = TimeSpan.FromSeconds(1.0 / 30);
+
+            this.AnimationProgress = start;
+            this.IsAnimating = true;
+
+            watch.Start();
+
+            while ((entrance && this.AnimationProgress < 1) || (!entrance && this.AnimationProgress > 0))
+            {
+                await Task.Delay(step);
+
+                var progress = (float)(watch.Elapsed.TotalSeconds / this.animationDuration.TotalSeconds);
+
+                progress = entrance ? Ease.In(progress) : Ease.Out(progress);
+                this.AnimationProgress = start + (progress * (end - start));
+            }
+
+            watch.Stop();
+            this.IsAnimating = false;
+        }
+
+        private async void UpdateEntries(IEnumerable<Entry> value)
+        {
+            try
+            {
+                if (this.entries != null && this.IsAnimated)
+                {
+                    await this.AnimateAsync(false);
+                }
+
+                if (this.Set(ref this.entries, value))
+                {
+                    this.RaisePropertyChanged(nameof(this.MinValue));
+                    this.RaisePropertyChanged(nameof(this.MaxValue));
+                }
+
+                if (this.IsAnimated)
+                {
+                    await this.AnimateAsync(true);
+                }
+                else
+                {
+                    this.AnimationProgress = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (this.Set(ref this.entries, value))
+                {
+                    this.RaisePropertyChanged(nameof(this.MinValue));
+                    this.RaisePropertyChanged(nameof(this.MaxValue));
+                }
+
+                this.Invalidate();
             }
         }
 

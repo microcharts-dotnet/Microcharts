@@ -46,17 +46,20 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var valueLabelSizes = this.MeasureValueLabels();
-            var footerHeight = this.CalculateFooterHeight(valueLabelSizes);
-            var headerHeight = this.CalculateHeaderHeight(valueLabelSizes);
-            var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
-            var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
-            var points = this.CalculatePoints(itemSize, origin, headerHeight);
+            if (this.Entries != null)
+            {
+                var valueLabelSizes = this.MeasureValueLabels();
+                var footerHeight = this.CalculateFooterHeight(valueLabelSizes);
+                var headerHeight = this.CalculateHeaderHeight(valueLabelSizes);
+                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = this.CalculatePoints(itemSize, origin, headerHeight);
 
-            this.DrawPointAreas(canvas, points, origin);
-            this.DrawPoints(canvas, points);
-            this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-            this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+                this.DrawPointAreas(canvas, points, origin);
+                this.DrawPoints(canvas, points);
+                this.DrawFooter(canvas, points, itemSize, height, footerHeight);
+                this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+            }
         }
 
         protected SKSize CalculateItemSize(int width, int height, float footerHeight, float headerHeight)
@@ -74,9 +77,10 @@ namespace Microcharts
             for (int i = 0; i < this.Entries.Count(); i++)
             {
                 var entry = this.Entries.ElementAt(i);
+                var value = entry.Value * this.AnimationProgress;
 
                 var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-                var y = headerHeight + (((this.MaxValue - entry.Value) / this.ValueRange) * itemSize.Height);
+                var y = headerHeight + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height);
                 var point = new SKPoint(x, y);
                 result.Add(point);
             }
@@ -184,7 +188,7 @@ namespace Microcharts
                                 paint.TextSize = this.LabelTextSize;
                                 paint.FakeBoldText = true;
                                 paint.IsAntialias = true;
-                                paint.Color = entry.Color;
+                                paint.Color = entry.Color.WithAlpha((byte)(255 * this.AnimationProgress));
                                 paint.IsStroke = false;
 
                                 var bounds = new SKRect();

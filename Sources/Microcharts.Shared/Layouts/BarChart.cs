@@ -44,18 +44,21 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var valueLabelSizes = MeasureValueLabels();
-            var footerHeight = CalculateFooterHeight(valueLabelSizes);
-            var headerHeight = CalculateHeaderHeight(valueLabelSizes);
-            var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
-            var origin = CalculateYOrigin(itemSize.Height, headerHeight);
-            var points = this.CalculatePoints(itemSize, origin, headerHeight);
+            if (this.Entries != null)
+            {
+                var valueLabelSizes = MeasureValueLabels();
+                var footerHeight = CalculateFooterHeight(valueLabelSizes);
+                var headerHeight = CalculateHeaderHeight(valueLabelSizes);
+                var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = this.CalculatePoints(itemSize, origin, headerHeight);
 
-            this.DrawBarAreas(canvas, points, itemSize, headerHeight);
-            this.DrawBars(canvas, points, itemSize, origin, headerHeight);
-            this.DrawPoints(canvas, points);
-            this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-            this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+                this.DrawBarAreas(canvas, points, itemSize, headerHeight);
+                this.DrawBars(canvas, points, itemSize, origin, headerHeight);
+                this.DrawPoints(canvas, points);
+                this.DrawFooter(canvas, points, itemSize, height, footerHeight);
+                this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+            }
         }
 
         /// <summary>
@@ -120,7 +123,7 @@ namespace Microcharts
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
-                        Color = entry.Color.WithAlpha(this.BarAreaAlpha),
+                        Color = entry.Color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress)),
                     })
                     {
                         var max = entry.Value > 0 ? headerHeight : headerHeight + itemSize.Height;

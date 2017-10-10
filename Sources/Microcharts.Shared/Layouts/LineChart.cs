@@ -48,18 +48,21 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var valueLabelSizes = MeasureValueLabels();
-            var footerHeight = CalculateFooterHeight(valueLabelSizes);
-            var headerHeight = CalculateHeaderHeight(valueLabelSizes);
-            var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
-            var origin = CalculateYOrigin(itemSize.Height, headerHeight);
-            var points = this.CalculatePoints(itemSize, origin, headerHeight);
+            if (this.Entries != null)
+            {
+                var valueLabelSizes = MeasureValueLabels();
+                var footerHeight = CalculateFooterHeight(valueLabelSizes);
+                var headerHeight = CalculateHeaderHeight(valueLabelSizes);
+                var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = this.CalculatePoints(itemSize, origin, headerHeight);
 
-            this.DrawArea(canvas, points, itemSize, origin);
-            this.DrawLine(canvas, points, itemSize);
-            this.DrawPoints(canvas, points);
-            this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-            this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+                this.DrawArea(canvas, points, itemSize, origin);
+                this.DrawLine(canvas, points, itemSize);
+                this.DrawPoints(canvas, points);
+                this.DrawFooter(canvas, points, itemSize, height, footerHeight);
+                this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+            }
         }
 
         protected void DrawLine(SKCanvas canvas, SKPoint[] points, SKSize itemSize)
@@ -115,7 +118,7 @@ namespace Microcharts
                     IsAntialias = true,
                 })
                 {
-                    using (var shader = this.CreateGradient(points, this.LineAreaAlpha))
+                    using (var shader = this.CreateGradient(points, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
                     {
                         paint.Shader = shader;
 

@@ -12,6 +12,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Layouts\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)WeakEventHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\RadialHelpers.cs" />
@@ -26,5 +27,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\RadarChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\CanvasExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\PieChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WeakEventHandlers\InvalidatedWeakEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Ease.cs" />
   </ItemGroup>
 </Project>

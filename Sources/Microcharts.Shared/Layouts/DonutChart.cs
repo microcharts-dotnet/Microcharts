@@ -21,7 +21,7 @@ namespace Microcharts
         /// Gets or sets the radius of the hole in the center of the chart.
         /// </summary>
         /// <value>The hole radius.</value>
-        public float HoleRadius { get; set; } = 0;
+        public float HoleRadius { get; set; } = 0.5f;
 
         #endregion
 
@@ -29,32 +29,35 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            this.DrawCaption(canvas, width, height);
-            using (new SKAutoCanvasRestore(canvas))
+            if (this.Entries != null)
             {
-                canvas.Translate(width / 2, height / 2);
-                var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-                var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
-
-                var start = 0.0f;
-                for (int i = 0; i < this.Entries.Count(); i++)
+                this.DrawCaption(canvas, width, height);
+                using (new SKAutoCanvasRestore(canvas))
                 {
-                    var entry = this.Entries.ElementAt(i);
-                    var end = start + (Math.Abs(entry.Value) / sumValue);
+                    canvas.Translate(width / 2, height / 2);
+                    var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+                    var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
 
-                    // Sector
-                    var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
-                    using (var paint = new SKPaint
+                    var start = 0.0f;
+                    for (int i = 0; i < this.Entries.Count(); i++)
                     {
-                        Style = SKPaintStyle.Fill,
-                        Color = entry.Color,
-                        IsAntialias = true,
-                    })
-                    {
-                        canvas.DrawPath(path, paint);
+                        var entry = this.Entries.ElementAt(i);
+                        var end = start + (Math.Abs(entry.Value) / sumValue) * this.AnimationProgress;
+
+                        // Sector
+                        var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
+                        using (var paint = new SKPaint
+                        {
+                            Style = SKPaintStyle.Fill,
+                            Color = entry.Color,
+                            IsAntialias = true,
+                        })
+                        {
+                            canvas.DrawPath(path, paint);
+                        }
+
+                        start = end;
                     }
-
-                    start = end;
                 }
             }
         }

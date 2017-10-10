@@ -48,7 +48,7 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var total = this.Entries.Count();
+            var total = this.Entries?.Count() ?? 0;
 
             if (total > 0)
             {
@@ -85,7 +85,7 @@ namespace Microcharts
 
                 var nextEntry = this.Entries.First();
                 var nextAngle = startAngle;
-                var nextPoint = this.GetPoint(nextEntry.Value, center, nextAngle, radius);
+                var nextPoint = this.GetPoint(nextEntry.Value * this.AnimationProgress, center, nextAngle, radius);
 
                 this.DrawBorder(canvas, center, radius);
 
@@ -98,7 +98,7 @@ namespace Microcharts
                     var nextIndex = (i + 1) % total;
                     nextAngle = startAngle + (rangeAngle * nextIndex);
                     nextEntry = this.Entries.ElementAt(nextIndex);
-                    nextPoint = this.GetPoint(nextEntry.Value, center, nextAngle, radius);
+                    nextPoint = this.GetPoint(nextEntry.Value * this.AnimationProgress, center, nextAngle, radius);
 
                     // Border center bars
                     using (var paint = new SKPaint()
@@ -118,7 +118,7 @@ namespace Microcharts
                     {
                         Style = SKPaintStyle.Stroke,
                         StrokeWidth = this.BorderLineSize,
-                        Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)),
+                        Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f * this.AnimationProgress)),
                         PathEffect = SKPathEffect.CreateDash(new[] { this.BorderLineSize, this.BorderLineSize * 2 }, 0),
                         IsAntialias = true,
                     })
@@ -144,7 +144,7 @@ namespace Microcharts
                         alignment = SKTextAlign.Right;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color, this.LabelTextSize, labelPoint, alignment);
+                    canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color.WithAlpha((byte)(255*this.AnimationProgress)), this.LabelTextSize, labelPoint, alignment);
                 }
             }
         }
