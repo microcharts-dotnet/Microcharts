@@ -27,7 +27,7 @@ Task ("Pack")
 		Version = VERSION,
 		OutputDirectory = NUPKGFOLDER,
 		BasePath = "./"
-	})
+	});
 
 	NuGetPack (NUSPEC_FORMS, new NuGetPackSettings { 
 		Version = VERSION,

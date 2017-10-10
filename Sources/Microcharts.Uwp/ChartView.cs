@@ -1,5 +1,9 @@
-﻿namespace Microcharts.Uwp
+﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+namespace Microcharts.Uwp
 {
+    using SkiaSharp;
     using SkiaSharp.Views.UWP;
     using Windows.UI.Xaml;
 
@@ -61,7 +65,14 @@
 
         private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
         {
-            this.Chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+            if (this.chart != null)
+            {
+                this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+            }
+            else
+            {
+                e.Surface.Canvas.Clear(SKColors.Transparent);
+            }
         }
 
         #endregion
