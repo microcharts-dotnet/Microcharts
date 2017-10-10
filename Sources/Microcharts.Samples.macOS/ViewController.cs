@@ -18,7 +18,7 @@ namespace Microcharts.Samples.macOS
 
             var chartView = new ChartView()
             {
-                Chart = Data.CreateQuickstart().ElementAt(1),
+                Chart = Data.CreateQuickstart().ElementAt(2),
                 Frame = this.View.Bounds,
                 AutoresizingMask = NSViewResizingMask.WidthSizable | NSViewResizingMask.HeightSizable
             };
