@@ -5,6 +5,8 @@
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
 ## Gallery
+
+![gallery](Documentation/images/Bikr.gif)
  
 ![gallery](Documentation/images/Gallery.png)
 
