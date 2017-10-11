@@ -77,10 +77,10 @@ namespace Microcharts
             for (int i = 0; i < this.Entries.Count(); i++)
             {
                 var entry = this.Entries.ElementAt(i);
-                var value = entry.Value * this.AnimationProgress;
+                var value = entry.Value;
 
                 var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-                var y = headerHeight + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height);
+                var y = headerHeight + (1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress;
                 var point = new SKPoint(x, y);
                 result.Add(point);
             }

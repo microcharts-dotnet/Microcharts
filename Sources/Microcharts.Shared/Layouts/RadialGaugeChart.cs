@@ -4,7 +4,6 @@
 namespace Microcharts
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using SkiaSharp;
 
@@ -104,21 +103,8 @@ namespace Microcharts
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
-            var range = this.ValueRange;
-            var rightValues = new List<Entry>();
-            var leftValues = new List<Entry>();
-
-            foreach (var entry in this.Entries)
-            {
-                if (Math.Abs(entry.Value) < range / 2)
-                {
-                    rightValues.Add(entry);
-                }
-                else
-                {
-                    leftValues.Add(entry);
-                }
-            }
+            var rightValues = this.Entries.Take(Entries.Count() / 2).ToList();
+            var leftValues = this.Entries.Skip(rightValues.Count()).ToList();
 
             leftValues.Reverse();
 

@@ -9,6 +9,7 @@ namespace Microcharts
     using System.Diagnostics;
     using System.Linq;
     using System.Runtime.CompilerServices;
+    using System.Threading;
     using System.Threading.Tasks;
     using SkiaSharp;
 
@@ -32,6 +33,8 @@ namespace Microcharts
         private TimeSpan animationDuration = TimeSpan.FromSeconds(1.5f);
 
         private Task invalidationPlanification;
+
+        private CancellationTokenSource animationCancellation;
 
         #endregion
 
@@ -228,7 +231,7 @@ namespace Microcharts
         /// <value>The internal max value.</value>
         protected float? InternalMaxValue
         {
-            get => this.internalMinValue;
+            get => this.internalMaxValue;
             set
             {
                 if (this.Set(ref this.internalMaxValue, value))
@@ -421,30 +424,46 @@ namespace Microcharts
 
         #endregion
 
-        protected async Task AnimateAsync(bool entrance)
+        public async Task AnimateAsync(bool entrance, CancellationToken token = default(CancellationToken))
         {
             var watch = new Stopwatch();
 
             var start = entrance ? 0 : 1;
             var end = entrance ? 1 : 0;
             var range = end - start;
-            var step = TimeSpan.FromSeconds(1.0 / 30);
 
             this.AnimationProgress = start;
             this.IsAnimating = true;
 
             watch.Start();
 
-            while ((entrance && this.AnimationProgress < 1) || (!entrance && this.AnimationProgress > 0))
+            var source = new TaskCompletionSource<bool>();
+            var timer = Timer.Create();
+
+            timer.Start(TimeSpan.FromSeconds(1.0 / 30), () => 
             {
-                await Task.Delay(step);
+                if (token.IsCancellationRequested)
+                {
+                    source.SetCanceled();
+                    return false;
+                }
 
                 var progress = (float)(watch.Elapsed.TotalSeconds / this.animationDuration.TotalSeconds);
-
                 progress = entrance ? Ease.In(progress) : Ease.Out(progress);
                 this.AnimationProgress = start + (progress * (end - start));
-            }
 
+                var shouldContinue = (entrance && this.AnimationProgress < 1) || (!entrance && this.AnimationProgress > 0);
+
+                if(!shouldContinue)
+                {
+                    source.SetResult(true);
+                }
+
+                return shouldContinue;
+            });
+
+            await source.Task;
+      
             watch.Stop();
             this.IsAnimating = false;
         }
@@ -453,9 +472,21 @@ namespace Microcharts
         {
             try
             {
-                if (this.entries != null && this.IsAnimated)
+                if (this.animationCancellation != null)
                 {
-                    await this.AnimateAsync(false);
+                    this.animationCancellation.Cancel();
+                }
+
+                var cancellation = new CancellationTokenSource();
+                this.animationCancellation = cancellation;
+
+                if (!cancellation.Token.IsCancellationRequested && this.entries != null && this.IsAnimated)
+                {
+                    await this.AnimateAsync(false, cancellation.Token);
+                }
+                else
+                {
+                    this.AnimationProgress = 0; 
                 }
 
                 if (this.Set(ref this.entries, value))
@@ -464,16 +495,16 @@ namespace Microcharts
                     this.RaisePropertyChanged(nameof(this.MaxValue));
                 }
 
-                if (this.IsAnimated)
+                if (!cancellation.Token.IsCancellationRequested && this.entries != null && this.IsAnimated)
                 {
-                    await this.AnimateAsync(true);
+                    await this.AnimateAsync(true, cancellation.Token);
                 }
                 else
                 {
                     this.AnimationProgress = 1;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 if (this.Set(ref this.entries, value))
                 {
@@ -481,7 +512,12 @@ namespace Microcharts
                     this.RaisePropertyChanged(nameof(this.MaxValue));
                 }
 
+
                 this.Invalidate();
+            }
+            finally
+            {
+                this.animationCancellation = null;
             }
         }
 

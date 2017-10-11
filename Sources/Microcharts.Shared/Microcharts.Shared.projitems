@@ -30,5 +30,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\PieChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WeakEventHandlers\InvalidatedWeakEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Ease.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ITimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DelayTimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Timer.cs" />
   </ItemGroup>
 </Project>

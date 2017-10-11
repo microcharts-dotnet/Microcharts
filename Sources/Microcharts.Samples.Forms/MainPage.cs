@@ -68,6 +68,8 @@ namespace Microcharts.Samples.Forms
             chartType = (chartType + 1) % ChartTypes.Length;
             var type = this.ChartTypes[chartType];
             this.chart.Chart = Activator.CreateInstance(type) as Chart;
+            this.chart.Chart.MinValue = -1000;
+            this.chart.Chart.MaxValue = 1000;
             GenerateData(null, null);
         }
     }
