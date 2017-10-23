@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFrameworks>netstandard1.3;portable-net45+win8+wpa81+wp8</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,5 +11,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
   </ItemGroup>
-  <Import Project="..\Microcharts.Forms.Shared\Microcharts.Forms.Shared.projitems" Label="Shared" Condition="Exists('..\Microcharts.Forms.Shared\Microcharts.Forms.Shared.projitems')" />
 </Project>

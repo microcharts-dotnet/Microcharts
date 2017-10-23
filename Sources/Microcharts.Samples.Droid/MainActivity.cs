@@ -1,5 +1,4 @@
 ﻿using Android.App;
-using Android.Widget;
 using Android.OS;
 using Microcharts.Droid;
 
@@ -21,7 +20,6 @@ namespace Microcharts.Samples.Droid
                         FindViewById<ChartView>(Resource.Id.chartView2).Chart = charts[1];
                         FindViewById<ChartView>(Resource.Id.chartView3).Chart = charts[2];
                         FindViewById<ChartView>(Resource.Id.chartView4).Chart = charts[3];
-
                 }
         }
 }

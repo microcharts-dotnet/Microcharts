@@ -38,7 +38,7 @@
 
                 public static (string label, int value)[] PositiveData =
                 {
-                        ("January",         400),
+                        ("January",     400),
                         ("February",    600),
                         ("March",       900),
                         ("April",       100),
@@ -55,18 +55,18 @@
 
                 public static (string label, int value)[] MixedData =
                 {
-                        ("January",         -400),
+                        ("January",    -400),
                         ("February",    600),
                         ("March",       900),
                         ("April",       100),
-                        ("May",         -200),
+                        ("May",        -200),
                         ("June",        500),
                         ("July",        300),
-                        ("August",      -200),
+                        ("August",     -200),
                         ("September",   200),
                         ("October",     800),
                         ("November",    950),
-                        ("December",    -700),
+                        ("December",   -700),
 
                 };
 

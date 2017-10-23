@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Microcharts.Samples.Forms.Shared\Microcharts.Samples.Forms.Shared.projitems" Label="Shared" Condition="Exists('..\Microcharts.Samples.Forms.Shared\Microcharts.Samples.Forms.Shared.projitems')" />
   <Import Project="..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.2.4.0.280\build\netstandard1.0\Xamarin.Forms.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -131,9 +132,13 @@
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj">
-      <Project>{F67B4BE6-40F0-4F99-A8BC-F1A5E0BC95D4}</Project>
-      <Name>Microcharts.Samples.Forms</Name>
+    <ProjectReference Include="..\Microcharts.Forms\Microcharts.Forms.csproj">
+      <Project>{E14AB0AB-031C-4A9F-8D41-F79BB54CDDE7}</Project>
+      <Name>Microcharts.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj">
+      <Project>{D07D3E94-E645-4035-A142-5F933A15D585}</Project>
+      <Name>Microcharts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
