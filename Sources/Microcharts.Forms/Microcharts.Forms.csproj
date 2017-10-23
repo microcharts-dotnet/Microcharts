@@ -11,8 +11,8 @@
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>
     <LanguageTargets>$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets</LanguageTargets>
   </PropertyGroup>
-  
-  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
   </ItemGroup>
