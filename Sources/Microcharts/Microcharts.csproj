@@ -1,21 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFrameworks>netstandard1.3;portable-net45+win8+wpa81+wp8</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='portable-net45+win8+wpa81+wp8'">
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>
+    <LanguageTargets>$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets</LanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DocumentationFile>bin\Debug\netstandard1.4\Microcharts.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\Microcharts.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="1.59.1" />
-    <PackageReference Include="StyleCop.MSBuild" Version="5.0.0" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="StyleCop.MSBuild" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Update="**\.DS_Store" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
-  <Import Project="..\Microcharts.Shared\Microcharts.Shared.projitems" Label="Shared" Condition="Exists('..\Microcharts.Shared\Microcharts.Shared.projitems')" />
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Layouts\" />
+    <Folder Include="WeakEventHandlers\" />
+  </ItemGroup>
 </Project>

@@ -15,14 +15,16 @@
     <tags>xamarin forms ios android chart skia</tags>
     <dependencies>
         <group>
-            <dependency id="Xamarin.Forms" version="2.4.0.280" />
-            <dependency id=“System.ValueTuple” version="4.4.0" />
+            <dependency id="Microcharts" version="$version$" />
+            <dependency id="Xamarin.Forms" version="2.4.0.282" />
+            <dependency id="System.ValueTuple" version="4.4.0" />
             <dependency id="SkiaSharp.Views.Forms" version="1.59.1.1" />
         </group>
     </dependencies>
   </metadata>
    <files>
-     <!-- Standard 1.4 -->
-     <file src="..\Sources\Microcharts.Forms\bin\Release\netstandard1.4\Microcharts.Forms.dll" target="lib\netstandard1.4\Microcharts.Forms.dll"/>
+     <!-- Standard + PCL -->
+     <file src="..\Sources\Microcharts.Forms\bin\Release\portable-net45+win8+wpa81+wp8\Microcharts.Forms.dll" target="lib\portable-net45+win8+wpa81+wp8\Microcharts.Forms.dll"/>
+     <file src="..\Sources\Microcharts.Forms\bin\Release\netstandard1.3\Microcharts.Forms.dll" target="lib\netstandard1.3\Microcharts.Forms.dll"/>
    </files>
 </package>

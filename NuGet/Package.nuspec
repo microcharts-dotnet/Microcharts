@@ -33,8 +33,9 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- Standard -->
-     <file src="..\Sources\Microcharts\bin\Release\netstandard1.4\Microcharts.dll" target="lib\netstandard1.4\Microcharts.dll"/>
+     <!-- Standard + PCL -->
+     <file src="..\Sources\Microcharts\bin\Release\portable-net45+win8+wpa81+wp8\Microcharts.dll" target="lib\portable-net45+win8+wpa81+wp8\Microcharts.dll"/>
+     <file src="..\Sources\Microcharts\bin\Release\netstandard1.3\Microcharts.dll" target="lib\netstandard1.3\Microcharts.dll"/>
 
      <!-- Android -->
      <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>

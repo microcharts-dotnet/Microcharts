@@ -1,12 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFrameworks>netstandard1.3;portable-net45+win8+wpa81+wp8</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='portable-net45+win8+wpa81+wp8'">
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>
+    <LanguageTargets>$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets</LanguageTargets>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.280" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.1.1" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj" />

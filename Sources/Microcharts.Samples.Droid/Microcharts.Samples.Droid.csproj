@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Microcharts.Samples.Droid</RootNamespace>
     <AssemblyName>Microcharts.Samples.Droid</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">
-      <Project>{DE24E243-1C2C-4923-8B2E-53F7B2ABC814}</Project>
+      <Project>{D07D3E94-E645-4035-A142-5F933A15D585}</Project>
       <Name>Microcharts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microcharts.Droid\Microcharts.Droid.csproj">
