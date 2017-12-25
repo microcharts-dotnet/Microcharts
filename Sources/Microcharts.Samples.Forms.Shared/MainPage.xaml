@@ -8,6 +8,7 @@
         <StackLayout Spacing="20" BackgroundColor="#EEEEEE">
             <Button Clicked="GenerateData" Text="Generate data"></Button>
             <Button Clicked="ChangeChart" Text="Change chart"></Button>
+            <Button Clicked="ChangeFont" Text="Change font"></Button>
             <microcharts:ChartView x:Name="chart" HeightRequest="190" BackgroundColor="White" />
         </StackLayout>
     </ScrollView>

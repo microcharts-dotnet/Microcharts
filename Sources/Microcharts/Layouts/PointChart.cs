@@ -229,7 +229,7 @@ namespace Microcharts
                                 paint.IsAntialias = true;
                                 paint.Color = colors[i];
                                 paint.IsStroke = false;
-
+                                paint.Typeface = base.Typeface;
                                 var bounds = sizes[i];
                                 var text = texts[i];
 

@@ -28,6 +28,8 @@ namespace Microcharts
 
         private SKColor labelColor = SKColors.Gray;
 
+        private SKTypeface typeface;
+
         private float? internalMinValue, internalMaxValue;
 
         private bool isAnimated = true, isAnimating = false;
@@ -139,6 +141,12 @@ namespace Microcharts
         {
             get => this.labelTextSize;
             set => this.Set(ref this.labelTextSize, value);
+        }
+
+        public SKTypeface Typeface
+        {
+            get => this.typeface;
+            set => this.Set(ref this.typeface, value);
         }
 
         /// <summary>
@@ -317,7 +325,7 @@ namespace Microcharts
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
-                        Color = valueColor,
+                        Color = valueColor
                     })
                     {
                         var rect = SKRect.Create(captionX, y, this.LabelTextSize, this.LabelTextSize);
@@ -333,7 +341,7 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right);
+                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, this.Typeface);
                 }
             }
         }
@@ -393,7 +401,7 @@ namespace Microcharts
         /// <param name="target">The target instance.</param>
         /// <param name="onInvalidate">Callback when chart is invalidated.</param>
         /// <typeparam name="TTarget">The target subsriber type.</typeparam>
-        public InvalidatedWeakEventHandler<TTarget> ObserveInvalidate<TTarget>(TTarget target, Action<TTarget> onInvalidate) 
+        public InvalidatedWeakEventHandler<TTarget> ObserveInvalidate<TTarget>(TTarget target, Action<TTarget> onInvalidate)
             where TTarget : class
         {
             var weakHandler = new InvalidatedWeakEventHandler<TTarget>(this, target, onInvalidate);
@@ -425,7 +433,7 @@ namespace Microcharts
             var source = new TaskCompletionSource<bool>();
             var timer = Timer.Create();
 
-            timer.Start(TimeSpan.FromSeconds(1.0 / 30), () => 
+            timer.Start(TimeSpan.FromSeconds(1.0 / 30), () =>
             {
                 if (token.IsCancellationRequested)
                 {
@@ -448,7 +456,7 @@ namespace Microcharts
             });
 
             await source.Task;
-      
+
             watch.Stop();
             this.IsAnimating = false;
         }
@@ -471,7 +479,7 @@ namespace Microcharts
                 }
                 else
                 {
-                    this.AnimationProgress = 0; 
+                    this.AnimationProgress = 0;
                 }
 
                 if (this.Set(ref this.entries, value))
