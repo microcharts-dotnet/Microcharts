@@ -7,7 +7,7 @@ namespace Microcharts
 
     internal static class CanvasExtensions
     {
-        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment)
+        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface)
         {
             var hasLabel = !string.IsNullOrEmpty(label);
             var hasValueLabel = !string.IsNullOrEmpty(value);
@@ -27,6 +27,7 @@ namespace Microcharts
                         Color = labelColor,
                         IsStroke = false,
                         TextAlign = horizontalAlignment,
+                        Typeface = typeface
                     })
                     {
                         var bounds = new SKRect();
@@ -49,6 +50,7 @@ namespace Microcharts
                         Color = valueColor,
                         IsStroke = false,
                         TextAlign = horizontalAlignment,
+                        Typeface = typeface
                     })
                     {
                         var bounds = new SKRect();

@@ -9,10 +9,10 @@ namespace Microcharts.Samples.Forms
     {
         public MainPage()
         {
-                InitializeComponent();
+            InitializeComponent();
         }
-        
-        public static IEnumerable<Entry> GenerateEntries() 
+
+        public static IEnumerable<Entry> GenerateEntries()
         {
             var values = Enumerable.Range(0, 12).Select(x => random.Next(-1000, 1000)).ToArray();
             return new Entry[]
@@ -55,7 +55,7 @@ namespace Microcharts.Samples.Forms
 
         private void GenerateData(object sender, EventArgs e)
         {
-            if(this.chart.Chart != null)
+            if (this.chart.Chart != null)
             {
                 this.chart.Chart.Entries = GenerateEntries();
             }
@@ -68,6 +68,37 @@ namespace Microcharts.Samples.Forms
             this.chart.Chart = Activator.CreateInstance(type) as Chart;
             this.chart.Chart.MinValue = -1000;
             this.chart.Chart.MaxValue = 1000;
+            GenerateData(null, null);
+        }
+
+        private void ChangeFont(object sender, EventArgs e)
+        {
+
+            chartType = (chartType + 1) % ChartTypes.Length;
+            var type = this.ChartTypes[chartType];
+            this.chart.Chart = Activator.CreateInstance(type) as Chart;
+            this.chart.Chart.MinValue = -1000;
+            this.chart.Chart.MaxValue = 1000;
+
+            Random r = new Random();
+            int rInt = r.Next(0, 3);
+            var fontName = string.Empty;
+            switch (rInt)
+            {
+                case 0:
+                    fontName = "Avenir";
+                    break;
+                case 1:
+                    fontName = "Noteworthy";
+                    break;
+                case 2:
+                    fontName = "Helvetica";
+                    break;
+                default:
+                    fontName = string.Empty; // test if empty
+                    break;
+            }
+            this.chart.Chart.Typeface = SKTypeface.FromFamilyName(fontName);
             GenerateData(null, null);
         }
     }
