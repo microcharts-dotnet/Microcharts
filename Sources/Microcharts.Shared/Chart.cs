@@ -5,6 +5,7 @@ namespace Microcharts
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Linq;
     using SkiaSharp;
 
@@ -34,7 +35,32 @@ namespace Microcharts
         /// Gets or sets the data entries.
         /// </summary>
         /// <value>The entries.</value>
-        public IEnumerable<Entry> Entries { get; set; }
+        public IEnumerable<Entry> Entries {
+            get
+            {
+                return entries;
+            }
+            set
+            {
+                if (entries == value)
+                    return;
+                var oldNotify = entries as INotifyCollectionChanged;
+                if(oldNotify != null)
+                    oldNotify.CollectionChanged -= EntriesCollectionChanged;
+                var notifiy = value as INotifyCollectionChanged;
+                if (notifiy != null)
+                    notifiy.CollectionChanged += EntriesCollectionChanged;
+                entries = value;
+                DrawInvalidated?.Invoke();
+            }
+        }
+
+        IEnumerable<Entry> entries;
+
+        /// <summary>
+        /// Event fires whenever the data has changed
+        /// </summary>
+        public Action DrawInvalidated;
 
         /// <summary>
         /// Gets or sets the minimum value from entries. If not defined, it will be the minimum between zero and the 
@@ -179,6 +205,14 @@ namespace Microcharts
                     canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right);
                 }
             }
+        }
+
+
+
+        private void EntriesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            //Eventually notifiy what changed so animations can happen
+            DrawInvalidated?.Invoke();
         }
 
         #endregion

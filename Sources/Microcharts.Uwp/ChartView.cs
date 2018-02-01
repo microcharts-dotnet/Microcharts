@@ -15,7 +15,14 @@
         public Chart Chart
         {
             get { return (Chart)GetValue(ChartProperty); }
-            set { SetValue(ChartProperty, value); }
+            set {
+                var oldChart = (Chart)GetValue(ChartProperty);
+                if (oldChart != null)
+                    oldChart.DrawInvalidated = null;
+                SetValue(ChartProperty, value);
+                if (value != null)
+                    value.DrawInvalidated = Invalidate;
+            }
         }
 
 

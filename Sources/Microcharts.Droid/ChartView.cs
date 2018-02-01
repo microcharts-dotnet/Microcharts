@@ -39,10 +39,15 @@
                         get => this.chart;
                         set
                         {
+
+                                if (this.chart != null)
+                                    this.chart.DrawInvalidated = null;
                                 if (this.chart != value)
                                 {
                                         this.chart = value;
                                         this.Invalidate();
+                                        if(this.chart != null)
+                                            this.chart.DrawInvalidated = Invalidate;
                                 }
                         }
                 }

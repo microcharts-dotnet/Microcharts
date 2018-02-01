@@ -26,10 +26,14 @@ namespace Microcharts.macOS
                         get => this.chart;
                         set
                         {
+                                if (this.chart != null)
+                                    this.chart.DrawInvalidated = null;
                                 if(this.chart != value)
                                 {
                                         this.chart = value;
                                         this.SetNeedsDisplayInRect(this.Bounds);
+                                        if (this.chart != null)
+                                            this.chart.DrawInvalidated = () => this.SetNeedsDisplayInRect(this.Bounds);
                                 }
                         }
                 }
