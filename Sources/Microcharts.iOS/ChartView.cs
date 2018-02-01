@@ -33,7 +33,7 @@ namespace Microcharts.macOS
                                         this.chart = value;
                                         this.SetNeedsDisplayInRect(this.Bounds);
                                         if (this.chart != null)
-                                            this.chart.DrawInvalidated = () => this.SetNeedsDisplayInRect(this.Bounds);
+											this.chart.DrawInvalidated = () => this.BeginInvokeOnMainThread(()=>this.SetNeedsDisplayInRect(this.Bounds));
                                 }
                         }
                 }

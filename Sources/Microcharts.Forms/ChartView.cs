@@ -26,7 +26,7 @@ namespace Microcharts.Forms
 					oldChart.DrawInvalidated = null;
 				SetValue(ChartProperty, value);
 				if (value != null)
-					value.DrawInvalidated = InvalidateSurface;
+					value.DrawInvalidated = ()=> Device.BeginInvokeOnMainThread(InvalidateSurface);
 			}
         }
 

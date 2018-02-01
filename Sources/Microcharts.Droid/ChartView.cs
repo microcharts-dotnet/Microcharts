@@ -47,7 +47,7 @@
                                         this.chart = value;
                                         this.Invalidate();
                                         if(this.chart != null)
-                                            this.chart.DrawInvalidated = Invalidate;
+                                            this.chart.DrawInvalidated = ()=> this.Post(Invalidate);
                                 }
                         }
                 }
