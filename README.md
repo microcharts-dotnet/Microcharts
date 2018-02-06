@@ -153,6 +153,8 @@ public MainPage()
 
 **Xamarin.Forms**
 
+Due to a known [issue](https://github.com/aloisdeniel/Microcharts/issues/63), you may need to install both, `Microcharts.Forms` and `Microcharts`.
+
 ```xml
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
