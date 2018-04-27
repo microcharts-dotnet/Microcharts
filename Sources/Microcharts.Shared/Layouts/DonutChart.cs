@@ -23,6 +23,11 @@ namespace Microcharts
         /// <value>The hole radius.</value>
         public float HoleRadius { get; set; } = 0;
 
+        /// <summary>
+        /// Gets or sets a value whether the caption elements should all reside on the right side.
+        /// </summary>
+        public bool CaptionOnTheRight { get; set; }
+
         #endregion
 
         #region Methods
@@ -32,9 +37,21 @@ namespace Microcharts
             this.DrawCaption(canvas, width, height);
             using (new SKAutoCanvasRestore(canvas))
             {
-                canvas.Translate(width / 2, height / 2);
+                if (this.DrawDebugRectangles)
+                {
+                    using (var paint = new SKPaint
+                    {
+                        Color = SKColors.Red,
+                        IsStroke = true,
+                    })
+                    {
+                        canvas.DrawRect(this.DrawableChartArea, paint);
+                    }
+                }
+
+                canvas.Translate(this.DrawableChartArea.Left + this.DrawableChartArea.Width / 2 , height / 2);
                 var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-                var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
+                var radius = (Math.Min(this.DrawableChartArea.Width, this.DrawableChartArea.Height) - (2 * Margin)) / 2;
 
                 var start = 0.0f;
                 for (int i = 0; i < this.Entries.Count(); i++)
@@ -61,6 +78,12 @@ namespace Microcharts
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
+            if (this.CaptionOnTheRight)
+            {
+                this.DrawCaptionElements(canvas, width, height, this.Entries.ToList(), false);
+                return;
+            }
+
             var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
             var rightValues = new List<Entry>();
             var leftValues = new List<Entry>();
