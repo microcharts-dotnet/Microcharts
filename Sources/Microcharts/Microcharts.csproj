@@ -28,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Layouts\" />
     <Folder Include="WeakEventHandlers\" />
   </ItemGroup>
 </Project>

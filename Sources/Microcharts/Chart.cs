@@ -230,6 +230,11 @@ namespace Microcharts
         }
 
         /// <summary>
+        /// Gets or sets a value whether debug rectangles should be drawn.
+        /// </summary>
+        internal bool DrawDebugRectangles { get; private set; }
+
+        /// <summary>
         /// Gets or sets the internal minimum value (that can be null).
         /// </summary>
         /// <value>The internal minimum value.</value>
@@ -261,6 +266,12 @@ namespace Microcharts
             }
         }
 
+        /// <summary>
+        /// Gets the drawable chart area (is set <see cref="DrawCaptionElements"/>).
+        /// This is the total chart size minus the area allocated by caption elements.
+        /// </summary>
+        protected SKRect DrawableChartArea { get; private set; }
+
         #endregion
 
         #region Methods
@@ -274,6 +285,8 @@ namespace Microcharts
         public void Draw(SKCanvas canvas, int width, int height)
         {
             canvas.Clear(this.BackgroundColor);
+
+            this.DrawableChartArea = new SKRect(0, 0, width, height);
 
             this.DrawContent(canvas, width, height);
         }
@@ -322,13 +335,13 @@ namespace Microcharts
                     var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * this.AnimationProgress));
                     var labelColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * this.AnimationProgress));
 
+                    var rect = SKRect.Create(captionX, y, this.LabelTextSize, this.LabelTextSize);
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
                         Color = valueColor
                     })
                     {
-                        var rect = SKRect.Create(captionX, y, this.LabelTextSize, this.LabelTextSize);
                         canvas.DrawRect(rect, paint);
                     }
 
@@ -341,7 +354,26 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, this.Typeface);
+                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, this.Typeface, out var labelBounds);
+                    labelBounds.Union(rect);
+
+                    if (this.DrawDebugRectangles)
+                    {
+                        using (var paint = new SKPaint
+                        {
+                            Style = SKPaintStyle.Fill,
+                            Color = entry.Color,
+                            IsStroke = true
+                        })
+                        {
+                            canvas.DrawRect(labelBounds, paint);
+                        }
+                    }
+
+                    if (isLeft)
+                        this.DrawableChartArea = new SKRect(Math.Max(this.DrawableChartArea.Left, labelBounds.Right), 0, this.DrawableChartArea.Right, this.DrawableChartArea.Bottom);
+                    else
+                        this.DrawableChartArea = new SKRect(0, 0, Math.Min(this.DrawableChartArea.Right, labelBounds.Left), this.DrawableChartArea.Bottom);
                 }
             }
         }

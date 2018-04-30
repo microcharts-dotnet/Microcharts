@@ -7,10 +7,12 @@ namespace Microcharts
 
     internal static class CanvasExtensions
     {
-        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface)
+        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
         {
             var hasLabel = !string.IsNullOrEmpty(label);
             var hasValueLabel = !string.IsNullOrEmpty(value);
+
+            totalBounds = new SKRect();
 
             if (hasLabel || hasValueLabel)
             {
@@ -37,6 +39,9 @@ namespace Microcharts
                         var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
 
                         canvas.DrawText(text, point.X, y, paint);
+
+                        var labelBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
+                        totalBounds = labelBounds.Standardized;
                     }
                 }
 
@@ -60,6 +65,12 @@ namespace Microcharts
                         var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) + space;
 
                         canvas.DrawText(text, point.X, y, paint);
+
+                        var valueBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
+                        if (totalBounds.IsEmpty)
+                            totalBounds = valueBounds;
+                        else
+                            totalBounds.Union(valueBounds);
                     }
                 }
             }
@@ -123,6 +134,40 @@ namespace Microcharts
                     canvas.DrawLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, paint);
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the absolute bounds of a given rectangle, aligned at a given position.
+        /// </summary>
+        /// <param name="x">The absolute x position.</param>
+        /// <param name="y">The absolute y position.</param>
+        /// <param name="bounds">The bounds of the rectangle.</param>
+        /// <param name="horizontalAlignment">The alignment of the rectangle, relative to x/y.</param>
+        /// <returns></returns>
+        private static SKRect GetAbsolutePositionRect(float x, float y, SKRect bounds, SKTextAlign horizontalAlignment)
+        {
+            var captionBounds = new SKRect
+            {
+                Left = x + bounds.Left,
+                Top = y + bounds.Top
+            };
+
+            switch (horizontalAlignment)
+            {
+                case SKTextAlign.Left:
+                    captionBounds.Right = captionBounds.Left + bounds.Width;
+                    break;
+                case SKTextAlign.Center:
+                    captionBounds.Right = captionBounds.Left + bounds.Width / 2;
+                    break;
+                case SKTextAlign.Right:
+                    captionBounds.Right = captionBounds.Left - bounds.Width;
+                    break;
+            }
+
+            captionBounds.Bottom = captionBounds.Top + bounds.Height;
+
+            return captionBounds;
         }
     }
 }

@@ -23,6 +23,11 @@ namespace Microcharts
         /// <value>The hole radius.</value>
         public float HoleRadius { get; set; } = 0.5f;
 
+        /// <summary>
+        /// Gets or sets a value whether the caption elements should all reside on the right side.
+        /// </summary>
+        public LabelMode LabelMode { get; set; } = LabelMode.LeftAndRight;
+
         #endregion
 
         #region Methods
@@ -34,9 +39,21 @@ namespace Microcharts
                 this.DrawCaption(canvas, width, height);
                 using (new SKAutoCanvasRestore(canvas))
                 {
-                    canvas.Translate(width / 2, height / 2);
+                    if (this.DrawDebugRectangles)
+                    {
+                        using (var paint = new SKPaint
+                        {
+                            Color = SKColors.Red,
+                            IsStroke = true,
+                        })
+                        {
+                            canvas.DrawRect(this.DrawableChartArea, paint);
+                        }
+                    }
+
+                    canvas.Translate(this.DrawableChartArea.Left + this.DrawableChartArea.Width / 2, height / 2);
                     var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-                    var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
+                    var radius = (Math.Min(this.DrawableChartArea.Width, this.DrawableChartArea.Height) - (2 * Margin)) / 2;
 
                     var start = 0.0f;
                     for (int i = 0; i < this.Entries.Count(); i++)
@@ -63,6 +80,23 @@ namespace Microcharts
         }
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
+        {
+            switch (this.LabelMode)
+            {
+                case LabelMode.None:
+                    return;
+
+                case LabelMode.RightOnly:
+                    this.DrawCaptionElements(canvas, width, height, this.Entries.ToList(), false);
+                    return;
+
+                case LabelMode.LeftAndRight:
+                    this.DrawCaptionLeftAndRight(canvas, width, height);
+                    return;
+            }
+        }
+
+        private void DrawCaptionLeftAndRight(SKCanvas canvas, int width, int height)
         {
             var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
             var rightValues = new List<Entry>();
