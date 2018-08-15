@@ -289,3 +289,4 @@ __pycache__/
 Build/tools/**
 !Build/tools/packages.config
 Build/nuget/**
+/Sources/Microcharts/StyleCop.Cache

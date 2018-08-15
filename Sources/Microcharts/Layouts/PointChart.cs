@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Reflection;
+
 namespace Microcharts
 {
     using System;
@@ -75,6 +77,14 @@ namespace Microcharts
         }
 
         private float ValueRange => this.MaxValue - this.MinValue;
+        
+        public SKPaint AxisPaint { get; set; } = new SKPaint
+        {
+            Color = SKColors.Black,
+            IsAntialias = true,
+            //Typeface = base.Typeface
+            Style = SKPaintStyle.StrokeAndFill
+        };
 
         #endregion
 
@@ -84,6 +94,17 @@ namespace Microcharts
         {
             if (this.Entries != null)
             {
+                int axisX = width;
+                
+                var enumerable = this.Entries.ToList();
+                NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), 5, 
+                    out var range, out var tickSpacing, out var niceMin, out var niceMax);
+                axisX = (int)(width - this.MeasureLabel(enumerable.Aggregate("", (max, cur) => max.Length > cur.Value.ToString().Length ? max : cur.Value.ToString())).Width);
+
+                var ticks = (int)(range / tickSpacing);
+                
+                width = axisX;
+                
                 var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
                 var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
@@ -95,11 +116,25 @@ namespace Microcharts
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
                 var points = this.CalculatePoints(itemSize, origin, headerHeight);
+                
+                var intervals = Enumerable.Range(0, ticks+1)
+                    .Select(i =>
+                    {
+                        var val = (float)(niceMax - (i * tickSpacing));
+                        return new Tuple<string, SKPoint>
+                        (
+                            val.ToString(),
+                            new SKPoint(axisX, CalculatePoint(val, i, itemSize, origin, headerHeight).Y)
+                        );
+                    })
+                    .ToList();
 
                 this.DrawPointAreas(canvas, points, origin);
                 this.DrawPoints(canvas, points);
                 this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
                 this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
+                this.DrawAxis(canvas, intervals);
+                this.DrawIntervalLines(canvas, intervals);
             }
         }
 
@@ -135,13 +170,17 @@ namespace Microcharts
                 var entry = this.Entries.ElementAt(i);
                 var value = entry.Value;
 
-                var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-                var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
-                var point = new SKPoint(x, y);
-                result.Add(point);
+                result.Add(CalculatePoint(value, i, itemSize, origin, headerHeight));
             }
 
             return result.ToArray();
+        }
+
+        protected SKPoint CalculatePoint(float value, int i, SKSize itemSize, float origin, float headerHeight)
+        {
+            var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
+            var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
+            return new SKPoint(x, y);
         }
 
         protected void DrawHeader(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float headerHeight)
@@ -277,6 +316,32 @@ namespace Microcharts
         }
 
         /// <summary>
+        /// Shows a Y axis
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="intervals"></param>
+        private void DrawAxis(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
+        {
+            var shift = MeasureLabel("0").Height / 2;
+            
+            foreach (var @int in intervals)
+                canvas.DrawText(@int.Item1, @int.Item2.X, @int.Item2.Y + shift, AxisPaint);
+        }
+        
+        /// <summary>
+        /// Draws interval lines
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="intervals"></param>
+        private void DrawIntervalLines(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
+        {
+            const int margin = 5;
+            
+            foreach (var @int in intervals)
+                canvas.DrawLine(margin, @int.Item2.Y, @int.Item2.X - margin, @int.Item2.Y, AxisPaint);
+        }
+
+        /// <summary>
         /// Calculates the height of the footer.
         /// </summary>
         /// <returns>The footer height.</returns>
@@ -326,6 +391,13 @@ namespace Microcharts
                 }).ToArray();
             }
         }
+
+        /// <summary>
+        /// Measures the value label.
+        /// </summary>
+        /// <returns>The value label.</returns>
+        protected SKRect MeasureLabel(string label) 
+            => this.MeasureLabels(new string[1] {label}).First();
 
         #endregion
     }
