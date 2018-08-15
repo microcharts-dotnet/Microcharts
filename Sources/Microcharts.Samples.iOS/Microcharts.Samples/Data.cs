@@ -36,55 +36,54 @@
 
                 #endregion
 
-                public static (string label, int value)[] PositiveData =
-                {
-                        ("January",     400),
-                        ("February",    600),
-                        ("March",       900),
-                        ("April",       100),
-                        ("May",         200),
-                        ("June",        500),
-                        ("July",        300),
-                        ("August",      200),
-                        ("September",   200),
-                        ("October",     800),
-                        ("November",    950),
-                        ("December",    700),
+                private const float Multiplier = 1; //0.00165f;
 
+                public static (string label, float value)[] PositiveData =
+                {
+                        ("January",     400 * Multiplier),
+                        ("February",    600 * Multiplier),
+                        ("March",       900 * Multiplier),
+                        ("April",       100 * Multiplier),
+                        ("May",         200 * Multiplier),
+                        ("June",        500 * Multiplier),
+                        ("July",        300 * Multiplier),
+                        ("August",      200 * Multiplier),
+                        ("September",   200 * Multiplier),
+                        ("October",     800 * Multiplier),
+                        ("November",    950 * Multiplier),
+                        ("December",    700 * Multiplier),
                 };
 
-                public static (string label, int value)[] MixedData =
+                public static (string label, float value)[] MixedData =
                 {
-                        ("January",    -400),
-                        ("February",    600),
-                        ("March",       900),
-                        ("April",       100),
-                        ("May",        -200),
-                        ("June",        500),
-                        ("July",        300),
-                        ("August",     -200),
-                        ("September",   200),
-                        ("October",     800),
-                        ("November",    950),
-                        ("December",   -700),
-
+                        ("January",    -400 * Multiplier),
+                        ("February",    600 * Multiplier),
+                        ("March",       900 * Multiplier),
+                        ("April",       100 * Multiplier),
+                        ("May",        -200 * Multiplier),
+                        ("June",        500 * Multiplier),
+                        ("July",        300 * Multiplier),
+                        ("August",     -200 * Multiplier),
+                        ("September",   200 * Multiplier),
+                        ("October",     800 * Multiplier),
+                        ("November",    950 * Multiplier),
+                        ("December",   -700 * Multiplier),
                 };
 
-                public static (string label, int value)[] NegativeData =
+                public static (string label, float value)[] NegativeData =
                 {
-                        ("January",     -400),
-                        ("February",    -600),
-                        ("March",       -900),
-                        ("April",       -100),
-                        ("May",         -200),
-                        ("June",        -500),
-                        ("July",        -300),
-                        ("August",      -200),
-                        ("September",   -200),
-                        ("October",     -800),
-                        ("November",    -950),
-                        ("December",    -700),
-
+                        ("January",     -400 * Multiplier),
+                        ("February",    -600 * Multiplier),
+                        ("March",       -900 * Multiplier),
+                        ("April",       -100 * Multiplier),
+                        ("May",         -200 * Multiplier),
+                        ("June",        -500 * Multiplier),
+                        ("July",        -300 * Multiplier),
+                        ("August",      -200 * Multiplier),
+                        ("September",   -200 * Multiplier),
+                        ("October",     -800 * Multiplier),
+                        ("November",    -950 * Multiplier),
+                        ("December",    -700 * Multiplier),
                 };
 
                 public static Chart[] CreateXamarinSample()
@@ -174,7 +173,7 @@
                 {
                         ColorIndex = 0;
 
-                        (string label, int value)[] data;
+                        (string label, float value)[] data;
 
                         if(hasPositiveValues && hasNegativeValues)
                         {
@@ -190,12 +189,12 @@
                         }
                         else 
                         {
-                                data = new (string label, int value)[0];
+                                data = new (string label, float value)[0];
                         }
 
                         data = data.Take(values).ToArray();
 
-                        return data.Select(d => new Entry(d.value) 
+                        return data.Select(d => new Entry(d.value)
                         { 
                                 Label = hasLabels ? d.label : null, 
                                 ValueLabel = hasValueLabel ? d.value.ToString() : null, 

@@ -36,9 +36,9 @@ namespace Microcharts
             
             YAxisLinesPaint = new SKPaint
             {
-                Color = SKColors.Black.WithAlpha(0x12),
+                Color = SKColors.Black.WithAlpha(0x13),
                 IsAntialias = true,
-                Style = SKPaintStyle.Stroke
+                Style = SKPaintStyle.Stroke,
             };
         }
 
@@ -96,7 +96,9 @@ namespace Microcharts
         public bool ShowYAxisLines { get; set; } = false;
         
         //TODO : calculate this automagically, based on available area height and text height
-        public int MaxYAxisTicks { get; set; } = 5; 
+        public int YAxisMaxTicks { get; set; } = 5;
+
+        public Position YAxisPosition { get; set; } = Position.Right;
         
         /// <summary>
         /// Y Axis Paint
@@ -116,21 +118,22 @@ namespace Microcharts
         {
             if (this.Entries != null)
             {
-                int yAxisX = 0;
+                int yAxisWidth = 0;
+                float yAxisXShift = 0;
                 List<float> yAxisIntervalLabels = new List<float>();
                 
                 if (ShowYAxisText || ShowYAxisLines)
                 {
-                    yAxisX = width;
+                    yAxisWidth = width;
                     
                     var enumerable = this.Entries.ToList(); // to avoid double enumeration
                     
-                    NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), MaxYAxisTicks, 
+                    NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), YAxisMaxTicks, 
                         out var range, out var tickSpacing, out var niceMin, out var niceMax);
 
                     var ticks = (int)(range / tickSpacing);
 
-                    yAxisIntervalLabels = Enumerable.Range(0, ticks + 1)
+                    yAxisIntervalLabels = Enumerable.Range(0, ticks)
                         .Select(i => (float)(niceMax - (i * tickSpacing)))
                         .ToList();
 
@@ -139,10 +142,13 @@ namespace Microcharts
                     );
                     var longestYAxisLabelWidth = this.MeasureLabel(longestYAxisLabel, YAxisTextPaint).Width;
 
-                    yAxisX = (int)(width - longestYAxisLabelWidth);
+                    yAxisWidth = (int)(width - longestYAxisLabelWidth);
+
+                    if (YAxisPosition == Position.Left)
+                        yAxisXShift = longestYAxisLabelWidth;
     
                     // to reduce chart width
-                    width = yAxisX;
+                    width = yAxisWidth;
                 }
                 
                 var labels = this.Entries.Select(x => x.Label).ToArray();
@@ -155,7 +161,7 @@ namespace Microcharts
 
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = this.CalculatePoints(itemSize, origin, headerHeight);
+                var points = this.CalculatePoints(itemSize, origin, headerHeight, yAxisXShift);
 
                 var cnt = 0;
                 if (ShowYAxisText || ShowYAxisLines)
@@ -164,14 +170,25 @@ namespace Microcharts
                         .Select(t => new ValueTuple<string, SKPoint>
                         (
                             t.ToString(),
-                            new SKPoint(yAxisX, CalculatePoint(t, cnt++, itemSize, origin, headerHeight).Y)
+                            new SKPoint(YAxisPosition == Position.Left ? yAxisXShift : width, CalculatePoint(t, cnt++, itemSize, origin, headerHeight).Y)
                         ))
                         .ToList();
 
                     if (ShowYAxisText)
-                        this.DrawYAxis(canvas, intervals);
+                        this.DrawYAxisText(canvas, intervals);
+                    
                     if (ShowYAxisLines)
-                        this.DrawYLines(canvas, intervals);
+                    {
+                        var lines = intervals.Select(tup =>
+                        {
+                            (_, SKPoint pt) = tup; 
+                            if (YAxisPosition == Position.Right)
+                                return SKRect.Create(0, pt.Y, width, 0);
+                            else 
+                                return SKRect.Create(yAxisXShift, pt.Y, width, 0);
+                        });
+                        this.DrawYAxisLines(canvas, lines);
+                    }
                 }
 
                 this.DrawAreas(canvas, points, itemSize, origin, headerHeight);
@@ -204,7 +221,7 @@ namespace Microcharts
             return new SKSize(w, h);
         }
 
-        protected SKPoint[] CalculatePoints(SKSize itemSize, float origin, float headerHeight)
+        protected SKPoint[] CalculatePoints(SKSize itemSize, float origin, float headerHeight, float originX = 0)
         {
             var result = new List<SKPoint>();
 
@@ -213,15 +230,15 @@ namespace Microcharts
                 var entry = this.Entries.ElementAt(i);
                 var value = entry.Value;
 
-                result.Add(CalculatePoint(value, i, itemSize, origin, headerHeight));
+                result.Add(CalculatePoint(value, i, itemSize, origin, headerHeight, originX));
             }
 
             return result.ToArray();
         }
 
-        protected SKPoint CalculatePoint(float value, int i, SKSize itemSize, float origin, float headerHeight)
+        protected SKPoint CalculatePoint(float value, int i, SKSize itemSize, float origin, float headerHeight, float originX = 0)
         {
-            var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
+            var x = originX + this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
             var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
             return new SKPoint(x, y);
         }
@@ -363,11 +380,15 @@ namespace Microcharts
         /// Shows a Y axis
         /// </summary>
         /// <param name="canvas"></param>
+        /// <param name="yAxisWidth"></param>
         /// <param name="intervals"></param>
-        protected virtual void DrawYAxis(SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
+        protected virtual void DrawYAxisText(SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
         {
+            var pt = YAxisTextPaint.Clone();
+            pt.TextAlign = YAxisPosition == Position.Left ? SKTextAlign.Right : SKTextAlign.Left;
+            
             foreach (var @int in intervals)
-                canvas.DrawTextCenteredVertically(@int.Label, YAxisTextPaint, @int.Point);
+                canvas.DrawTextCenteredVertically(@int.Label, pt, @int.Point.X, @int.Point.Y);
         }
         
         /// <summary>
@@ -375,12 +396,10 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="intervals"></param>
-        protected virtual void DrawYLines(SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
+        protected virtual void DrawYAxisLines(SKCanvas canvas, IEnumerable<SKRect> intervals)
         {
-            const int margin = 5;
-            
             foreach (var @int in intervals)
-                canvas.DrawLine(margin, @int.Point.Y, @int.Point.X - margin, @int.Point.Y, YAxisLinesPaint);
+                canvas.DrawLine(Margin/2 + @int.Left, @int.Top, @int.Right - Margin/2, @int.Bottom, YAxisLinesPaint);
         }
 
         /// <summary>
