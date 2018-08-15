@@ -24,6 +24,22 @@ namespace Microcharts
         {
             this.LabelOrientation = Orientation.Default;
             this.ValueLabelOrientation = Orientation.Default;
+            
+            YAxisTextPaint = new SKPaint
+            {
+                Color = SKColors.Black,
+                IsAntialias = true,
+                //Typeface = base.Typeface
+                Style = SKPaintStyle.StrokeAndFill,
+                //TextSize = 30
+            };
+            
+            YAxisLinesPaint = new SKPaint
+            {
+                Color = SKColors.Black.WithAlpha(0x12),
+                IsAntialias = true,
+                Style = SKPaintStyle.Stroke
+            };
         }
 
         #endregion
@@ -75,15 +91,23 @@ namespace Microcharts
         }
 
         private float ValueRange => this.MaxValue - this.MinValue;
-        
-        public SKPaint AxisPaint { get; set; } = new SKPaint
-        {
-            Color = SKColors.Black,
-            IsAntialias = true,
-            //Typeface = base.Typeface
-            Style = SKPaintStyle.StrokeAndFill
-        };
 
+        public bool ShowYAxisText { get; set; } = false;
+        public bool ShowYAxisLines { get; set; } = false;
+        
+        //TODO : calculate this automagically, based on available area height and text height
+        public int MaxYAxisTicks { get; set; } = 5; 
+        
+        /// <summary>
+        /// Y Axis Paint
+        /// </summary>
+        public SKPaint YAxisTextPaint { get; set; }
+
+        /// <summary>
+        /// Y Axis Paint
+        /// </summary>
+        public SKPaint YAxisLinesPaint { get; set; }
+        
         #endregion
 
         #region Methods
@@ -92,16 +116,34 @@ namespace Microcharts
         {
             if (this.Entries != null)
             {
-                int axisX = width;
+                int yAxisX = 0;
+                List<float> yAxisIntervalLabels = new List<float>();
                 
-                var enumerable = this.Entries.ToList();
-                NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), 5, 
-                    out var range, out var tickSpacing, out var niceMin, out var niceMax);
-                axisX = (int)(width - this.MeasureLabel(enumerable.Aggregate("", (max, cur) => max.Length > cur.Value.ToString().Length ? max : cur.Value.ToString())).Width);
+                if (ShowYAxisText || ShowYAxisLines)
+                {
+                    yAxisX = width;
+                    
+                    var enumerable = this.Entries.ToList(); // to avoid double enumeration
+                    
+                    NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), MaxYAxisTicks, 
+                        out var range, out var tickSpacing, out var niceMin, out var niceMax);
 
-                var ticks = (int)(range / tickSpacing);
-                
-                width = axisX;
+                    var ticks = (int)(range / tickSpacing);
+
+                    yAxisIntervalLabels = Enumerable.Range(0, ticks + 1)
+                        .Select(i => (float)(niceMax - (i * tickSpacing)))
+                        .ToList();
+
+                    var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) =>
+                        max.Length > cur.ToString().Length ? max : cur.ToString()
+                    );
+                    var longestYAxisLabelWidth = this.MeasureLabel(longestYAxisLabel, YAxisTextPaint).Width;
+
+                    yAxisX = (int)(width - longestYAxisLabelWidth);
+    
+                    // to reduce chart width
+                    width = yAxisX;
+                }
                 
                 var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
@@ -114,25 +156,28 @@ namespace Microcharts
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
                 var points = this.CalculatePoints(itemSize, origin, headerHeight);
-                
-                var intervals = Enumerable.Range(0, ticks+1)
-                    .Select(i =>
-                    {
-                        var val = (float)(niceMax - (i * tickSpacing));
-                        return new Tuple<string, SKPoint>
+
+                var cnt = 0;
+                if (ShowYAxisText || ShowYAxisLines)
+                {
+                    var intervals = yAxisIntervalLabels
+                        .Select(t => new ValueTuple<string, SKPoint>
                         (
-                            val.ToString(),
-                            new SKPoint(axisX, CalculatePoint(val, i, itemSize, origin, headerHeight).Y)
-                        );
-                    })
-                    .ToList();
+                            t.ToString(),
+                            new SKPoint(yAxisX, CalculatePoint(t, cnt++, itemSize, origin, headerHeight).Y)
+                        ))
+                        .ToList();
+
+                    if (ShowYAxisText)
+                        this.DrawYAxis(canvas, intervals);
+                    if (ShowYAxisLines)
+                        this.DrawYLines(canvas, intervals);
+                }
 
                 this.DrawAreas(canvas, points, itemSize, origin, headerHeight);
                 this.DrawPoints(canvas, points);
                 this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
                 this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
-                this.DrawYAxis(canvas, intervals);
-                this.DrawIntervalLines(canvas, intervals);
             }
         }
 
@@ -319,12 +364,10 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="intervals"></param>
-        protected virtual void DrawYAxis(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
+        protected virtual void DrawYAxis(SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
         {
-            var shift = MeasureLabel("0").Height / 2;
-            
             foreach (var @int in intervals)
-                canvas.DrawText(@int.Item1, @int.Item2.X, @int.Item2.Y + shift, AxisPaint);
+                canvas.DrawTextCenteredVertically(@int.Label, YAxisTextPaint, @int.Point);
         }
         
         /// <summary>
@@ -332,12 +375,12 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="intervals"></param>
-        protected virtual void DrawIntervalLines(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
+        protected virtual void DrawYLines(SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
         {
             const int margin = 5;
             
             foreach (var @int in intervals)
-                canvas.DrawLine(margin, @int.Item2.Y, @int.Item2.X - margin, @int.Item2.Y, AxisPaint);
+                canvas.DrawLine(margin, @int.Point.Y, @int.Point.X - margin, @int.Point.Y, YAxisLinesPaint);
         }
 
         /// <summary>
@@ -372,31 +415,34 @@ namespace Microcharts
         /// Measures the value labels.
         /// </summary>
         /// <returns>The value labels.</returns>
-        protected SKRect[] MeasureLabels(string[] labels)
+        protected SKRect[] MeasureLabels(string[] labels, SKPaint paint = null)
         {
-            using (var paint = new SKPaint())
+            if (paint == null)
             {
+                paint = new SKPaint();
                 paint.TextSize = this.LabelTextSize;
-                return labels.Select(text =>
-                {
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        return SKRect.Empty;
-                    }
-
-                    var bounds = new SKRect();
-                    paint.MeasureText(text, ref bounds);
-                    return bounds;
-                }).ToArray();
             }
+            
+            return labels.Select(text =>
+            {
+                if (string.IsNullOrEmpty(text))
+                {
+                    return SKRect.Empty;
+                }
+
+                var bounds = new SKRect();
+                paint.MeasureText(text, ref bounds);
+                return bounds;
+            }).ToArray();
         }
 
         /// <summary>
         /// Measures the value label.
         /// </summary>
         /// <returns>The value label.</returns>
-        protected SKRect MeasureLabel(string label) 
-            => this.MeasureLabels(new string[1] {label}).First();
+        protected SKRect MeasureLabel(string label, SKPaint paint = null)
+            => this.MeasureLabels(new string[1] {label}, paint)
+                .First();
 
         #endregion
     }

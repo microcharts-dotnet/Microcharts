@@ -53,7 +53,7 @@ namespace Microcharts.Samples.iOS
 
             var entries = Data.CreateEntries((int)this.valuesSlider.Value, hasPositiveValues, hasNegativeValues, hasLabels, hasValueLabels, hasSingleColor);
 
-            CreateChartCard(new BarChart { Entries = entries, BarAreaAlpha = areaAlpha });
+            CreateChartCard(new BarChart { Entries = entries, BarAreaAlpha = areaAlpha, ShowYAxisLines = true, ShowYAxisText = true });
             CreateChartCard(new PointChart { Entries = entries, PointAreaAlpha = areaAlpha, PointSize = pointSize });
             CreateChartCard(new LineChart { Entries = entries, LineAreaAlpha = areaAlpha, PointMode = PointMode.Square, PointSize = pointSize, LineSize = lineSizeSlider.Value, LineMode = lineMode });
             
