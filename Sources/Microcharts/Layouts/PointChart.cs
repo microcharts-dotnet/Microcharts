@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Reflection;
-
 namespace Microcharts
 {
     using System;
@@ -129,11 +127,11 @@ namespace Microcharts
                     })
                     .ToList();
 
-                this.DrawPointAreas(canvas, points, origin);
+                this.DrawAreas(canvas, points, itemSize, origin, headerHeight);
                 this.DrawPoints(canvas, points);
                 this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
                 this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
-                this.DrawAxis(canvas, intervals);
+                this.DrawYAxis(canvas, intervals);
                 this.DrawIntervalLines(canvas, intervals);
             }
         }
@@ -183,7 +181,7 @@ namespace Microcharts
             return new SKPoint(x, y);
         }
 
-        protected void DrawHeader(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float headerHeight)
+        protected virtual void DrawHeader(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float headerHeight)
         {
             this.DrawLabels(canvas,
                             labels,
@@ -196,7 +194,7 @@ namespace Microcharts
                             height);
         }
 
-        protected void DrawFooter(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
+        protected virtual void DrawFooter(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
         {
             this.DrawLabels(canvas,
                             labels,
@@ -209,7 +207,7 @@ namespace Microcharts
                             height);
         }
 
-        protected void DrawPoints(SKCanvas canvas, SKPoint[] points)
+        protected virtual void DrawPoints(SKCanvas canvas, SKPoint[] points)
         {
             if (points.Length > 0 && PointMode != PointMode.None)
             {
@@ -222,7 +220,8 @@ namespace Microcharts
             }
         }
 
-        protected void DrawPointAreas(SKCanvas canvas, SKPoint[] points, float origin)
+        protected virtual void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin,
+            float headerHeight)
         {
             if (points.Length > 0 && this.PointAreaAlpha > 0)
             {
@@ -247,7 +246,7 @@ namespace Microcharts
             }
         }
 
-        protected void DrawLabels(SKCanvas canvas,string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
+        protected virtual void DrawLabels(SKCanvas canvas,string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
         {
             if (points.Length > 0)
             {
@@ -320,7 +319,7 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="intervals"></param>
-        private void DrawAxis(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
+        protected virtual void DrawYAxis(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
         {
             var shift = MeasureLabel("0").Height / 2;
             
@@ -333,7 +332,7 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="intervals"></param>
-        private void DrawIntervalLines(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
+        protected virtual void DrawIntervalLines(SKCanvas canvas, IEnumerable<Tuple<string, SKPoint>> intervals)
         {
             const int margin = 5;
             

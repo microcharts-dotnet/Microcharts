@@ -39,34 +39,12 @@ namespace Microcharts
 
         #region Methods
 
-        /// <summary>
-        /// Draws the content of the chart onto the specified canvas.
-        /// </summary>
-        /// <param name="canvas">The output canvas.</param>
-        /// <param name="width">The width of the chart.</param>
-        /// <param name="height">The height of the chart.</param>
-        public override void DrawContent(SKCanvas canvas, int width, int height)
+        protected override void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin,
+            float headerHeight)
         {
-            if (this.Entries != null)
-            {
-                var labels = this.Entries.Select(x => x.Label).ToArray();
-                var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
-
-                var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
-
-                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
-                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = this.CalculatePoints(itemSize, origin, headerHeight);
-
-                this.DrawBarAreas(canvas, points, itemSize, headerHeight);
-                this.DrawBars(canvas, points, itemSize, origin, headerHeight);
-                this.DrawPoints(canvas, points);
-                this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
-                this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
-            }
+            //base.DrawAreas(canvas, points, itemSize, origin);
+            this.DrawBarAreas(canvas, points, itemSize, headerHeight);
+            this.DrawBars(canvas, points, itemSize, origin, headerHeight);
         }
 
         /// <summary>
