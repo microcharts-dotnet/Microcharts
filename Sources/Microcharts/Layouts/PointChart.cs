@@ -219,7 +219,7 @@ namespace Microcharts
                     var entry = this.Entries.ElementAt(i);
                     var point = points[i];
 
-                    if (!string.IsNullOrEmpty(entry.ValueLabel))
+                    if (!string.IsNullOrEmpty(texts[i]))
                     {
                         using (new SKAutoCanvasRestore(canvas))
                         {
