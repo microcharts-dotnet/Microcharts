@@ -3,10 +3,10 @@
 
 namespace Microcharts
 {
-        public enum LineMode
-        {
-                None,
-                Spline,
-                Straight,
-        }
+	public enum LineMode
+	{
+		None,
+		Spline,
+		Straight,
+	}
 }
