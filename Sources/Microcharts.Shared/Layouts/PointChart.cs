@@ -121,7 +121,7 @@ namespace Microcharts
                             paint.MeasureText(text, ref bounds);
                         }
 
-                        canvas.DrawText(text, point.X - (bounds.Width / 2), height - this.Margin + (this.LabelTextSize / 2), paint);
+                        canvas.DrawText(text, point.X - (bounds.Width / 2), height - (this.Margin + (this.LabelTextSize / 2)), paint);
                     }
                 }
             }
