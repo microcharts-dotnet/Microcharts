@@ -184,7 +184,7 @@ namespace Microcharts
                                 paint.TextSize = this.LabelTextSize;
                                 paint.FakeBoldText = true;
                                 paint.IsAntialias = true;
-                                paint.Color = entry.Color;
+                                paint.Color = entry.ValueColor ?? entry.Color;
                                 paint.IsStroke = false;
 
                                 var bounds = new SKRect();
