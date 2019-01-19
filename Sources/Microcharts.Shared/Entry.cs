@@ -50,6 +50,12 @@ namespace Microcharts
 		public SKColor Color { get; set; } = SKColors.Black;
 
 		/// <summary>
+		/// Gets or sets the color of the label (set null to use Color).
+		/// </summary>
+		/// <value>The color of the label. If null - Color will be used.</value>
+		public SKColor? ValueColor { get; set; } = null;
+		
+		/// <summary>
 		/// Gets or sets the color of the text (for the caption label).
 		/// </summary>
 		/// <value>The color of the text.</value>
