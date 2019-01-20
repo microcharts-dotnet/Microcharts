@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\LineChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\LineMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\PointChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\PointLabelMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\PointMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\RadialGaugeChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Chart.cs" />

@@ -21,6 +21,8 @@ namespace Microcharts
 
         public PointMode PointMode { get; set; } = PointMode.Circle;
 
+        public PointLabelMode PointLabelMode { get; set; } = PointLabelMode.Horizontal;
+
         public byte PointAreaAlpha { get; set; } = 100;
 
         private float ValueRange => this.MaxValue - this.MinValue;
@@ -91,6 +93,29 @@ namespace Microcharts
 
         protected void DrawLabels(SKCanvas canvas, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
         {
+            var goVertical = PointLabelMode == PointLabelMode.Vertical;
+            if (PointLabelMode == PointLabelMode.PreferHorizontal)
+            {
+                for (int i = 0; i < this.Entries.Count(); i++)
+                {
+                    var entry = this.Entries.ElementAt(i);
+                    using (var paint = new SKPaint())
+                    {
+                        var bounds = new SKRect();
+                        var text = entry.Label;
+                        paint.MeasureText(text, ref bounds);
+
+                        if (bounds.Width <= itemSize.Width)
+                        {
+                            continue;
+                        }
+
+                        goVertical = true;
+                        break;
+                    }
+                }
+            }
+
             for (int i = 0; i < this.Entries.Count(); i++)
             {
                 var entry = this.Entries.ElementAt(i);
@@ -98,30 +123,55 @@ namespace Microcharts
 
                 if (!string.IsNullOrEmpty(entry.Label))
                 {
-                    using (var paint = new SKPaint())
+                    if (!goVertical)
                     {
-                        paint.TextSize = this.LabelTextSize;
-                        paint.IsAntialias = true;
-                        paint.Color = entry.TextColor;
-                        paint.IsStroke = false;
-
-                        var bounds = new SKRect();
-                        var text = entry.Label;
-                        paint.MeasureText(text, ref bounds);
-
-                        if (bounds.Width > itemSize.Width)
+                        using (var paint = new SKPaint())
                         {
-                            text = text.Substring(0, Math.Min(3, text.Length));
-                            paint.MeasureText(text, ref bounds);
-                        }
+                            paint.TextSize = LabelTextSize;
+                            paint.IsAntialias = true;
+                            paint.Color = entry.TextColor;
+                            paint.IsStroke = false;
 
-                        if (bounds.Width > itemSize.Width)
+                            var bounds = new SKRect();
+                            var text = entry.Label;
+                            paint.MeasureText(text, ref bounds);
+
+                            if (bounds.Width > itemSize.Width)
+                            {
+                                text = text.Substring(0, Math.Min(3, text.Length));
+                                paint.MeasureText(text, ref bounds);
+                            }
+
+                            if (bounds.Width > itemSize.Width)
+                            {
+                                text = text.Substring(0, Math.Min(1, text.Length));
+                                paint.MeasureText(text, ref bounds);
+                            }
+
+                            canvas.DrawText(text, point.X - (bounds.Width / 2), height - (this.Margin + (this.LabelTextSize / 2)), paint);
+                        }
+                    }
+                    else
+                    {
+                        using (new SKAutoCanvasRestore(canvas))
                         {
-                            text = text.Substring(0, Math.Min(1, text.Length));
-                            paint.MeasureText(text, ref bounds);
-                        }
+                            using (var paint = new SKPaint())
+                            {
+                                paint.TextSize = LabelTextSize;
+                                paint.IsAntialias = true;
+                                paint.Color = entry.TextColor;
+                                paint.IsStroke = false;
 
-                        canvas.DrawText(text, point.X - (bounds.Width / 2), height - (this.Margin + (this.LabelTextSize / 2)), paint);
+                                var bounds = new SKRect();
+                                var text = entry.Label;
+                                paint.MeasureText(text, ref bounds);
+
+                                canvas.RotateDegrees(90);
+                                canvas.Translate(Margin, -point.X + bounds.Height / 2);
+
+                                canvas.DrawText(text, height - ((float)(this.Margin * 1.25) + bounds.Width + bounds.Left), 0, paint);
+                            }
+                        }
                     }
                 }
             }
