@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts", "Microcharts\Microcharts.csproj", "{DE24E243-1C2C-4923-8B2E-53F7B2ABC814}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts", "Microcharts\Microcharts.csproj", "{DE24E243-1C2C-4923-8B2E-53F7B2ABC814}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.iOS", "Microcharts.iOS\Microcharts.iOS.csproj", "{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909}"
 EndProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4CD2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.iOS", "Microcharts.Samples.iOS\Microcharts.Samples.iOS.csproj", "{46424FAC-D076-48E8-A172-44040C1F8430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples", "Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj", "{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples", "Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj", "{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Droid", "Microcharts.Droid\Microcharts.Droid.csproj", "{18125022-45E6-46EC-855C-B36E4D41484D}"
 EndProject
@@ -42,11 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.macOS", "Microc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.macOS", "Microcharts.Samples.macOS\Microcharts.Samples.macOS.csproj", "{1F1EDFB9-8305-46AD-B427-DDD92A87969E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Forms", "Microcharts.Forms\Microcharts.Forms.csproj", "{EEF8A375-D304-48D1-BF66-29A442C708A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Forms", "Microcharts.Forms\Microcharts.Forms.csproj", "{EEF8A375-D304-48D1-BF66-29A442C708A1}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Microcharts.Shared\Microcharts.Shared.projitems*{4c84af37-d74f-42b3-8ea8-5f34b0cdef15}*SharedItemsImports = 4
 		Microcharts.Shared\Microcharts.Shared.projitems*{818a5879-1440-4b4e-b132-8df4cbbe0b7b}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -444,5 +443,8 @@ Global
 		{5F02212C-95CB-42A3-850F-C076267BB5DC} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
 		{1F1EDFB9-8305-46AD-B427-DDD92A87969E} = {C5532034-562E-484C-A575-9F4E65BCC269}
 		{EEF8A375-D304-48D1-BF66-29A442C708A1} = {3D966807-08D2-47A6-94C2-93B0A8AF2ECE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCCD19D6-0567-4462-A494-5848BD95715F}
 	EndGlobalSection
 EndGlobal
