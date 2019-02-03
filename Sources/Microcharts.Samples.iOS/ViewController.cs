@@ -56,6 +56,7 @@ namespace Microcharts.Samples.iOS
 			CreateChartCard(new BarChart { Entries = entries, BarAreaAlpha = areaAlpha });
 			CreateChartCard(new PointChart { Entries = entries, PointAreaAlpha = areaAlpha, PointSize = pointSize });
 			CreateChartCard(new LineChart { Entries = entries, LineAreaAlpha = areaAlpha, PointSize = pointSize, LineSize = lineSizeSlider.Value, LineMode = lineMode });
+			CreateChartCard(new RadialGaugeChart { Entries = entries, LineAreaAlpha = areaAlpha, LineSize = 0, MaxValue = entries.Max(x => Math.Abs(x.Value) + 100) });
 
 			if(!hasSingleColor)
 				CreateChartCard(new DonutChart { Entries = entries, HoleRadius = holeSlider.Value });

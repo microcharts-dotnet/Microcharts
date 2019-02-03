@@ -7,41 +7,25 @@
 
 	public class PointChart : Chart
 	{
+		#region Properties
+
 		public float PointSize { get; set; } = 14;
 
 		public PointMode PointMode { get; set; } = PointMode.Circle;
 
 		public byte PointAreaAlpha { get; set; } = 100;
 
-		private float? minValue, maxValue;
+		private float ValueRange => this.MaxValue - this.MinValue;
 
-		public float MinValue
-		{
-			get
-			{
-				if (!this.Entries.Any()) return 0;
-				if(this.minValue == null) return Math.Min(0, this.Entries.Min(x => x.Value));
-				return Math.Min(this.minValue.Value, this.Entries.Min(x => x.Value));
-			}
-			set => this.minValue = value;
-		}
+		#endregion
 
-		public float MaxValue
-		{
-			get
-			{
-				if (!this.Entries.Any()) return 0;
-				if(this.maxValue == null) return Math.Max(0, this.Entries.Max(x => x.Value));
-				return Math.Max(this.maxValue.Value, this.Entries.Max(x => x.Value));
-			}
-			set => this.maxValue = value;
-		}
+		#region Methods
 
 		protected float CalculateFooterHeight(SKRect[] valueLabelSizes)
 		{
 			var result = this.Margin;
 
-			if(this.Entries.Any(e => !string.IsNullOrEmpty(e.Label)))
+			if (this.Entries.Any(e => !string.IsNullOrEmpty(e.Label)))
 			{
 				result += this.LabelTextSize + this.Margin;
 			}
@@ -53,7 +37,7 @@
 		{
 			var result = this.Margin;
 
-			if(this.Entries.Any())
+			if (this.Entries.Any())
 			{
 				var maxValueWidth = valueLabelSizes.Max(x => x.Width);
 				if (maxValueWidth > 0)
@@ -82,8 +66,6 @@
 				}).ToArray();
 			}
 		}
-
-		private float ValueRange => this.MaxValue - this.MinValue;
 
 		public float CalculateYOrigin(float itemHeight, float headerHeight)
 		{
@@ -172,7 +154,7 @@
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.FillColor,
+						Color = entry.Color,
 					})
 					{
 						switch (this.PointMode)
@@ -185,7 +167,7 @@
 								paint.IsAntialias = true;
 								canvas.DrawCircle(point.X, point.Y, this.PointSize / 2, paint);
 								break;
-								
+
 							default:
 								break;
 						}
@@ -205,16 +187,16 @@
 					var point = points[i];
 					var y = Math.Min(origin, point.Y);
 
-					using (var shader = SKShader.CreateLinearGradient(new SKPoint(0,origin), new SKPoint(0,point.Y), new [] { entry.FillColor.WithAlpha(this.PointAreaAlpha), entry.FillColor.WithAlpha((byte)(this.PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
+					using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, point.Y), new[] { entry.Color.WithAlpha(this.PointAreaAlpha), entry.Color.WithAlpha((byte)(this.PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.FillColor.WithAlpha(this.PointAreaAlpha),
+						Color = entry.Color.WithAlpha(this.PointAreaAlpha),
 					})
 					{
 						paint.Shader = shader;
 						var height = Math.Max(2, Math.Abs(origin - point.Y));
-						canvas.DrawRect(SKRect.Create(point.X - this.PointSize / 2, y, this.PointSize,height), paint);
+						canvas.DrawRect(SKRect.Create(point.X - this.PointSize / 2, y, this.PointSize, height), paint);
 					}
 				}
 			}
@@ -239,7 +221,7 @@
 								paint.TextSize = this.LabelTextSize;
 								paint.FakeBoldText = true;
 								paint.IsAntialias = true;
-								paint.Color = entry.FillColor;
+								paint.Color = entry.Color;
 								paint.IsStroke = false;
 
 								var bounds = new SKRect();
@@ -263,14 +245,16 @@
 			var valueLabelSizes = MeasureValueLabels();
 			var footerHeight = CalculateFooterHeight(valueLabelSizes);
 			var headerHeight = CalculateHeaderHeight(valueLabelSizes);
-			var itemSize = CalculateItemSize(width, height, footerHeight,headerHeight);
-			var origin = CalculateYOrigin(itemSize.Height,headerHeight);
-			var points = this.CalculatePoints(itemSize, origin,headerHeight);
+			var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
+			var origin = CalculateYOrigin(itemSize.Height, headerHeight);
+			var points = this.CalculatePoints(itemSize, origin, headerHeight);
 
 			this.DrawPointAreas(canvas, points, origin);
-			this.DrawPoints(canvas,points);
+			this.DrawPoints(canvas, points);
 			this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-			this.DrawValueLabel(canvas,points,itemSize,height, valueLabelSizes);
+			this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
 		}
+
+		#endregion
 	}
 }

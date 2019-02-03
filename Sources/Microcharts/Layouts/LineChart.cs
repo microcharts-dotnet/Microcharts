@@ -5,16 +5,38 @@
 
 	public class LineChart : PointChart
 	{
+		#region Constructors
+
 		public LineChart()
 		{
 			this.PointSize = 10;
 		}
 
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets the size of the line.
+		/// </summary>
+		/// <value>The size of the line.</value>
 		public float LineSize { get; set; } = 3;
 
+		/// <summary>
+		/// Gets or sets the line mode.
+		/// </summary>
+		/// <value>The line mode.</value>
 		public LineMode LineMode { get; set; } = LineMode.Spline;
 
+		/// <summary>
+		/// Gets or sets the alpha of the line area.
+		/// </summary>
+		/// <value>The line area alpha.</value>
 		public byte LineAreaAlpha { get; set; } = 32;
+
+		#endregion
+
+		#region Methods
 
 		private SKShader CreateGradient(SKPoint[] points, byte alpha = 255)
 		{
@@ -25,7 +47,7 @@
 			return SKShader.CreateLinearGradient(
 				new SKPoint(startX, 0),
 				new SKPoint(endX, 0),
-				this.Entries.Select(x => x.FillColor.WithAlpha(alpha)).ToArray(),
+				this.Entries.Select(x => x.Color.WithAlpha(alpha)).ToArray(),
 				null,
 				SKShaderTileMode.Clamp);
 		}
@@ -63,14 +85,14 @@
 						var last = (this.LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
 						for (int i = 0; i < last; i++)
 						{
-							if(this.LineMode == LineMode.Spline)
+							if (this.LineMode == LineMode.Spline)
 							{
 								var entry = this.Entries.ElementAt(i);
 								var nextEntry = this.Entries.ElementAt(i + 1);
 								var cubicInfo = this.CalculateCubicInfo(points, i, itemSize);
 								path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
 							}
-							else if(this.LineMode == LineMode.Straight)
+							else if (this.LineMode == LineMode.Straight)
 							{
 								path.LineTo(points[i]);
 							}
@@ -142,7 +164,9 @@
 			this.DrawLine(canvas, points, itemSize);
 			this.DrawPoints(canvas, points);
 			this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-			this.DrawValueLabel(canvas, points, itemSize, height,valueLabelSizes);
+			this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
 		}
+
+		#endregion
 	}
 }

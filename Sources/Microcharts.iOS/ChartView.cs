@@ -1,11 +1,13 @@
 ﻿namespace Microcharts.iOS
 {
+	using UIKit;
 	using SkiaSharp.Views.iOS;
 
 	public class ChartView : SKCanvasView
 	{
 		public ChartView()
 		{
+			this.BackgroundColor = UIColor.Clear;
 			this.PaintSurface += OnPaintCanvas;
 		}
 
@@ -26,7 +28,10 @@
 
 		private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
 		{
-			this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+			if (this.chart != null)
+			{
+				this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+			}
 		}
 	}
 }

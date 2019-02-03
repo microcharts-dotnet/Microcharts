@@ -95,19 +95,19 @@
 				{
 					Label = "January",
 					ValueLabel = "200",
-					FillColor = SKColor.Parse("#266489"),
+					Color = SKColor.Parse("#266489"),
 				},
 				new Entry(400)
 				{
 					Label = "February",
 					ValueLabel = "400",
-					FillColor = SKColor.Parse("#68B9C0"),
+					Color = SKColor.Parse("#68B9C0"),
 				},
 				new Entry(-100)
 				{
 					Label = "March",
 					ValueLabel = "-100",
-					FillColor = SKColor.Parse("#90D585"),
+					Color = SKColor.Parse("#90D585"),
 				},
 			};
 
@@ -150,7 +150,7 @@
 				Label = hasLabels ? d.label : null, 
 				ValueLabel = hasValueLabel ? d.value.ToString() : null, 
 				TextColor = TextColor, 
-				FillColor = isSingleColor ? Colors[2] : NextColor(),
+				Color = isSingleColor ? Colors[2] : NextColor(),
 			}).ToArray();
 		}
 	}

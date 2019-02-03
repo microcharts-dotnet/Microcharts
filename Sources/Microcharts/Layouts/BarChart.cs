@@ -1,18 +1,40 @@
-﻿using System;
-namespace Microcharts
+﻿namespace Microcharts
 {
+	using System;
 	using SkiaSharp;
 	using System.Linq;
 
 	public class BarChart : PointChart
 	{
+		#region Constructors
+
 		public BarChart()
 		{
 			this.PointSize = 0;
 		}
 
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets the bar background area alpha.
+		/// </summary>
+		/// <value>The bar area alpha.</value>
 		public byte BarAreaAlpha { get; set; } = 32;
 
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		/// Draws the value bars.
+		/// </summary>
+		/// <param name="canvas">Canvas.</param>
+		/// <param name="points">Points.</param>
+		/// <param name="itemSize">Item size.</param>
+		/// <param name="origin">Origin.</param>
+		/// <param name="headerHeight">Header height.</param>
 		protected void DrawBars(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
 		{
 			const float minBarHeight = 4;
@@ -26,16 +48,16 @@ namespace Microcharts
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.FillColor,
+						Color = entry.Color,
 					})
 					{
 						var x = point.X - itemSize.Width / 2;
 						var y = Math.Min(origin, point.Y);
 						var height = Math.Max(minBarHeight, Math.Abs(origin - point.Y));
-						if(height < minBarHeight)
+						if (height < minBarHeight)
 						{
 							height = minBarHeight;
-							if(y + height > this.Margin + itemSize.Height)
+							if (y + height > this.Margin + itemSize.Height)
 							{
 								y = headerHeight + itemSize.Height - height;
 							}
@@ -48,6 +70,13 @@ namespace Microcharts
 			}
 		}
 
+		/// <summary>
+		/// Draws the bar background areas.
+		/// </summary>
+		/// <param name="canvas">Canvas.</param>
+		/// <param name="points">Points.</param>
+		/// <param name="itemSize">Item size.</param>
+		/// <param name="headerHeight">Header height.</param>
 		protected void DrawBarAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float headerHeight)
 		{
 			if (points.Length > 0 && this.PointAreaAlpha > 0)
@@ -60,7 +89,7 @@ namespace Microcharts
 					using (var paint = new SKPaint
 					{
 						Style = SKPaintStyle.Fill,
-						Color = entry.FillColor.WithAlpha(this.BarAreaAlpha),
+						Color = entry.Color.WithAlpha(this.BarAreaAlpha),
 					})
 					{
 						var max = entry.Value > 0 ? headerHeight : headerHeight + itemSize.Height;
@@ -87,5 +116,7 @@ namespace Microcharts
 			this.DrawFooter(canvas, points, itemSize, height, footerHeight);
 			this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
 		}
+
+  		#endregion
 	}
 }
