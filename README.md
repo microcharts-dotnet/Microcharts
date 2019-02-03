@@ -10,7 +10,14 @@
 
 Available on NuGet
 
+**NET Standard 1.4, Xamarin.iOS, Xamarin.Android, UWP**
+
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
+
+
+**Xamarin.Forms (PCL)**
+
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
 ## Quickstart
 
@@ -143,6 +150,33 @@ public MainPage()
 }
 ```
 
+**Xamarin.Forms**
+
+```xml
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
+    xmlns:local="clr-namespace:Microcharts.Samples.Forms" 
+    x:Class="Microcharts.Samples.Forms.MainPage">
+
+    <microcharts:ChartView x:Name="chartView" />
+
+</ContentPage>
+```
+
+```csharp
+protected override void OnAppearing()
+{
+	base.OnAppearing();
+
+	var entries = // ... see 1°) above
+	var chart = // ... see 2°) above
+
+	this.chartView.Chart = chart;
+}
+```
+
 ## Usage
 
 Available charts are `BarChart`, `PointChart`, `LineChart`, `DonutChart`, `RadialGaugeChart`. They all have several properties to tweak their rendering.
@@ -151,7 +185,7 @@ Those charts have a `Draw` method for platforms that haven't built in views.
 
 ## Compatibility
 
-Built in views are provided for **Xamarin.iOS** and **Xamarin.Android**, but any other [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible.
+Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, but any other **.NET Standard 1.4** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible.
 
 ## About
 
