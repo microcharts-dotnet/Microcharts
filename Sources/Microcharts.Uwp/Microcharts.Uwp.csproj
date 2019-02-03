@@ -121,7 +121,12 @@
       <Version>4.3.1</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="..\Microcharts.Shared\Microcharts.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj">
+      <Project>{de24e243-1c2c-4923-8b2e-53f7b2abc814}</Project>
+      <Name>Microcharts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

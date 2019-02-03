@@ -20,17 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Uwp", "Microcha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Uwp", "Microcharts.Samples.Uwp\Microcharts.Samples.Uwp.csproj", "{33901013-B4A3-4182-9048-49F2CF940429}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microcharts.Shared", "Microcharts.Shared\Microcharts.Shared.shproj", "{4E5D46BE-E41E-45AD-AD1A-BC3A957DAB1F}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microcharts.Samples.Shared", "Microcharts.Samples.Shared\Microcharts.Samples.Shared.shproj", "{DA734F09-7837-4FC6-AD25-3BB54D73D5CF}"
-EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Microcharts.Samples.Shared\Microcharts.Samples.Shared.projitems*{33901013-b4a3-4182-9048-49f2cf940429}*SharedItemsImports = 4
-		Microcharts.Shared\Microcharts.Shared.projitems*{4e28fcde-60f6-45ae-b444-701d5f30beff}*SharedItemsImports = 4
-		Microcharts.Shared\Microcharts.Shared.projitems*{4e5d46be-e41e-45ad-ad1a-bc3a957dab1f}*SharedItemsImports = 13
-		Microcharts.Samples.Shared\Microcharts.Samples.Shared.projitems*{da734f09-7837-4fc6-ad25-3bb54d73d5cf}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -246,6 +236,5 @@ Global
 		{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A} = {4CD22C16-BBD8-46FF-9203-EB493B2E04E9}
 		{78CCA323-47D0-4A72-969A-9F86436C82C3} = {4CD22C16-BBD8-46FF-9203-EB493B2E04E9}
 		{33901013-B4A3-4182-9048-49F2CF940429} = {4CD22C16-BBD8-46FF-9203-EB493B2E04E9}
-		{DA734F09-7837-4FC6-AD25-3BB54D73D5CF} = {4CD22C16-BBD8-46FF-9203-EB493B2E04E9}
 	EndGlobalSection
 EndGlobal
