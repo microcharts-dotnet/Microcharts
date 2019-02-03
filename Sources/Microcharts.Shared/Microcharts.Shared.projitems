@@ -17,8 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\LineMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\PointChart.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Layouts\PointMode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Layouts\RadialGaugeChart.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RadialHelpers.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="$(MSBuildThisFileDirectory)Layouts\RadialGaugeChart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RadialHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
