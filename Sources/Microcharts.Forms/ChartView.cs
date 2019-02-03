@@ -1,4 +1,4 @@
-﻿namespace Microcharts.iOS
+﻿namespace Microcharts.Forms
 {
 	using Xamarin.Forms;
 	using SkiaSharp.Views.Forms;
@@ -11,26 +11,24 @@
 			this.PaintSurface += OnPaintCanvas;
 		}
 
-		private Chart chart;
+		public static readonly BindableProperty EventNameProperty = BindableProperty.Create(nameof(Chart), typeof(Chart), typeof(ChartView), null, propertyChanged: OnChartChanged);
 
 		public Chart Chart
 		{
-			get => this.chart;
-			set
-			{
-				if (this.chart != value)
-				{
-					this.chart = value;
-					this.InvalidateSurface();
-				}
-			}
+			get { return (Chart)GetValue(EventNameProperty); }
+			set { SetValue(EventNameProperty, value); }
+		}
+
+		private static void OnChartChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			((ChartView)bindable).InvalidateSurface();
 		}
 
 		private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
 		{
-			if (this.chart != null)
+			if (this.Chart != null)
 			{
-				this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+				this.Chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
 			}
 		}
 	}
