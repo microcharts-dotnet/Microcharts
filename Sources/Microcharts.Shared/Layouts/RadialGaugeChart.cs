@@ -8,6 +8,11 @@ namespace Microcharts
     using System.Linq;
     using SkiaSharp;
 
+    /// <summary>
+    /// ![chart](../images/RadialGauge.png)
+    /// 
+    /// Radial gauge chart.
+    /// </summary>
     public class RadialGaugeChart : Chart
     {
         #region Properties

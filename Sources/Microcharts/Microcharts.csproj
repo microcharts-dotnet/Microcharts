@@ -4,6 +4,9 @@
     <TargetFramework>netstandard1.4</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin\Debug\netstandard1.4\Microcharts.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="1.59.1" />
     <PackageReference Include="StyleCop.MSBuild" Version="5.0.0" />
