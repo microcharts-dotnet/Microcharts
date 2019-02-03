@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts", "Microcharts\Microcharts.csproj", "{DE24E243-1C2C-4923-8B2E-53F7B2ABC814}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts", "Microcharts\Microcharts.csproj", "{DE24E243-1C2C-4923-8B2E-53F7B2ABC814}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.iOS", "Microcharts.iOS\Microcharts.iOS.csproj", "{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909}"
 EndProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4CD2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.iOS", "Microcharts.Samples.iOS\Microcharts.Samples.iOS.csproj", "{46424FAC-D076-48E8-A172-44040C1F8430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples", "Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj", "{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples", "Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj", "{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Droid", "Microcharts.Droid\Microcharts.Droid.csproj", "{18125022-45E6-46EC-855C-B36E4D41484D}"
 EndProject
@@ -39,6 +39,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.Droid", "Droid\Microcharts.Samples.Forms.Droid.csproj", "{2F00E14F-19A3-4018-BF0E-636DEA79E666}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Microcharts.Shared\Microcharts.Shared.projitems*{4c84af37-d74f-42b3-8ea8-5f34b0cdef15}*SharedItemsImports = 4
+		Microcharts.Shared\Microcharts.Shared.projitems*{818a5879-1440-4b4e-b132-8df4cbbe0b7b}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -346,14 +350,14 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
 		{46424FAC-D076-48E8-A172-44040C1F8430} = {C5532034-562E-484C-A575-9F4E65BCC269}
 		{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A} = {C5532034-562E-484C-A575-9F4E65BCC269}
+		{18125022-45E6-46EC-855C-B36E4D41484D} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
 		{78CCA323-47D0-4A72-969A-9F86436C82C3} = {C5532034-562E-484C-A575-9F4E65BCC269}
+		{4E28FCDE-60F6-45AE-B444-701D5F30BEFF} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
 		{33901013-B4A3-4182-9048-49F2CF940429} = {C5532034-562E-484C-A575-9F4E65BCC269}
 		{4C84AF37-D74F-42B3-8EA8-5F34B0CDEF15} = {3D966807-08D2-47A6-94C2-93B0A8AF2ECE}
-		{18125022-45E6-46EC-855C-B36E4D41484D} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
-		{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
-		{4E28FCDE-60F6-45AE-B444-701D5F30BEFF} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
 		{C5532034-562E-484C-A575-9F4E65BCC269} = {4CD22C16-BBD8-46FF-9203-EB493B2E04E9}
 		{371D4457-9946-40A6-AE2E-2DF8AA43A69B} = {4CD22C16-BBD8-46FF-9203-EB493B2E04E9}
 		{F67B4BE6-40F0-4F99-A8BC-F1A5E0BC95D4} = {371D4457-9946-40A6-AE2E-2DF8AA43A69B}

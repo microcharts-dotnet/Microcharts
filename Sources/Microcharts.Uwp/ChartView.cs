@@ -1,6 +1,7 @@
 ﻿namespace Microcharts.Uwp
 {
     using SkiaSharp.Views.UWP;
+    using Windows.UI.Xaml;
 
     public class ChartView : SKXamlCanvas
     {
@@ -9,24 +10,24 @@
             this.PaintSurface += OnPaintCanvas;
         }
 
-        private Chart chart;
+        public static readonly DependencyProperty ChartProperty = DependencyProperty.Register(nameof(Chart), typeof(ChartView), typeof(Chart), new PropertyMetadata(null, new PropertyChangedCallback(OnLabelChanged)));
 
         public Chart Chart
         {
-            get => this.chart;
-            set
-            {
-                if (this.chart != value)
-                {
-                    this.chart = value;
-                    this.Invalidate();
-                }
-            }
+            get { return (Chart)GetValue(ChartProperty); }
+            set { SetValue(ChartProperty, value); }
+        }
+
+
+        private static void OnLabelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var view = d as ChartView;
+            view.Invalidate();
         }
 
         private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
         {
-            this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+            this.Chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
         }
     }
 }
