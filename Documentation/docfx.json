@@ -5,11 +5,17 @@
         { 
           "src": "../Sources",
           "files": [
-            "Microcharts/bin/netstandard1.4/Microcharts.dll"
+            "Microcharts.Shared/**/**.cs",
+            "Microcharts.Forms/**/**.cs",
+            "Microcharts.Droid/**/**.cs",
+            "Microcharts.iOS/**/**.cs",
+            "Microcharts.macOS/**/**.cs",
+            "Microcharts.Uwp/**/**.cs"
           ],
           "exclude": [
             "**/obj/**",
-            "_site/**"
+            "_site/**",
+            "Microcharts.Droid/Resources/**"
           ]
         }
       ],
@@ -26,8 +32,10 @@
       },
       {
         "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
+          "guides/**.md",
+          "guides/**/toc.yml",
+          "samples/**.md",
+          "samples/**/toc.yml",
           "toc.yml",
           "*.md"
         ],
