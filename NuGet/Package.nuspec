@@ -23,18 +23,25 @@
         <group targetFramework="Xamarin.iOS10">
             <dependency id="SkiaSharp.Views"  version="1.59.1" />
         </group>
+        <group targetFramework="uap">
+            <dependency id="SkiaSharp.Views"  version="1.59.1" />
+        </group>
     </dependencies>
   </metadata>
    <files>
      <!-- Standard -->
-     <file src="/Users/alois/Microcharts/Sources/Microcharts/bin/Debug/netstandard1.6/Microcharts.dll" target="lib/netstandard1.6/Microcharts.dll"/>
+     <file src="..\Sources\Microcharts\bin\Release\netstandard1.4\Microcharts.dll" target="lib\netstandard1.4\Microcharts.dll"/>
 
      <!-- Android -->
-     <file src="/Users/alois/Microcharts/Sources/Microcharts.Droid/bin/Debug/Microcharts.dll" target="lib/MonoAndroid10/Microcharts.dll"/>
-     <file src="/Users/alois/Microcharts/Sources/Microcharts.Droid/bin/Debug/Microcharts.Droid.dll" target="lib/MonoAndroid10/Microcharts.Droid.dll"/>
+     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
+     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.Droid.dll" target="lib\MonoAndroid10\Microcharts.Droid.dll"/>
 
      <!-- iOS -->
-	 <file src="/Users/alois/Microcharts/Sources/Microcharts.iOS/bin/Debug/Microcharts.dll" target="lib/Xamarin.iOS10/Microcharts.dll"/>
-	 <file src="/Users/alois/Microcharts/Sources/Microcharts.iOS/bin/Debug/Microcharts.iOS.dll" target="lib/Xamarin.iOS10/Microcharts.iOS.dll"/>
+	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.dll" target="lib\Xamarin.iOS10\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.iOS.dll" target="lib\Xamarin.iOS10\Microcharts.iOS.dll"/>
+     
+     <!-- UWP -->
+	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap\Microcharts.Uwp.dll"/>
    </files>
 </package>
