@@ -61,11 +61,11 @@ namespace Microcharts
             {
                 var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
-
+                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
+                
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
+                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
 
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
