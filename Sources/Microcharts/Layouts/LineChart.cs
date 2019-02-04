@@ -139,9 +139,9 @@ namespace Microcharts
 
                         var path = new SKPath();
 
-                        path.MoveTo(points.First().X, origin); // start path from bottom left
-                        path.LineTo(points.First()); // move up to first point
-                        // -> traverse through points
+                        path.MoveTo(points.First().X, origin);
+                        path.LineTo(points.First());
+
                         var last = (this.LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
@@ -157,7 +157,7 @@ namespace Microcharts
                                 path.LineTo(points[i]);
                             }
                         }
-                        // move down to bottom right
+                        
                         path.LineTo(points.Last().X, origin);
 
                         path.Close();
