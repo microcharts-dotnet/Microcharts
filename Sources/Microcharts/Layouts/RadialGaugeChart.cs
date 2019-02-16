@@ -44,7 +44,7 @@ namespace Microcharts
 
         #region Methods
 
-        public void DrawGaugeArea(SKCanvas canvas, Entry entry, float radius, int cx, int cy, float strokeWidth)
+        public void DrawGaugeArea(SKCanvas canvas, ChartEntry entry, float radius, int cx, int cy, float strokeWidth)
         {
             using (var paint = new SKPaint
             {
@@ -58,7 +58,7 @@ namespace Microcharts
             }
         }
 
-        public void DrawGauge(SKCanvas canvas, Entry entry, float radius, int cx, int cy, float strokeWidth)
+        public void DrawGauge(SKCanvas canvas, ChartEntry entry, float radius, int cx, int cy, float strokeWidth)
         {
             using (var paint = new SKPaint
             {

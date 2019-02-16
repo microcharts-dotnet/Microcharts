@@ -91,25 +91,25 @@
                 {
                     var entries = new[]
                     {
-                         new Entry(212)
+                         new ChartEntry(212)
                         {
                             Label = "UWP",
                             ValueLabel = "212",
                             Color = SKColor.Parse("#2c3e50")
                         },
-                        new Entry(248)
+                        new ChartEntry(248)
                         {
                             Label = "Android",
                             ValueLabel = "248",
                             Color = SKColor.Parse("#77d065")
                         },
-                        new Entry(128)
+                        new ChartEntry(128)
                         {
                             Label = "iOS",
                             ValueLabel = "128",
                             Color = SKColor.Parse("#b455b6")
                         },
-                        new Entry(514)
+                        new ChartEntry(514)
                         {
                             Label = "Shared",
                             ValueLabel = "514",
@@ -139,19 +139,19 @@
                 {
                         var entries = new[]
                         {
-                                new Entry(200)
+                                new ChartEntry(200)
                                 {
                                         Label = "January",
                                         ValueLabel = "200",
                                         Color = SKColor.Parse("#266489"),
                                 },
-                                new Entry(400)
+                                new ChartEntry(400)
                                 {
                                         Label = "February",
                                         ValueLabel = "400",
                                         Color = SKColor.Parse("#68B9C0"),
                                 },
-                                new Entry(-100)
+                                new ChartEntry(-100)
                                 {
                                         Label = "March",
                                         ValueLabel = "-100",
@@ -170,7 +170,7 @@
                         };
                 }
 
-                public static Entry[] CreateEntries(int values, bool hasPositiveValues, bool hasNegativeValues, bool hasLabels, bool hasValueLabel, bool isSingleColor)
+                public static ChartEntry[] CreateEntries(int values, bool hasPositiveValues, bool hasNegativeValues, bool hasLabels, bool hasValueLabel, bool isSingleColor)
                 {
                         ColorIndex = 0;
 
@@ -195,7 +195,7 @@
 
                         data = data.Take(values).ToArray();
 
-                        return data.Select(d => new Entry(d.value) 
+                        return data.Select(d => new ChartEntry(d.value) 
                         { 
                                 Label = hasLabels ? d.label : null, 
                                 ValueLabel = hasValueLabel ? d.value.ToString() : null, 

@@ -20,7 +20,7 @@ namespace Microcharts
     {
         #region Fields
 
-        private IEnumerable<Entry> entries;
+        private IEnumerable<ChartEntry> entries;
 
         private float animationProgress, margin = 20, labelTextSize = 16;
 
@@ -173,7 +173,7 @@ namespace Microcharts
         /// Gets or sets the data entries.
         /// </summary>
         /// <value>The entries.</value>
-        public IEnumerable<Entry> Entries
+        public IEnumerable<ChartEntry> Entries
         {
             get => this.entries;
             set => this.UpdateEntries(value);
@@ -294,7 +294,7 @@ namespace Microcharts
         /// <param name="height">The height.</param>
         /// <param name="entries">The entries.</param>
         /// <param name="isLeft">If set to <c>true</c> is left.</param>
-        protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<Entry> entries, bool isLeft)
+        protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<ChartEntry> entries, bool isLeft)
         {
             var totalMargin = 2 * this.Margin;
             var availableHeight = height - (2 * totalMargin);
@@ -461,7 +461,7 @@ namespace Microcharts
             this.IsAnimating = false;
         }
 
-        private async void UpdateEntries(IEnumerable<Entry> value)
+        private async void UpdateEntries(IEnumerable<ChartEntry> value)
         {
             try
             {
