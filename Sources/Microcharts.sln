@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.iOS", "Microcharts.iOS\Microcharts.iOS.csproj", "{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909}"
 EndProject
@@ -152,6 +152,7 @@ Global
 		{18125022-45E6-46EC-855C-B36E4D41484D}.Release|x86.Build.0 = Release|Any CPU
 		{78CCA323-47D0-4A72-969A-9F86436C82C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78CCA323-47D0-4A72-969A-9F86436C82C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78CCA323-47D0-4A72-969A-9F86436C82C3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{78CCA323-47D0-4A72-969A-9F86436C82C3}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{78CCA323-47D0-4A72-969A-9F86436C82C3}.Debug|ARM.Build.0 = Debug|Any CPU
 		{78CCA323-47D0-4A72-969A-9F86436C82C3}.Debug|ARM.Deploy.0 = Debug|Any CPU
@@ -254,6 +255,7 @@ Global
 		{E4341734-8B9D-4F53-A27D-234D251765FA}.Release|x86.Build.0 = Release|iPhoneSimulator
 		{2F00E14F-19A3-4018-BF0E-636DEA79E666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2F00E14F-19A3-4018-BF0E-636DEA79E666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F00E14F-19A3-4018-BF0E-636DEA79E666}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{2F00E14F-19A3-4018-BF0E-636DEA79E666}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{2F00E14F-19A3-4018-BF0E-636DEA79E666}.Debug|ARM.Build.0 = Debug|Any CPU
 		{2F00E14F-19A3-4018-BF0E-636DEA79E666}.Debug|iPhone.ActiveCfg = Debug|Any CPU
