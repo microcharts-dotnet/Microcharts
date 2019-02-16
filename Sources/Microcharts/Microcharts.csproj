@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;portable-net45+win8+wpa81+wp8</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.8.4-pre</Version>
+    <AssemblyVersion>0.8.4.1</AssemblyVersion>
+    <FileVersion>0.8.4.1</FileVersion>
+    <PackageProjectUrl>https://github.com/aloisdeniel/Microcharts/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/aloisdeniel/Microcharts/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/aloisdeniel/Microcharts/</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <Description>Microcharts is an extremely simple charting library for a wide range of platforms (see Compatibility section below), with shared code and rendering for all of them!</Description>
+    <Authors>aloisdeniel, nieminen, letsar, jzeferino</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='portable-net45+win8+wpa81+wp8'">
