@@ -3,11 +3,14 @@
   <project key="1524374709">
     <configuration>TRACE;DEBUG;NETSTANDARD1_3</configuration>
   </project>
-  <sourcecode name=".NETStandard,Version=v1.3.AssemblyAttributes.cs" parser="StyleCop.CSharp.CsParser">
+  <project key="1691110593">
+    <configuration>TRACE;DEBUG</configuration>
+  </project>
+  <sourcecode name=".NETPortable,Version=v4.5,Profile=Profile259.AssemblyAttributes.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2017/07/29 10:43:06.000</styleCop>
       <settingsFile>2018/11/15 20:37:10.599</settingsFile>
-      <sourceFile>2019/02/15 17:20:02.774</sourceFile>
+      <sourceFile>2019/02/15 17:20:07.773</sourceFile>
       <parser>2017/07/29 10:43:06.000</parser>
       <StyleCop.CSharp.DocumentationRules>2017/07/29 10:43:06.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>0</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -26,8 +29,8 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <project key="1691110593">
-    <configuration>TRACE;DEBUG</configuration>
+  <project key="-778181328">
+    <configuration>TRACE;RELEASE;NETSTANDARD;NETSTANDARD1_3</configuration>
   </project>
   <sourcecode name="Chart.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
@@ -1274,11 +1277,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <sourcecode name=".NETPortable,Version=v4.5,Profile=Profile259.AssemblyAttributes.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name=".NETStandard,Version=v1.3.AssemblyAttributes.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2017/07/29 10:43:06.000</styleCop>
       <settingsFile>2018/11/15 20:37:10.599</settingsFile>
-      <sourceFile>2019/02/15 17:20:07.773</sourceFile>
+      <sourceFile>2019/02/15 17:20:02.774</sourceFile>
       <parser>2017/07/29 10:43:06.000</parser>
       <StyleCop.CSharp.DocumentationRules>2017/07/29 10:43:06.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>0</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -1301,7 +1304,7 @@
     <timestamps>
       <styleCop>2017/07/29 10:43:06.000</styleCop>
       <settingsFile>2018/11/15 20:37:10.599</settingsFile>
-      <sourceFile>2019/02/15 18:34:06.558</sourceFile>
+      <sourceFile>2019/02/15 19:44:51.382</sourceFile>
       <parser>2017/07/29 10:43:06.000</parser>
       <StyleCop.CSharp.DocumentationRules>2017/07/29 10:43:06.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>0</StyleCop.CSharp.DocumentationRules.FilesHashCode>
