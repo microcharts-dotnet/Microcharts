@@ -97,7 +97,7 @@ namespace Microcharts
                     var entryRadius = (i + 1) * radiusSpace;
                     this.DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
                     this.DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
-                } 
+                }
             }
         }
 

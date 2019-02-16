@@ -68,7 +68,7 @@ namespace Microcharts
         /// Gets or sets the text orientation of value labels.
         /// </summary>
         /// <value>The label orientation.</value>
-        public Orientation ValueLabelOrientation 
+        public Orientation ValueLabelOrientation
         {
             get => this.valueLabelOrientation;
             set => this.valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
@@ -208,7 +208,7 @@ namespace Microcharts
             }
         }
 
-        protected void DrawLabels(SKCanvas canvas,string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
+        protected void DrawLabels(SKCanvas canvas, string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
         {
             if (points.Length > 0)
             {
@@ -267,7 +267,7 @@ namespace Microcharts
                                     var y = point.Y;
                                     if (isTop)
                                     {
-                                        y -= bounds.Height; 
+                                        y -= bounds.Height;
                                     }
                                     else
                                     {
@@ -296,7 +296,7 @@ namespace Microcharts
 
             if (this.Entries.Any(e => !string.IsNullOrEmpty(e.Label)))
             {
-                if(orientation == Orientation.Vertical)
+                if (orientation == Orientation.Vertical)
                 {
                     var maxValueWidth = valueLabelSizes.Max(x => x.Width);
                     if (maxValueWidth > 0)
@@ -306,7 +306,7 @@ namespace Microcharts
                 }
                 else
                 {
-                    result += this.LabelTextSize + this.Margin; 
+                    result += this.LabelTextSize + this.Margin;
                 }
             }
 

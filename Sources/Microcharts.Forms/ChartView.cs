@@ -3,8 +3,8 @@
 
 namespace Microcharts.Forms
 {
-	using Xamarin.Forms;
-	using SkiaSharp.Views.Forms;
+    using Xamarin.Forms;
+    using SkiaSharp.Views.Forms;
     using SkiaSharp;
 
     public class ChartView : SKCanvasView

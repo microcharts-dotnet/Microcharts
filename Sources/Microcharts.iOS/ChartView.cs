@@ -2,9 +2,9 @@
 #if __IOS__
 namespace Microcharts.iOS
 {
-    using UIKit;
-    using SkiaSharp.Views.iOS;
-    using System.Diagnostics;
+using UIKit;
+using SkiaSharp.Views.iOS;
+using System.Diagnostics;
 #else
 namespace Microcharts.macOS
 {
@@ -18,7 +18,7 @@ namespace Microcharts.macOS
         public ChartView()
         {
 #if __IOS__
-            this.BackgroundColor = UIColor.Clear;
+this.BackgroundColor = UIColor.Clear;
 #endif
             this.PaintSurface += OnPaintCanvas;
         }
