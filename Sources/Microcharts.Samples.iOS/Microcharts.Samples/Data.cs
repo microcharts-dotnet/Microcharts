@@ -161,12 +161,12 @@
 
                         return new Chart[]
                         {
-                                new BarChart() { Entries = entries },
-                                new PointChart() { Entries = entries },
-                                new LineChart() { Entries = entries },
-                                new DonutChart() { Entries = entries },
-                                new RadialGaugeChart() { Entries = entries },
-                                new RadarChart() { Entries = entries },
+                                new BarChart() { Entries = entries, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                                new PointChart() { Entries = entries, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                                new LineChart() { Entries = entries, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                                new DonutChart() { Entries = entries, LabelTextSize = 60 },
+                                new RadialGaugeChart() { Entries = entries, LabelTextSize = 60 },
+                                new RadarChart() { Entries = entries, LabelTextSize = 60 },
                         };
                 }
 

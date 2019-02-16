@@ -213,6 +213,12 @@ namespace Microcharts
             if (points.Length > 0)
             {
                 var maxWidth = sizes.Max(x => x.Width);
+                var avgHeightAdustment = 0d;
+
+                if (isTop == false)
+                {
+                    avgHeightAdustment = sizes.Average(s => s.Height);
+                }
 
                 for (int i = 0; i < points.Length; i++)
                 {
@@ -258,11 +264,14 @@ namespace Microcharts
                                         paint.MeasureText(text, ref bounds);
                                     }
 
-
                                     var y = point.Y;
                                     if (isTop)
                                     {
                                         y -= bounds.Height; 
+                                    }
+                                    else
+                                    {
+                                        y += (int)avgHeightAdustment;
                                     }
 
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
