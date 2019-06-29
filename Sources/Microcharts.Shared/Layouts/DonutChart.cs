@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SkiaSharp;
+
 namespace Microcharts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using SkiaSharp;
-
     /// <summary>
     /// ![chart](../images/Donut.png)
     /// 
@@ -23,32 +23,38 @@ namespace Microcharts
         /// <value>The hole radius.</value>
         public float HoleRadius { get; set; } = 0;
 
+        /// <summary>
+        /// Gets or sets the condition distribute tags of the chart.
+        /// </summary>
+        /// <value>The condition for distribute tags.</value>
+        public bool IsDistributedTags { get; set; } = false;
+
         #endregion
 
         #region Methods
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            this.DrawCaption(canvas, width, height);
+            DrawCaption(canvas, width, height);
             using (new SKAutoCanvasRestore(canvas))
             {
-                canvas.Translate(width / 2, height / 2);
-                var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+                canvas.Translate(width / 2.0f, height / 2.0f);
+                var sumValue = Entries.Sum(x => Math.Abs(x.Value));
                 var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
 
                 var start = 0.0f;
-                for (int i = 0; i < this.Entries.Count(); i++)
+                for (int i = 0; i < Entries.Count(); i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var end = start + (Math.Abs(entry.Value) / sumValue);
 
                     // Sector
-                    var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
+                    var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * HoleRadius);
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
                         Color = entry.Color,
-                        IsAntialias = true,
+                        IsAntialias = true
                     })
                     {
                         canvas.DrawPath(path, paint);
@@ -61,31 +67,44 @@ namespace Microcharts
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
-            var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+            var sumValue = Entries.Sum(x => Math.Abs(x.Value));
             var rightValues = new List<Entry>();
             var leftValues = new List<Entry>();
 
             int i = 0;
             var current = 0.0f;
-            while (i < this.Entries.Count() && (current < sumValue / 2))
+            if (IsDistributedTags)
             {
-                var entry = this.Entries.ElementAt(i);
-                rightValues.Add(entry);
-                current += Math.Abs(entry.Value);
-                i++;
+                while (i < Entries.Count() && i < Entries.Count() / 2)
+                {
+                    var entry = Entries.ElementAt(i);
+                    rightValues.Add(entry);
+                    current += Math.Abs(entry.Value);
+                    i++;
+                }
+            }
+            else
+            {
+                while (i < Entries.Count() && current < sumValue / 2)
+                {
+                    var entry = Entries.ElementAt(i);
+                    rightValues.Add(entry);
+                    current += Math.Abs(entry.Value);
+                    i++;
+                }
             }
 
-            while (i < this.Entries.Count())
+            while (i < Entries.Count())
             {
-                var entry = this.Entries.ElementAt(i);
+                var entry = Entries.ElementAt(i);
                 leftValues.Add(entry);
                 i++;
             }
 
             leftValues.Reverse();
 
-            this.DrawCaptionElements(canvas, width, height, rightValues, false);
-            this.DrawCaptionElements(canvas, width, height, leftValues, true);
+            DrawCaptionElements(canvas, width, height, rightValues, false);
+            DrawCaptionElements(canvas, width, height, leftValues, true);
         }
 
         #endregion
