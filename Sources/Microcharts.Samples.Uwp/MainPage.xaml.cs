@@ -25,7 +25,7 @@ namespace Microcharts.Samples.Uwp
         public MainPage()
         {
             this.InitializeComponent();
-            
+
             var charts = Data.CreateQuickstart();
             this.chart1.Chart = charts[0];
             this.chart2.Chart = charts[1];

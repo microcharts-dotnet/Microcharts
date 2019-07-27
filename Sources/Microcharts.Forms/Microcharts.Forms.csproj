@@ -1,7 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;portable-net45+win8+wpa81+wp8</TargetFrameworks>
+    <Version>0.8.4-pre</Version>
+    <AssemblyVersion>0.8.4.1</AssemblyVersion>
+    <FileVersion>0.8.4.1</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Microcharts is an extremely simple charting library for a wide range of platforms (see Compatibility section below), with shared code and rendering for all of them!</Description>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageLicenseUrl>https://github.com/aloisdeniel/Microcharts/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/aloisdeniel/Microcharts/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aloisdeniel/Microcharts/</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <Authors>Aloïs Deniel, Joseph Nixon</Authors>
+    <PackageTags>xamarin ios android chart skia Forms</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Company>Aloïs Deniel, Joseph Nixon</Company>
+    <PackageIconUrl>https://raw.githubusercontent.com/aloisdeniel/Microcharts/master/Documentation/Logo.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='portable-net45+win8+wpa81+wp8'">

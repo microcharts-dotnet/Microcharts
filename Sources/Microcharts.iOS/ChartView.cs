@@ -1,24 +1,43 @@
-﻿using SkiaSharp;
+﻿using System;
+using Foundation;
+using SkiaSharp;
 #if __IOS__
 namespace Microcharts.iOS
 {
-    using UIKit;
-    using SkiaSharp.Views.iOS;
-    using System.Diagnostics;
+using UIKit;
+using SkiaSharp.Views.iOS;
+using System.Diagnostics;
 #else
 namespace Microcharts.macOS
 {
     using SkiaSharp.Views.Mac;
 #endif
 
+    [Register("ChartView")]
     public class ChartView : SKCanvasView
     {
         #region Constructors
 
         public ChartView()
         {
+            Initialize();
+        }
+
+        [Preserve]
+        public ChartView(IntPtr handle) : base(handle)
+        {
+        }
+
+        public override void AwakeFromNib()
+        {
+            base.AwakeFromNib();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
 #if __IOS__
-            this.BackgroundColor = UIColor.Clear;
+this.BackgroundColor = UIColor.Clear;
 #endif
             this.PaintSurface += OnPaintCanvas;
         }

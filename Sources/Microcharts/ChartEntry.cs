@@ -4,21 +4,19 @@
 namespace Microcharts
 {
     using SkiaSharp;
-    using System;
 
     /// <summary>
     /// A data entry for a chart.
     /// </summary>
-    [Obsolete("This class is obsolete as of 0.8.4-pre, please use ChartEntry class instead to avoid conflicts with Xamarin.Forms.Entry.")]
-    public class Entry
+    public class ChartEntry
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.Entry"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.ChartEntry"/> class.
         /// </summary>
         /// <param name="value">The entry value.</param>
-        public Entry(float value)
+        public ChartEntry(float value)
         {
             this.Value = value;
         }

@@ -65,8 +65,8 @@ namespace Microcharts
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
             var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-            var rightValues = new List<Entry>();
-            var leftValues = new List<Entry>();
+            var rightValues = new List<ChartEntry>();
+            var leftValues = new List<ChartEntry>();
 
             int i = 0;
             var current = 0.0f;
