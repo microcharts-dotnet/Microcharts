@@ -84,13 +84,13 @@ namespace Microcharts
         {
             if (this.Entries != null)
             {
-                var labels = this.Entries.Select(x => x.Label).ToArray();
+                var labels = this.Entries.Select(x => x.Label).ToArray(); 
                 var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
-
+                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
+                
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
+                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
 
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
@@ -239,45 +239,45 @@ namespace Microcharts
                                 var bounds = sizes[i];
                                 var text = texts[i];
 
-                                if (orientation == Orientation.Vertical)
+                                if (text != null)
                                 {
-                                    var y = point.Y;
-                                    if (isTop)
+                                    if (orientation == Orientation.Vertical)
                                     {
-                                        y -= bounds.Width;
-                                    }
+                                        var y = point.Y;
+                                        if (isTop)
+                                        {
+                                            y -= bounds.Width;
+                                        }
 
-                                    canvas.RotateDegrees(90);
-                                    canvas.Translate(y, -point.X + (bounds.Height / 2));
-                                }
-                                else
-                                {
-                                    if (bounds.Width > itemSize.Width)
-                                    {
-                                        text = text.Substring(0, Math.Min(3, text.Length));
-                                        paint.MeasureText(text, ref bounds);
-                                    }
-
-                                    if (bounds.Width > itemSize.Width)
-                                    {
-                                        text = text.Substring(0, Math.Min(1, text.Length));
-                                        paint.MeasureText(text, ref bounds);
-                                    }
-
-                                    var y = point.Y;
-                                    if (isTop)
-                                    {
-                                        y -= bounds.Height;
+                                        canvas.RotateDegrees(90);
+                                        canvas.Translate(y, -point.X + (bounds.Height / 2));
                                     }
                                     else
                                     {
-                                        y += (int)avgHeightAdustment;
+                                        if (bounds.Width > itemSize.Width)
+                                        {
+                                            text = text.Substring(0, Math.Min(3, text.Length));
+                                            paint.MeasureText(text, ref bounds);
+                                        }
+
+                                        if (bounds.Width > itemSize.Width)
+                                        {
+                                            text = text.Substring(0, Math.Min(1, text.Length));
+                                            paint.MeasureText(text, ref bounds);
+                                        }
+
+
+                                        var y = point.Y;
+                                        if (isTop)
+                                        {
+                                            y -= bounds.Height;
+                                        }
+
+                                        canvas.Translate(point.X - (bounds.Width / 2), y);
                                     }
 
-                                    canvas.Translate(point.X - (bounds.Width / 2), y);
+                                    canvas.DrawText(text, 0, 0, paint);
                                 }
-
-                                canvas.DrawText(text, 0, 0, paint);
                             }
                         }
                     }
@@ -290,11 +290,12 @@ namespace Microcharts
         /// </summary>
         /// <returns>The footer height.</returns>
         /// <param name="valueLabelSizes">Value label sizes.</param>
-        protected float CalculateFooterHeaderHeight(SKRect[] valueLabelSizes, Orientation orientation)
+        /// <param name="labels">Value labels.</param>
+        protected float CalculateFooterHeaderHeight(SKRect[] valueLabelSizes, Orientation orientation, string[] labels)
         {
             var result = this.Margin;
 
-            if (this.Entries.Any(e => !string.IsNullOrEmpty(e.Label)))
+            if (labels.Any(e => !string.IsNullOrEmpty(e)))
             {
                 if (orientation == Orientation.Vertical)
                 {
