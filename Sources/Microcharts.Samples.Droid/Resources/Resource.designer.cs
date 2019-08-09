@@ -26,7 +26,6 @@ namespace Microcharts.Samples.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Microcharts.Droid.Resource.String.library_name = global::Microcharts.Samples.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -1959,14 +1958,11 @@ namespace Microcharts.Samples.Droid
 			// aapt resource value: 0x7f060012
 			public const int abc_toolbar_collapse_description = 2131099666;
 			
-			// aapt resource value: 0x7f060016
-			public const int app_name = 2131099670;
-			
 			// aapt resource value: 0x7f060015
-			public const int hello = 2131099669;
+			public const int app_name = 2131099669;
 			
 			// aapt resource value: 0x7f060014
-			public const int library_name = 2131099668;
+			public const int hello = 2131099668;
 			
 			// aapt resource value: 0x7f060013
 			public const int status_bar_notification_info_overflow = 2131099667;

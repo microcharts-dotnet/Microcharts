@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -128,6 +128,8 @@
     <ProjectReference Include="..\Microcharts.iOS\Microcharts.iOS.csproj">
       <Project>{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909}</Project>
       <Name>Microcharts.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">
       <Project>{DE24E243-1C2C-4923-8B2E-53F7B2ABC814}</Project>
