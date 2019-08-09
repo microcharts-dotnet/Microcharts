@@ -11,6 +11,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/MoneyFox/Microcharts</RepositoryUrl>
     <PackageTags>xamarin ios android xamarin.forms chart graph skia</PackageTags>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
