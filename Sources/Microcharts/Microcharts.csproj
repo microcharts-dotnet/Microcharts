@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Description>This is a fork of the Microcharts repository for the MoneyFox project due to some blocking issues with the current package. Feel free to use this package and send PR's. We will do our best to create pull requests back to the main repository as soon as they have time again.</Description>
+    <Company>Apply Solutions</Company>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/MoneyFox/Microcharts</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MoneyFox/Microcharts</RepositoryUrl>
+    <RepositoryType></RepositoryType>
+    <PackageTags>xamarin ios android xamarin.forms chart graph skia</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -15,6 +23,13 @@
 
   <ItemGroup>
     <Content Update="**\.DS_Store" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <Import Project="..\Microcharts.Shared\Microcharts.Shared.projitems" Label="Shared" Condition="Exists('..\Microcharts.Shared\Microcharts.Shared.projitems')" />
