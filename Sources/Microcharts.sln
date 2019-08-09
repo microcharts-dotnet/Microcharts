@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Uwp", "Microcha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Uwp", "Microcharts.Samples.Uwp\Microcharts.Samples.Uwp.csproj", "{33901013-B4A3-4182-9048-49F2CF940429}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microcharts.Shared", "Microcharts.Shared\Microcharts.Shared.shproj", "{818A5879-1440-4B4E-B132-8DF4CBBE0B7B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{3D966807-08D2-47A6-94C2-93B0A8AF2ECE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}"
@@ -42,12 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Forms", "Microc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.macOS", "Microcharts.Samples.Forms.macOS\Microcharts.Samples.Forms.macOS.csproj", "{5765ED35-AD7E-49BB-8701-B45D3C949501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms", "Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj", "{0CB3DFCC-8EA4-4342-9371-9A5209AFB1A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Forms", "Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj", "{0CB3DFCC-8EA4-4342-9371-9A5209AFB1A5}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Microcharts.Shared\Microcharts.Shared.projitems*{818a5879-1440-4b4e-b132-8df4cbbe0b7b}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
