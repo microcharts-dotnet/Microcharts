@@ -14,15 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microcharts">
-      <HintPath>..\Microcharts.Forms\bin\Debug\netstandard1.4\Microcharts.dll</HintPath>
-    </Reference>
-    <Reference Include="Microcharts.Forms">
-      <HintPath>..\Microcharts.Forms\bin\Debug\netstandard1.4\Microcharts.Forms.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="SkiaSharp">
       <Version>1.59.1</Version>
     </PackageReference>
@@ -44,6 +35,12 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>2.4.0.280</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microcharts.Forms\Microcharts.Forms.csproj" />
+    <ProjectReference Include="..\Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj" />
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
   </ItemGroup>
 
 </Project>
