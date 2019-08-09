@@ -10,6 +10,8 @@
     <RepositoryUrl>https://github.com/MoneyFox/Microcharts</RepositoryUrl>
     <RepositoryType></RepositoryType>
     <PackageTags>xamarin ios android xamarin.forms chart graph skia</PackageTags>
+    <PackageId>MoneyFox.Microcharts</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -23,6 +25,12 @@
 
   <ItemGroup>
     <Content Update="**\.DS_Store" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Layouts\" />
   </ItemGroup>
 
   <ItemGroup>
