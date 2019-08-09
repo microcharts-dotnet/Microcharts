@@ -17,6 +17,9 @@ namespace Microcharts
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microcharts.BarChart"/> class.
+        /// </summary>
         public BarChart()
         {
             this.PointSize = 0;
@@ -44,18 +47,26 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var valueLabelSizes = MeasureValueLabels();
-            var footerHeight = CalculateFooterHeight(valueLabelSizes);
-            var headerHeight = CalculateHeaderHeight(valueLabelSizes);
-            var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
-            var origin = CalculateYOrigin(itemSize.Height, headerHeight);
-            var points = this.CalculatePoints(itemSize, origin, headerHeight);
+            if (this.Entries != null)
+            {
+                var labels = this.Entries.Select(x => x.Label).ToArray();
+                var labelSizes = this.MeasureLabels(labels);
+                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
 
-            this.DrawBarAreas(canvas, points, itemSize, headerHeight);
-            this.DrawBars(canvas, points, itemSize, origin, headerHeight);
-            this.DrawPoints(canvas, points);
-            this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-            this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+                var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
+                var valueLabelSizes = this.MeasureLabels(valueLabels);
+                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
+
+                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = this.CalculatePoints(itemSize, origin, headerHeight);
+
+                this.DrawBarAreas(canvas, points, itemSize, headerHeight);
+                this.DrawBars(canvas, points, itemSize, origin, headerHeight);
+                this.DrawPoints(canvas, points);
+                this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
+                this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
+            }
         }
 
         /// <summary>
@@ -120,7 +131,7 @@ namespace Microcharts
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
-                        Color = entry.Color.WithAlpha(this.BarAreaAlpha),
+                        Color = entry.Color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress)),
                     })
                     {
                         var max = entry.Value > 0 ? headerHeight : headerHeight + itemSize.Height;

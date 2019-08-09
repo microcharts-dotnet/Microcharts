@@ -6,6 +6,7 @@ namespace Microcharts
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Microcharts.Layouts;
     using SkiaSharp;
 
     /// <summary>
@@ -21,7 +22,12 @@ namespace Microcharts
         /// Gets or sets the radius of the hole in the center of the chart.
         /// </summary>
         /// <value>The hole radius.</value>
-        public float HoleRadius { get; set; } = 0;
+        public float HoleRadius { get; set; } = 0.5f;
+
+        /// <summary>
+        /// Gets or sets a value whether the caption elements should all reside on the right side.
+        /// </summary>
+        public LabelMode LabelMode { get; set; } = LabelMode.LeftAndRight;
 
         #endregion
 
@@ -29,37 +35,69 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            this.DrawCaption(canvas, width, height);
-            using (new SKAutoCanvasRestore(canvas))
+            if (this.Entries != null)
             {
-                canvas.Translate(width / 2, height / 2);
-                var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-                var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
-
-                var start = 0.0f;
-                for (int i = 0; i < this.Entries.Count(); i++)
+                this.DrawCaption(canvas, width, height);
+                using (new SKAutoCanvasRestore(canvas))
                 {
-                    var entry = this.Entries.ElementAt(i);
-                    var end = start + (Math.Abs(entry.Value) / sumValue);
-
-                    // Sector
-                    var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
-                    using (var paint = new SKPaint
+                    if (this.DrawDebugRectangles)
                     {
-                        Style = SKPaintStyle.Fill,
-                        Color = entry.Color,
-                        IsAntialias = true,
-                    })
-                    {
-                        canvas.DrawPath(path, paint);
+                        using (var paint = new SKPaint
+                        {
+                            Color = SKColors.Red,
+                            IsStroke = true,
+                        })
+                        {
+                            canvas.DrawRect(this.DrawableChartArea, paint);
+                        }
                     }
 
-                    start = end;
+                    canvas.Translate(this.DrawableChartArea.Left + this.DrawableChartArea.Width / 2, height / 2);
+                    var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+                    var radius = (Math.Min(this.DrawableChartArea.Width, this.DrawableChartArea.Height) - (2 * Margin)) / 2;
+
+                    var start = 0.0f;
+                    for (int i = 0; i < this.Entries.Count(); i++)
+                    {
+                        var entry = this.Entries.ElementAt(i);
+                        var end = start + ((Math.Abs(entry.Value) / sumValue) * this.AnimationProgress);
+
+                        // Sector
+                        var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
+                        using (var paint = new SKPaint
+                        {
+                            Style = SKPaintStyle.Fill,
+                            Color = entry.Color,
+                            IsAntialias = true,
+                        })
+                        {
+                            canvas.DrawPath(path, paint);
+                        }
+
+                        start = end;
+                    }
                 }
             }
         }
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
+        {
+            switch (this.LabelMode)
+            {
+                case LabelMode.None:
+                    return;
+
+                case LabelMode.RightOnly:
+                    this.DrawCaptionElements(canvas, width, height, this.Entries.ToList(), false);
+                    return;
+
+                case LabelMode.LeftAndRight:
+                    this.DrawCaptionLeftAndRight(canvas, width, height);
+                    return;
+            }
+        }
+
+        private void DrawCaptionLeftAndRight(SKCanvas canvas, int width, int height)
         {
             var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
             var rightValues = new List<Entry>();

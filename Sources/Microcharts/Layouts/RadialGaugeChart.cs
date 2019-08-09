@@ -4,7 +4,6 @@
 namespace Microcharts
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using SkiaSharp;
 
@@ -35,9 +34,9 @@ namespace Microcharts
         /// <value>The start angle.</value>
         public float StartAngle { get; set; } = -90;
 
-        private float AbsoluteMinimum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
+        private float AbsoluteMinimum => this.Entries?.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x)) ?? 0;
 
-        private float AbsoluteMaximum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
+        private float AbsoluteMaximum => this.Entries?.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x)) ?? 0;
 
         private float ValueRange => this.AbsoluteMaximum - this.AbsoluteMinimum;
 
@@ -72,7 +71,7 @@ namespace Microcharts
             {
                 using (SKPath path = new SKPath())
                 {
-                    var sweepAngle = 360 * (Math.Abs(entry.Value) - this.AbsoluteMinimum) / this.ValueRange;
+                    var sweepAngle = this.AnimationProgress * 360 * (Math.Abs(entry.Value) - this.AbsoluteMinimum) / this.ValueRange;
                     path.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), this.StartAngle, sweepAngle);
                     canvas.DrawPath(path, paint);
                 }
@@ -81,41 +80,31 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            this.DrawCaption(canvas, width, height);
-
-            var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-            var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
-            var cx = width / 2;
-            var cy = height / 2;
-            var lineWidth = (this.LineSize < 0) ? (radius / ((this.Entries.Count() + 1) * 2)) : this.LineSize;
-            var radiusSpace = lineWidth * 2;
-
-            for (int i = 0; i < this.Entries.Count(); i++)
+            if (this.Entries != null)
             {
-                var entry = this.Entries.ElementAt(i);
-                var entryRadius = (i + 1) * radiusSpace;
-                this.DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
-                this.DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
+                this.DrawCaption(canvas, width, height);
+
+                var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+                var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
+                var cx = width / 2;
+                var cy = height / 2;
+                var lineWidth = (this.LineSize < 0) ? (radius / ((this.Entries.Count() + 1) * 2)) : this.LineSize;
+                var radiusSpace = lineWidth * 2;
+
+                for (int i = 0; i < this.Entries.Count(); i++)
+                {
+                    var entry = this.Entries.ElementAt(i);
+                    var entryRadius = (i + 1) * radiusSpace;
+                    this.DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
+                    this.DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
+                } 
             }
         }
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
-            var range = this.ValueRange;
-            var rightValues = new List<Entry>();
-            var leftValues = new List<Entry>();
-
-            foreach (var entry in this.Entries)
-            {
-                if (Math.Abs(entry.Value) < range / 2)
-                {
-                    rightValues.Add(entry);
-                }
-                else
-                {
-                    leftValues.Add(entry);
-                }
-            }
+            var rightValues = this.Entries.Take(Entries.Count() / 2).ToList();
+            var leftValues = this.Entries.Skip(rightValues.Count()).ToList();
 
             leftValues.Reverse();
 

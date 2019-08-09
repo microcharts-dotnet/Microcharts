@@ -28,12 +28,28 @@ namespace Microcharts
         /// <value>The size of the line.</value>
         public float LineSize { get; set; } = 3;
 
+        /// <summary>
+        /// Gets or sets the color of the border line.
+        /// </summary>
+        /// <value>The color of the border line.</value>
         public SKColor BorderLineColor { get; set; } = SKColors.LightGray.WithAlpha(110);
 
+        /// <summary>
+        /// Gets or sets the size of the border line.
+        /// </summary>
+        /// <value>The size of the border line.</value>
         public float BorderLineSize { get; set; } = 2;
 
+        /// <summary>
+        /// Gets or sets the point mode.
+        /// </summary>
+        /// <value>The point mode.</value>
         public PointMode PointMode { get; set; } = PointMode.Circle;
 
+        /// <summary>
+        /// Gets or sets the size of the points.
+        /// </summary>
+        /// <value>The size of the point.</value>
         public float PointSize { get; set; } = 14;
 
         private float AbsoluteMinimum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
@@ -48,7 +64,7 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var total = this.Entries.Count();
+            var total = this.Entries?.Count() ?? 0;
 
             if (total > 0)
             {
@@ -85,66 +101,77 @@ namespace Microcharts
 
                 var nextEntry = this.Entries.First();
                 var nextAngle = startAngle;
-                var nextPoint = this.GetPoint(nextEntry.Value, center, nextAngle, radius);
+                var nextPoint = this.GetPoint(nextEntry.Value * this.AnimationProgress, center, nextAngle, radius);
 
                 this.DrawBorder(canvas, center, radius);
 
-                for (int i = 0; i < total; i++)
+                using (var clip = new SKPath())
                 {
-                    var angle = nextAngle;
-                    var entry = nextEntry;
-                    var point = nextPoint;
+                    clip.AddCircle(center.X, center.Y, radius);
 
-                    var nextIndex = (i + 1) % total;
-                    nextAngle = startAngle + (rangeAngle * nextIndex);
-                    nextEntry = this.Entries.ElementAt(nextIndex);
-                    nextPoint = this.GetPoint(nextEntry.Value, center, nextAngle, radius);
+                    for (int i = 0; i < total; i++)
+                    {
+                        var angle = nextAngle;
+                        var entry = nextEntry;
+                        var point = nextPoint;
 
-                    // Border center bars
-                    using (var paint = new SKPaint()
-                    {
-                        Style = SKPaintStyle.Stroke,
-                        StrokeWidth = this.BorderLineSize,
-                        Color = this.BorderLineColor,
-                        IsAntialias = true,
-                    })
-                    {
-                        var borderPoint = this.GetPoint(this.MaxValue, center, angle, radius);
-                        canvas.DrawLine(point.X, point.Y, borderPoint.X, borderPoint.Y, paint);
+                        var nextIndex = (i + 1) % total;
+                        nextAngle = startAngle + (rangeAngle * nextIndex);
+                        nextEntry = this.Entries.ElementAt(nextIndex);
+                        nextPoint = this.GetPoint(nextEntry.Value * this.AnimationProgress, center, nextAngle, radius);
+
+                        canvas.Save();
+                        canvas.ClipPath(clip);
+
+                        // Border center bars
+                        using (var paint = new SKPaint()
+                        {
+                            Style = SKPaintStyle.Stroke,
+                            StrokeWidth = this.BorderLineSize,
+                            Color = this.BorderLineColor,
+                            IsAntialias = true,
+                        })
+                        {
+                            var borderPoint = this.GetPoint(this.MaxValue, center, angle, radius);
+                            canvas.DrawLine(point.X, point.Y, borderPoint.X, borderPoint.Y, paint);
+                        }
+
+                        // Values points and lines
+                        using (var paint = new SKPaint()
+                        {
+                            Style = SKPaintStyle.Stroke,
+                            StrokeWidth = this.BorderLineSize,
+                            Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f * this.AnimationProgress)),
+                            PathEffect = SKPathEffect.CreateDash(new[] { this.BorderLineSize, this.BorderLineSize * 2 }, 0),
+                            IsAntialias = true,
+                        })
+                        {
+                            var amount = Math.Abs(entry.Value - this.AbsoluteMinimum) / this.ValueRange;
+                            canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
+                        }
+
+                        canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), this.LineSize);
+                        canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, this.LineSize);
+                        canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
+
+                        canvas.Restore();
+
+                        // Labels
+                        var labelPoint = new SKPoint(0, radius + this.LabelTextSize + (this.PointSize / 2));
+                        var rotation = SKMatrix.MakeRotation(angle);
+                        labelPoint = center + rotation.MapPoint(labelPoint);
+                        var alignment = SKTextAlign.Left;
+
+                        if ((Math.Abs(angle - (startAngle + Math.PI)) < Epsilon) || (Math.Abs(angle - Math.PI) < Epsilon))
+                        {
+                            alignment = SKTextAlign.Center;
+                        } else if (angle > (float)(startAngle + Math.PI))
+                        {
+                            alignment = SKTextAlign.Right;
+                        }
+
+                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * this.AnimationProgress)), this.LabelTextSize, labelPoint, alignment, base.Typeface, out var _);
                     }
-
-                    // Values points and lines
-                    using (var paint = new SKPaint()
-                    {
-                        Style = SKPaintStyle.Stroke,
-                        StrokeWidth = this.BorderLineSize,
-                        Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)),
-                        PathEffect = SKPathEffect.CreateDash(new[] { this.BorderLineSize, this.BorderLineSize * 2 }, 0),
-                        IsAntialias = true,
-                    })
-                    {
-                        var amount = Math.Abs(entry.Value - this.AbsoluteMinimum) / this.ValueRange;
-                        canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
-                    }
-
-                    canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), this.LineSize);
-                    canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, this.LineSize);
-                    canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
-
-                    // Labels
-                    var labelPoint = this.GetPoint(this.MaxValue, center, angle, radius + this.LabelTextSize  + (this.PointSize / 2));
-                    var alignment = SKTextAlign.Left;
-
-                    if ((Math.Abs(angle - (startAngle + Math.PI)) < Epsilon) || (Math.Abs(angle - Math.PI) < Epsilon))
-                    {
-                        alignment = SKTextAlign.Center;
-                    }
-                    else if (angle > (float)(startAngle + Math.PI))
-                    {
-                        alignment = SKTextAlign.Right;
-                    }
-
-                    canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color, this.LabelTextSize, labelPoint, alignment);
                 }
             }
         }

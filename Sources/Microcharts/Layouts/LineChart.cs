@@ -15,6 +15,9 @@ namespace Microcharts
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microcharts.LineChart"/> class.
+        /// </summary>
         public LineChart()
         {
             this.PointSize = 10;
@@ -48,18 +51,26 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var valueLabelSizes = MeasureValueLabels();
-            var footerHeight = CalculateFooterHeight(valueLabelSizes);
-            var headerHeight = CalculateHeaderHeight(valueLabelSizes);
-            var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
-            var origin = CalculateYOrigin(itemSize.Height, headerHeight);
-            var points = this.CalculatePoints(itemSize, origin, headerHeight);
+            if (this.Entries != null)
+            {
+                var labels = this.Entries.Select(x => x.Label).ToArray();
+                var labelSizes = this.MeasureLabels(labels);
+                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
 
-            this.DrawArea(canvas, points, itemSize, origin);
-            this.DrawLine(canvas, points, itemSize);
-            this.DrawPoints(canvas, points);
-            this.DrawFooter(canvas, points, itemSize, height, footerHeight);
-            this.DrawValueLabel(canvas, points, itemSize, height, valueLabelSizes);
+                var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
+                var valueLabelSizes = this.MeasureLabels(valueLabels);
+                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
+
+                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = this.CalculatePoints(itemSize, origin, headerHeight);
+
+                this.DrawArea(canvas, points, itemSize, origin);
+                this.DrawLine(canvas, points, itemSize);
+                this.DrawPoints(canvas, points);
+                this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
+                this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
+            }
         }
 
         protected void DrawLine(SKCanvas canvas, SKPoint[] points, SKSize itemSize)
@@ -115,7 +126,7 @@ namespace Microcharts
                     IsAntialias = true,
                 })
                 {
-                    using (var shader = this.CreateGradient(points, this.LineAreaAlpha))
+                    using (var shader = this.CreateGradient(points, (byte)(this.LineAreaAlpha * this.AnimationProgress)))
                     {
                         paint.Shader = shader;
 
