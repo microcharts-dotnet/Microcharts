@@ -65,12 +65,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj">
-      <Project>{F67B4BE6-40F0-4F99-A8BC-F1A5E0BC95D4}</Project>
-      <Name>Microcharts.Samples.Forms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="SkiaSharp">
       <Version>1.59.1</Version>
     </PackageReference>
@@ -83,6 +77,12 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>2.4.0.280</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj">
+      <Project>{0cb3dfcc-8ea4-4342-9371-9a5209afb1a5}</Project>
+      <Name>Microcharts.Samples.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
