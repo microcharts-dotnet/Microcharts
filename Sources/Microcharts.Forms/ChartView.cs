@@ -5,34 +5,77 @@ namespace Microcharts.Forms
 {
 	using Xamarin.Forms;
 	using SkiaSharp.Views.Forms;
+    using SkiaSharp;
 
     public class ChartView : SKCanvasView
-	{
-		public ChartView()
-		{
-			this.BackgroundColor = Color.Transparent;
-			this.PaintSurface += OnPaintCanvas;
-		}
+    {
+        #region Constructors
 
-		public static readonly BindableProperty ChartProperty = BindableProperty.Create(nameof(Chart), typeof(Chart), typeof(ChartView), null, propertyChanged: OnChartChanged);
+        public ChartView()
+        {
+            this.BackgroundColor = Color.Transparent;
+            this.PaintSurface += OnPaintCanvas;
+        }
 
-		public Chart Chart
-		{
-			get { return (Chart)GetValue(ChartProperty); }
-			set { SetValue(ChartProperty, value); }
-		}
+        #endregion
 
-		private static void OnChartChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			((ChartView)bindable).InvalidateSurface();
-		}
+        #region Static fields
 
-		private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
-		{
-			if (this.Chart != null)
-			{
-				this.Chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
-			}
-		}
-	}
+        public static readonly BindableProperty ChartProperty = BindableProperty.Create(nameof(Chart), typeof(Chart), typeof(ChartView), null, propertyChanged: OnChartChanged);
+
+        #endregion
+
+        #region Fields
+
+        private InvalidatedWeakEventHandler<ChartView> handler;
+
+        private Chart chart;
+
+        #endregion
+
+        #region Properties
+
+        public Chart Chart
+        {
+            get { return (Chart)GetValue(ChartProperty); }
+            set { SetValue(ChartProperty, value); }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static void OnChartChanged(BindableObject d, object oldValue, object value)
+        {
+            var view = d as ChartView;
+
+            if (view.chart != null)
+            {
+                view.handler.Dispose();
+                view.handler = null;
+            }
+
+            view.chart = value as Chart;
+            view.InvalidateSurface();
+
+            if (view.chart != null)
+            {
+                view.handler = view.chart.ObserveInvalidate(view, (v) => v.InvalidateSurface());
+            }
+        }
+
+        private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
+        {
+            if (this.chart != null)
+            {
+                this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+            }
+            else
+            {
+                e.Surface.Canvas.Clear(SKColors.Transparent);
+            }
+        }
+
+        #endregion
+    }
 }
