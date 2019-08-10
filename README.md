@@ -9,15 +9,16 @@
 ## Install
 
 Available on NuGet
+NOTE: Since we had blocking issues with the nuget packages from the main repo we published our own.
 
-**NET Standard 1.4, Xamarin.iOS, Xamarin.Android, UWP**
+**NET Standard 2.0, Xamarin.iOS, Xamarin.Android, UWP**
 
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/MoneyFox.Microcharts/)
 
 
-**Xamarin.Forms (.NET Standard 1.4)**
+**Xamarin.Forms (.NET Standard 2.0)**
 
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/MoneyFox.Microcharts.Forms/)
 
 ## Quickstart
 
