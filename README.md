@@ -10,14 +10,14 @@
 
 Available on NuGet
 
-**NET Standard 2.0, Xamarin.iOS, Xamarin.Android, UWP**
+**NET Standard 1.4, Xamarin.iOS, Xamarin.Android, UWP**
 
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/MoneyFox.Microcharts/)
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
 
 
-**Xamarin.Forms (.NET Standard 2.0)**
+**Xamarin.Forms (.NET Standard 1.4)**
 
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/MoneyFox.Microcharts.Forms/)
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
 ## Quickstart
 
@@ -211,7 +211,7 @@ Those charts have a `Draw` method for platforms that haven't built in views.
 
 ## Compatibility
 
-Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**, but any other **.NET Standard 2.0** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
+Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**, but any other **.NET Standard 1.4** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
 
 ## About
 
