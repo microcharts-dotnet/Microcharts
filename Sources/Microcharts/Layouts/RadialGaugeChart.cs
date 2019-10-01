@@ -108,8 +108,8 @@ namespace Microcharts
 
             leftValues.Reverse();
 
-            this.DrawCaptionElements(canvas, width, height, rightValues, false);
-            this.DrawCaptionElements(canvas, width, height, leftValues, true);
+            this.DrawCaptionElements(canvas, width, height, rightValues, false, false);
+            this.DrawCaptionElements(canvas, width, height, leftValues, true, false);
         }
 
         #endregion

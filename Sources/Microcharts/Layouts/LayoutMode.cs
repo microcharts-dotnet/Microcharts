@@ -6,4 +6,10 @@
         LeftAndRight,
         RightOnly,
     }
+
+    public enum GraphPosition
+    {
+        AutoFill,
+        Center,
+    }
 }

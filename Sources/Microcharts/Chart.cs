@@ -301,13 +301,12 @@ namespace Microcharts
         /// <param name="height">The height.</param>
         /// <param name="entries">The entries.</param>
         /// <param name="isLeft">If set to <c>true</c> is left.</param>
-        protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<Entry> entries, bool isLeft)
+        protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<Entry> entries, bool isLeft, bool isGraphCentered)
         {
             var totalMargin = 2 * this.Margin;
             var availableHeight = height - (2 * totalMargin);
             var x = isLeft ? this.Margin : (width - this.Margin - this.LabelTextSize);
             var ySpace = (availableHeight - this.LabelTextSize) / ((entries.Count <= 1) ? 1 : entries.Count - 1);
-
             for (int i = 0; i < entries.Count; i++)
             {
                 var entry = entries.ElementAt(i);
@@ -319,12 +318,11 @@ namespace Microcharts
 
                 var hasLabel = !string.IsNullOrEmpty(entry.Label);
                 var hasValueLabel = !string.IsNullOrEmpty(entry.ValueLabel);
-
+              
                 if (hasLabel || hasValueLabel)
                 {
                     var hasOffset = hasLabel && hasValueLabel;
                     var captionMargin = this.LabelTextSize * 0.60f;
-                    var space = hasOffset ? captionMargin : 0;
                     var captionX = isLeft ? this.Margin : width - this.Margin - this.LabelTextSize;
                     var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * this.AnimationProgress));
                     var labelColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * this.AnimationProgress));
@@ -347,9 +345,9 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, this.Typeface, out var labelBounds);
+                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, this.Typeface, out var labelBounds);     
                     labelBounds.Union(rect);
-
+              
                     if (this.DrawDebugRectangles)
                     {
                         using (var paint = new SKPaint
@@ -366,8 +364,15 @@ namespace Microcharts
                     if (isLeft)
                         this.DrawableChartArea = new SKRect(Math.Max(this.DrawableChartArea.Left, labelBounds.Right), 0, this.DrawableChartArea.Right, this.DrawableChartArea.Bottom);
                     else
-                        this.DrawableChartArea = new SKRect(0, 0, Math.Min(this.DrawableChartArea.Right, labelBounds.Left), this.DrawableChartArea.Bottom);
+                    {   // Draws the chart centered for right labelmode only
+                        var left = isGraphCentered == true ? Math.Abs(width - this.DrawableChartArea.Right) : 0;
+                        this.DrawableChartArea = new SKRect(left, 0, Math.Min(this.DrawableChartArea.Right, labelBounds.Left), this.DrawableChartArea.Bottom);
+                    }
                 }
+            }
+            if (entries.Count == 0 && isGraphCentered)
+            {   // Draws the chart centered if there isn't any left values
+                this.DrawableChartArea = new SKRect(Math.Abs(width - this.DrawableChartArea.Right), 0, this.DrawableChartArea.Right, this.DrawableChartArea.Bottom);
             }
         }
 

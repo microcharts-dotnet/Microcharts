@@ -29,6 +29,11 @@ namespace Microcharts
         /// </summary>
         public LabelMode LabelMode { get; set; } = LabelMode.LeftAndRight;
 
+        /// <summary>
+        /// Gets or sets whether the graph should be drawn in the center or automatically fill the space.
+        /// </summary>
+        public GraphPosition GraphPosition { get; set; } = GraphPosition.AutoFill;
+
         #endregion
 
         #region Methods
@@ -82,22 +87,25 @@ namespace Microcharts
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
+            var isGraphCentered =
+                GraphPosition == GraphPosition.Center;
+
             switch (this.LabelMode)
             {
                 case LabelMode.None:
                     return;
 
                 case LabelMode.RightOnly:
-                    this.DrawCaptionElements(canvas, width, height, this.Entries.ToList(), false);
+                    this.DrawCaptionElements(canvas, width, height, this.Entries.ToList(), false, isGraphCentered);
                     return;
 
                 case LabelMode.LeftAndRight:
-                    this.DrawCaptionLeftAndRight(canvas, width, height);
+                    this.DrawCaptionLeftAndRight(canvas, width, height, isGraphCentered);
                     return;
             }
         }
 
-        private void DrawCaptionLeftAndRight(SKCanvas canvas, int width, int height)
+        private void DrawCaptionLeftAndRight(SKCanvas canvas, int width, int height, bool isGraphCentered)
         {
             var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
             var rightValues = new List<Entry>();
@@ -122,10 +130,9 @@ namespace Microcharts
 
             leftValues.Reverse();
 
-            this.DrawCaptionElements(canvas, width, height, rightValues, false);
-            this.DrawCaptionElements(canvas, width, height, leftValues, true);
+            this.DrawCaptionElements(canvas, width, height, rightValues, false, isGraphCentered);
+            this.DrawCaptionElements(canvas, width, height, leftValues, true, isGraphCentered);
         }
-
         #endregion
     }
 }

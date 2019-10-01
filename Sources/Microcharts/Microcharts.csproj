@@ -12,6 +12,7 @@
     <PackageTags>xamarin ios android xamarin.forms chart graph skia</PackageTags>
     <PackageId>MoneyFox.Microcharts</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
