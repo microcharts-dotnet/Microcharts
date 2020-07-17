@@ -1,9 +1,7 @@
 using System;
 using Foundation;
 using SkiaSharp;
-using UIKit;
 using SkiaSharp.Views.Mac;
-using System.Diagnostics;
 
 namespace Microcharts.macOS
 {

@@ -1,4 +1,4 @@
-﻿namespace Microcharts.Constants
+﻿namespace Microcharts
 {
     public enum Orientation
     {

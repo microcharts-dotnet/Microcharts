@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// A chart.
@@ -180,7 +180,7 @@ namespace Microcharts.Charts
         }
 
         /// <summary>
-        /// Gets or sets the minimum value from entries. If not defined, it will be the minimum between zero and the 
+        /// Gets or sets the minimum value from entries. If not defined, it will be the minimum between zero and the
         /// minimal entry value.
         /// </summary>
         /// <value>The minimum value.</value>
@@ -205,7 +205,7 @@ namespace Microcharts.Charts
         }
 
         /// <summary>
-        /// Gets or sets the maximum value from entries. If not defined, it will be the maximum between zero and the 
+        /// Gets or sets the maximum value from entries. If not defined, it will be the maximum between zero and the
         /// maximum entry value.
         /// </summary>
         /// <value>The minimum value.</value>

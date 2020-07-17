@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// ![chart](../images/Bar.png)

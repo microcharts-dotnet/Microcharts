@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>0.9.0</Version>
+    <AssemblyVersion>0.9.0.0</AssemblyVersion>
+    <FileVersion>0.9.0.0</FileVersion>
     <PackageProjectUrl>https://github.com/aloisdeniel/Microcharts/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/aloisdeniel/Microcharts/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/aloisdeniel/Microcharts/</RepositoryUrl>
@@ -25,7 +25,7 @@
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="2.80.1" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="StyleCop.MSBuild" Version="6.1.0" />
+    <PackageReference Include="StyleCop.MSBuild" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>

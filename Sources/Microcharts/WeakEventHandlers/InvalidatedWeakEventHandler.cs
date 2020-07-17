@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Microcharts.Charts;
-
 namespace Microcharts
 {
     using System;
 
     /// <summary>
     /// A lightweight proxy instance that will subscribe to a given event with a weak reference to the subscribed target.
-    /// If the subscriber is garbage collected, then only this WeakEventHandler will remain subscribed and keeped 
+    /// If the subscriber is garbage collected, then only this WeakEventHandler will remain subscribed and keeped
     /// in memory instead of the actual subscriber.
     /// This could be considered as an acceptable solution in most cases.
     /// </summary>

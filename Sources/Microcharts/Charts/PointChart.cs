@@ -4,10 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microcharts.Constants;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// ![chart](../images/Point.png)

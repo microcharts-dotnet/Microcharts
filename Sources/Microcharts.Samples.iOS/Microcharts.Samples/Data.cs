@@ -1,11 +1,8 @@
-﻿using Microcharts.Charts;
-using Microcharts.Constants;
+﻿using System.Linq;
+using SkiaSharp;
 
 namespace Microcharts.Samples
 {
-    using SkiaSharp;
-    using System.Linq;
-
     public static class Data
     {
         #region Colors

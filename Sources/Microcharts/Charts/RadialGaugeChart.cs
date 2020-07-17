@@ -5,11 +5,11 @@ using System;
 using System.Linq;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// ![chart](../images/RadialGauge.png)
-    /// 
+    ///
     /// Radial gauge chart.
     /// </summary>
     public class RadialGaugeChart : Chart

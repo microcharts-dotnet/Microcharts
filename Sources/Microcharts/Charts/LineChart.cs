@@ -2,14 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Linq;
-using Microcharts.Constants;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// ![chart](../images/Line.png)
-    /// 
+    ///
     /// Line chart.
     /// </summary>
     public class LineChart : PointChart
@@ -63,7 +62,7 @@ namespace Microcharts.Charts
                 var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
                 var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
-                
+
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = this.MeasureLabels(valueLabels);
                 var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
@@ -158,7 +157,7 @@ namespace Microcharts.Charts
                                 path.LineTo(points[i]);
                             }
                         }
-                        
+
                         path.LineTo(points.Last().X, origin);
 
                         path.Close();

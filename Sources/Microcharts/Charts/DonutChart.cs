@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// ![chart](../images/Donut.png)
-    /// 
+    ///
     /// A donut chart.
     /// </summary>
     public class DonutChart : Chart

@@ -1,6 +1,4 @@
-﻿using Microcharts.Charts;
-
-namespace Microcharts.Droid
+﻿namespace Microcharts.Droid
 {
     using Android.Content;
     using SkiaSharp.Views.Android;

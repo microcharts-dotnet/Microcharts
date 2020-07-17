@@ -25,7 +25,6 @@ namespace Microcharts.Samples.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Microcharts.Droid.Resource.String.library_name = global::Microcharts.Samples.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Attribute
@@ -106,9 +105,6 @@ namespace Microcharts.Samples.Droid
 			
 			// aapt resource value: 0x7F040001
 			public const int hello = 2130968577;
-			
-			// aapt resource value: 0x7F040002
-			public const int library_name = 2130968578;
 			
 			static String()
 			{

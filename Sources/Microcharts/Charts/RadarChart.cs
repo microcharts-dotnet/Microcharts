@@ -3,14 +3,13 @@
 
 using System;
 using System.Linq;
-using Microcharts.Constants;
 using SkiaSharp;
 
-namespace Microcharts.Charts
+namespace Microcharts
 {
     /// <summary>
     /// ![chart](../images/Radar.png)
-    /// 
+    ///
     /// A radar chart.
     /// </summary>
     public class RadarChart : Chart
