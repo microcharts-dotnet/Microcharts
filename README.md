@@ -1,5 +1,7 @@
 # Microcharts
 
+**New contributor has been added and a much needed update will be available shortly, stay tuned.**
+
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
 ## Gallery
