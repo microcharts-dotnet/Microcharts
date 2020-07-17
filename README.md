@@ -14,12 +14,12 @@
 
 Available on NuGet
 
-**NET Standard 1.4, Xamarin.iOS, Xamarin.Android, UWP**
+**NET Standard 2.0, Xamarin.iOS, Xamarin.Android, UWP**
 
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
 
 
-**Xamarin.Forms (.NET Standard 1.4)**
+**Xamarin.Forms (.NET Standard 2.0)**
 
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
@@ -30,19 +30,19 @@ Available on NuGet
 ```csharp
 var entries = new[]
 {
-    new Entry(200)
+    new ChartEntry(200)
     {
         Label = "January",
         ValueLabel = "200",
         FillColor = SKColor.Parse("#266489")
     },
-    new Entry(400)
+    new ChartEntry(400)
     {
         Label = "February",
         ValueLabel = "400",
         FillColor = SKColor.Parse("#68B9C0")
     },
-    new Entry(-100)
+    new ChartEntry(-100)
     {
         Label = "March",
         ValueLabel = "-100",
@@ -216,7 +216,7 @@ Those charts have a `Draw` method for platforms that haven't built in views.
 
 ## Compatibility
 
-Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**, but any other **.NET Standard 1.4** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
+Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**, but any other **.NET Standard 2.0** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
 
 ## About
 
