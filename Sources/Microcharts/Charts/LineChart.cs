@@ -16,7 +16,7 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.Charts.LineChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.LineChart"/> class.
         /// </summary>
         public LineChart()
         {
@@ -61,11 +61,11 @@ namespace Microcharts
             {
                 var labels = this.Entries.Select(x => x.Label).ToArray();
                 var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
+                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
 
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
+                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
 
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);

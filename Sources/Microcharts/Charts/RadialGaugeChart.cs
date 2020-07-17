@@ -34,11 +34,11 @@ namespace Microcharts
         /// <value>The start angle.</value>
         public float StartAngle { get; set; } = -90;
 
-        private float AbsoluteMinimum => this.Entries?.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x)) ?? 0;
+        private float AbsoluteMinimum => Entries?.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Min(x => Math.Abs(x)) ?? 0;
 
-        private float AbsoluteMaximum => this.Entries?.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x)) ?? 0;
+        private float AbsoluteMaximum => Entries?.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x)) ?? 0;
 
-        private float ValueRange => this.AbsoluteMaximum - this.AbsoluteMinimum;
+        private float ValueRange => AbsoluteMaximum - AbsoluteMinimum;
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace Microcharts
             {
                 Style = SKPaintStyle.Stroke,
                 StrokeWidth = strokeWidth,
-                Color = entry.Color.WithAlpha(this.LineAreaAlpha),
+                Color = entry.Color.WithAlpha(LineAreaAlpha),
                 IsAntialias = true,
             })
             {
@@ -71,8 +71,8 @@ namespace Microcharts
             {
                 using (SKPath path = new SKPath())
                 {
-                    var sweepAngle = this.AnimationProgress * 360 * (Math.Abs(entry.Value) - this.AbsoluteMinimum) / this.ValueRange;
-                    path.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), this.StartAngle, sweepAngle);
+                    var sweepAngle = AnimationProgress * 360 * (Math.Abs(entry.Value) - AbsoluteMinimum) / ValueRange;
+                    path.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), StartAngle, sweepAngle);
                     canvas.DrawPath(path, paint);
                 }
             }
@@ -80,36 +80,36 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            if (this.Entries != null)
+            if (Entries != null)
             {
-                this.DrawCaption(canvas, width, height);
+                DrawCaption(canvas, width, height);
 
-                var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+                var sumValue = Entries.Sum(x => Math.Abs(x.Value));
                 var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
                 var cx = width / 2;
                 var cy = height / 2;
-                var lineWidth = (this.LineSize < 0) ? (radius / ((this.Entries.Count() + 1) * 2)) : this.LineSize;
+                var lineWidth = (LineSize < 0) ? (radius / ((Entries.Count() + 1) * 2)) : LineSize;
                 var radiusSpace = lineWidth * 2;
 
-                for (int i = 0; i < this.Entries.Count(); i++)
+                for (int i = 0; i < Entries.Count(); i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var entryRadius = (i + 1) * radiusSpace;
-                    this.DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
-                    this.DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
+                    DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
+                    DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
                 }
             }
         }
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
-            var rightValues = this.Entries.Take(Entries.Count() / 2).ToList();
-            var leftValues = this.Entries.Skip(rightValues.Count()).ToList();
+            var rightValues = Entries.Take(Entries.Count() / 2).ToList();
+            var leftValues = Entries.Skip(rightValues.Count()).ToList();
 
             leftValues.Reverse();
 
-            this.DrawCaptionElements(canvas, width, height, rightValues, false);
-            this.DrawCaptionElements(canvas, width, height, leftValues, true);
+            DrawCaptionElements(canvas, width, height, rightValues, false, false);
+            DrawCaptionElements(canvas, width, height, leftValues, true, false);
         }
 
         #endregion

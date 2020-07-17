@@ -64,11 +64,11 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            var total = this.Entries?.Count() ?? 0;
+            var total = Entries?.Count() ?? 0;
 
             if (total > 0)
             {
-                var captionHeight = this.Entries.Max(x =>
+                var captionHeight = Entries.Max(x =>
                 {
                     var result = 0.0f;
 
@@ -77,17 +77,17 @@ namespace Microcharts
                     if (hasLabel || hasValueLabel)
                     {
                         var hasOffset = hasLabel && hasValueLabel;
-                        var captionMargin = this.LabelTextSize * 0.60f;
+                        var captionMargin = LabelTextSize * 0.60f;
                         var space = hasOffset ? captionMargin : 0;
 
                         if (hasLabel)
                         {
-                            result += this.LabelTextSize;
+                            result += LabelTextSize;
                         }
 
                         if (hasValueLabel)
                         {
-                            result += this.LabelTextSize;
+                            result += LabelTextSize;
                         }
                     }
 
@@ -99,11 +99,11 @@ namespace Microcharts
                 var rangeAngle = (float)((Math.PI * 2) / total);
                 var startAngle = (float)Math.PI;
 
-                var nextEntry = this.Entries.First();
+                var nextEntry = Entries.First();
                 var nextAngle = startAngle;
-                var nextPoint = this.GetPoint(nextEntry.Value * this.AnimationProgress, center, nextAngle, radius);
+                var nextPoint = GetPoint(nextEntry.Value * AnimationProgress, center, nextAngle, radius);
 
-                this.DrawBorder(canvas, center, radius);
+                DrawBorder(canvas, center, radius);
 
                 using (var clip = new SKPath())
                 {
@@ -117,8 +117,8 @@ namespace Microcharts
 
                         var nextIndex = (i + 1) % total;
                         nextAngle = startAngle + (rangeAngle * nextIndex);
-                        nextEntry = this.Entries.ElementAt(nextIndex);
-                        nextPoint = this.GetPoint(nextEntry.Value * this.AnimationProgress, center, nextAngle, radius);
+                        nextEntry = Entries.ElementAt(nextIndex);
+                        nextPoint = GetPoint(nextEntry.Value * AnimationProgress, center, nextAngle, radius);
 
                         canvas.Save();
                         canvas.ClipPath(clip);
@@ -127,12 +127,12 @@ namespace Microcharts
                         using (var paint = new SKPaint()
                         {
                             Style = SKPaintStyle.Stroke,
-                            StrokeWidth = this.BorderLineSize,
-                            Color = this.BorderLineColor,
+                            StrokeWidth = BorderLineSize,
+                            Color = BorderLineColor,
                             IsAntialias = true,
                         })
                         {
-                            var borderPoint = this.GetPoint(this.MaxValue, center, angle, radius);
+                            var borderPoint = GetPoint(MaxValue, center, angle, radius);
                             canvas.DrawLine(point.X, point.Y, borderPoint.X, borderPoint.Y, paint);
                         }
 
@@ -140,24 +140,24 @@ namespace Microcharts
                         using (var paint = new SKPaint()
                         {
                             Style = SKPaintStyle.Stroke,
-                            StrokeWidth = this.BorderLineSize,
-                            Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f * this.AnimationProgress)),
-                            PathEffect = SKPathEffect.CreateDash(new[] { this.BorderLineSize, this.BorderLineSize * 2 }, 0),
+                            StrokeWidth = BorderLineSize,
+                            Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f * AnimationProgress)),
+                            PathEffect = SKPathEffect.CreateDash(new[] { BorderLineSize, BorderLineSize * 2 }, 0),
                             IsAntialias = true,
                         })
                         {
-                            var amount = Math.Abs(entry.Value - this.AbsoluteMinimum) / this.ValueRange;
+                            var amount = Math.Abs(entry.Value - AbsoluteMinimum) / ValueRange;
                             canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
                         }
 
-                        canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), this.LineSize);
-                        canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, this.LineSize);
-                        canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
+                        canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), LineSize);
+                        canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, LineSize);
+                        canvas.DrawPoint(point, entry.Color, PointSize, PointMode);
 
                         canvas.Restore();
 
                         // Labels
-                        var labelPoint = new SKPoint(0, radius + this.LabelTextSize + (this.PointSize / 2));
+                        var labelPoint = new SKPoint(0, radius + LabelTextSize + (PointSize / 2));
                         var rotation = SKMatrix.MakeRotation(angle);
                         labelPoint = center + rotation.MapPoint(labelPoint);
                         var alignment = SKTextAlign.Left;
@@ -171,7 +171,7 @@ namespace Microcharts
                             alignment = SKTextAlign.Right;
                         }
 
-                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * this.AnimationProgress)), this.LabelTextSize, labelPoint, alignment, base.Typeface);
+                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * AnimationProgress)), LabelTextSize, labelPoint, alignment, base.Typeface, out var _);
                     }
                 }
             }
@@ -187,7 +187,7 @@ namespace Microcharts
         /// <param name="radius">The radius.</param>
         private SKPoint GetPoint(float value, SKPoint center, float angle, float radius)
         {
-            var amount = Math.Abs(value - this.AbsoluteMinimum) / this.ValueRange;
+            var amount = Math.Abs(value - AbsoluteMinimum) / ValueRange;
             var point = new SKPoint(0, radius * amount);
             var rotation = SKMatrix.MakeRotation(angle);
             return center + rotation.MapPoint(point);
@@ -198,8 +198,8 @@ namespace Microcharts
             using (var paint = new SKPaint()
             {
                 Style = SKPaintStyle.Stroke,
-                StrokeWidth = this.BorderLineSize,
-                Color = this.BorderLineColor,
+                StrokeWidth = BorderLineSize,
+                Color = BorderLineColor,
                 IsAntialias = true,
             })
             {

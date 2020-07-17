@@ -23,29 +23,52 @@ namespace Microcharts
         /// <value>The hole radius.</value>
         public float HoleRadius { get; set; } = 0.5f;
 
+        /// <summary>
+        /// Gets or sets a value whether the caption elements should all reside on the right side.
+        /// </summary>
+        public LabelMode LabelMode { get; set; } = LabelMode.LeftAndRight;
+
+        /// <summary>
+        /// Gets or sets whether the graph should be drawn in the center or automatically fill the space.
+        /// </summary>
+        public GraphPosition GraphPosition { get; set; } = GraphPosition.AutoFill;
+
         #endregion
 
         #region Methods
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            if (this.Entries != null)
+            if (Entries != null)
             {
-                this.DrawCaption(canvas, width, height);
+                DrawCaption(canvas, width, height);
                 using (new SKAutoCanvasRestore(canvas))
                 {
-                    canvas.Translate(width / 2, height / 2);
-                    var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
-                    var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
-
-                    var start = 0.0f;
-                    for (int i = 0; i < this.Entries.Count(); i++)
+                    if (DrawDebugRectangles)
                     {
-                        var entry = this.Entries.ElementAt(i);
-                        var end = start + ((Math.Abs(entry.Value) / sumValue) * this.AnimationProgress);
+                        using (var paint = new SKPaint
+                        {
+                            Color = SKColors.Red,
+                            IsStroke = true,
+                        })
+                        {
+                            canvas.DrawRect(DrawableChartArea, paint);
+                        }
+                    }
+
+                    canvas.Translate(DrawableChartArea.Left + DrawableChartArea.Width / 2, height / 2);
+
+                    var sumValue = Entries.Sum(x => Math.Abs(x.Value));
+                    var radius = (Math.Min(DrawableChartArea.Width, DrawableChartArea.Height) - (2 * Margin)) / 2;
+                    var start = 0.0f;
+
+                    for (int i = 0; i < Entries.Count(); i++)
+                    {
+                        var entry = Entries.ElementAt(i);
+                        var end = start + ((Math.Abs(entry.Value) / sumValue) * AnimationProgress);
 
                         // Sector
-                        var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * this.HoleRadius);
+                        var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * HoleRadius);
                         using (var paint = new SKPaint
                         {
                             Style = SKPaintStyle.Fill,
@@ -64,31 +87,51 @@ namespace Microcharts
 
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
-            var sumValue = this.Entries.Sum(x => Math.Abs(x.Value));
+            var isGraphCentered = GraphPosition == GraphPosition.Center;
+            var sumValue = Entries.Sum(x => Math.Abs(x.Value));
+
+            switch (LabelMode)
+            {
+                case LabelMode.None:
+                    return;
+
+                case LabelMode.RightOnly:
+                    DrawCaptionElements(canvas, width, height, Entries.ToList(), false, isGraphCentered);
+                    return;
+
+                case LabelMode.LeftAndRight:
+                    DrawCaptionLeftAndRight(canvas, width, height, isGraphCentered);
+                    return;
+            }
+        }
+
+        private void DrawCaptionLeftAndRight(SKCanvas canvas, int width, int height, bool isGraphCentered)
+        {
+            var sumValue = Entries.Sum(x => Math.Abs(x.Value));
             var rightValues = new List<ChartEntry>();
             var leftValues = new List<ChartEntry>();
-
             int i = 0;
             var current = 0.0f;
-            while (i < this.Entries.Count() && (current < sumValue / 2))
+
+            while (i < Entries.Count() && (current < sumValue / 2))
             {
-                var entry = this.Entries.ElementAt(i);
+                var entry = Entries.ElementAt(i);
                 rightValues.Add(entry);
                 current += Math.Abs(entry.Value);
                 i++;
             }
 
-            while (i < this.Entries.Count())
+            while (i < Entries.Count())
             {
-                var entry = this.Entries.ElementAt(i);
+                var entry = Entries.ElementAt(i);
                 leftValues.Add(entry);
                 i++;
             }
 
             leftValues.Reverse();
 
-            this.DrawCaptionElements(canvas, width, height, rightValues, false);
-            this.DrawCaptionElements(canvas, width, height, leftValues, true);
+            DrawCaptionElements(canvas, width, height, rightValues, false, isGraphCentered);
+            DrawCaptionElements(canvas, width, height, leftValues, true, isGraphCentered);
         }
 
         #endregion

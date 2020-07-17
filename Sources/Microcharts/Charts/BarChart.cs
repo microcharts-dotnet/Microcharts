@@ -17,7 +17,7 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.Charts.BarChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.BarChart"/> class.
         /// </summary>
         public BarChart()
         {
@@ -50,11 +50,11 @@ namespace Microcharts
             {
                 var labels = Entries.Select(x => x.Label).ToArray();
                 var labelSizes = MeasureLabels(labels);
-                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation, labels);
+                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation);
 
                 var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
                 var valueLabelSizes = MeasureLabels(valueLabels);
-                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation, valueLabels);
+                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation);
 
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);

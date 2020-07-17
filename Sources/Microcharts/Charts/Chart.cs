@@ -45,11 +45,11 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.Charts.Chart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.Chart"/> class.
         /// </summary>
         public Chart()
         {
-            this.PropertyChanged += this.OnPropertyChanged;
+            PropertyChanged += OnPropertyChanged;
         }
 
         #endregion
@@ -71,32 +71,32 @@ namespace Microcharts
         #region Properties
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Charts.Chart"/> is animated when entries change.
+        /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Chart"/> is animated when entries change.
         /// </summary>
         /// <value><c>true</c> if is animated; otherwise, <c>false</c>.</value>
         public bool IsAnimated
         {
-            get => this.isAnimated;
+            get => isAnimated;
             set
             {
-                if (this.Set(ref this.isAnimated, value))
+                if (Set(ref isAnimated, value))
                 {
                     if (!value)
                     {
-                        this.AnimationProgress = 1;
+                        AnimationProgress = 1;
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="T:Microcharts.Charts.Chart"/> is currently animating.
+        /// Gets a value indicating whether this <see cref="T:Microcharts.Chart"/> is currently animating.
         /// </summary>
         /// <value><c>true</c> if is animating; otherwise, <c>false</c>.</value>
         public bool IsAnimating
         {
-            get => this.isAnimating;
-            private set => this.Set(ref this.isAnimating, value);
+            get => isAnimating;
+            private set => Set(ref isAnimating, value);
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Microcharts
         /// <value>The duration of the animation.</value>
         public TimeSpan AnimationDuration
         {
-            get => this.animationDuration;
-            set => this.Set(ref this.animationDuration, value);
+            get => animationDuration;
+            set => Set(ref animationDuration, value);
         }
 
         /// <summary>
@@ -115,8 +115,8 @@ namespace Microcharts
         /// <value>The margin.</value>
         public float Margin
         {
-            get => this.margin;
-            set => this.Set(ref this.margin, value);
+            get => margin;
+            set => Set(ref margin, value);
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace Microcharts
         /// <value>The animation progress.</value>
         public float AnimationProgress
         {
-            get => this.animationProgress;
+            get => animationProgress;
             set
             {
                 value = Math.Min(1, Math.Max(value, 0));
-                this.Set(ref this.animationProgress, value);
+                Set(ref animationProgress, value);
             }
         }
 
@@ -139,14 +139,14 @@ namespace Microcharts
         /// <value>The size of the label text.</value>
         public float LabelTextSize
         {
-            get => this.labelTextSize;
-            set => this.Set(ref this.labelTextSize, value);
+            get => labelTextSize;
+            set => Set(ref labelTextSize, value);
         }
 
         public SKTypeface Typeface
         {
-            get => this.typeface;
-            set => this.Set(ref this.typeface, value);
+            get => typeface;
+            set => Set(ref typeface, value);
         }
 
         /// <summary>
@@ -155,8 +155,8 @@ namespace Microcharts
         /// <value>The color of the background.</value>
         public SKColor BackgroundColor
         {
-            get => this.backgroundColor;
-            set => this.Set(ref this.backgroundColor, value);
+            get => backgroundColor;
+            set => Set(ref backgroundColor, value);
         }
 
         /// <summary>
@@ -165,8 +165,8 @@ namespace Microcharts
         /// <value>The color of the labels.</value>
         public SKColor LabelColor
         {
-            get => this.labelColor;
-            set => this.Set(ref this.labelColor, value);
+            get => labelColor;
+            set => Set(ref labelColor, value);
         }
 
         /// <summary>
@@ -175,8 +175,8 @@ namespace Microcharts
         /// <value>The entries.</value>
         public IEnumerable<ChartEntry> Entries
         {
-            get => this.entries;
-            set => this.UpdateEntries(value);
+            get => entries;
+            set => UpdateEntries(value);
         }
 
         /// <summary>
@@ -188,20 +188,20 @@ namespace Microcharts
         {
             get
             {
-                if (!this.Entries.Any())
+                if (!Entries.Any())
                 {
                     return 0;
                 }
 
-                if (this.InternalMinValue == null)
+                if (InternalMinValue == null)
                 {
-                    return Math.Min(0, this.Entries.Min(x => x.Value));
+                    return Math.Min(0, Entries.Min(x => x.Value));
                 }
 
-                return Math.Min(this.InternalMinValue.Value, this.Entries.Min(x => x.Value));
+                return Math.Min(InternalMinValue.Value, Entries.Min(x => x.Value));
             }
 
-            set => this.InternalMinValue = value;
+            set => InternalMinValue = value;
         }
 
         /// <summary>
@@ -213,21 +213,26 @@ namespace Microcharts
         {
             get
             {
-                if (!this.Entries.Any())
+                if (!Entries.Any())
                 {
                     return 0;
                 }
 
-                if (this.InternalMaxValue == null)
+                if (InternalMaxValue == null)
                 {
-                    return Math.Max(0, this.Entries.Max(x => x.Value));
+                    return Math.Max(0, Entries.Max(x => x.Value));
                 }
 
-                return Math.Max(this.InternalMaxValue.Value, this.Entries.Max(x => x.Value));
+                return Math.Max(InternalMaxValue.Value, Entries.Max(x => x.Value));
             }
 
-            set => this.InternalMaxValue = value;
+            set => InternalMaxValue = value;
         }
+
+        /// <summary>
+        /// Gets or sets a value whether debug rectangles should be drawn.
+        /// </summary>
+        internal bool DrawDebugRectangles { get; private set; }
 
         /// <summary>
         /// Gets or sets the internal minimum value (that can be null).
@@ -235,12 +240,12 @@ namespace Microcharts
         /// <value>The internal minimum value.</value>
         protected float? InternalMinValue
         {
-            get => this.internalMinValue;
+            get => internalMinValue;
             set
             {
-                if (this.Set(ref this.internalMinValue, value))
+                if (Set(ref internalMinValue, value))
                 {
-                    this.RaisePropertyChanged(nameof(this.MinValue));
+                    RaisePropertyChanged(nameof(MinValue));
                 }
             }
         }
@@ -251,15 +256,21 @@ namespace Microcharts
         /// <value>The internal max value.</value>
         protected float? InternalMaxValue
         {
-            get => this.internalMaxValue;
+            get => internalMaxValue;
             set
             {
-                if (this.Set(ref this.internalMaxValue, value))
+                if (Set(ref internalMaxValue, value))
                 {
-                    this.RaisePropertyChanged(nameof(this.MaxValue));
+                    RaisePropertyChanged(nameof(MaxValue));
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the drawable chart area (is set <see cref="DrawCaptionElements"/>).
+        /// This is the total chart size minus the area allocated by caption elements.
+        /// </summary>
+        protected SKRect DrawableChartArea { get; private set; }
 
         #endregion
 
@@ -273,9 +284,11 @@ namespace Microcharts
         /// <param name="height">The height.</param>
         public void Draw(SKCanvas canvas, int width, int height)
         {
-            canvas.Clear(this.BackgroundColor);
+            canvas.Clear(BackgroundColor);
 
-            this.DrawContent(canvas, width, height);
+            DrawableChartArea = new SKRect(0, 0, width, height);
+
+            DrawContent(canvas, width, height);
         }
 
         /// <summary>
@@ -294,12 +307,13 @@ namespace Microcharts
         /// <param name="height">The height.</param>
         /// <param name="entries">The entries.</param>
         /// <param name="isLeft">If set to <c>true</c> is left.</param>
-        protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<ChartEntry> entries, bool isLeft)
+        /// <param name="isGraphCentered">Should the chart in the center always?</param>
+        protected void DrawCaptionElements(SKCanvas canvas, int width, int height, List<ChartEntry> entries, bool isLeft, bool isGraphCentered)
         {
-            var totalMargin = 2 * this.Margin;
+            var totalMargin = 2 * Margin;
             var availableHeight = height - (2 * totalMargin);
-            var x = isLeft ? this.Margin : (width - this.Margin - this.LabelTextSize);
-            var ySpace = (availableHeight - this.LabelTextSize) / ((entries.Count <= 1) ? 1 : entries.Count - 1);
+            var x = isLeft ? Margin : (width - Margin - LabelTextSize);
+            var ySpace = (availableHeight - LabelTextSize) / ((entries.Count <= 1) ? 1 : entries.Count - 1);
 
             for (int i = 0; i < entries.Count; i++)
             {
@@ -307,7 +321,7 @@ namespace Microcharts
                 var y = totalMargin + (i * ySpace);
                 if (entries.Count <= 1)
                 {
-                    y += (availableHeight - this.LabelTextSize) / 2;
+                    y += (availableHeight - LabelTextSize) / 2;
                 }
 
                 var hasLabel = !string.IsNullOrEmpty(entry.Label);
@@ -315,12 +329,11 @@ namespace Microcharts
 
                 if (hasLabel || hasValueLabel)
                 {
-                    var hasOffset = hasLabel && hasValueLabel;
-                    var captionMargin = this.LabelTextSize * 0.60f;
-                    var space = hasOffset ? captionMargin : 0;
-                    var captionX = isLeft ? this.Margin : width - this.Margin - this.LabelTextSize;
-                    var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * this.AnimationProgress));
-                    var labelColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * this.AnimationProgress));
+                    var captionMargin = LabelTextSize * 0.60f;
+                    var captionX = isLeft ? Margin : width - Margin - LabelTextSize;
+                    var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * AnimationProgress));
+                    var lblColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * AnimationProgress));
+                    var rect = SKRect.Create(captionX, y, LabelTextSize, LabelTextSize);
 
                     using (var paint = new SKPaint
                     {
@@ -328,20 +341,48 @@ namespace Microcharts
                         Color = valueColor
                     })
                     {
-                        var rect = SKRect.Create(captionX, y, this.LabelTextSize, this.LabelTextSize);
                         canvas.DrawRect(rect, paint);
                     }
 
                     if (isLeft)
                     {
-                        captionX += this.LabelTextSize + captionMargin;
+                        captionX += LabelTextSize + captionMargin;
                     }
                     else
                     {
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, labelColor, entry.ValueLabel, valueColor, this.LabelTextSize, new SKPoint(captionX, y + (this.LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, this.Typeface);
+                    canvas.DrawCaptionLabels(entry.Label, lblColor, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
+                    labelBounds.Union(rect);
+
+                    if (DrawDebugRectangles)
+                    {
+                        using (var paint = new SKPaint
+                        {
+                            Style = SKPaintStyle.Fill,
+                            Color = entry.Color,
+                            IsStroke = true
+                        })
+                        {
+                            canvas.DrawRect(labelBounds, paint);
+                        }
+                    }
+
+                    if (isLeft)
+                    {
+                        DrawableChartArea = new SKRect(Math.Max(DrawableChartArea.Left, labelBounds.Right), 0, DrawableChartArea.Right, DrawableChartArea.Bottom);
+                    }
+                    else
+                    {   // Draws the chart centered for right labelmode only
+                        var left = isGraphCentered == true ? Math.Abs(width - DrawableChartArea.Right) : 0;
+                        DrawableChartArea = new SKRect(left, 0, Math.Min(DrawableChartArea.Right, labelBounds.Left), DrawableChartArea.Bottom);
+                    }
+
+                    if (entries.Count == 0 && isGraphCentered)
+                    {   // Draws the chart centered if there isn't any left values
+                        DrawableChartArea = new SKRect(Math.Abs(width - DrawableChartArea.Right), 0, DrawableChartArea.Right, DrawableChartArea.Bottom);
+                    }
                 }
             }
         }
@@ -355,14 +396,14 @@ namespace Microcharts
         {
             switch (e.PropertyName)
             {
-                case nameof(this.AnimationProgress):
-                    this.Invalidate();
+                case nameof(AnimationProgress):
+                    Invalidate();
                     break;
-                case nameof(this.LabelTextSize):
-                case nameof(this.MaxValue):
-                case nameof(this.MinValue):
-                case nameof(this.BackgroundColor):
-                    this.PlanifyInvalidate();
+                case nameof(LabelTextSize):
+                case nameof(MaxValue):
+                case nameof(MinValue):
+                case nameof(BackgroundColor):
+                    PlanifyInvalidate();
                     break;
                 default:
                     break;
@@ -372,23 +413,23 @@ namespace Microcharts
         /// <summary>
         /// Invalidate the chart.
         /// </summary>
-        protected void Invalidate() => this.Invalidated?.Invoke(this, EventArgs.Empty);
+        protected void Invalidate() => Invalidated?.Invoke(this, EventArgs.Empty);
 
         /// <summary>
         /// Planifies the invalidation.
         /// </summary>
         protected async void PlanifyInvalidate()
         {
-            if (this.invalidationPlanification != null)
+            if (invalidationPlanification != null)
             {
-                await this.invalidationPlanification;
+                await invalidationPlanification;
             }
             else
             {
-                this.invalidationPlanification = Task.Delay(200);
-                await this.invalidationPlanification;
-                this.Invalidate();
-                this.invalidationPlanification = null;
+                invalidationPlanification = Task.Delay(200);
+                await invalidationPlanification;
+                Invalidate();
+                invalidationPlanification = null;
             }
         }
 
@@ -425,8 +466,8 @@ namespace Microcharts
             var end = entrance ? 1 : 0;
             var range = end - start;
 
-            this.AnimationProgress = start;
-            this.IsAnimating = true;
+            AnimationProgress = start;
+            IsAnimating = true;
 
             watch.Start();
 
@@ -441,11 +482,11 @@ namespace Microcharts
                     return false;
                 }
 
-                var progress = (float)(watch.Elapsed.TotalSeconds / this.animationDuration.TotalSeconds);
+                var progress = (float)(watch.Elapsed.TotalSeconds / animationDuration.TotalSeconds);
                 progress = entrance ? Ease.In(progress) : Ease.Out(progress);
-                this.AnimationProgress = start + (progress * (end - start));
+                AnimationProgress = start + (progress * (end - start));
 
-                var shouldContinue = (entrance && this.AnimationProgress < 1) || (!entrance && this.AnimationProgress > 0);
+                var shouldContinue = (entrance && AnimationProgress < 1) || (!entrance && AnimationProgress > 0);
 
                 if (!shouldContinue)
                 {
@@ -458,58 +499,58 @@ namespace Microcharts
             await source.Task;
 
             watch.Stop();
-            this.IsAnimating = false;
+            IsAnimating = false;
         }
 
         private async void UpdateEntries(IEnumerable<ChartEntry> value)
         {
             try
             {
-                if (this.animationCancellation != null)
+                if (animationCancellation != null)
                 {
-                    this.animationCancellation.Cancel();
+                    animationCancellation.Cancel();
                 }
 
                 var cancellation = new CancellationTokenSource();
-                this.animationCancellation = cancellation;
+                animationCancellation = cancellation;
 
-                if (!cancellation.Token.IsCancellationRequested && this.entries != null && this.IsAnimated)
+                if (!cancellation.Token.IsCancellationRequested && entries != null && IsAnimated)
                 {
-                    await this.AnimateAsync(false, cancellation.Token);
+                    await AnimateAsync(false, cancellation.Token);
                 }
                 else
                 {
-                    this.AnimationProgress = 0;
+                    AnimationProgress = 0;
                 }
 
-                if (this.Set(ref this.entries, value))
+                if (Set(ref entries, value))
                 {
-                    this.RaisePropertyChanged(nameof(this.MinValue));
-                    this.RaisePropertyChanged(nameof(this.MaxValue));
+                    RaisePropertyChanged(nameof(MinValue));
+                    RaisePropertyChanged(nameof(MaxValue));
                 }
 
-                if (!cancellation.Token.IsCancellationRequested && this.entries != null && this.IsAnimated)
+                if (!cancellation.Token.IsCancellationRequested && entries != null && IsAnimated)
                 {
-                    await this.AnimateAsync(true, cancellation.Token);
+                    await AnimateAsync(true, cancellation.Token);
                 }
                 else
                 {
-                    this.AnimationProgress = 1;
+                    AnimationProgress = 1;
                 }
             }
             catch
             {
-                if (this.Set(ref this.entries, value))
+                if (Set(ref entries, value))
                 {
-                    this.RaisePropertyChanged(nameof(this.MinValue));
-                    this.RaisePropertyChanged(nameof(this.MaxValue));
+                    RaisePropertyChanged(nameof(MinValue));
+                    RaisePropertyChanged(nameof(MaxValue));
                 }
 
-                this.Invalidate();
+                Invalidate();
             }
             finally
             {
-                this.animationCancellation = null;
+                animationCancellation = null;
             }
         }
 
@@ -521,7 +562,7 @@ namespace Microcharts
         /// <param name="property">The property name.</param>
         protected void RaisePropertyChanged([CallerMemberName]string property = null)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
         /// <summary>
@@ -537,7 +578,7 @@ namespace Microcharts
             if (!EqualityComparer<T>.Equals(field, property))
             {
                 field = value;
-                this.RaisePropertyChanged(property);
+                RaisePropertyChanged(property);
                 return true;
             }
 

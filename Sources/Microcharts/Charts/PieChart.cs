@@ -13,7 +13,7 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.Shared.PieChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.PieChart"/> class.
         /// </summary>
         public PieChart()
         {
