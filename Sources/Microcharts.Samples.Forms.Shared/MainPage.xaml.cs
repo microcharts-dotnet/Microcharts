@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microcharts.Charts;
 
 namespace Microcharts.Samples.Forms
 {
@@ -55,19 +56,19 @@ namespace Microcharts.Samples.Forms
 
         private void GenerateData(object sender, EventArgs e)
         {
-            if (this.chart.Chart != null)
+            if (chart.Chart != null)
             {
-                this.chart.Chart.Entries = GenerateEntries();
+                chart.Chart.Entries = GenerateEntries();
             }
         }
 
         private void ChangeChart(object sender, EventArgs e)
         {
             chartType = (chartType + 1) % ChartTypes.Length;
-            var type = this.ChartTypes[chartType];
-            this.chart.Chart = Activator.CreateInstance(type) as Chart;
-            this.chart.Chart.MinValue = -1000;
-            this.chart.Chart.MaxValue = 1000;
+            var type = ChartTypes[chartType];
+            chart.Chart = Activator.CreateInstance(type) as Chart;
+            chart.Chart.MinValue = -1000;
+            chart.Chart.MaxValue = 1000;
             GenerateData(null, null);
         }
 
@@ -75,10 +76,10 @@ namespace Microcharts.Samples.Forms
         {
 
             chartType = (chartType + 1) % ChartTypes.Length;
-            var type = this.ChartTypes[chartType];
-            this.chart.Chart = Activator.CreateInstance(type) as Chart;
-            this.chart.Chart.MinValue = -1000;
-            this.chart.Chart.MaxValue = 1000;
+            var type = ChartTypes[chartType];
+            chart.Chart = Activator.CreateInstance(type) as Chart;
+            chart.Chart.MinValue = -1000;
+            chart.Chart.MaxValue = 1000;
 
             Random r = new Random();
             int rInt = r.Next(0, 3);
@@ -98,7 +99,7 @@ namespace Microcharts.Samples.Forms
                     fontName = string.Empty; // test if empty
                     break;
             }
-            this.chart.Chart.Typeface = SKTypeface.FromFamilyName(fontName);
+            chart.Chart.Typeface = SKTypeface.FromFamilyName(fontName);
             GenerateData(null, null);
         }
     }

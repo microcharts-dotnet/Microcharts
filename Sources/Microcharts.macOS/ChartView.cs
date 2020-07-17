@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using Foundation;
 using SkiaSharp;
 using UIKit;
-using SkiaSharp.Views.iOS;
+using SkiaSharp.Views.Mac;
 using System.Diagnostics;
 
-namespace Microcharts.iOS
+namespace Microcharts.macOS
 {
     [Register("ChartView")]
     public class ChartView : SKCanvasView
@@ -30,7 +30,6 @@ namespace Microcharts.iOS
 
         private void Initialize()
         {
-            this.BackgroundColor = UIColor.Clear;
             this.PaintSurface += OnPaintCanvas;
         }
 

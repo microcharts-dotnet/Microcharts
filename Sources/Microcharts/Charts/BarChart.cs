@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace Microcharts
+using System;
+using System.Linq;
+using SkiaSharp;
+
+namespace Microcharts.Charts
 {
-    using System;
-    using System.Linq;
-
-    using SkiaSharp;
-
     /// <summary>
     /// ![chart](../images/Bar.png)
-    /// 
+    ///
     /// A bar chart.
     /// </summary>
     public class BarChart : PointChart
@@ -18,11 +17,11 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.BarChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.Charts.BarChart"/> class.
         /// </summary>
         public BarChart()
         {
-            this.PointSize = 0;
+            PointSize = 0;
         }
 
         #endregion
@@ -47,25 +46,25 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            if (this.Entries != null)
+            if (Entries != null)
             {
-                var labels = this.Entries.Select(x => x.Label).ToArray();
-                var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
-                
-                var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
+                var labels = Entries.Select(x => x.Label).ToArray();
+                var labelSizes = MeasureLabels(labels);
+                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation, labels);
 
-                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
-                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = this.CalculatePoints(itemSize, origin, headerHeight);
+                var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
+                var valueLabelSizes = MeasureLabels(valueLabels);
+                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation, valueLabels);
 
-                this.DrawBarAreas(canvas, points, itemSize, headerHeight);
-                this.DrawBars(canvas, points, itemSize, origin, headerHeight);
-                this.DrawPoints(canvas, points);
-                this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
-                this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
+                var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = CalculatePoints(itemSize, origin, headerHeight);
+
+                DrawBarAreas(canvas, points, itemSize, headerHeight);
+                DrawBars(canvas, points, itemSize, origin, headerHeight);
+                DrawPoints(canvas, points);
+                DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
+                DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
             }
         }
 
@@ -82,9 +81,9 @@ namespace Microcharts
             const float MinBarHeight = 4;
             if (points.Length > 0)
             {
-                for (int i = 0; i < this.Entries.Count(); i++)
+                for (int i = 0; i < Entries.Count(); i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var point = points[i];
 
                     using (var paint = new SKPaint
@@ -99,7 +98,7 @@ namespace Microcharts
                         if (height < MinBarHeight)
                         {
                             height = MinBarHeight;
-                            if (y + height > this.Margin + itemSize.Height)
+                            if (y + height > Margin + itemSize.Height)
                             {
                                 y = headerHeight + itemSize.Height - height;
                             }
@@ -121,11 +120,11 @@ namespace Microcharts
         /// <param name="headerHeight">The header height.</param>
         protected void DrawBarAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float headerHeight)
         {
-            if (points.Length > 0 && this.PointAreaAlpha > 0)
+            if (points.Length > 0 && PointAreaAlpha > 0)
             {
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var point = points[i];
 
                     using (var paint = new SKPaint

@@ -1,7 +1,5 @@
-﻿namespace Microcharts
+﻿namespace Microcharts.Constants
 {
-    using System;
-
     public enum Orientation
     {
         Default,

@@ -1,18 +1,18 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace Microcharts
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using SkiaSharp;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using SkiaSharp;
 
+namespace Microcharts.Charts
+{
     /// <summary>
     /// A chart.
     /// </summary>
@@ -45,7 +45,7 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.Chart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.Charts.Chart"/> class.
         /// </summary>
         public Chart()
         {
@@ -71,7 +71,7 @@ namespace Microcharts
         #region Properties
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Chart"/> is animated when entries change.
+        /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Charts.Chart"/> is animated when entries change.
         /// </summary>
         /// <value><c>true</c> if is animated; otherwise, <c>false</c>.</value>
         public bool IsAnimated
@@ -90,7 +90,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="T:Microcharts.Chart"/> is currently animating.
+        /// Gets a value indicating whether this <see cref="T:Microcharts.Charts.Chart"/> is currently animating.
         /// </summary>
         /// <value><c>true</c> if is animating; otherwise, <c>false</c>.</value>
         public bool IsAnimating

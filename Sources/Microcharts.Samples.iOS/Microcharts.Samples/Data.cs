@@ -1,4 +1,7 @@
-﻿namespace Microcharts.Samples
+﻿using Microcharts.Charts;
+using Microcharts.Constants;
+
+namespace Microcharts.Samples
 {
     using SkiaSharp;
     using System.Linq;

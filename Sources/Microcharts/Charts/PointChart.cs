@@ -1,16 +1,17 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace Microcharts
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using SkiaSharp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microcharts.Constants;
+using SkiaSharp;
 
+namespace Microcharts.Charts
+{
     /// <summary>
     /// ![chart](../images/Point.png)
-    /// 
+    ///
     /// Point chart.
     /// </summary>
     public class PointChart : Chart
@@ -18,12 +19,12 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.PointChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.Charts.PointChart"/> class.
         /// </summary>
         public PointChart()
         {
-            this.LabelOrientation = Orientation.Default;
-            this.ValueLabelOrientation = Orientation.Default;
+            LabelOrientation = Orientation.Default;
+            ValueLabelOrientation = Orientation.Default;
         }
 
         #endregion
@@ -60,8 +61,8 @@ namespace Microcharts
         /// <value>The label orientation.</value>
         public Orientation LabelOrientation
         {
-            get => this.labelOrientation;
-            set => this.labelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
+            get => labelOrientation;
+            set => labelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
         }
 
         /// <summary>
@@ -70,11 +71,11 @@ namespace Microcharts
         /// <value>The label orientation.</value>
         public Orientation ValueLabelOrientation
         {
-            get => this.valueLabelOrientation;
-            set => this.valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
+            get => valueLabelOrientation;
+            set => valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
         }
 
-        private float ValueRange => this.MaxValue - this.MinValue;
+        private float ValueRange => MaxValue - MinValue;
 
         #endregion
 
@@ -82,47 +83,47 @@ namespace Microcharts
 
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            if (this.Entries != null)
+            if (Entries != null)
             {
-                var labels = this.Entries.Select(x => x.Label).ToArray(); 
-                var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation, labels);
-                
-                var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation, valueLabels);
+                var labels = Entries.Select(x => x.Label).ToArray();
+                var labelSizes = MeasureLabels(labels);
+                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation, labels);
 
-                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
-                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = this.CalculatePoints(itemSize, origin, headerHeight);
+                var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
+                var valueLabelSizes = MeasureLabels(valueLabels);
+                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation, valueLabels);
 
-                this.DrawPointAreas(canvas, points, origin);
-                this.DrawPoints(canvas, points);
-                this.DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
-                this.DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
+                var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
+                var origin = CalculateYOrigin(itemSize.Height, headerHeight);
+                var points = CalculatePoints(itemSize, origin, headerHeight);
+
+                DrawPointAreas(canvas, points, origin);
+                DrawPoints(canvas, points);
+                DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
+                DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
             }
         }
 
         protected float CalculateYOrigin(float itemHeight, float headerHeight)
         {
-            if (this.MaxValue <= 0)
+            if (MaxValue <= 0)
             {
                 return headerHeight;
             }
 
-            if (this.MinValue > 0)
+            if (MinValue > 0)
             {
                 return headerHeight + itemHeight;
             }
 
-            return headerHeight + ((this.MaxValue / this.ValueRange) * itemHeight);
+            return headerHeight + ((MaxValue / ValueRange) * itemHeight);
         }
 
         protected SKSize CalculateItemSize(int width, int height, float footerHeight, float headerHeight)
         {
-            var total = this.Entries.Count();
-            var w = (width - ((total + 1) * this.Margin)) / total;
-            var h = height - this.Margin - footerHeight - headerHeight;
+            var total = Entries.Count();
+            var w = (width - ((total + 1) * Margin)) / total;
+            var h = height - Margin - footerHeight - headerHeight;
             return new SKSize(w, h);
         }
 
@@ -130,13 +131,13 @@ namespace Microcharts
         {
             var result = new List<SKPoint>();
 
-            for (int i = 0; i < this.Entries.Count(); i++)
+            for (int i = 0; i < Entries.Count(); i++)
             {
-                var entry = this.Entries.ElementAt(i);
+                var entry = Entries.ElementAt(i);
                 var value = entry.Value;
 
-                var x = this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-                var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
+                var x = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin));
+                var y = headerHeight + ((1 - AnimationProgress) * (origin - headerHeight) + (((MaxValue - value) / ValueRange) * itemSize.Height) * AnimationProgress);
                 var point = new SKPoint(x, y);
                 result.Add(point);
             }
@@ -146,12 +147,12 @@ namespace Microcharts
 
         protected void DrawHeader(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float headerHeight)
         {
-            this.DrawLabels(canvas,
+            DrawLabels(canvas,
                             labels,
-                            points.Select(p => new SKPoint(p.X, headerHeight - this.Margin)).ToArray(),
+                            points.Select(p => new SKPoint(p.X, headerHeight - Margin)).ToArray(),
                             labelSizes,
-                            this.Entries.Select(x => x.Color.WithAlpha((byte)(255 * this.AnimationProgress))).ToArray(),
-                            this.ValueLabelOrientation,
+                            Entries.Select(x => x.Color.WithAlpha((byte)(255 * AnimationProgress))).ToArray(),
+                            ValueLabelOrientation,
                             true,
                             itemSize,
                             height);
@@ -159,12 +160,12 @@ namespace Microcharts
 
         protected void DrawFooter(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float footerHeight)
         {
-            this.DrawLabels(canvas,
+            DrawLabels(canvas,
                             labels,
-                            points.Select(p => new SKPoint(p.X, height - footerHeight + this.Margin)).ToArray(),
+                            points.Select(p => new SKPoint(p.X, height - footerHeight + Margin)).ToArray(),
                             labelSizes,
-                            this.Entries.Select(x => this.LabelColor).ToArray(),
-                            this.LabelOrientation,
+                            Entries.Select(x => LabelColor).ToArray(),
+                            LabelOrientation,
                             false,
                             itemSize,
                             height);
@@ -176,33 +177,33 @@ namespace Microcharts
             {
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var point = points[i];
-                    canvas.DrawPoint(point, entry.Color, this.PointSize, this.PointMode);
+                    canvas.DrawPoint(point, entry.Color, PointSize, PointMode);
                 }
             }
         }
 
         protected void DrawPointAreas(SKCanvas canvas, SKPoint[] points, float origin)
         {
-            if (points.Length > 0 && this.PointAreaAlpha > 0)
+            if (points.Length > 0 && PointAreaAlpha > 0)
             {
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var point = points[i];
                     var y = Math.Min(origin, point.Y);
 
-                    using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, point.Y), new[] { entry.Color.WithAlpha(this.PointAreaAlpha), entry.Color.WithAlpha((byte)(this.PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
+                    using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, point.Y), new[] { entry.Color.WithAlpha(PointAreaAlpha), entry.Color.WithAlpha((byte)(PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
-                        Color = entry.Color.WithAlpha(this.PointAreaAlpha),
+                        Color = entry.Color.WithAlpha(PointAreaAlpha),
                     })
                     {
                         paint.Shader = shader;
                         var height = Math.Max(2, Math.Abs(origin - point.Y));
-                        canvas.DrawRect(SKRect.Create(point.X - (this.PointSize / 2), y, this.PointSize, height), paint);
+                        canvas.DrawRect(SKRect.Create(point.X - (PointSize / 2), y, PointSize, height), paint);
                     }
                 }
             }
@@ -222,7 +223,7 @@ namespace Microcharts
 
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var entry = this.Entries.ElementAt(i);
+                    var entry = Entries.ElementAt(i);
                     var point = points[i];
 
                     if (!string.IsNullOrEmpty(texts[i]))
@@ -231,7 +232,7 @@ namespace Microcharts
                         {
                             using (var paint = new SKPaint())
                             {
-                                paint.TextSize = this.LabelTextSize;
+                                paint.TextSize = LabelTextSize;
                                 paint.IsAntialias = true;
                                 paint.Color = colors[i];
                                 paint.IsStroke = false;
@@ -293,7 +294,7 @@ namespace Microcharts
         /// <param name="labels">Value labels.</param>
         protected float CalculateFooterHeaderHeight(SKRect[] valueLabelSizes, Orientation orientation, string[] labels)
         {
-            var result = this.Margin;
+            var result = Margin;
 
             if (labels.Any(e => !string.IsNullOrEmpty(e)))
             {
@@ -302,12 +303,12 @@ namespace Microcharts
                     var maxValueWidth = valueLabelSizes.Max(x => x.Width);
                     if (maxValueWidth > 0)
                     {
-                        result += maxValueWidth + this.Margin;
+                        result += maxValueWidth + Margin;
                     }
                 }
                 else
                 {
-                    result += this.LabelTextSize + this.Margin;
+                    result += LabelTextSize + Margin;
                 }
             }
 
@@ -322,7 +323,7 @@ namespace Microcharts
         {
             using (var paint = new SKPaint())
             {
-                paint.TextSize = this.LabelTextSize;
+                paint.TextSize = LabelTextSize;
                 return labels.Select(text =>
                 {
                     if (string.IsNullOrEmpty(text))
