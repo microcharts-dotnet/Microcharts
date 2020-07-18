@@ -1,21 +1,30 @@
+<<<<<<< HEAD
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 namespace Microcharts.Uwp
 {
     using SkiaSharp;
+=======
+﻿namespace Microcharts.Uwp
+{
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
     using SkiaSharp.Views.UWP;
     using Windows.UI.Xaml;
 
     public class ChartView : SKXamlCanvas
     {
+<<<<<<< HEAD
         #region Constructors
 
+=======
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
         public ChartView()
         {
             this.PaintSurface += OnPaintCanvas;
         }
 
+<<<<<<< HEAD
         #endregion
 
         #region Static fields
@@ -33,6 +42,9 @@ namespace Microcharts.Uwp
         #endregion
 
         #region Properties
+=======
+        public static readonly DependencyProperty ChartProperty = DependencyProperty.Register(nameof(Chart), typeof(ChartView), typeof(Chart), new PropertyMetadata(null, new PropertyChangedCallback(OnLabelChanged)));
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
 
         public Chart Chart
         {
@@ -40,6 +52,7 @@ namespace Microcharts.Uwp
             set { SetValue(ChartProperty, value); }
         }
 
+<<<<<<< HEAD
         #endregion
 
         #region Methods
@@ -61,10 +74,18 @@ namespace Microcharts.Uwp
             {
                 view.handler = view.chart.ObserveInvalidate(view, (v) => v.Invalidate());
             }
+=======
+
+        private static void OnLabelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var view = d as ChartView;
+            view.Invalidate();
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
         }
 
         private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
         {
+<<<<<<< HEAD
             if (this.chart != null)
             {
                 this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
@@ -76,5 +97,9 @@ namespace Microcharts.Uwp
         }
 
         #endregion
+=======
+            this.Chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+        }
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
     }
 }

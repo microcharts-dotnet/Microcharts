@@ -5,8 +5,6 @@
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
 ## Gallery
-
-![gallery](Documentation/images/Bikr.gif)
  
 ![gallery](Documentation/images/Gallery.png)
 
@@ -34,19 +32,19 @@ var entries = new[]
     {
         Label = "January",
         ValueLabel = "200",
-        FillColor = SKColor.Parse("#266489")
+	FillColor = SKColor.Parse("#266489")
     },
     new Entry(400)
     {
-        Label = "February",
-        ValueLabel = "400",
-        FillColor = SKColor.Parse("#68B9C0")
+	Label = "February",
+	ValueLabel = "400",
+	FillColor = SKColor.Parse("#68B9C0")
     },
     new Entry(-100)
     {
-        Label = "March",
-        ValueLabel = "-100",
-        FillColor = SKColor.Parse("#90D585")
+	Label = "March",
+	ValueLabel = "-100",
+	FillColor = SKColor.Parse("#90D585")
     }
 };
 ```
@@ -57,7 +55,6 @@ var entries = new[]
 var chart = new BarChart() { Entries = entries };
 // or: var chart = new PointChart() { Entries = entries };
 // or: var chart = new LineChart() { Entries = entries };
-// or: var chart = new PieChart() { Entries = entries };
 // or: var chart = new DonutChart() { Entries = entries };
 // or: var chart = new RadialGaugeChart() { Entries = entries };
 // or: var chart = new RadarChart() { Entries = entries };

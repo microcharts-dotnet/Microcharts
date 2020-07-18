@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+<<<<<<< HEAD
     <TargetFrameworks>netstandard1.3;portable-net45+win8+wpa81+wp8</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>0.8.4.2-pre</Version>
@@ -34,16 +35,32 @@
     <PackageReference Include="SkiaSharp" Version="1.59.1" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
     <PackageReference Include="StyleCop.MSBuild" Version="5.0.0" />
+=======
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin\Debug\netstandard1.4\Microcharts.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="1.59.1" />
+    <PackageReference Include="StyleCop.MSBuild" Version="5.0.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
   </ItemGroup>
 
   <ItemGroup>
     <Content Update="**\.DS_Store" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
     <Folder Include="Layouts\" />
     <Folder Include="WeakEventHandlers\" />
   </ItemGroup>
+=======
+  <Import Project="..\Microcharts.Shared\Microcharts.Shared.projitems" Label="Shared" Condition="Exists('..\Microcharts.Shared\Microcharts.Shared.projitems')" />
+>>>>>>> dba36a4f5d24d0492b9e0f31cb03b61d460013e9
 </Project>
