@@ -72,17 +72,8 @@
           <DependentUpon>MainViewController.cs</DependentUpon>
         </Compile>
         <InterfaceDefinition Include="Main.storyboard" />
-        <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-          <HintPath>..\packages\SkiaSharp.2.80.1\lib\xamarinios1.0\SkiaSharp.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="SkiaSharp.Views.iOS, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-          <HintPath>..\packages\SkiaSharp.Views.2.80.1\lib\xamarinios1.0\SkiaSharp.Views.iOS.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Core" />
@@ -96,6 +87,10 @@
     <ItemGroup>
         <Folder Include="Resources\" />
     </ItemGroup>
+    <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="2.80.1" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.80.1" />
+  </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Microcharts.iOS\Microcharts.iOS.csproj">
         <Project>{8657b9bf-9d8e-4d3a-a5b2-23e9c0161909}</Project>
@@ -111,11 +106,4 @@
       </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-    <Import Project="..\packages\SkiaSharp.2.80.1\build\xamarinios1.0\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.1\build\xamarinios1.0\SkiaSharp.targets')" />
-    <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-      <PropertyGroup>
-        <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-      </PropertyGroup>
-      <Error Condition="!Exists('..\packages\SkiaSharp.2.80.1\build\xamarinios1.0\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.1\build\xamarinios1.0\SkiaSharp.targets'))" />
-    </Target>
 </Project>
