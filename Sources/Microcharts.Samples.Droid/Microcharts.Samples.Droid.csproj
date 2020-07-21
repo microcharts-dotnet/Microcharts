@@ -73,6 +73,10 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Microcharts.Samples\Microcharts.Samples.csproj">
+      <Project>{6fbe798d-bb43-4bb5-9c61-d6dd5b0e623a}</Project>
+      <Name>Microcharts.Samples</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">
       <Project>{D07D3E94-E645-4035-A142-5F933A15D585}</Project>
       <Name>Microcharts</Name>
@@ -81,15 +85,12 @@
       <Project>{18125022-45E6-46EC-855C-B36E4D41484D}</Project>
       <Name>Microcharts.Droid</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj">
-      <Project>{6FBE798D-BB43-4BB5-9C61-D6DD5B0E623A}</Project>
-      <Name>Microcharts.Samples</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="2.80.1" />
     <PackageReference Include="SkiaSharp.Views" Version="2.80.1" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0.1" />
+      <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

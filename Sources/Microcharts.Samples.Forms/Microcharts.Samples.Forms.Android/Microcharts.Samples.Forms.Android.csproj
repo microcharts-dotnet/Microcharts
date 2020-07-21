@@ -14,7 +14,6 @@
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-        <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
         <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     </PropertyGroup>
@@ -76,7 +75,7 @@
           <Name>Microcharts</Name>
         </ProjectReference>
         <ProjectReference Include="..\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj">
-            <Project>{87920927-2F8A-4CCD-9537-3AF9B1B3F0AB}</Project>
+            <Project>{879391C3-A926-41A8-986A-32B1675354EF}</Project>
             <Name>Microcharts.Samples.Forms</Name>
         </ProjectReference>
     </ItemGroup>

@@ -151,10 +151,10 @@ namespace Microcharts.Samples
                         ValueLabel = "400",
                         Color = SKColor.Parse("#68B9C0"),
                 },
-                new ChartEntry(-100)
+                new ChartEntry(100)
                 {
                         Label = "March",
-                        ValueLabel = "-100",
+                        ValueLabel = "100",
                         Color = SKColor.Parse("#90D585"),
                 },
             };

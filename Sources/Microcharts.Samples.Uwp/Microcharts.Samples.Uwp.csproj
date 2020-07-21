@@ -130,7 +130,7 @@
         <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Microcharts.Samples.iOS\Microcharts.Samples\Microcharts.Samples.csproj">
+        <ProjectReference Include="..\Microcharts.Samples\Microcharts.Samples.csproj">
             <Project>{6fbe798d-bb43-4bb5-9c61-d6dd5b0e623a}</Project>
             <Name>Microcharts.Samples</Name>
         </ProjectReference>
