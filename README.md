@@ -1,7 +1,5 @@
 # Microcharts
 
-[![Build status](https://ci.appveyor.com/api/projects/status/r5w0ubavad5inwh4?svg=true)](https://ci.appveyor.com/project/aloisdeniel/microcharts) [![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/) [![Donate](https://img.shields.io/badge/donate-paypal-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZJZKXPPGBKKAY&lc=US&item_name=GitHub&item_number=0000001&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
-
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
 ## Gallery
@@ -230,4 +228,4 @@ If you want to contribute code please file an issue and create a branch off of t
 
 ## License
 
-MIT © [Aloïs Deniel](http://aloisdeniel.github.io)
+MIT © [Aloïs Deniel](https://aloisdeniel.com) & [Ed Lomonaco](https://edlomonaco.dev)
