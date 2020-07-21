@@ -1,11 +1,12 @@
 ﻿using Android.App;
 using Android.OS;
+using AndroidX.AppCompat.App;
 using Microcharts.Droid;
 
 namespace Microcharts.Samples.Droid
 {
     [Activity(Label = "Microcharts", MainLauncher = true, Icon = "@mipmap/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
