@@ -2,20 +2,19 @@
 <package >
   <metadata>
     <id>Microcharts.Forms</id>
-    <version>$version$</version>
+    <version>0.9.0</version>
     <title>Microcharts for Xamarin.Forms</title>
-    <authors>Aloïs Deniel</authors>
-    <owners>Aloïs Deniel</owners>
-    <licenseUrl>https://github.com/aloisdeniel/Microcharts/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/aloisdeniel/Microcharts/</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/aloisdeniel/Microcharts/master/Documentation/Logo.png</iconUrl>
+    <authors>Aloïs Deniel, Ed Lomonaco</authors>
+    <owners>Aloïs Deniel, Ed Lomonaco</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dotnet-ad/Microcharts</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Create cross-platforms (Xamarin, Windows, ...) simple charts.</description>
-    <copyright>Copyright 2017</copyright>
-    <tags>xamarin forms ios android chart skia</tags>
+    <description>Simple, cross-platform chart library.</description>
+    <copyright>Copyright 2020</copyright>
+    <tags>xamarin.forms chart skia</tags>
     <dependencies>
-        <group>
-            <dependency id="Microcharts" version="$version$" />
+        <group targetFramework="netstandard2.0">
+            <dependency id="Microcharts" version="0.9.0" />
             <dependency id="Xamarin.Forms" version="2.4.0.282" />
             <dependency id="System.ValueTuple" version="4.4.0" />
             <dependency id="SkiaSharp.Views.Forms" version="1.59.1.1" />
@@ -23,8 +22,7 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- Standard + PCL -->
-     <file src="..\Sources\Microcharts.Forms\bin\Release\portable-net45+win8+wpa81+wp8\Microcharts.Forms.dll" target="lib\portable-net45+win8+wpa81+wp8\Microcharts.Forms.dll"/>
-     <file src="..\Sources\Microcharts.Forms\bin\Release\netstandard1.3\Microcharts.Forms.dll" target="lib\netstandard1.3\Microcharts.Forms.dll"/>
+     <!-- .NET Standard 2.0 -->
+     <file src="..\Sources\Microcharts.Forms\bin\Release\netstandard2.0\Microcharts.Forms.dll" target="lib\netstandard2.0\Microcharts.Forms.dll"/>
    </files>
 </package>
