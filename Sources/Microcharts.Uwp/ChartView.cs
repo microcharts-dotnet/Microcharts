@@ -20,7 +20,7 @@ namespace Microcharts.Uwp
 
         #region Static fields
 
-        public static readonly DependencyProperty ChartProperty = DependencyProperty.Register(nameof(Chart), typeof(Chart), typeof(ChartView), new PropertyMetadata(null, new PropertyChangedCallback(OnLabelChanged)));
+        public static readonly DependencyProperty ChartProperty = DependencyProperty.Register(nameof(Chart), typeof(Chart), typeof(ChartView), new PropertyMetadata(null, new PropertyChangedCallback(OnChartChanged)));
 
         #endregion
 
