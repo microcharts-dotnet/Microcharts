@@ -71,6 +71,11 @@ namespace Microcharts
         #region Properties
 
         /// <summary>
+        /// Get or set value determining if the labels should be right to left.
+        /// </summary>
+        public bool RightToLeftMode { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Chart"/> is animated when entries change.
         /// </summary>
         /// <value><c>true</c> if is animated; otherwise, <c>false</c>.</value>
@@ -353,7 +358,7 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, lblColor, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
+                    canvas.DrawCaptionLabels(entry.Label, lblColor, RightToLeftMode, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
                     labelBounds.Union(rect);
 
                     if (DrawDebugRectangles)

@@ -135,6 +135,41 @@ namespace Microcharts.Samples
             };
         }
 
+        public static Chart[] RightToLeftTest()
+        {
+            var entries = new[]
+            {
+                new ChartEntry(200)
+                {
+                    Label = "יָנוּאָר",
+                    ValueLabel = "200",
+                    Color = SKColor.Parse("#266489"),
+                },
+                new ChartEntry(400)
+                {
+                    Label = "פברואר",
+                    ValueLabel = "400",
+                    Color = SKColor.Parse("#68B9C0"),
+                },
+                new ChartEntry(100)
+                {
+                    Label = "מרץ",
+                    ValueLabel = "100",
+                    Color = SKColor.Parse("#90D585"),
+                },
+            };
+
+            return new Chart[]
+            {
+                new BarChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new PointChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new LineChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new DonutChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60 },
+                new RadialGaugeChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60 },
+                new RadarChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60 },
+            };
+        }
+
         public static Chart[] CreateQuickstart()
         {
             var entries = new[]
