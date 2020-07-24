@@ -8,7 +8,7 @@ namespace Microcharts
 {
     internal static class CanvasExtensions
     {
-        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, bool labelIsRtl, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
+        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, bool labelIsUnicode, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
         {
             var hasLabel = !string.IsNullOrEmpty(label);
             var hasValueLabel = !string.IsNullOrEmpty(value);
@@ -39,7 +39,7 @@ namespace Microcharts
 
                         var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
 
-                        if (labelIsRtl)
+                        if (labelIsUnicode)
                         {
                             using (var tf = SKFontManager.Default.MatchCharacter('א'))
                             using (var shaper = new SKShaper(tf))

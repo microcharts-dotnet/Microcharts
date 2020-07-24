@@ -282,7 +282,7 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                if (RightToLeftMode)
+                                if (UnicodeMode)
                                 {
                                     using (var tf = SKFontManager.Default.MatchCharacter('א'))
                                     using (var shaper = new SKShaper(tf))

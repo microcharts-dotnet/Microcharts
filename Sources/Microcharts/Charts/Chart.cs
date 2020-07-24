@@ -71,9 +71,9 @@ namespace Microcharts
         #region Properties
 
         /// <summary>
-        /// Get or set value determining if the labels should be right to left.
+        /// Get or set value determining if the labels are in a unicode language (Chinese, Arabic, Hebrew, etc.)
         /// </summary>
-        public bool RightToLeftMode { get; set; }
+        public bool UnicodeMode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Chart"/> is animated when entries change.
@@ -358,7 +358,7 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, lblColor, RightToLeftMode, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
+                    canvas.DrawCaptionLabels(entry.Label, lblColor, UnicodeMode, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
                     labelBounds.Union(rect);
 
                     if (DrawDebugRectangles)

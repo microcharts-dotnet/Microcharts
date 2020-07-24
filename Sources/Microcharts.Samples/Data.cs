@@ -161,12 +161,12 @@ namespace Microcharts.Samples
 
             return new Chart[]
             {
-                new BarChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new PointChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new LineChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new DonutChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60 },
-                new RadialGaugeChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60 },
-                new RadarChart { Entries = entries, RightToLeftMode = true, LabelTextSize = 60 },
+                new BarChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new PointChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new LineChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new DonutChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60 },
+                new RadialGaugeChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60 },
+                new RadarChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60 },
             };
         }
 
