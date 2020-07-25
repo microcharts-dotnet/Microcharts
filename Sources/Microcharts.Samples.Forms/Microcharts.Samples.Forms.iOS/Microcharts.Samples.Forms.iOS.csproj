@@ -5,7 +5,7 @@
         <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
         <ProductVersion>8.0.30703</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{482B3F7F-2030-4F60-B491-B36732BA1ACF}</ProjectGuid>
+        <ProjectGuid>{28DC5F01-070C-4117-A46F-C4855430DB4A}</ProjectGuid>
         <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Exe</OutputType>
         <RootNamespace>Microcharts.Samples.Forms.iOS</RootNamespace>
@@ -106,16 +106,14 @@
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="SkiaSharp" Version="2.80.1" />
+        <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.80.1" />
         <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
-        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Microcharts\Microcharts.csproj">
-          <Project>{d07d3e94-e645-4035-a142-5f933a15d585}</Project>
-          <Name>Microcharts</Name>
-        </ProjectReference>
         <ProjectReference Include="..\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj">
-            <Project>{87920927-2F8A-4CCD-9537-3AF9B1B3F0AB}</Project>
+            <Project>{56130029-E689-499B-B180-1A39B1C2E99B}</Project>
             <Name>Microcharts.Samples.Forms</Name>
         </ProjectReference>
     </ItemGroup>

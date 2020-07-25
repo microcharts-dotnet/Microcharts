@@ -93,6 +93,6 @@ paket-files/
 
 
 # this file can be merge conflict hell, never commit these.
-Sources/Droid/Resources/Resource.designer.cs
 Sources/Microcharts.Droid/Resources/Resource.designer.cs
 Sources/Microcharts.Samples.Droid/Resources/Resource.designer.cs
+Sources/Microcharts.Samples.Forms/Microcharts.Samples.Forms.Android/Resources/Resource.designer.cs
