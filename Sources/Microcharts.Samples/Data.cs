@@ -135,6 +135,43 @@ namespace Microcharts.Samples
             };
         }
 
+        public static Chart[] UnicodeTest()
+        {
+            var unicodeLang = UnicodeLanguage.Hebrew;
+
+            var entries = new[]
+            {
+                new ChartEntry(200)
+                {
+                    Label = "יָנוּאָר",
+                    ValueLabel = "200",
+                    Color = SKColor.Parse("#266489"),
+                },
+                new ChartEntry(400)
+                {
+                    Label = "פברואר",
+                    ValueLabel = "400",
+                    Color = SKColor.Parse("#68B9C0"),
+                },
+                new ChartEntry(100)
+                {
+                    Label = "מרץ",
+                    ValueLabel = "100",
+                    Color = SKColor.Parse("#90D585"),
+                },
+            };
+
+            return new Chart[]
+            {
+                new BarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new PointChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new LineChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new DonutChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, GraphPosition = GraphPosition.Center, LabelMode = LabelMode.RightOnly },
+                new RadialGaugeChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 },
+                new RadarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 }
+            };
+        }
+
         public static Chart[] CreateQuickstart()
         {
             var entries = new[]

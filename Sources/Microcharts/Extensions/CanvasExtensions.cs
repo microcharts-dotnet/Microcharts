@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using SkiaSharp;
+using SkiaSharp.HarfBuzz;
+
 namespace Microcharts
 {
-    using SkiaSharp;
-
     internal static class CanvasExtensions
     {
-        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
+        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, bool labelIsUnicode, char unicodeLang, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
         {
             var hasLabel = !string.IsNullOrEmpty(label);
             var hasValueLabel = !string.IsNullOrEmpty(value);
@@ -22,7 +23,7 @@ namespace Microcharts
 
                 if (hasLabel)
                 {
-                    using (var paint = new SKPaint()
+                    using (var paint = new SKPaint
                     {
                         TextSize = textSize,
                         IsAntialias = true,
@@ -38,7 +39,18 @@ namespace Microcharts
 
                         var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
 
-                        canvas.DrawText(text, point.X, y, paint);
+                        if (labelIsUnicode)
+                        {
+                            using (var tf = SKFontManager.Default.MatchCharacter(unicodeLang))
+                            using (var shaper = new SKShaper(tf))
+                            {
+                                canvas.DrawShapedText(shaper, text, 0, 0, paint);
+                            }
+                        }
+                        else
+                        {
+                            canvas.DrawText(text, point.X, y, paint);
+                        }
 
                         var labelBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
                         totalBounds = labelBounds.Standardized;
@@ -107,9 +119,6 @@ namespace Microcharts
                     case PointMode.Circle:
                         paint.IsAntialias = true;
                         canvas.DrawCircle(point.X, point.Y, size / 2, paint);
-                        break;
-
-                    default:
                         break;
                 }
             }

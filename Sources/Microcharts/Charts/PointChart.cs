@@ -3,8 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using SkiaSharp;
+using SkiaSharp.HarfBuzz;
 
 namespace Microcharts
 {
@@ -208,6 +210,18 @@ namespace Microcharts
             }
         }
 
+        /// <summary>
+        /// draws the labels
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="texts"></param>
+        /// <param name="points"></param>
+        /// <param name="sizes"></param>
+        /// <param name="colors"></param>
+        /// <param name="orientation"></param>
+        /// <param name="isTop"></param>
+        /// <param name="itemSize"></param>
+        /// <param name="height"></param>
         protected void DrawLabels(SKCanvas canvas,string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
         {
             if (points.Length > 0)
@@ -269,7 +283,18 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                canvas.DrawText(text, 0, 0, paint);
+                                if (UnicodeMode && !float.TryParse(text, NumberStyles.Any, null, out _))
+                                {
+                                    using (var tf = SKFontManager.Default.MatchCharacter(UnicodeLanguage))
+                                    using (var shaper = new SKShaper(tf))
+                                    {
+                                        canvas.DrawShapedText(shaper, text, 0, 0, paint);
+                                    }
+                                }
+                                else
+                                {
+                                    canvas.DrawText(text, 0, 0, paint);
+                                }
                             }
                         }
                     }
