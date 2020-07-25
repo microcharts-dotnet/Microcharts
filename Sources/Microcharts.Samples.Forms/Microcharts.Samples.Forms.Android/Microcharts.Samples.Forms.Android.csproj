@@ -3,7 +3,7 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{3A41196B-321B-4F85-8BFB-7D76E6529D9C}</ProjectGuid>
+        <ProjectGuid>{57F645D7-DBC4-432D-85BE-865900B02AEF}</ProjectGuid>
         <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
         <RootNamespace>Microcharts.Samples.Forms.Android</RootNamespace>
@@ -14,6 +14,7 @@
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+        <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
         <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     </PropertyGroup>
@@ -26,6 +27,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <AndroidLinkMode>None</AndroidLinkMode>
+        <AndroidSupportedAbis>x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -36,6 +38,7 @@
         <WarningLevel>4</WarningLevel>
         <AndroidManagedSymbols>true</AndroidManagedSymbols>
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+        <AndroidSupportedAbis>arm64-v8a</AndroidSupportedAbis>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
@@ -45,13 +48,17 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="SkiaSharp" Version="2.80.1" />
+        <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.80.1" />
         <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
-        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
         <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
         <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
         <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.3" />
         <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.3" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0.1" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
@@ -70,12 +77,8 @@
         <AndroidResource Include="Resources\values\colors.xml" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Microcharts\Microcharts.csproj">
-          <Project>{d07d3e94-e645-4035-a142-5f933a15d585}</Project>
-          <Name>Microcharts</Name>
-        </ProjectReference>
         <ProjectReference Include="..\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj">
-            <Project>{879391C3-A926-41A8-986A-32B1675354EF}</Project>
+            <Project>{56130029-E689-499B-B180-1A39B1C2E99B}</Project>
             <Name>Microcharts.Samples.Forms</Name>
         </ProjectReference>
     </ItemGroup>
