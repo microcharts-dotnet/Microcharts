@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using SkiaSharp;
 using SkiaSharp.HarfBuzz;
@@ -282,9 +283,9 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                if (UnicodeMode)
+                                if (UnicodeMode && !float.TryParse(text, NumberStyles.Any, null, out _))
                                 {
-                                    using (var tf = SKFontManager.Default.MatchCharacter('א'))
+                                    using (var tf = SKFontManager.Default.MatchCharacter(UnicodeLanguage))
                                     using (var shaper = new SKShaper(tf))
                                     {
                                         canvas.DrawShapedText(shaper, text, 0, 0, paint);

@@ -8,7 +8,7 @@ namespace Microcharts
 {
     internal static class CanvasExtensions
     {
-        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, bool labelIsUnicode, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
+        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, bool labelIsUnicode, char unicodeLang, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
         {
             var hasLabel = !string.IsNullOrEmpty(label);
             var hasValueLabel = !string.IsNullOrEmpty(value);
@@ -41,7 +41,7 @@ namespace Microcharts
 
                         if (labelIsUnicode)
                         {
-                            using (var tf = SKFontManager.Default.MatchCharacter('א'))
+                            using (var tf = SKFontManager.Default.MatchCharacter(unicodeLang))
                             using (var shaper = new SKShaper(tf))
                             {
                                 canvas.DrawShapedText(shaper, text, 0, 0, paint);

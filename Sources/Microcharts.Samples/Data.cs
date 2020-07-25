@@ -135,8 +135,10 @@ namespace Microcharts.Samples
             };
         }
 
-        public static Chart[] RightToLeftTest()
+        public static Chart[] UnicodeTest()
         {
+            var unicodeLang = UnicodeLanguage.Hebrew;
+
             var entries = new[]
             {
                 new ChartEntry(200)
@@ -161,12 +163,12 @@ namespace Microcharts.Samples
 
             return new Chart[]
             {
-                new BarChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new PointChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new LineChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new DonutChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60 },
-                new RadialGaugeChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60 },
-                new RadarChart { Entries = entries, UnicodeMode = true, LabelTextSize = 60 },
+                new BarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new PointChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new LineChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new DonutChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, GraphPosition = GraphPosition.Center, LabelMode = LabelMode.RightOnly },
+                new RadialGaugeChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 },
+                new RadarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 }
             };
         }
 
