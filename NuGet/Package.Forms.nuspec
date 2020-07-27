@@ -14,7 +14,7 @@
     <tags>xamarin.forms chart skia</tags>
     <dependencies>
         <group targetFramework="netstandard2.0">
-            <dependency id="Microcharts" version="0.9.0" />
+            <dependency id="Microcharts" version="0.9.5" />
             <dependency id="SkiaSharp" version="2.80.1" />
             <dependency id="SkiaSharp.HarfBuzz" version="2.80.1" />
             <dependency id="SkiaSharp.Views.Forms" version="2.80.1" />
