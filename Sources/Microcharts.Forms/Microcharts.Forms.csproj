@@ -1,20 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.9.0</Version>
-    <AssemblyVersion>0.9.0</AssemblyVersion>
-    <FileVersion>0.9.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Description>Microcharts is an extremely simple charting library for a wide range of platforms (see Compatibility section below), with shared code and rendering for all of them!</Description>
+    <Title>Microcharts.Forms</Title>
+    <Description>Simple, cross-platform chart library.</Description>
     <Copyright>Copyright 2020</Copyright>
-    <PackageLicenseUrl>https://github.com/aloisdeniel/Microcharts/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/aloisdeniel/Microcharts/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/aloisdeniel/Microcharts/</RepositoryUrl>
-    <RepositoryType>GitHub</RepositoryType>
-    <Authors>Aloïs Deniel, Joseph Nixon, Ed Lomonaco</Authors>
+    <PackageLicenseUrl>https://github.com/dotnet-ad/Microcharts/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/dotnet-ad/Microcharts</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dotnet-ad/Microcharts</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>Aloïs Deniel, Ed Lomonaco</Authors>
     <PackageTags>xamarin ios android chart skia Forms</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Company>Aloïs Deniel, Joseph Nixon, Ed Lomonaco</Company>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

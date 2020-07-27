@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts</id>
-    <version>0.9.0</version>
+    <version>0.9.5</version>
     <title>Microcharts</title>
     <authors>Aloïs Deniel, Ed Lomonaco</authors>
     <owners>Aloïs Deniel, Ed Lomonaco</owners>
@@ -15,6 +15,7 @@
     <dependencies>
         <group targetFramework="netstandard2.0">
             <dependency id="SkiaSharp" version="2.80.1" />
+            <dependency id="SkiaSharp.HarfBuzz" version="2.80.1" />
             <dependency id="System.ValueTuple" version="4.5.0" />
         </group>
         <group targetFramework="monoandroid1.0">
