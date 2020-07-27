@@ -94,44 +94,106 @@ namespace Microcharts.Samples
                 new ChartEntry(212)
                 {
                     Label = "UWP",
-                    ValueLabel = "212",
+                    ValueLabel = "112",
                     Color = SKColor.Parse("#2c3e50")
                 },
                 new ChartEntry(248)
                 {
                     Label = "Android",
-                    ValueLabel = "248",
+                    ValueLabel = "648",
                     Color = SKColor.Parse("#77d065")
                 },
                 new ChartEntry(128)
                 {
                     Label = "iOS",
-                    ValueLabel = "128",
+                    ValueLabel = "428",
                     Color = SKColor.Parse("#b455b6")
                 },
                 new ChartEntry(514)
                 {
-                    Label = "Shared",
-                    ValueLabel = "514",
+                    Label = "Forms",
+                    ValueLabel = "214",
                     Color = SKColor.Parse("#3498db")
                 }
             };
 
             return new Chart[]
             {
-                new BarChart() { Entries = entries },
-                new PointChart() { Entries = entries },
-                new LineChart()
+                new BarChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                },
+                new PointChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                },
+                new LineChart
                 {
                     Entries = entries,
                     LineMode = LineMode.Straight,
                     LineSize = 8,
+                    LabelTextSize = 42,
                     PointMode = PointMode.Square,
                     PointSize = 18,
                 },
-                new DonutChart() { Entries = entries },
-                new RadialGaugeChart() { Entries = entries },
-                new RadarChart() { Entries = entries },
+                new DonutChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    GraphPosition = GraphPosition.Center,
+                    LabelMode = LabelMode.RightOnly
+                },
+                new RadialGaugeChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42
+                },
+                new RadarChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42
+                },
+            };
+        }
+
+        public static Chart[] UnicodeTest()
+        {
+            var unicodeLang = UnicodeLanguage.Hebrew;
+
+            var entries = new[]
+            {
+                new ChartEntry(200)
+                {
+                    Label = "יָנוּאָר",
+                    ValueLabel = "200",
+                    Color = SKColor.Parse("#266489"),
+                },
+                new ChartEntry(400)
+                {
+                    Label = "פברואר",
+                    ValueLabel = "400",
+                    Color = SKColor.Parse("#68B9C0"),
+                },
+                new ChartEntry(100)
+                {
+                    Label = "מרץ",
+                    ValueLabel = "100",
+                    Color = SKColor.Parse("#90D585"),
+                },
+            };
+
+            return new Chart[]
+            {
+                new BarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new PointChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new LineChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
+                new DonutChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, GraphPosition = GraphPosition.Center, LabelMode = LabelMode.RightOnly },
+                new RadialGaugeChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 },
+                new RadarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 }
             };
         }
 

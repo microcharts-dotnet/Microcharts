@@ -18,9 +18,9 @@ More info on how you can help can be found [here](https://github.com/dotnet-ad/M
 
 ## Gallery
 
-![gallery](Documentation/images/Bikr.gif)
- 
-![gallery](Documentation/images/Gallery.png)
+![animation gallery](assets/animations.gif)
+
+![gallery](assets/Gallery.png)
 
 ## Install
 

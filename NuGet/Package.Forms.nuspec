@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts.Forms</id>
-    <version>0.9.0</version>
+    <version>0.9.5</version>
     <title>Microcharts for Xamarin.Forms</title>
     <authors>Aloïs Deniel, Ed Lomonaco</authors>
     <owners>Aloïs Deniel, Ed Lomonaco</owners>
@@ -15,14 +15,17 @@
     <dependencies>
         <group targetFramework="netstandard2.0">
             <dependency id="Microcharts" version="0.9.0" />
-            <dependency id="Xamarin.Forms" version="2.4.0.282" />
-            <dependency id="System.ValueTuple" version="4.4.0" />
-            <dependency id="SkiaSharp.Views.Forms" version="1.59.1.1" />
+            <dependency id="SkiaSharp" version="2.80.1" />
+            <dependency id="SkiaSharp.HarfBuzz" version="2.80.1" />
+            <dependency id="SkiaSharp.Views.Forms" version="2.80.1" />
+            <dependency id="System.ValueTuple" version="4.5.0" />
+            <dependency id="Xamarin.Forms" version="4.7.0.1179" />
         </group>
     </dependencies>
   </metadata>
    <files>
      <!-- .NET Standard 2.0 -->
+     <file src="..\Sources\Microcharts\bin\Release\netstandard2.0\Microcharts.dll" target="lib\netstandard2.0\Microcharts.dll"/>
      <file src="..\Sources\Microcharts.Forms\bin\Release\netstandard2.0\Microcharts.Forms.dll" target="lib\netstandard2.0\Microcharts.Forms.dll"/>
    </files>
 </package>

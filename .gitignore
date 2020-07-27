@@ -90,3 +90,9 @@ paket-files/
 
 # Mac folder file
 .DS_Store
+
+
+# this file can be merge conflict hell, never commit these.
+Sources/Microcharts.Droid/Resources/Resource.designer.cs
+Sources/Microcharts.Samples.Droid/Resources/Resource.designer.cs
+Sources/Microcharts.Samples.Forms/Microcharts.Samples.Forms.Android/Resources/Resource.designer.cs

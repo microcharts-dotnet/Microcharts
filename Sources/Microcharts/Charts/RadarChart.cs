@@ -171,7 +171,7 @@ namespace Microcharts
                             alignment = SKTextAlign.Right;
                         }
 
-                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * AnimationProgress)), LabelTextSize, labelPoint, alignment, base.Typeface, out var _);
+                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, UnicodeMode, UnicodeLanguage, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * AnimationProgress)), LabelTextSize, labelPoint, alignment, base.Typeface, out var _);
                     }
                 }
             }

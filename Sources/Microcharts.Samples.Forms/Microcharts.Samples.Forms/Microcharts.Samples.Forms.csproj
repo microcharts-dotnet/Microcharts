@@ -10,11 +10,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Microcharts.Forms\Microcharts.Forms.csproj" />
+      <ProjectReference Include="..\..\Microcharts.Samples\Microcharts.Samples.csproj" />
       <ProjectReference Include="..\..\Microcharts\Microcharts.csproj" />
     </ItemGroup>
 </Project>
