@@ -52,11 +52,11 @@ namespace Microcharts
         /// <value>The size of the point.</value>
         public float PointSize { get; set; } = 14;
 
-        private float AbsoluteMinimum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
+        private float AbsoluteMinimum => Entries.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
 
-        private float AbsoluteMaximum => this.Entries.Select(x => x.Value).Concat(new[] { this.MaxValue, this.MinValue, this.InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
+        private float AbsoluteMaximum => Entries.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
 
-        private float ValueRange => this.AbsoluteMaximum - this.AbsoluteMinimum;
+        private float ValueRange => AbsoluteMaximum - AbsoluteMinimum;
 
         #endregion
 
@@ -74,6 +74,7 @@ namespace Microcharts
 
                     var hasLabel = !string.IsNullOrEmpty(x.Label);
                     var hasValueLabel = !string.IsNullOrEmpty(x.ValueLabel);
+
                     if (hasLabel || hasValueLabel)
                     {
                         var hasOffset = hasLabel && hasValueLabel;
@@ -158,7 +159,7 @@ namespace Microcharts
 
                         // Labels
                         var labelPoint = new SKPoint(0, radius + LabelTextSize + (PointSize / 2));
-                        var rotation = SKMatrix.MakeRotation(angle);
+                        var rotation = SKMatrix.CreateRotation(angle);
                         labelPoint = center + rotation.MapPoint(labelPoint);
                         var alignment = SKTextAlign.Left;
 
@@ -171,14 +172,14 @@ namespace Microcharts
                             alignment = SKTextAlign.Right;
                         }
 
-                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, UnicodeMode, UnicodeLanguage, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * AnimationProgress)), LabelTextSize, labelPoint, alignment, base.Typeface, out var _);
+                        canvas.DrawCaptionLabels(entry.Label, entry.TextColor, TextDirection, entry.ValueLabel, entry.Color.WithAlpha((byte)(255 * AnimationProgress)), LabelTextSize, labelPoint, alignment, base.Typeface, out var _);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Finds point cordinates of an entry.
+        /// Finds point coordinates of an entry.
         /// </summary>
         /// <returns>The point.</returns>
         /// <param name="value">The value.</param>
@@ -189,7 +190,7 @@ namespace Microcharts
         {
             var amount = Math.Abs(value - AbsoluteMinimum) / ValueRange;
             var point = new SKPoint(0, radius * amount);
-            var rotation = SKMatrix.MakeRotation(angle);
+            var rotation = SKMatrix.CreateRotation(angle);
             return center + rotation.MapPoint(point);
         }
 

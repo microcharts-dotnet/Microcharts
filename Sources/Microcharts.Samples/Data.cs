@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using SkiaSharp;
+using Topten.RichTextKit;
 
 namespace Microcharts.Samples
 {
@@ -156,31 +157,29 @@ namespace Microcharts.Samples
                 {
                     Entries = entries,
                     LabelTextSize = 42
-                },
+                }
             };
         }
 
-        public static Chart[] UnicodeTest()
+        public static Chart[] RightToLeftTest()
         {
-            var unicodeLang = UnicodeLanguage.Hebrew;
-
             var entries = new[]
             {
                 new ChartEntry(200)
                 {
-                    Label = "יָנוּאָר",
+                    Label = "שבוע 1",
                     ValueLabel = "200",
                     Color = SKColor.Parse("#266489"),
                 },
                 new ChartEntry(400)
                 {
-                    Label = "פברואר",
+                    Label = "שבוע 2",
                     ValueLabel = "400",
                     Color = SKColor.Parse("#68B9C0"),
                 },
                 new ChartEntry(100)
                 {
-                    Label = "מרץ",
+                    Label = "שבוע 3",
                     ValueLabel = "100",
                     Color = SKColor.Parse("#90D585"),
                 },
@@ -188,12 +187,50 @@ namespace Microcharts.Samples
 
             return new Chart[]
             {
-                new BarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new PointChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new LineChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, LabelOrientation = Orientation.Horizontal },
-                new DonutChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60, GraphPosition = GraphPosition.Center, LabelMode = LabelMode.RightOnly },
-                new RadialGaugeChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 },
-                new RadarChart { Entries = entries, UnicodeMode = true, UnicodeLanguage = unicodeLang, LabelTextSize = 60 }
+                new BarChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal,
+                    TextDirection = TextDirection.RTL
+                },
+                new PointChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal,
+                    TextDirection = TextDirection.RTL
+                },
+                new LineChart
+                {
+                    Entries = entries,
+                    LineMode = LineMode.Straight,
+                    LineSize = 8,
+                    LabelTextSize = 42,
+                    PointMode = PointMode.Square,
+                    PointSize = 18,
+                    TextDirection = TextDirection.RTL
+                },
+                new DonutChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    GraphPosition = GraphPosition.Center,
+                    LabelMode = LabelMode.RightOnly,
+                    TextDirection = TextDirection.RTL
+                },
+                new RadialGaugeChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    TextDirection = TextDirection.RTL
+                },
+                new RadarChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    TextDirection = TextDirection.RTL
+                }
             };
         }
 

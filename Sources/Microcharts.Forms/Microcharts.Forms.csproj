@@ -1,43 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Title>Microcharts.Forms</Title>
-    <Description>Simple, cross-platform chart library.</Description>
-    <Copyright>Copyright 2020</Copyright>
-    <PackageLicenseUrl>https://github.com/dotnet-ad/Microcharts/blob/main/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/dotnet-ad/Microcharts</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/dotnet-ad/Microcharts</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <Authors>Aloïs Deniel, Ed Lomonaco</Authors>
-    <PackageTags>xamarin ios android chart skia Forms</PackageTags>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+        <Version>0.9.5.1</Version>
+        <AssemblyVersion>0.9.5.1</AssemblyVersion>
+        <FileVersion>0.9.5.1</FileVersion>
+        <Title>Microcharts.Forms</Title>
+        <Description>Simple, cross-platform chart library.</Description>
+        <Copyright>Copyright 2020</Copyright>
+        <PackageLicenseUrl>https://github.com/dotnet-ad/Microcharts/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/dotnet-ad/Microcharts</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/dotnet-ad/Microcharts</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Authors>Aloïs Deniel, Ed Lomonaco</Authors>
+        <PackageTags>xamarin ios android chart skia Forms</PackageTags>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='portable-net45+win8+wpa81+wp8'">
-    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
-    <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>
-    <LanguageTargets>$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets</LanguageTargets>
-  </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>none</DebugType>
+        <WarningLevel>3</WarningLevel>
+    </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugType>none</DebugType>
-    <WarningLevel>3</WarningLevel>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+    </ItemGroup>
 </Project>
