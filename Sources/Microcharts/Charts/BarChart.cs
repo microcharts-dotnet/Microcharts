@@ -68,6 +68,12 @@ namespace Microcharts
             }
         }
 
+        protected override void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
+        {
+            DrawBarAreas(canvas, points, itemSize, headerHeight);
+            DrawBars(canvas, points, itemSize, origin, headerHeight);
+        }
+
         /// <summary>
         /// Draws the value bars.
         /// </summary>

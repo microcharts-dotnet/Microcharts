@@ -79,6 +79,12 @@ namespace Microcharts
             }
         }
 
+        protected override void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
+        {
+            DrawArea(canvas, points, itemSize, origin);
+            DrawLine(canvas, points, itemSize);
+        }
+
         protected void DrawLine(SKCanvas canvas, SKPoint[] points, SKSize itemSize)
         {
             if (points.Length > 1 && LineMode != LineMode.None)
