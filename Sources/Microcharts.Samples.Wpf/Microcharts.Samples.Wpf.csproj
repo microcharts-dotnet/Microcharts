@@ -94,5 +94,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microcharts.Samples\Microcharts.Samples.csproj">
+      <Project>{6fbe798d-bb43-4bb5-9c61-d6dd5b0e623a}</Project>
+      <Name>Microcharts.Samples</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microcharts.Wpf\Microcharts.Wpf.csproj">
+      <Project>{ee9cd9d7-ed84-4440-a7e4-82a3fb016e7a}</Project>
+      <Name>Microcharts.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj">
+      <Project>{d07d3e94-e645-4035-a142-5f933a15d585}</Project>
+      <Name>Microcharts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
