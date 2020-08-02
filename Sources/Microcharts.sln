@@ -32,19 +32,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Forms", "Microc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.iOS", "Microcharts.Samples.iOS\Microcharts.Samples.iOS.csproj", "{E8626BE1-E233-4F4A-9084-673A987B9231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms", "Microcharts.Samples.Forms\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj", "{EA72144A-ADE5-4990-AE8E-47EA05CB0B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Forms", "Microcharts.Samples.Forms\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj", "{EA72144A-ADE5-4990-AE8E-47EA05CB0B1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.Android", "Microcharts.Samples.Forms\Microcharts.Samples.Forms.Android\Microcharts.Samples.Forms.Android.csproj", "{57F645D7-DBC4-432D-85BE-865900B02AEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.iOS", "Microcharts.Samples.Forms\Microcharts.Samples.Forms.iOS\Microcharts.Samples.Forms.iOS.csproj", "{28DC5F01-070C-4117-A46F-C4855430DB4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Wpf", "Microcharts.Wpf\Microcharts.Wpf.csproj", "{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Microcharts.Samples.Forms.Shared\Microcharts.Samples.Forms.Shared.projitems*{2f00e14f-19a3-4018-bf0e-636dea79e666}*SharedItemsImports = 4
-		Microcharts.Samples.Forms.Shared\Microcharts.Samples.Forms.Shared.projitems*{5765ed35-ad7e-49bb-8701-b45d3c949501}*SharedItemsImports = 4
-		Microcharts.Samples.Forms.Shared\Microcharts.Samples.Forms.Shared.projitems*{74f105e6-d516-4455-b7f5-18542ac86c85}*SharedItemsImports = 13
-		Microcharts.Samples.Forms.Shared\Microcharts.Samples.Forms.Shared.projitems*{e4341734-8b9d-4f53-a27d-234d251765fa}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -402,6 +398,30 @@ Global
 		{28DC5F01-070C-4117-A46F-C4855430DB4A}.Release|x64.Build.0 = Release|iPhoneSimulator
 		{28DC5F01-070C-4117-A46F-C4855430DB4A}.Release|x86.ActiveCfg = Release|iPhoneSimulator
 		{28DC5F01-070C-4117-A46F-C4855430DB4A}.Release|x86.Build.0 = Release|iPhoneSimulator
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|x64.Build.0 = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Debug|x86.Build.0 = Debug|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|ARM.Build.0 = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|iPhone.Build.0 = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|x64.ActiveCfg = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|x64.Build.0 = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|x86.ActiveCfg = Release|Any CPU
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -422,6 +442,7 @@ Global
 		{EA72144A-ADE5-4990-AE8E-47EA05CB0B1F} = {371D4457-9946-40A6-AE2E-2DF8AA43A69B}
 		{57F645D7-DBC4-432D-85BE-865900B02AEF} = {371D4457-9946-40A6-AE2E-2DF8AA43A69B}
 		{28DC5F01-070C-4117-A46F-C4855430DB4A} = {371D4457-9946-40A6-AE2E-2DF8AA43A69B}
+		{EE9CD9D7-ED84-4440-A7E4-82A3FB016E7A} = {4FF9B02F-4870-4B6E-B075-BE1D0C3976A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCCD19D6-0567-4462-A494-5848BD95715F}
