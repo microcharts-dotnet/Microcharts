@@ -48,9 +48,10 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="HarfBuzzSharp" Version="2.6.1.6" />
         <PackageReference Include="SkiaSharp" Version="2.80.1" />
-        <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.80.1" />
         <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+        <PackageReference Include="Topten.RichTextKit" Version="0.3.129" />
         <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
         <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
@@ -72,7 +73,10 @@
     <ItemGroup>
         <AndroidResource Include="Resources\layout\Tabbar.axml" />
         <AndroidResource Include="Resources\layout\Toolbar.axml" />
-        <AndroidResource Include="Resources\Resource.designer.cs" />
+        <Compile Include="Resources\Resource.designer.cs">
+          <SubType>Designer</SubType>
+          <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+        </Compile>
         <AndroidResource Include="Resources\values\styles.xml" />
         <AndroidResource Include="Resources\values\colors.xml" />
     </ItemGroup>

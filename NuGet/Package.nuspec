@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts</id>
-    <version>0.9.5</version>
+    <version>0.9.5.1</version>
     <title>Microcharts</title>
     <authors>Aloïs Deniel, Ed Lomonaco</authors>
     <owners>Aloïs Deniel, Ed Lomonaco</owners>
@@ -14,20 +14,29 @@
     <tags>xamarin ios android chart skia</tags>
     <dependencies>
         <group targetFramework="netstandard2.0">
+            <dependency id="HarfBuzzSharp" version="2.6.1.6" />
             <dependency id="SkiaSharp" version="2.80.1" />
-            <dependency id="SkiaSharp.HarfBuzz" version="2.80.1" />
             <dependency id="System.ValueTuple" version="4.5.0" />
+            <dependency id="Topten.RichTextKit" version="0.3.129" />
         </group>
         <group targetFramework="monoandroid1.0">
+            <dependency id="HarfBuzzSharp" version="2.6.1.6" />
+            <dependency id="Topten.RichTextKit" version="0.3.129" />
             <dependency id="SkiaSharp.Views"  version="2.80.1" />
         </group>
         <group targetFramework="xamarinios1.0">
+            <dependency id="HarfBuzzSharp" version="2.6.1.6" />
+            <dependency id="Topten.RichTextKit" version="0.3.129" />
             <dependency id="SkiaSharp.Views"  version="2.80.1" />
         </group>
-        <group targetFramework="uap">
+        <group targetFramework="uap10.0">
+            <dependency id="HarfBuzzSharp" version="2.6.1.6" />
+            <dependency id="Topten.RichTextKit" version="0.3.129" />
             <dependency id="SkiaSharp.Views"  version="2.80.1" />
         </group>
         <group targetFramework="xamarinmac2.0">
+            <dependency id="HarfBuzzSharp" version="2.6.1.6" />
+            <dependency id="Topten.RichTextKit" version="0.3.129" />
             <dependency id="SkiaSharp.Views"  version="2.80.1" />
         </group>
     </dependencies>
@@ -45,8 +54,8 @@
 	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.iOS.dll" target="lib\xamarinios1.0\Microcharts.iOS.dll"/>
      
      <!-- UWP -->
-	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap\Microcharts.dll"/>
-	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap\Microcharts.Uwp.dll"/>
+     <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap10.0\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap10.0\Microcharts.Uwp.dll"/>
      
      <!-- macOS -->
 	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.dll" target="lib\xamarinmac2.0\Microcharts.dll"/>

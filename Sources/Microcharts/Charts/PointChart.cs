@@ -3,10 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using SkiaSharp;
-using SkiaSharp.HarfBuzz;
+using Topten.RichTextKit;
 
 namespace Microcharts
 {
@@ -222,12 +221,10 @@ namespace Microcharts
         /// <param name="isTop"></param>
         /// <param name="itemSize"></param>
         /// <param name="height"></param>
-        protected void DrawLabels(SKCanvas canvas,string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
+        protected void DrawLabels(SKCanvas canvas, string[] texts, SKPoint[] points, SKRect[] sizes, SKColor[] colors, Orientation orientation, bool isTop, SKSize itemSize, float height)
         {
             if (points.Length > 0)
             {
-                var maxWidth = sizes.Max(x => x.Width);
-
                 for (int i = 0; i < points.Length; i++)
                 {
                     var entry = Entries.ElementAt(i);
@@ -243,7 +240,7 @@ namespace Microcharts
                                 paint.IsAntialias = true;
                                 paint.Color = colors[i];
                                 paint.IsStroke = false;
-                                paint.Typeface = base.Typeface;
+                                paint.Typeface = Typeface;
                                 var bounds = sizes[i];
                                 var text = texts[i];
 
@@ -283,18 +280,15 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                if (UnicodeMode && !float.TryParse(text, NumberStyles.Any, null, out _))
+                                var rs = new RichString()
+                                    .TextDirection(TextDirection)
+                                    .Add(text, fontSize: LabelTextSize);
+
+                                rs.Paint(canvas, new TextPaintOptions
                                 {
-                                    using (var tf = SKFontManager.Default.MatchCharacter(UnicodeLanguage))
-                                    using (var shaper = new SKShaper(tf))
-                                    {
-                                        canvas.DrawShapedText(shaper, text, 0, 0, paint);
-                                    }
-                                }
-                                else
-                                {
-                                    canvas.DrawText(text, 0, 0, paint);
-                                }
+                                    IsAntialias = true,
+                                    LcdRenderText = true
+                                });
                             }
                         }
                     }
@@ -307,6 +301,7 @@ namespace Microcharts
         /// </summary>
         /// <returns>The footer height.</returns>
         /// <param name="valueLabelSizes">Value label sizes.</param>
+        /// <param name="orientation">orientation of content</param>
         protected float CalculateFooterHeaderHeight(SKRect[] valueLabelSizes, Orientation orientation)
         {
             var result = Margin;
