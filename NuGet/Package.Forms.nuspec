@@ -20,22 +20,6 @@
             <dependency id="Topten.RichTextKit" version="0.3.129" />
             <dependency id="Xamarin.Forms" version="4.7.0.1179" />
         </group>
-        <group targetFramework="monoandroid1.0">
-            <dependency id="HarfBuzzSharp" version="2.6.1.6" />
-            <dependency id="Microcharts" version="0.9.5.1" />
-            <dependency id="SkiaSharp" version="2.80.1" />
-            <dependency id="System.ValueTuple" version="4.5.0" />
-            <dependency id="Topten.RichTextKit" version="0.3.129" />
-            <dependency id="Xamarin.Forms" version="4.7.0.1179" />
-        </group>
-        <group targetFramework="xamarinios1.0">
-<dependency id="HarfBuzzSharp" version="2.6.1.6" />
-            <dependency id="Microcharts" version="0.9.5.1" />
-            <dependency id="SkiaSharp" version="2.80.1" />
-            <dependency id="System.ValueTuple" version="4.5.0" />
-            <dependency id="Topten.RichTextKit" version="0.3.129" />
-            <dependency id="Xamarin.Forms" version="4.7.0.1179" />
-        </group>
     </dependencies>
   </metadata>
    <files>
