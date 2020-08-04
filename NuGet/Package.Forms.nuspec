@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts.Forms</id>
-    <version>0.9.5.1</version>
+    <version>0.9.5.2</version>
     <title>Microcharts for Xamarin.Forms</title>
     <authors>Aloïs Deniel, Ed Lomonaco</authors>
     <owners>Aloïs Deniel, Ed Lomonaco</owners>
@@ -16,6 +16,7 @@
         <group targetFramework="netstandard2.0">
             <dependency id="Microcharts" version="0.9.5.1" />
             <dependency id="SkiaSharp" version="2.80.1" />
+            <dependency id="SkiaSharp.Views.Forms" version="2.80.1" />
             <dependency id="System.ValueTuple" version="4.5.0" />
             <dependency id="Topten.RichTextKit" version="0.3.129" />
             <dependency id="Xamarin.Forms" version="4.7.0.1179" />
