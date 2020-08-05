@@ -182,7 +182,7 @@ namespace Microcharts.Samples
                     Label = "שבוע 3",
                     ValueLabel = "100",
                     Color = SKColor.Parse("#90D585"),
-                },
+                }
             };
 
             return new Chart[]
@@ -230,6 +230,71 @@ namespace Microcharts.Samples
                     Entries = entries,
                     LabelTextSize = 42,
                     TextDirection = TextDirection.RTL
+                }
+            };
+        }
+
+        public static Chart[] YAxisTest()
+        {
+            var entries = new[]
+            {
+                new ChartEntry(200)
+                {
+                    Label = "January",
+                    ValueLabel = "200",
+                    Color = SKColor.Parse("#266489"),
+                },
+                new ChartEntry(400)
+                {
+                    Label = "February",
+                    ValueLabel = "400",
+                    Color = SKColor.Parse("#68B9C0"),
+                },
+                new ChartEntry(100)
+                {
+                    Label = "March",
+                    ValueLabel = "100",
+                    Color = SKColor.Parse("#90D585"),
+                }
+            };
+
+            return new Chart[]
+            {
+                new BarChart
+                {
+                    Entries = entries,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left
+                },
+                new PointChart
+                {
+                    Entries = entries,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Right
+                },
+                new LineChart
+                {
+                    Entries = entries,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left
+                },
+                new DonutChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    GraphPosition = GraphPosition.Center,
+                    LabelMode = LabelMode.RightOnly
+                },
+                new RadialGaugeChart
+                {
+                    Entries = entries
+                },
+                new RadarChart
+                {
+                    Entries = entries
                 }
             };
         }

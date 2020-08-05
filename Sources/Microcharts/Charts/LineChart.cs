@@ -54,29 +54,10 @@ namespace Microcharts
         #endregion
 
         #region Methods
-
-        public override void DrawContent(SKCanvas canvas, int width, int height)
+        protected override void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
         {
-            if (Entries != null)
-            {
-                var labels = this.Entries.Select(x => x.Label).ToArray();
-                var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
-
-                var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
-
-                var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
-                var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = this.CalculatePoints(itemSize, origin, headerHeight);
-
-                DrawArea(canvas, points, itemSize, origin);
-                DrawLine(canvas, points, itemSize);
-                DrawPoints(canvas, points);
-                DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
-                DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
-            }
+            DrawArea(canvas, points, itemSize, origin);
+            DrawLine(canvas, points, itemSize);
         }
 
         protected void DrawLine(SKCanvas canvas, SKPoint[] points, SKSize itemSize)
