@@ -38,36 +38,6 @@ namespace Microcharts
 
         #region Methods
 
-        /// <summary>
-        /// Draws the content of the chart onto the specified canvas.
-        /// </summary>
-        /// <param name="canvas">The output canvas.</param>
-        /// <param name="width">The width of the chart.</param>
-        /// <param name="height">The height of the chart.</param>
-        public override void DrawContent(SKCanvas canvas, int width, int height)
-        {
-            if (Entries != null)
-            {
-                var labels = Entries.Select(x => x.Label).ToArray();
-                var labelSizes = MeasureLabels(labels);
-                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation);
-
-                var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = MeasureLabels(valueLabels);
-                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation);
-
-                var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
-                var origin = CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = CalculatePoints(itemSize, origin, headerHeight);
-
-                DrawBarAreas(canvas, points, itemSize, headerHeight);
-                DrawBars(canvas, points, itemSize, origin, headerHeight);
-                DrawPoints(canvas, points);
-                DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
-                DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
-            }
-        }
-
         protected override void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
         {
             DrawBarAreas(canvas, points, itemSize, headerHeight);

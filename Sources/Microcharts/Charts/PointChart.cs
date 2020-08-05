@@ -35,7 +35,7 @@ namespace Microcharts
 
             YAxisLinesPaint = new SKPaint
             {
-                Color = SKColors.Black.WithAlpha(0x13),
+                Color = SKColors.Black.WithAlpha(0x50),
                 IsAntialias = true,
                 Style = SKPaintStyle.Stroke
             };
@@ -129,15 +129,14 @@ namespace Microcharts
         {
             if (Entries != null)
             {
-                var yAxisWidth = 0;
                 var yAxisXShift = 0.0f;
                 var yAxisIntervalLabels = new List<float>();
 
                 if (ShowYAxisText || ShowYAxisLines)
                 {
-                    yAxisWidth = width;
+                    var yAxisWidth = width;
 
-                    var enumerable = this.Entries.ToList(); // to avoid double enumeration
+                    var enumerable = Entries.ToList(); // to avoid double enumeration
 
                     NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), YAxisMaxTicks, out var range, out var tickSpacing, out var niceMin, out var niceMax);
 
@@ -172,8 +171,8 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);
                 var points = CalculatePoints(itemSize, origin, headerHeight, yAxisXShift);
-
                 var cnt = 0;
+
                 if (ShowYAxisText || ShowYAxisLines)
                 {
                     var intervals = yAxisIntervalLabels
@@ -238,9 +237,9 @@ namespace Microcharts
         {
             var result = new List<SKPoint>();
 
-            for (int i = 0; i < this.Entries.Count(); i++)
+            for (int i = 0; i < Entries.Count(); i++)
             {
-                var entry = this.Entries.ElementAt(i);
+                var entry = Entries.ElementAt(i);
                 var value = entry.Value;
 
                 result.Add(CalculatePoint(value, i, itemSize, origin, headerHeight, originX));
@@ -251,8 +250,8 @@ namespace Microcharts
 
         protected SKPoint CalculatePoint(float value, int i, SKSize itemSize, float origin, float headerHeight, float originX = 0)
         {
-            var x = originX + this.Margin + (itemSize.Width / 2) + (i * (itemSize.Width + this.Margin));
-            var y = headerHeight + ((1 - this.AnimationProgress) * (origin - headerHeight) + (((this.MaxValue - value) / this.ValueRange) * itemSize.Height) * this.AnimationProgress);
+            var x = originX + Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin));
+            var y = headerHeight + ((1 - AnimationProgress) * (origin - headerHeight) + (((MaxValue - value) / ValueRange) * itemSize.Height) * AnimationProgress);
 
             return new SKPoint(x, y);
         }
