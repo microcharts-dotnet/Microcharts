@@ -18,36 +18,55 @@ namespace Microcharts
         /// <param name="tickSpacing"></param>
         /// <param name="niceMin"></param>
         /// <param name="niceMax"></param>
-        public static void Calculate(double min, double max, int maxTicks, out double range, out double tickSpacing, out double niceMin, out double niceMax) {
+        public static void Calculate(double min, double max, int maxTicks, out double range, out double tickSpacing, out double niceMin, out double niceMax)
+        {
             range = NiceNum(max - min, false);
             tickSpacing = NiceNum(range / (maxTicks - 1), true);
             niceMin = Math.Floor(min / tickSpacing) * tickSpacing;
             niceMax = Math.Ceiling(max / tickSpacing) * tickSpacing;
         }
 
-        private static double NiceNum(double range, bool round) {
-            double pow = Math.Pow(10, Math.Floor(Math.Log10(range)));
-            double fraction = range / pow;
-
+        private static double NiceNum(double range, bool round)
+        {
+            var pow = Math.Pow(10, Math.Floor(Math.Log10(range)));
+            var fraction = range / pow;
             double niceFraction;
-            if (round) {
-                if (fraction < 1.5) {
+
+            if (round)
+            {
+                if (fraction < 1.5)
+                {
                     niceFraction = 1;
-                } else if (fraction < 3) {
+                }
+                else if (fraction < 3)
+                {
                     niceFraction = 2;
-                } else if (fraction < 7) {
+                }
+                else if (fraction < 7)
+                {
                     niceFraction = 5;
-                } else {
+                }
+                else
+                {
                     niceFraction = 10;
                 }
-            } else {
-                if (fraction <= 1) {
+            }
+            else
+            {
+                if (fraction <= 1)
+                {
                     niceFraction = 1;
-                } else if (fraction <= 2) {
+                }
+                else if (fraction <= 2)
+                {
                     niceFraction = 2;
-                } else if (fraction <= 5) {
+                }
+                else if (fraction <= 5)
+                {
                     niceFraction = 5;
-                } else {
+                }
+                else
+                {
                     niceFraction = 10;
                 }
             }
