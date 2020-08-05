@@ -391,9 +391,10 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                var rs = new RichString()
-                                    .TextDirection(TextDirection)
-                                    .Add(text, fontSize: LabelTextSize);
+                                var rs = new RichString(text)
+                                    .FontSize(LabelTextSize)
+                                    .TextColor(colors[i])
+                                    .TextDirection(TextDirection);
 
                                 rs.Paint(canvas, new TextPaintOptions
                                 {
