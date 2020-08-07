@@ -39,10 +39,7 @@ namespace Microcharts
 
                         var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
 
-                        var rs = new RichString(text)
-                            .FontSize(textSize)
-                            .TextColor(labelColor)
-                            .TextDirection(textDirection);
+                        var rs = new RichString().Add(text, fontSize: textSize, textColor: labelColor, textDirection: textDirection);
 
                         rs.Paint(canvas, new SKPoint(point.X, y), new TextPaintOptions
                         {
