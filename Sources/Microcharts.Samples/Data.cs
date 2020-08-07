@@ -190,14 +190,16 @@ namespace Microcharts.Samples
                 new BarChart
                 {
                     Entries = entries,
-                    LabelTextSize = 42,
+                    LabelTextSize = 60,
+                    LabelColor = SKColors.Red,
                     LabelOrientation = Orientation.Horizontal,
                     TextDirection = TextDirection.RTL
                 },
                 new PointChart
                 {
                     Entries = entries,
-                    LabelTextSize = 42,
+                    LabelTextSize = 60,
+                    LabelColor = SKColors.Red,
                     LabelOrientation = Orientation.Horizontal,
                     TextDirection = TextDirection.RTL
                 },
@@ -206,7 +208,8 @@ namespace Microcharts.Samples
                     Entries = entries,
                     LineMode = LineMode.Straight,
                     LineSize = 8,
-                    LabelTextSize = 42,
+                    LabelTextSize = 60,
+                    LabelColor = SKColors.Red,
                     PointMode = PointMode.Square,
                     PointSize = 18,
                     TextDirection = TextDirection.RTL
@@ -214,7 +217,7 @@ namespace Microcharts.Samples
                 new DonutChart
                 {
                     Entries = entries,
-                    LabelTextSize = 42,
+                    LabelTextSize = 60,
                     GraphPosition = GraphPosition.Center,
                     LabelMode = LabelMode.RightOnly,
                     TextDirection = TextDirection.RTL
@@ -222,13 +225,13 @@ namespace Microcharts.Samples
                 new RadialGaugeChart
                 {
                     Entries = entries,
-                    LabelTextSize = 42,
+                    LabelTextSize = 60,
                     TextDirection = TextDirection.RTL
                 },
                 new RadarChart
                 {
                     Entries = entries,
-                    LabelTextSize = 42,
+                    LabelTextSize = 60,
                     TextDirection = TextDirection.RTL
                 }
             };
@@ -284,7 +287,6 @@ namespace Microcharts.Samples
                 new DonutChart
                 {
                     Entries = entries,
-                    LabelTextSize = 42,
                     GraphPosition = GraphPosition.Center,
                     LabelMode = LabelMode.RightOnly
                 },
