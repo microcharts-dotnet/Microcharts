@@ -15,7 +15,7 @@ namespace Microcharts.Samples.Droid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            var charts = Data.RightToLeftTest();
+            var charts = Data.CreateQuickstart();
 
             FindViewById<ChartView>(Resource.Id.chartView1).Chart = charts[0];
             FindViewById<ChartView>(Resource.Id.chartView2).Chart = charts[1];

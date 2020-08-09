@@ -280,7 +280,27 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                var rs = new RichString().Add(text, fontSize: LabelTextSize, textColor: colors[i], textDirection: TextDirection);
+                                RichString rs;
+
+                                if (Typeface != null)
+                                {
+                                    rs = new RichString()
+                                        .FontFamily(Typeface.FamilyName)
+                                        .FontSize(LabelTextSize)
+                                        .LetterSpacing(LabelTextSpacing)
+                                        .TextColor(colors[i])
+                                        .TextDirection(TextDirection)
+                                        .Add(text);
+                                }
+                                else
+                                {
+                                    rs = new RichString()
+                                        .FontSize(LabelTextSize)
+                                        .LetterSpacing(LabelTextSpacing)
+                                        .TextColor(colors[i])
+                                        .TextDirection(TextDirection)
+                                        .Add(text);
+                                }
 
                                 rs.Paint(canvas, new TextPaintOptions
                                 {
