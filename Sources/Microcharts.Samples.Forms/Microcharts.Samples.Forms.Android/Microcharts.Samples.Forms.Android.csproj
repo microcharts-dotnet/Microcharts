@@ -48,10 +48,9 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="HarfBuzzSharp" Version="2.6.1.6" />
-        <PackageReference Include="SkiaSharp" Version="2.80.1" />
-        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
-        <PackageReference Include="Topten.RichTextKit" Version="0.3.129" />
+        <PackageReference Include="SkiaSharp" Version="2.80.2" />
+        <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
         <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
         <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
         <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />

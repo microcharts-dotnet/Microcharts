@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
-using Topten.RichTextKit;
 
 namespace Microcharts
 {
@@ -280,33 +279,7 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                RichString rs;
-
-                                if (Typeface != null)
-                                {
-                                    rs = new RichString()
-                                        .FontFamily(Typeface.FamilyName)
-                                        .FontSize(LabelTextSize)
-                                        .LetterSpacing(LabelTextSpacing)
-                                        .TextColor(colors[i])
-                                        .TextDirection(TextDirection)
-                                        .Add(text);
-                                }
-                                else
-                                {
-                                    rs = new RichString()
-                                        .FontSize(LabelTextSize)
-                                        .LetterSpacing(LabelTextSpacing)
-                                        .TextColor(colors[i])
-                                        .TextDirection(TextDirection)
-                                        .Add(text);
-                                }
-
-                                rs.Paint(canvas, new TextPaintOptions
-                                {
-                                    IsAntialias = true,
-                                    LcdRenderText = true
-                                });
+                                canvas.DrawText(text, 0, 0, paint);
                             }
                         }
                     }

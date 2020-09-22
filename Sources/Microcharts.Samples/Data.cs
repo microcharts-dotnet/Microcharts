@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using SkiaSharp;
-using Topten.RichTextKit;
 
 namespace Microcharts.Samples
 {
@@ -157,82 +156,6 @@ namespace Microcharts.Samples
                 {
                     Entries = entries,
                     LabelTextSize = 42
-                }
-            };
-        }
-
-        public static Chart[] RightToLeftTest()
-        {
-            var entries = new[]
-            {
-                new ChartEntry(200)
-                {
-                    Label = "שבוע 1",
-                    ValueLabel = "200",
-                    Color = SKColor.Parse("#266489"),
-                },
-                new ChartEntry(400)
-                {
-                    Label = "שבוע 2",
-                    ValueLabel = "400",
-                    Color = SKColor.Parse("#68B9C0"),
-                },
-                new ChartEntry(100)
-                {
-                    Label = "שבוע 3",
-                    ValueLabel = "100",
-                    Color = SKColor.Parse("#90D585"),
-                }
-            };
-
-            return new Chart[]
-            {
-                new BarChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    LabelColor = SKColors.Red,
-                    LabelOrientation = Orientation.Horizontal,
-                    TextDirection = TextDirection.RTL
-                },
-                new PointChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    LabelColor = SKColors.Red,
-                    LabelOrientation = Orientation.Horizontal,
-                    TextDirection = TextDirection.RTL
-                },
-                new LineChart
-                {
-                    Entries = entries,
-                    LineMode = LineMode.Straight,
-                    LineSize = 8,
-                    LabelTextSize = 60,
-                    LabelColor = SKColors.Red,
-                    PointMode = PointMode.Square,
-                    PointSize = 18,
-                    TextDirection = TextDirection.RTL
-                },
-                new DonutChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    GraphPosition = GraphPosition.Center,
-                    LabelMode = LabelMode.RightOnly,
-                    TextDirection = TextDirection.RTL
-                },
-                new RadialGaugeChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    TextDirection = TextDirection.RTL
-                },
-                new RadarChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    TextDirection = TextDirection.RTL
                 }
             };
         }

@@ -106,9 +106,8 @@
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.80.1" />
-        <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.80.1" />
-        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.1" />
+        <PackageReference Include="SkiaSharp" Version="2.80.2" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
         <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
     </ItemGroup>
     <ItemGroup>
