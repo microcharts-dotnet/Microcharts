@@ -168,25 +168,31 @@ namespace Microcharts.Samples
                 {
                         Label = "Week 1",
                         ValueLabel = "200",
-                        Color = SKColor.Parse("#266489"),
+                        Color = SKColor.Parse("#266489")
                 },
                 new ChartEntry(400)
                 {
                         Label = "Week 2",
                         ValueLabel = "400",
-                        Color = SKColor.Parse("#68B9C0"),
+                        Color = SKColor.Parse("#68B9C0")
                 },
                 new ChartEntry(100)
                 {
                         Label = "Week 3",
                         ValueLabel = "100",
-                        Color = SKColor.Parse("#90D585"),
+                        Color = SKColor.Parse("#90D585")
                 },
                 new ChartEntry(600)
                 {
                     Label = "Week 4",
                     ValueLabel = "600",
-                    Color = SKColor.Parse("#32a852"),
+                    Color = SKColor.Parse("#32a852")
+                },
+                new ChartEntry(600)
+                {
+                    Label = "Week 5",
+                    ValueLabel = "1600",
+                    Color = SKColor.Parse("#8EC0D8")
                 }
             };
 
