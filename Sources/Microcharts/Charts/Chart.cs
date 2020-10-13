@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -345,7 +345,7 @@ namespace Microcharts
                 {
                     var captionMargin = LabelTextSize * 0.60f;
                     var captionX = isLeft ? Margin : width - Margin - LabelTextSize;
-                    var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * AnimationProgress));
+                    var valueColor = entry.ValueLabelColor.WithAlpha((byte)(entry.ValueLabelColor.Alpha * AnimationProgress));
                     var lblColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * AnimationProgress));
                     var rect = SKRect.Create(captionX, y, LabelTextSize, LabelTextSize);
 
