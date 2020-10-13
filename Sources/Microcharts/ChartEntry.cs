@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 namespace Microcharts
@@ -54,6 +54,12 @@ namespace Microcharts
         /// </summary>
         /// <value>The color of the text.</value>
         public SKColor TextColor { get; set; } = SKColors.Gray;
+
+        /// <summary>
+        /// Gets or sets the color of the value label
+        /// </summary>
+        /// <value>The color of the value label.</value>
+        public SKColor ValueLabelColor { get; set; } = SKColors.Black;
 
         #endregion
     }
