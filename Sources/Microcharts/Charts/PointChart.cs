@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -150,7 +150,7 @@ namespace Microcharts
                             labels,
                             points.Select(p => new SKPoint(p.X, headerHeight - Margin)).ToArray(),
                             labelSizes,
-                            Entries.Select(x => x.Color.WithAlpha((byte)(255 * AnimationProgress))).ToArray(),
+                            Entries.Select(x => x.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress))).ToArray(),
                             ValueLabelOrientation,
                             true,
                             itemSize,
