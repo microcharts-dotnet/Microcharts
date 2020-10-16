@@ -52,8 +52,8 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-      <PackageReference Include="SkiaSharp" Version="2.80.1" />
-      <PackageReference Include="SkiaSharp.Views" Version="2.80.1" />
+      <PackageReference Include="SkiaSharp" Version="2.80.2" />
+      <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">

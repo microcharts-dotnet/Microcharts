@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using SkiaSharp;
-using Topten.RichTextKit;
 
 namespace Microcharts.Samples
 {
@@ -161,146 +160,6 @@ namespace Microcharts.Samples
             };
         }
 
-        public static Chart[] RightToLeftTest()
-        {
-            var entries = new[]
-            {
-                new ChartEntry(200)
-                {
-                    Label = "שבוע 1",
-                    ValueLabel = "200",
-                    Color = SKColor.Parse("#266489"),
-                },
-                new ChartEntry(400)
-                {
-                    Label = "שבוע 2",
-                    ValueLabel = "400",
-                    Color = SKColor.Parse("#68B9C0"),
-                },
-                new ChartEntry(100)
-                {
-                    Label = "שבוע 3",
-                    ValueLabel = "100",
-                    Color = SKColor.Parse("#90D585"),
-                }
-            };
-
-            return new Chart[]
-            {
-                new BarChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    LabelColor = SKColors.Red,
-                    LabelOrientation = Orientation.Horizontal,
-                    TextDirection = TextDirection.RTL
-                },
-                new PointChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    LabelColor = SKColors.Red,
-                    LabelOrientation = Orientation.Horizontal,
-                    TextDirection = TextDirection.RTL
-                },
-                new LineChart
-                {
-                    Entries = entries,
-                    LineMode = LineMode.Straight,
-                    LineSize = 8,
-                    LabelTextSize = 60,
-                    LabelColor = SKColors.Red,
-                    PointMode = PointMode.Square,
-                    PointSize = 18,
-                    TextDirection = TextDirection.RTL
-                },
-                new DonutChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    GraphPosition = GraphPosition.Center,
-                    LabelMode = LabelMode.RightOnly,
-                    TextDirection = TextDirection.RTL
-                },
-                new RadialGaugeChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    TextDirection = TextDirection.RTL
-                },
-                new RadarChart
-                {
-                    Entries = entries,
-                    LabelTextSize = 60,
-                    TextDirection = TextDirection.RTL
-                }
-            };
-        }
-
-        public static Chart[] YAxisTest()
-        {
-            var entries = new[]
-            {
-                new ChartEntry(200)
-                {
-                    Label = "January",
-                    ValueLabel = "200",
-                    Color = SKColor.Parse("#266489"),
-                },
-                new ChartEntry(400)
-                {
-                    Label = "February",
-                    ValueLabel = "400",
-                    Color = SKColor.Parse("#68B9C0"),
-                },
-                new ChartEntry(100)
-                {
-                    Label = "March",
-                    ValueLabel = "100",
-                    Color = SKColor.Parse("#90D585"),
-                }
-            };
-
-            return new Chart[]
-            {
-                new BarChart
-                {
-                    Entries = entries,
-                    ShowYAxisLines = true,
-                    ShowYAxisText = true,
-                    YAxisPosition = Position.Left
-                },
-                new PointChart
-                {
-                    Entries = entries,
-                    ShowYAxisLines = true,
-                    ShowYAxisText = true,
-                    YAxisPosition = Position.Right
-                },
-                new LineChart
-                {
-                    Entries = entries,
-                    ShowYAxisLines = true,
-                    ShowYAxisText = true,
-                    YAxisPosition = Position.Left
-                },
-                new DonutChart
-                {
-                    Entries = entries,
-                    GraphPosition = GraphPosition.Center,
-                    LabelMode = LabelMode.RightOnly
-                },
-                new RadialGaugeChart
-                {
-                    Entries = entries
-                },
-                new RadarChart
-                {
-                    Entries = entries
-                }
-            };
-        }
-
         public static Chart[] CreateQuickstart()
         {
             var entries = new[]
@@ -309,25 +168,31 @@ namespace Microcharts.Samples
                 {
                         Label = "Week 1",
                         ValueLabel = "200",
-                        Color = SKColor.Parse("#266489"),
+                        Color = SKColor.Parse("#266489")
                 },
                 new ChartEntry(400)
                 {
                         Label = "Week 2",
                         ValueLabel = "400",
-                        Color = SKColor.Parse("#68B9C0"),
+                        Color = SKColor.Parse("#68B9C0")
                 },
                 new ChartEntry(100)
                 {
                         Label = "Week 3",
                         ValueLabel = "100",
-                        Color = SKColor.Parse("#90D585"),
+                        Color = SKColor.Parse("#90D585")
                 },
                 new ChartEntry(600)
                 {
                     Label = "Week 4",
                     ValueLabel = "600",
-                    Color = SKColor.Parse("#32a852"),
+                    Color = SKColor.Parse("#32a852")
+                },
+                new ChartEntry(600)
+                {
+                    Label = "Week 5",
+                    ValueLabel = "1600",
+                    Color = SKColor.Parse("#8EC0D8")
                 }
             };
 

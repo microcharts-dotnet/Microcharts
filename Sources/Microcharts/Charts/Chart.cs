@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using SkiaSharp;
-using Topten.RichTextKit;
 
 namespace Microcharts
 {
@@ -70,16 +69,6 @@ namespace Microcharts
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Get or set the direction the text should be facing.
-        /// </summary>
-        public TextDirection TextDirection { get; set; } = TextDirection.Auto;
-
-        /// <summary>
-        /// Get or set label text spacing.
-        /// </summary>
-        public float LabelTextSpacing { get; set; } = 4.0f;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Microcharts.Chart"/> is animated when entries change.
@@ -345,7 +334,7 @@ namespace Microcharts
                 {
                     var captionMargin = LabelTextSize * 0.60f;
                     var captionX = isLeft ? Margin : width - Margin - LabelTextSize;
-                    var valueColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * AnimationProgress));
+                    var valueColor = entry.ValueLabelColor.WithAlpha((byte)(entry.ValueLabelColor.Alpha * AnimationProgress));
                     var lblColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * AnimationProgress));
                     var rect = SKRect.Create(captionX, y, LabelTextSize, LabelTextSize);
 
@@ -367,7 +356,7 @@ namespace Microcharts
                         captionX -= captionMargin;
                     }
 
-                    canvas.DrawCaptionLabels(entry.Label, lblColor, TextDirection, LabelTextSpacing, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
+                    canvas.DrawCaptionLabels(entry.Label, lblColor, entry.ValueLabel, valueColor, LabelTextSize, new SKPoint(captionX, y + (LabelTextSize / 2)), isLeft ? SKTextAlign.Left : SKTextAlign.Right, Typeface, out var labelBounds);
                     labelBounds.Union(rect);
 
                     if (DrawDebugRectangles)

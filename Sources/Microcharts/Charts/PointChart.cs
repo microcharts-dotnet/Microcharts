@@ -1,11 +1,10 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
-using Topten.RichTextKit;
 
 namespace Microcharts
 {
@@ -262,7 +261,7 @@ namespace Microcharts
                             labels,
                             points.Select(p => new SKPoint(p.X, headerHeight - Margin)).ToArray(),
                             labelSizes,
-                            Entries.Select(x => x.Color.WithAlpha((byte)(255 * AnimationProgress))).ToArray(),
+                            Entries.Select(x => x.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress))).ToArray(),
                             ValueLabelOrientation,
                             true,
                             itemSize,
@@ -391,33 +390,7 @@ namespace Microcharts
                                     canvas.Translate(point.X - (bounds.Width / 2), y);
                                 }
 
-                                RichString rs;
-
-                                if (Typeface != null)
-                                {
-                                    rs = new RichString()
-                                        .FontFamily(Typeface.FamilyName)
-                                        .FontSize(LabelTextSize)
-                                        .LetterSpacing(LabelTextSpacing)
-                                        .TextColor(colors[i])
-                                        .TextDirection(TextDirection)
-                                        .Add(text);
-                                }
-                                else
-                                {
-                                    rs = new RichString()
-                                        .FontSize(LabelTextSize)
-                                        .LetterSpacing(LabelTextSpacing)
-                                        .TextColor(colors[i])
-                                        .TextDirection(TextDirection)
-                                        .Add(text);
-                                }
-
-                                rs.Paint(canvas, new TextPaintOptions
-                                {
-                                    IsAntialias = true,
-                                    LcdRenderText = true
-                                });
+                                canvas.DrawText(text, 0, 0, paint);
                             }
                         }
                     }
