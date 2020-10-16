@@ -23,9 +23,8 @@
         <DocumentationFile>bin\Debug\$(TargetFramework)\Microcharts.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.80.1" />
+        <PackageReference Include="SkiaSharp" Version="2.80.2" />
         <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-        <PackageReference Include="Topten.RichTextKit" Version="0.3.129" />
     </ItemGroup>
 
     <ItemGroup>
