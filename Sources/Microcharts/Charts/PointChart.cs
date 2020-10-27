@@ -227,14 +227,9 @@ namespace Microcharts
                 for (int i = 0; i < points.Length; i++)
                 {
                     var entry = Entries.ElementAt(i);
-                    var point = points[i];
-
-                    SKColor color = colors[i];
-                    var bounds = sizes[i];
-                    var text = texts[i];
                     if (!string.IsNullOrEmpty(entry.ValueLabel))
                     {
-                        DrawLabel(canvas, orientation, isTop, itemSize, point, color, bounds, text);
+                        DrawLabel(canvas, orientation, isTop, itemSize, points[i], colors[i], sizes[i], texts[i]);
                     }
                 }
             }

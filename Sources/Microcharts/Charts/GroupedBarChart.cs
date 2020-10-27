@@ -107,8 +107,6 @@ namespace Microcharts
 
                     DrawLabel(canvas, LabelOrientation, false, itemSize, new SKPoint(itemX - ((nbSeries -1) * (Margin / 2)), height - footerHeight + Margin), LabelColor, labelSize, label);
                 }
-
-                //DrawPoints(canvas, points);
             }
         }
 
