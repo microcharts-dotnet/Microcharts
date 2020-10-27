@@ -18,4 +18,10 @@
       <ProjectReference Include="..\..\Microcharts.Samples\Microcharts.Samples.csproj" />
       <ProjectReference Include="..\..\Microcharts\Microcharts.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="ChartPage.xaml">
+        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      </EmbeddedResource>
+    </ItemGroup>
 </Project>

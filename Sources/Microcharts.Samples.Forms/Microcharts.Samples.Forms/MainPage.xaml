@@ -1,17 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:local="clr-namespace:Microcharts.Samples.Forms"
+             x:Name="Page"
              x:Class="Microcharts.Samples.Forms.MainPage">
-    <ScrollView>
-        <StackLayout Spacing="10" BackgroundColor="#EEEEEE">
-            <microcharts:ChartView x:Name="chart1" HeightRequest="250" BackgroundColor="White" />
-            <microcharts:ChartView x:Name="chart2" HeightRequest="250" BackgroundColor="White" />
-            <microcharts:ChartView x:Name="chart3" HeightRequest="250" BackgroundColor="White" />
-            <microcharts:ChartView x:Name="chart4" HeightRequest="250" BackgroundColor="White" />
-            <microcharts:ChartView x:Name="chart5" HeightRequest="250" BackgroundColor="White" />
-            <microcharts:ChartView x:Name="chart6" HeightRequest="250" BackgroundColor="White" />
-        </StackLayout>
-    </ScrollView>
+    <CollectionView ItemsSource="{Binding Items, Source={x:Reference Page}}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame CornerRadius="10" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Frame.GestureRecognizers>
+                    <Label FontSize="Large" Text="{Binding Name}" />
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using SkiaSharp;
 
 namespace Microcharts.Samples
@@ -117,6 +119,8 @@ namespace Microcharts.Samples
                 }
             };
 
+            Random r = new Random(18);
+
             return new Chart[]
             {
                 new BarChart
@@ -156,8 +160,53 @@ namespace Microcharts.Samples
                 {
                     Entries = entries,
                     LabelTextSize = 42
+                },
+                new GroupedBarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        //new ChartSerie()
+                        //{
+                        //    Name = "Forms",
+                        //    Color = SKColor.Parse("#3498db"),
+                        //    Entries = GenerateSeriesEntry(),
+                        //}
+                    }
                 }
             };
+        }
+
+        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r)
+        {
+            List<ChartEntry> entries = new List<ChartEntry>();
+
+            var value = r.Next(0, 700);
+            entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = "2010" });
+
+            value = r.Next(0, 700);
+            entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = "2020" });
+
+            return entries;
         }
 
         public static Chart[] CreateQuickstart()

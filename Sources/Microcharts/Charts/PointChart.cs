@@ -74,7 +74,7 @@ namespace Microcharts
             set => valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
         }
 
-        private float ValueRange => MaxValue - MinValue;
+        protected float ValueRange => MaxValue - MinValue;
 
         #endregion
 
@@ -229,60 +229,66 @@ namespace Microcharts
                     var entry = Entries.ElementAt(i);
                     var point = points[i];
 
+                    SKColor color = colors[i];
+                    var bounds = sizes[i];
+                    var text = texts[i];
                     if (!string.IsNullOrEmpty(entry.ValueLabel))
                     {
-                        using (new SKAutoCanvasRestore(canvas))
-                        {
-                            using (var paint = new SKPaint())
-                            {
-                                paint.TextSize = LabelTextSize;
-                                paint.IsAntialias = true;
-                                paint.Color = colors[i];
-                                paint.IsStroke = false;
-                                paint.Typeface = Typeface;
-                                var bounds = sizes[i];
-                                var text = texts[i];
-
-                                if (orientation == Orientation.Vertical)
-                                {
-                                    var y = point.Y;
-
-                                    if (isTop)
-                                    {
-                                        y -= bounds.Width;
-                                    }
-
-                                    canvas.RotateDegrees(90);
-                                    canvas.Translate(y, -point.X + (bounds.Height / 2));
-                                }
-                                else
-                                {
-                                    if (bounds.Width > itemSize.Width)
-                                    {
-                                        text = text.Substring(0, Math.Min(3, text.Length));
-                                        paint.MeasureText(text, ref bounds);
-                                    }
-
-                                    if (bounds.Width > itemSize.Width)
-                                    {
-                                        text = text.Substring(0, Math.Min(1, text.Length));
-                                        paint.MeasureText(text, ref bounds);
-                                    }
-
-                                    var y = point.Y;
-
-                                    if (isTop)
-                                    {
-                                        y -= bounds.Height;
-                                    }
-
-                                    canvas.Translate(point.X - (bounds.Width / 2), y);
-                                }
-
-                                canvas.DrawText(text, 0, 0, paint);
-                            }
-                        }
+                        DrawLabel(canvas, orientation, isTop, itemSize, point, color, bounds, text);
                     }
+                }
+            }
+        }
+
+        protected void DrawLabel(SKCanvas canvas, Orientation orientation, bool isTop, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text)
+        {
+            using (new SKAutoCanvasRestore(canvas))
+            {
+                using (var paint = new SKPaint())
+                {
+                    paint.TextSize = LabelTextSize;
+                    paint.IsAntialias = true;
+                    paint.Color = color;
+                    paint.IsStroke = false;
+                    paint.Typeface = Typeface;
+
+                    if (orientation == Orientation.Vertical)
+                    {
+                        var y = point.Y;
+
+                        if (isTop)
+                        {
+                            y -= bounds.Width;
+                        }
+
+                        canvas.RotateDegrees(90);
+                        canvas.Translate(y, -point.X + (bounds.Height / 2));
+                    }
+                    else
+                    {
+                        if (bounds.Width > itemSize.Width)
+                        {
+                            text = text.Substring(0, Math.Min(3, text.Length));
+                            paint.MeasureText(text, ref bounds);
+                        }
+
+                        if (bounds.Width > itemSize.Width)
+                        {
+                            text = text.Substring(0, Math.Min(1, text.Length));
+                            paint.MeasureText(text, ref bounds);
+                        }
+
+                        var y = point.Y;
+
+                        if (isTop)
+                        {
+                            y -= bounds.Height;
+                        }
+
+                        canvas.Translate(point.X - (bounds.Width / 2), y);
+                    }
+
+                    canvas.DrawText(text, 0, 0, paint);
                 }
             }
         }
