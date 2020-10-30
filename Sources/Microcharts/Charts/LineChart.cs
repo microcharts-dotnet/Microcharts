@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Linq;
@@ -60,12 +60,12 @@ namespace Microcharts
             if (Entries != null)
             {
                 var labels = this.Entries.Select(x => x.Label).ToArray();
-                var labelSizes = this.MeasureLabels(labels);
-                var footerHeight = this.CalculateFooterHeaderHeight(labelSizes, this.LabelOrientation);
+                var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
+                var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, this.LabelOrientation);
 
                 var valueLabels = this.Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = this.MeasureLabels(valueLabels);
-                var headerHeight = this.CalculateFooterHeaderHeight(valueLabelSizes, this.ValueLabelOrientation);
+                var valueLabelSizes = MeasureHelper.MeasureTexts(valueLabels, LabelTextSize);
+                var headerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, valueLabelSizes, this.ValueLabelOrientation);
 
                 var itemSize = this.CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = this.CalculateYOrigin(itemSize.Height, headerHeight);

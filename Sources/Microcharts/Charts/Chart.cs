@@ -20,7 +20,7 @@ namespace Microcharts
     {
         #region Fields
 
-        private IEnumerable<ChartEntry> entries;
+        protected IEnumerable<ChartEntry> entries;
 
         private float animationProgress, margin = 20, labelTextSize = 16;
 
@@ -173,16 +173,6 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Gets or sets the data entries.
-        /// </summary>
-        /// <value>The entries.</value>
-        public IEnumerable<ChartEntry> Entries
-        {
-            get => entries;
-            set => UpdateEntries(value);
-        }
-
-        /// <summary>
         /// Gets or sets the minimum value from entries. If not defined, it will be the minimum between zero and the
         /// minimal entry value.
         /// </summary>
@@ -191,17 +181,17 @@ namespace Microcharts
         {
             get
             {
-                if (!Entries.Any())
+                if (!entries.Any())
                 {
                     return 0;
                 }
 
                 if (InternalMinValue == null)
                 {
-                    return Math.Min(0, Entries.Min(x => x.Value));
+                    return Math.Min(0, entries.Min(x => x.Value));
                 }
 
-                return Math.Min(InternalMinValue.Value, Entries.Min(x => x.Value));
+                return Math.Min(InternalMinValue.Value, entries.Min(x => x.Value));
             }
 
             set => InternalMinValue = value;
@@ -216,21 +206,23 @@ namespace Microcharts
         {
             get
             {
-                if (!Entries.Any())
+                if (!entries.Any())
                 {
                     return 0;
                 }
 
                 if (InternalMaxValue == null)
                 {
-                    return Math.Max(0, Entries.Max(x => x.Value));
+                    return Math.Max(0, entries.Max(x => x.Value));
                 }
 
-                return Math.Max(InternalMaxValue.Value, Entries.Max(x => x.Value));
+                return Math.Max(InternalMaxValue.Value, entries.Max(x => x.Value));
             }
 
             set => InternalMaxValue = value;
         }
+
+        protected float ValueRange => MaxValue - MinValue;
 
         /// <summary>
         /// Gets or sets a value whether debug rectangles should be drawn.
@@ -334,6 +326,7 @@ namespace Microcharts
                 {
                     var captionMargin = LabelTextSize * 0.60f;
                     var captionX = isLeft ? Margin : width - Margin - LabelTextSize;
+                    var legendColor = entry.Color.WithAlpha((byte)(entry.Color.Alpha * AnimationProgress));
                     var valueColor = entry.ValueLabelColor.WithAlpha((byte)(entry.ValueLabelColor.Alpha * AnimationProgress));
                     var lblColor = entry.TextColor.WithAlpha((byte)(entry.TextColor.Alpha * AnimationProgress));
                     var rect = SKRect.Create(captionX, y, LabelTextSize, LabelTextSize);
@@ -341,7 +334,7 @@ namespace Microcharts
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
-                        Color = valueColor
+                        Color = legendColor
                     })
                     {
                         canvas.DrawRect(rect, paint);
@@ -505,7 +498,7 @@ namespace Microcharts
             IsAnimating = false;
         }
 
-        private async void UpdateEntries(IEnumerable<ChartEntry> value)
+        protected async void UpdateEntries(IEnumerable<ChartEntry> value)
         {
             try
             {

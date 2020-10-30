@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -13,7 +13,7 @@ namespace Microcharts
     ///
     /// A donut chart.
     /// </summary>
-    public class DonutChart : Chart
+    public class DonutChart : SimpleChart
     {
         #region Properties
 

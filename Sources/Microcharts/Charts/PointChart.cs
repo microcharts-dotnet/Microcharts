@@ -13,7 +13,7 @@ namespace Microcharts
     ///
     /// Point chart.
     /// </summary>
-    public class PointChart : Chart
+    public class PointChart : SimpleChart
     {
         #region Constructors
 
@@ -74,8 +74,6 @@ namespace Microcharts
             set => valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
         }
 
-        protected float ValueRange => MaxValue - MinValue;
-
         #endregion
 
         #region Methods
@@ -85,12 +83,12 @@ namespace Microcharts
             if (Entries != null)
             {
                 var labels = Entries.Select(x => x.Label).ToArray();
-                var labelSizes = MeasureLabels(labels);
-                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation);
+                var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
+                var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, LabelOrientation);
 
                 var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = MeasureLabels(valueLabels);
-                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation);
+                var valueLabelSizes = MeasureHelper.MeasureTexts(valueLabels, LabelTextSize);
+                var headerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, valueLabelSizes, ValueLabelOrientation);
 
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);
@@ -229,114 +227,9 @@ namespace Microcharts
                     var entry = Entries.ElementAt(i);
                     if (!string.IsNullOrEmpty(entry.ValueLabel))
                     {
-                        DrawLabel(canvas, orientation, isTop, itemSize, points[i], colors[i], sizes[i], texts[i]);
+                        DrawHelper.DrawLabel(canvas, orientation, isTop, itemSize, points[i], colors[i], sizes[i], texts[i], LabelTextSize, Typeface);
                     }
                 }
-            }
-        }
-
-        protected void DrawLabel(SKCanvas canvas, Orientation orientation, bool isTop, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text)
-        {
-            using (new SKAutoCanvasRestore(canvas))
-            {
-                using (var paint = new SKPaint())
-                {
-                    paint.TextSize = LabelTextSize;
-                    paint.IsAntialias = true;
-                    paint.Color = color;
-                    paint.IsStroke = false;
-                    paint.Typeface = Typeface;
-
-                    if (orientation == Orientation.Vertical)
-                    {
-                        var y = point.Y;
-
-                        if (isTop)
-                        {
-                            y -= bounds.Width;
-                        }
-
-                        canvas.RotateDegrees(90);
-                        canvas.Translate(y, -point.X + (bounds.Height / 2));
-                    }
-                    else
-                    {
-                        if (bounds.Width > itemSize.Width)
-                        {
-                            text = text.Substring(0, Math.Min(3, text.Length));
-                            paint.MeasureText(text, ref bounds);
-                        }
-
-                        if (bounds.Width > itemSize.Width)
-                        {
-                            text = text.Substring(0, Math.Min(1, text.Length));
-                            paint.MeasureText(text, ref bounds);
-                        }
-
-                        var y = point.Y;
-
-                        if (isTop)
-                        {
-                            y -= bounds.Height;
-                        }
-
-                        canvas.Translate(point.X - (bounds.Width / 2), y);
-                    }
-
-                    canvas.DrawText(text, 0, 0, paint);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Calculates the height of the footer.
-        /// </summary>
-        /// <returns>The footer height.</returns>
-        /// <param name="valueLabelSizes">Value label sizes.</param>
-        /// <param name="orientation">orientation of content</param>
-        protected float CalculateFooterHeaderHeight(SKRect[] valueLabelSizes, Orientation orientation)
-        {
-            var result = Margin;
-
-            if (Entries.Any(e => !string.IsNullOrEmpty(e.Label)))
-            {
-                if(orientation == Orientation.Vertical)
-                {
-                    var maxValueWidth = valueLabelSizes.Max(x => x.Width);
-                    if (maxValueWidth > 0)
-                    {
-                        result += maxValueWidth + Margin;
-                    }
-                }
-                else
-                {
-                    result += LabelTextSize + Margin;
-                }
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Measures the value labels.
-        /// </summary>
-        /// <returns>The value labels.</returns>
-        protected SKRect[] MeasureLabels(string[] labels)
-        {
-            using (var paint = new SKPaint())
-            {
-                paint.TextSize = LabelTextSize;
-                return labels.Select(text =>
-                {
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        return SKRect.Empty;
-                    }
-
-                    var bounds = new SKRect();
-                    paint.MeasureText(text, ref bounds);
-                    return bounds;
-                }).ToArray();
             }
         }
 

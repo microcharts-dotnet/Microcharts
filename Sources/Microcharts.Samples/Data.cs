@@ -97,25 +97,57 @@ namespace Microcharts.Samples
                 {
                     Label = "UWP",
                     ValueLabel = "112",
-                    Color = SKColor.Parse("#2c3e50")
+                    Color = SKColor.Parse("#2c3e50"),
                 },
                 new ChartEntry(248)
                 {
                     Label = "Android",
                     ValueLabel = "648",
-                    Color = SKColor.Parse("#77d065")
+                    Color = SKColor.Parse("#77d065"),
                 },
                 new ChartEntry(128)
                 {
                     Label = "iOS",
                     ValueLabel = "428",
-                    Color = SKColor.Parse("#b455b6")
+                    Color = SKColor.Parse("#b455b6"),
                 },
                 new ChartEntry(514)
                 {
                     Label = "Forms",
                     ValueLabel = "214",
-                    Color = SKColor.Parse("#3498db")
+                    Color = SKColor.Parse("#3498db"),
+                }
+            };
+
+            var entriesLabeledColor = new[]
+            {
+                new ChartEntry(212)
+                {
+                    Label = "UWP",
+                    ValueLabel = "112",
+                    Color = SKColor.Parse("#2c3e50"),
+                    ValueLabelColor = SKColor.Parse("#2c3e50"),
+                },
+                new ChartEntry(248)
+                {
+                    Label = "Android",
+                    ValueLabel = "648",
+                    Color = SKColor.Parse("#77d065"),
+                    ValueLabelColor = SKColor.Parse("#77d065"),
+                },
+                new ChartEntry(128)
+                {
+                    Label = "iOS",
+                    ValueLabel = "428",
+                    Color = SKColor.Parse("#b455b6"),
+                    ValueLabelColor = SKColor.Parse("#b455b6"),
+                },
+                new ChartEntry(514)
+                {
+                    Label = "Forms",
+                    ValueLabel = "214",
+                    Color = SKColor.Parse("#3498db"),
+                    ValueLabelColor = SKColor.Parse("#3498db"),
                 }
             };
 
@@ -165,6 +197,8 @@ namespace Microcharts.Samples
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize= 18,
                     Series = new List<ChartSerie>()
                     {
                         new ChartSerie()
@@ -185,12 +219,6 @@ namespace Microcharts.Samples
                             Color = SKColor.Parse("#b455b6"),
                             Entries = GenerateSeriesEntry(r),
                         },
-                        //new ChartSerie()
-                        //{
-                        //    Name = "Forms",
-                        //    Color = SKColor.Parse("#3498db"),
-                        //    Entries = GenerateSeriesEntry(),
-                        //}
                     }
                 }
             };
@@ -202,6 +230,9 @@ namespace Microcharts.Samples
 
             var value = r.Next(0, 700);
             entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = "2010" });
+
+            value = r.Next(0, 700);
+            entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = "2015" });
 
             value = r.Next(0, 700);
             entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = "2020" });

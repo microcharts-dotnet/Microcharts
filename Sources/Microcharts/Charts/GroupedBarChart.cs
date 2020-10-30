@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Xml;
 using SkiaSharp;
 
 namespace Microcharts
@@ -14,7 +15,7 @@ namespace Microcharts
     ///
     /// A bar chart.
     /// </summary>
-    public class GroupedBarChart : BarChart
+    public class GroupedBarChart : SeriesChart, IBarChart
     {
         #region Constructors
 
@@ -29,25 +30,43 @@ namespace Microcharts
 
         #region Properties
 
-        private IEnumerable<ChartSerie> series;
+        private Orientation labelOrientation;
+        private Orientation valueLabelOrientation;
+        private float valueLabelTextSize = 16;
 
-        public IEnumerable<ChartSerie> Series
+        /// <inheritdoc cref="IBarChart"/>
+        public byte BarAreaAlpha { get; set; } = DefaultValues.BarAreaAlpha;
+
+        /// <inheritdoc cref="IBarChart"/>
+        public float MinBarHeight { get; set; } = DefaultValues.MinBarHeight;
+
+        /// <inheritdoc cref="IBarChart"/>
+        public Orientation LabelOrientation
         {
-            get => series;
-            set => UpdateSeries(value);
+            get => labelOrientation;
+            set => labelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
         }
 
-        public float MinBarHeight { get; set; } = 4;
+        /// <inheritdoc cref="IBarChart"/>
+        public Orientation ValueLabelOrientation
+        {
+            get => valueLabelOrientation;
+            set => valueLabelOrientation = (value == Orientation.Default) ? Orientation.Vertical : value;
+        }
+
+        /// <summary>
+        /// Gets or sets the text size of the value labels.
+        /// </summary>
+        /// <value>The size of the value label text.</value>
+        public float ValueLabelTextSize
+        {
+            get => valueLabelTextSize;
+            set => Set(ref valueLabelTextSize, value);
+        }
 
         #endregion
 
         #region Methods
-
-        private void UpdateSeries(IEnumerable<ChartSerie> value)
-        {
-            Set(ref series, value);
-            Entries = series.SelectMany(s => s.Entries).ToList();
-        }
 
         /// <summary>
         /// Draws the content of the chart onto the specified canvas.
@@ -57,24 +76,22 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            if (Series != null && Entries != null)
+            if (Series != null && entries != null)
             {
                 var firstSerie = Series.FirstOrDefault();
 
                 var labels = firstSerie.Entries.Select(x => x.Label).ToArray();
                 int nbItems = labels.Length;
 
-
-                var groupedEntries = Entries.GroupBy(x => x.Label);
+                var groupedEntries = entries.GroupBy(x => x.Label);
                 
                 int barPerItems = groupedEntries.Max(g => g.Count());
 
-                var labelSizes = MeasureLabels(labels);
-                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation);
+                var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
+                var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, LabelOrientation);
 
                 var valueLabelSizes = MeasureValueLabels();
-                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes.Values.ToArray(), ValueLabelOrientation);
-
+                var headerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, valueLabelSizes.Values.ToArray(), ValueLabelOrientation);
 
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight, headerHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
@@ -93,8 +110,8 @@ namespace Microcharts
                         ChartSerie serie = Series.ElementAt(y);
                         ChartEntry entry = serie.Entries.FirstOrDefault(e => e.Label == label);
                         float value = entry?.Value ?? 0;
-                        float marge = Margin / 2;// y > 0 ? Margin / 2 : 0;
-                        float totalBarMarge = y * Margin / 2;  //y > 0 ? (y - 1) * Margin / 2 : 0;
+                        float marge = Margin / 2;
+                        float totalBarMarge = y * Margin / 2; 
                         float barX = itemX + marge + y * barSize.Width + totalBarMarge;
                         float barY = headerHeight + ((1 - AnimationProgress) * (origin - headerHeight) + (((MaxValue - value) / ValueRange) * itemSize.Height) * AnimationProgress);
 
@@ -102,12 +119,27 @@ namespace Microcharts
                         DrawBar(canvas, headerHeight, itemSize, barSize, origin, barX, barY, serie.Color);
 
                         if (!string.IsNullOrEmpty(entry?.ValueLabel))
-                            DrawLabel(canvas, ValueLabelOrientation, true, barSize, new SKPoint(barX - (itemSize.Width / 2) + (barSize.Width/2), headerHeight - Margin), entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSizes[entry], entry.ValueLabel);
+                            DrawHelper.DrawLabel(canvas, ValueLabelOrientation, true, barSize, new SKPoint(barX - (itemSize.Width / 2) + (barSize.Width/2), headerHeight - Margin), entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSizes[entry], entry.ValueLabel, ValueLabelTextSize, Typeface);
                     }
 
-                    DrawLabel(canvas, LabelOrientation, false, itemSize, new SKPoint(itemX - ((nbSeries -1) * (Margin / 2)), height - footerHeight + Margin), LabelColor, labelSize, label);
+                    DrawHelper.DrawLabel(canvas, LabelOrientation, false, itemSize, new SKPoint(itemX + Margin/2, height - footerHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                 }
             }
+        }
+
+        private float CalculateYOrigin(float itemHeight, float headerHeight)
+        {
+            if (MaxValue <= 0)
+            {
+                return headerHeight;
+            }
+
+            if (MinValue > 0)
+            {
+                return headerHeight + itemHeight;
+            }
+
+            return headerHeight + ((MaxValue / ValueRange) * itemHeight);
         }
 
         private Dictionary<ChartEntry, SKRect> MeasureValueLabels()
@@ -115,8 +147,8 @@ namespace Microcharts
             var dict = new Dictionary<ChartEntry, SKRect>();
             using (var paint = new SKPaint())
             {
-                paint.TextSize = LabelTextSize;
-                foreach (var e in Entries)
+                paint.TextSize = ValueLabelTextSize;
+                foreach (var e in entries)
                 {
                     SKRect bounds;
                     if (string.IsNullOrEmpty(e.ValueLabel))
@@ -163,7 +195,7 @@ namespace Microcharts
 
         private void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float value, float barX, float barY)
         {
-            if (PointAreaAlpha > 0)
+            if (BarAreaAlpha > 0)
             {
                 using (var paint = new SKPaint
                 {
@@ -181,7 +213,7 @@ namespace Microcharts
 
         private SKSize CalculateBarSize(SKSize itemSize, int barPerItems)
         {
-            var w = itemSize.Width / barPerItems - ((barPerItems) * Margin/2);
+            var w = (itemSize.Width - (barPerItems * Margin / 2)) / barPerItems;
             return new SKSize(w, itemSize.Height);
         }
 
@@ -190,80 +222,6 @@ namespace Microcharts
             var w = (width - ((items + 1) * Margin)) / items;
             var h = height - Margin - footerHeight - headerHeight;
             return new SKSize(w, h);
-        }
-
-        /// <summary>
-        /// Draws the value bars.
-        /// </summary>
-        /// <param name="canvas">The canvas.</param>
-        /// <param name="points">The points.</param>
-        /// <param name="itemSize">The item size.</param>
-        /// <param name="origin">The origin.</param>
-        /// <param name="headerHeight">The Header height.</param>
-        protected void DrawBars(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
-        {
-            const float MinBarHeight = 4;
-            if (points.Length > 0)
-            {
-                for (int i = 0; i < Entries.Count(); i++)
-                {
-                    var entry = Entries.ElementAt(i);
-                    var point = points[i];
-
-                    using (var paint = new SKPaint
-                    {
-                        Style = SKPaintStyle.Fill,
-                        Color = entry.Color,
-                    })
-                    {
-                        var x = point.X - (itemSize.Width / 2);
-                        var y = Math.Min(origin, point.Y);
-                        var height = Math.Max(MinBarHeight, Math.Abs(origin - point.Y));
-                        if (height < MinBarHeight)
-                        {
-                            height = MinBarHeight;
-                            if (y + height > Margin + itemSize.Height)
-                            {
-                                y = headerHeight + itemSize.Height - height;
-                            }
-                        }
-
-                        var rect = SKRect.Create(x, y, itemSize.Width, height);
-                        canvas.DrawRect(rect, paint);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Draws the bar background areas.
-        /// </summary>
-        /// <param name="canvas">The output canvas.</param>
-        /// <param name="points">The entry points.</param>
-        /// <param name="itemSize">The item size.</param>
-        /// <param name="headerHeight">The header height.</param>
-        protected void DrawBarAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float headerHeight)
-        {
-            if (points.Length > 0 && PointAreaAlpha > 0)
-            {
-                for (int i = 0; i < points.Length; i++)
-                {
-                    var entry = Entries.ElementAt(i);
-                    var point = points[i];
-
-                    using (var paint = new SKPaint
-                    {
-                        Style = SKPaintStyle.Fill,
-                        Color = entry.Color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress)),
-                    })
-                    {
-                        var max = entry.Value > 0 ? headerHeight : headerHeight + itemSize.Height;
-                        var height = Math.Abs(max - point.Y);
-                        var y = Math.Min(max, point.Y);
-                        canvas.DrawRect(SKRect.Create(point.X - (itemSize.Width / 2), y, itemSize.Width, height), paint);
-                    }
-                }
-            }
         }
 
         #endregion

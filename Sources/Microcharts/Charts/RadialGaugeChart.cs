@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -12,7 +12,7 @@ namespace Microcharts
     ///
     /// Radial gauge chart.
     /// </summary>
-    public class RadialGaugeChart : Chart
+    public class RadialGaugeChart : SimpleChart
     {
         #region Properties
 

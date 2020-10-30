@@ -4,6 +4,7 @@
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:local="clr-namespace:Microcharts.Samples.Forms"
              x:Name="Page"
+             Title="Microcharts"
              x:Class="Microcharts.Samples.Forms.MainPage">
     <CollectionView ItemsSource="{Binding Items, Source={x:Reference Page}}">
         <CollectionView.ItemsLayout>

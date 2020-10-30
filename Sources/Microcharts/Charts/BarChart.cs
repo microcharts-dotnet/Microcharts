@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
@@ -12,7 +12,7 @@ namespace Microcharts
     ///
     /// A bar chart.
     /// </summary>
-    public class BarChart : PointChart
+    public class BarChart : PointChart, IBarChart
     {
         #region Constructors
 
@@ -28,11 +28,11 @@ namespace Microcharts
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets the bar background area alpha.
-        /// </summary>
-        /// <value>The bar area alpha.</value>
-        public byte BarAreaAlpha { get; set; } = 32;
+        /// <inheritdoc cref="IBarChart"/>
+        public byte BarAreaAlpha { get; set; } = DefaultValues.BarAreaAlpha;
+
+        /// <inheritdoc cref="IBarChart"/>
+        public float MinBarHeight { get; set; } = DefaultValues.MinBarHeight;
 
         #endregion
 
@@ -49,12 +49,12 @@ namespace Microcharts
             if (Entries != null)
             {
                 var labels = Entries.Select(x => x.Label).ToArray();
-                var labelSizes = MeasureLabels(labels);
-                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation);
+                var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
+                var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, LabelOrientation);
 
                 var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = MeasureLabels(valueLabels);
-                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation);
+                var valueLabelSizes = MeasureHelper.MeasureTexts(valueLabels, LabelTextSize);
+                var headerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, valueLabelSizes, ValueLabelOrientation);
 
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);
@@ -78,7 +78,6 @@ namespace Microcharts
         /// <param name="headerHeight">The Header height.</param>
         protected void DrawBars(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
         {
-            const float MinBarHeight = 4;
             if (points.Length > 0)
             {
                 for (int i = 0; i < Entries.Count(); i++)
@@ -120,7 +119,7 @@ namespace Microcharts
         /// <param name="headerHeight">The header height.</param>
         protected void DrawBarAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float headerHeight)
         {
-            if (points.Length > 0 && PointAreaAlpha > 0)
+            if (points.Length > 0 && BarAreaAlpha > 0)
             {
                 for (int i = 0; i < points.Length; i++)
                 {
