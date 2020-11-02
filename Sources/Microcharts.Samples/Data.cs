@@ -271,6 +271,42 @@ namespace Microcharts.Samples
                 },
             };
 
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at right",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new LineChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LineMode = LineMode.Straight,
+                    LineSize = 8,
+                    LabelTextSize = 42,
+                    PointMode = PointMode.Square,
+                    PointSize = 18,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Right
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at left",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new LineChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LineMode = LineMode.Straight,
+                    LineSize = 8,
+                    LabelTextSize = 42,
+                    PointMode = PointMode.Square,
+                    PointSize = 18,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left
+                }
+            };
+
             yield break;
         }
 
@@ -452,6 +488,38 @@ namespace Microcharts.Samples
                 },
             };
 
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at right",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+
+                    YAxisPosition = Position.Right
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at left",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+
+                    YAxisPosition = Position.Left
+                }
+            };
+
             yield break;
         }
 
@@ -466,6 +534,36 @@ namespace Microcharts.Samples
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
                     LabelOrientation = Orientation.Horizontal
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at right",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new BarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    YAxisPosition = Position.Right
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at left",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new BarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    YAxisPosition = Position.Left
                 }
             };
 
