@@ -91,33 +91,7 @@ namespace Microcharts.Samples
 
         public static Chart[] CreateXamarinSample()
         {
-            var entries = new[]
-            {
-                new ChartEntry(212)
-                {
-                    Label = "UWP",
-                    ValueLabel = "112",
-                    Color = SKColor.Parse("#2c3e50"),
-                },
-                new ChartEntry(248)
-                {
-                    Label = "Android",
-                    ValueLabel = "648",
-                    Color = SKColor.Parse("#77d065"),
-                },
-                new ChartEntry(128)
-                {
-                    Label = "iOS",
-                    ValueLabel = "428",
-                    Color = SKColor.Parse("#b455b6"),
-                },
-                new ChartEntry(514)
-                {
-                    Label = "Forms",
-                    ValueLabel = "214",
-                    Color = SKColor.Parse("#3498db"),
-                }
-            };
+            ChartEntry[] entries = GenerateDefaultXamarinEntries();
 
             var entriesLabeledColor = new[]
             {
@@ -199,6 +173,8 @@ namespace Microcharts.Samples
                     ValueLabelOrientation = Orientation.Horizontal,
                     LabelTextSize = 42,
                     ValueLabelTextSize= 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = GroupedBarLegendOption.Top,
                     Series = new List<ChartSerie>()
                     {
                         new ChartSerie()
@@ -222,6 +198,278 @@ namespace Microcharts.Samples
                     }
                 }
             };
+        }
+
+        private static ChartEntry[] GenerateDefaultXamarinEntries()
+        {
+            return new[]
+                        {
+                new ChartEntry(212)
+                {
+                    Label = "UWP",
+                    ValueLabel = "112",
+                    Color = SKColor.Parse("#2c3e50"),
+                },
+                new ChartEntry(248)
+                {
+                    Label = "Android",
+                    ValueLabel = "648",
+                    Color = SKColor.Parse("#77d065"),
+                },
+                new ChartEntry(128)
+                {
+                    Label = "iOS",
+                    ValueLabel = "428",
+                    Color = SKColor.Parse("#b455b6"),
+                },
+                new ChartEntry(514)
+                {
+                    Label = "Forms",
+                    ValueLabel = "214",
+                    Color = SKColor.Parse("#3498db"),
+                }
+            };
+        }
+
+        public static IEnumerable<ExampleChartItem> CreateXamarinExampleChartItem(string chartType)
+        {
+            switch (chartType)
+            {
+                case "BarChart":
+                    return GenerateBarChartExample();
+                case "PointChart":
+                    return GeneratePointChartExample();
+                case "LineChart":
+                    return GenerateLineChartExample();
+                case "DonutChart":
+                    return GenerateDonutChartExample();
+                case "RadialGaugeChart":
+                    return GenerateRadialGaugeChartExample();
+                case "RadarChart":
+                    return GenerateRadarChartExample();
+                case "GroupedBarChart":
+                    return GenerateGroupedBarChartExample();
+                default:
+                    return null;
+            }
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateLineChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new LineChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LineMode = LineMode.Straight,
+                    LineSize = 8,
+                    LabelTextSize = 42,
+                    PointMode = PointMode.Square,
+                    PointSize = 18,
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateDonutChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new DonutChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    GraphPosition = GraphPosition.Center,
+                    LabelMode = LabelMode.RightOnly
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateRadialGaugeChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new RadialGaugeChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateRadarChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new RadarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateGroupedBarChartExample()
+        {
+            Random r = new Random((int)DateTime.Now.Ticks);
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Bottom legend",
+                ExampleDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
+                Chart = new GroupedBarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Vertical,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = GroupedBarLegendOption.Bottom,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Top legend",
+                ExampleDescription = "Grouped bar chart with legend at top",
+                Chart = new GroupedBarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = GroupedBarLegendOption.Top,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "No legend",
+                ExampleDescription = "Grouped bar chart without legend",
+                Chart = new GroupedBarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = GroupedBarLegendOption.None,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GeneratePointChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateBarChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new BarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                }
+            };
+
+            yield break;
         }
 
         private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r)

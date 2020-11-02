@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="Microcharts.Samples.Forms.MainPage"
+<ContentPage x:Class="Microcharts.Samples.Forms.ChartConfigurationPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Microcharts.Samples.Forms"
-             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
-             x:Name="Page"
-             Title="Microcharts">
+             x:Name="Page">
     <Grid RowDefinitions="Auto, Auto, *">
-        <Label Margin="20,0,0,0" TextColor="Black" FontSize="Title" Text="List of charts available" />
-        <Label Margin="20,0,0,0" FontSize="Subtitle" Grid.Row="1" Text="Tap on item for more examples" />
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Items,
+        <Label Margin="20,0,0,0"
+               FontSize="Title"
+               Text="List of examples"
+               TextColor="Black" />
+        <Label Grid.Row="1"
+               Margin="20,0,0,0"
+               FontSize="Subtitle"
+               Text="Tap on item to see the chart" />
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Items,
                                               Source={x:Reference Page}}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="10"
@@ -17,7 +21,8 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0" Padding="0">
+                    <Grid Margin="0"
+                          Padding="0">
                         <Frame Margin="10"
                                Padding="5"
                                BackgroundColor="White"
@@ -26,16 +31,13 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </Frame.GestureRecognizers>
-                            <Grid RowDefinitions="Auto, *" Padding="0" Margin="0">
+                            <Grid RowDefinitions="Auto, *" Margin="10,0">
                                 <Label FontSize="Large"
-                                       Margin="20,0"
-                                       TextColor="Black"
-                                       Text="{Binding Name}" />
-                                <microcharts:ChartView x:Name="chartView"
-                                                       Grid.Row="1"
-                                                       BackgroundColor="White"
-                                                       Chart="{Binding Chart}"
-                                                       HeightRequest="250" />
+                                       Text="{Binding ExampleName}"
+                                       TextColor="Black" />
+                                <Label FontSize="Medium"
+                                       Grid.Row="1"
+                                       Text="{Binding ExampleDescription}" />
                             </Grid>
                         </Frame>
                     </Grid>

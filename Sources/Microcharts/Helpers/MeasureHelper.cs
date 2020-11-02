@@ -36,7 +36,7 @@ namespace Microcharts
         /// <param name="textSize">the text size</param>
         /// <param name="textSizes">text sizes</param>
         /// <param name="orientation">orientation of content</param>
-        internal static float CalculateFooterHeaderHeight(float margin, float textSize, SKRect[] textSizes, Orientation orientation)
+        internal static float CalculateFooterHeaderHeight(float margin, float textSize, SKRect[] textSizes, Orientation orientation, float additionnalValue=0)
         {
             var result = margin;
             if (textSizes.Any(l => !l.IsEmpty))

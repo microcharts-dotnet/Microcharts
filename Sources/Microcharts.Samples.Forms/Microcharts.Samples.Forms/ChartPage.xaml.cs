@@ -12,26 +12,24 @@ namespace Microcharts.Samples.Forms
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChartPage : ContentPage
     {
-        private ChartItem _chartItem;
 
-        public ChartPage(ChartItem chartItem)
+        public ChartPage(ExampleChartItem chartItem)
         {
+            ExampleChartItem = chartItem;
             InitializeComponent();
-            Title = chartItem.Name;
-            _chartItem = chartItem;
+            Title = ExampleChartItem.ChartType;
+            
         }
+
+        public ExampleChartItem ExampleChartItem { get; }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            chartView.Chart = _chartItem.ChartFactory();
-        }
-
-        protected override void OnDisappearing()
-        {
-            chartView.Chart.AnimateAsync(false).ConfigureAwait(false);
-            base.OnDisappearing();
+            chartView.Chart = ExampleChartItem.Chart;
+            if(!chartView.Chart.IsAnimating)
+                chartView.Chart.AnimateAsync(true).ConfigureAwait(false);
         }
     }
 }

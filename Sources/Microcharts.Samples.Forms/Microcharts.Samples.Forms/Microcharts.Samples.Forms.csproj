@@ -10,7 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1351" />
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,6 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Update="ChartConfigurationPage.xaml">
+        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      </EmbeddedResource>
       <EmbeddedResource Update="ChartPage.xaml">
         <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       </EmbeddedResource>

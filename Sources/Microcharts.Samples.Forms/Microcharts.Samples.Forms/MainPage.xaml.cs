@@ -16,7 +16,7 @@ namespace Microcharts.Samples.Forms
             var items = new List<ChartItem>();
             for (int i = 0; i < charts.Length; i++)
             {
-                items.Add(new ChartItem(charts[i].GetType().Name, i));
+                items.Add(new ChartItem(charts[i].GetType().Name, charts[i], i));
             }
             Items = items;
             InitializeComponent();
@@ -33,19 +33,21 @@ namespace Microcharts.Samples.Forms
         {
             Frame frame = (sender as Frame);
             ChartItem chartItem = frame.BindingContext as ChartItem;
-            Navigation.PushAsync(new ChartPage(chartItem));
+            Navigation.PushAsync(new ChartConfigurationPage(chartItem.Name));
         }
     }
 
     public class ChartItem
     {
-        public ChartItem(string name, int index)
+        public ChartItem(string name, Chart chart, int index)
         {
             Name = name;
+            Chart = chart;
             ChartFactory = () => Data.CreateXamarinSample()[index];
         }
 
         public string Name { get; private set; }
+        public Chart Chart { get; }
         public Func<Chart> ChartFactory { get; }
     }
 }
