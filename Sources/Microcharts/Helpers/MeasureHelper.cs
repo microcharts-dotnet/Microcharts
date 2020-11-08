@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 
@@ -14,18 +15,27 @@ namespace Microcharts
             using (var paint = new SKPaint())
             {
                 paint.TextSize = textSize;
-                return texts.Select(text =>
-                {
-                    if (string.IsNullOrEmpty(text))
-                    {
-                        return SKRect.Empty;
-                    }
-
-                    var bounds = new SKRect();
-                    paint.MeasureText(text, ref bounds);
-                    return bounds;
-                }).ToArray();
+                return MeasureTexts(texts, paint);
             }
+        }
+
+        /// <summary>
+        /// Measures the text values.
+        /// </summary>
+        /// <returns>The texts bounds.</returns>
+        internal static SKRect[] MeasureTexts(string[] texts, SKPaint paint)
+        {
+            return texts.Select(text =>
+            {
+                if (string.IsNullOrEmpty(text))
+                {
+                    return SKRect.Empty;
+                }
+
+                var bounds = new SKRect();
+                paint.MeasureText(text, ref bounds);
+                return bounds;
+            }).ToArray();
         }
 
         /// <summary>
@@ -56,6 +66,47 @@ namespace Microcharts
             }
 
             return result;
+        }
+
+        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, out float yAxisXShift, out List<float> yAxisIntervalLabels)
+        {
+            yAxisXShift = 0.0f;
+            yAxisIntervalLabels = new List<float>();
+            if (showYAxisText || showYAxisLines)
+            {
+                var yAxisWidth = width;
+
+                var enumerable = entries.ToList(); // to avoid double enumeration
+
+                NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), yAxisMaxTicks, out var range, out var tickSpacing, out var niceMin, out var niceMax);
+
+                var ticks = (int)(range / tickSpacing);
+
+                yAxisIntervalLabels = Enumerable.Range(0, ticks)
+                    .Select(i => (float)(niceMax - (i * tickSpacing)))
+                    .ToList();
+
+                var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
+                var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
+                yAxisWidth = (int)(width - longestYAxisLabelWidth);
+                if (yAxisPosition == Position.Left)
+                {
+                    yAxisXShift = longestYAxisLabelWidth;
+                }
+
+                // to reduce chart width
+                width = yAxisWidth;
+            }
+
+            return width;
+        }
+
+        internal static SKPoint CalculatePoint(float margin, float animationProgress, float maxValue, float valueRange, float value, int i, SKSize itemSize, float origin, float headerHeight, float originX = 0)
+        {
+            var x = originX + margin + (itemSize.Width / 2) + (i * (itemSize.Width + margin));
+            var y = headerHeight + ((1 - animationProgress) * (origin - headerHeight) + (((maxValue - value) / valueRange) * itemSize.Height) * animationProgress);
+
+            return new SKPoint(x, y);
         }
     }
 }

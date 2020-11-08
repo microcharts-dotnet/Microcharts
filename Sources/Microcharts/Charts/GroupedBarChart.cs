@@ -24,6 +24,19 @@ namespace Microcharts
         /// </summary>
         public GroupedBarChart()
         {
+            YAxisTextPaint = new SKPaint
+            {
+                Color = SKColors.Black,
+                IsAntialias = true,
+                Style = SKPaintStyle.StrokeAndFill,
+            };
+
+            YAxisLinesPaint = new SKPaint
+            {
+                Color = SKColors.Black.WithAlpha(0x50),
+                IsAntialias = true,
+                Style = SKPaintStyle.Stroke
+            };
         }
 
         #endregion
@@ -82,6 +95,37 @@ namespace Microcharts
             set => Set(ref serieLabelTextSize, value);
         }
 
+        /// <summary>
+        /// Show Y Axis Text?
+        /// </summary>
+        public bool ShowYAxisText { get; set; } = false;
+
+        /// <summary>
+        /// Show Y Axis Lines?
+        /// </summary>
+        public bool ShowYAxisLines { get; set; } = false;
+
+        //TODO : calculate this automatically, based on available area height and text height
+        /// <summary>
+        /// Y Axis Max Ticks
+        /// </summary>
+        public int YAxisMaxTicks { get; set; } = 5;
+
+        /// <summary>
+        /// Y Axis Position
+        /// </summary>
+        public Position YAxisPosition { get; set; } = Position.Right;
+
+        /// <summary>
+        /// Y Axis Paint
+        /// </summary>
+        public SKPaint YAxisTextPaint { get; set; }
+
+        /// <summary>
+        /// Y Axis Paint
+        /// </summary>
+        public SKPaint YAxisLinesPaint { get; set; }
+
         #endregion
 
         #region Methods
@@ -96,8 +140,8 @@ namespace Microcharts
         {
             if (Series != null && entries != null)
             {
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 var firstSerie = Series.FirstOrDefault();
-
                 var labels = firstSerie.Entries.Select(x => x.Label).ToArray();
                 int nbItems = labels.Length;
 
@@ -120,6 +164,7 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight + headerHeight + legendHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
 
                 int nbSeries = series.Count();
                 for (int i = 0; i < labels.Length; i++)

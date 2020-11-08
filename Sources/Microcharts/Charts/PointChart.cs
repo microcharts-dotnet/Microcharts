@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using SkiaSharp;
 
 namespace Microcharts
@@ -126,37 +127,7 @@ namespace Microcharts
         {
             if (Entries != null)
             {
-                var yAxisXShift = 0.0f;
-                var yAxisIntervalLabels = new List<float>();
-
-                if (ShowYAxisText || ShowYAxisLines)
-                {
-                    var yAxisWidth = width;
-
-                    var enumerable = Entries.ToList(); // to avoid double enumeration
-
-                    NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), YAxisMaxTicks, out var range, out var tickSpacing, out var niceMin, out var niceMax);
-
-                    var ticks = (int)(range / tickSpacing);
-
-                    yAxisIntervalLabels = Enumerable.Range(0, ticks)
-                        .Select(i => (float)(niceMax - (i * tickSpacing)))
-                        .ToList();
-
-                    var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
-                    var longestYAxisLabelWidth = MeasureLabel(longestYAxisLabel, YAxisTextPaint).Width;
-
-                    yAxisWidth = (int)(width - longestYAxisLabelWidth);
-
-                    if (YAxisPosition == Position.Left)
-                    {
-                        yAxisXShift = longestYAxisLabelWidth;
-                    }
-
-                    // to reduce chart width
-                    width = yAxisWidth;
-                }
-
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, Entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 var labels = Entries.Select(x => x.Label).ToArray();
                 var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
                 var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, LabelOrientation);
@@ -168,37 +139,7 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);
                 var points = CalculatePoints(itemSize, origin, headerHeight, yAxisXShift);
-                var cnt = 0;
-
-                if (ShowYAxisText || ShowYAxisLines)
-                {
-                    var intervals = yAxisIntervalLabels
-                        .Select(t => new ValueTuple<string, SKPoint>
-                        (
-                            t.ToString(),
-                            new SKPoint(YAxisPosition == Position.Left ? yAxisXShift : width, CalculatePoint(t, cnt++, itemSize, origin, headerHeight).Y)
-                        ))
-                        .ToList();
-
-                    if (ShowYAxisText)
-                    {
-                        DrawYAxisText(canvas, intervals);
-                    }
-
-                    if (ShowYAxisLines)
-                    {
-                        var lines = intervals.Select(tup =>
-                        {
-                            (_, SKPoint pt) = tup;
-
-                            return YAxisPosition == Position.Right ?
-                                SKRect.Create(0, pt.Y, width, 0) :
-                                SKRect.Create(yAxisXShift, pt.Y, width, 0);
-                        });
-
-                        DrawYAxisLines(canvas, lines);
-                    }
-                }
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
 
                 DrawAreas(canvas, points, itemSize, origin, headerHeight);
                 DrawPoints(canvas, points);
@@ -239,18 +180,10 @@ namespace Microcharts
                 var entry = Entries.ElementAt(i);
                 var value = entry.Value;
 
-                result.Add(CalculatePoint(value, i, itemSize, origin, headerHeight, originX));
+                result.Add(MeasureHelper.CalculatePoint(Margin, AnimationProgress, MaxValue, ValueRange, value, i, itemSize, origin, headerHeight, originX));
             }
 
             return result.ToArray();
-        }
-
-        protected SKPoint CalculatePoint(float value, int i, SKSize itemSize, float origin, float headerHeight, float originX = 0)
-        {
-            var x = originX + Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin));
-            var y = headerHeight + ((1 - AnimationProgress) * (origin - headerHeight) + (((MaxValue - value) / ValueRange) * itemSize.Height) * AnimationProgress);
-
-            return new SKPoint(x, y);
         }
 
         protected void DrawHeader(SKCanvas canvas, string[] labels, SKRect[] labelSizes, SKPoint[] points, SKSize itemSize, int height, float headerHeight)
@@ -341,34 +274,6 @@ namespace Microcharts
                         DrawHelper.DrawLabel(canvas, orientation, isTop, itemSize, points[i], colors[i], sizes[i], texts[i], LabelTextSize, Typeface);
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Shows a Y axis
-        /// </summary>
-        /// <param name="canvas"></param>
-        /// <param name="yAxisWidth"></param>
-        /// <param name="intervals"></param>
-        protected virtual void DrawYAxisText(SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
-        {
-            var pt = YAxisTextPaint.Clone();
-            pt.TextAlign = YAxisPosition == Position.Left ? SKTextAlign.Right : SKTextAlign.Left;
-
-            foreach (var @int in intervals)
-                canvas.DrawTextCenteredVertically(@int.Label, pt, @int.Point.X, @int.Point.Y);
-        }
-
-        /// <summary>
-        /// Draws interval lines
-        /// </summary>
-        /// <param name="canvas"></param>
-        /// <param name="intervals"></param>
-        protected virtual void DrawYAxisLines(SKCanvas canvas, IEnumerable<SKRect> intervals)
-        {
-            foreach (var @int in intervals)
-            {
-                canvas.DrawLine(Margin / 2 + @int.Left, @int.Top, @int.Right - Margin / 2, @int.Bottom, YAxisLinesPaint);
             }
         }
 

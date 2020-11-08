@@ -235,19 +235,19 @@ namespace Microcharts.Samples
         {
             switch (chartType)
             {
-                case "BarChart":
+                case nameof(BarChart):
                     return GenerateBarChartExample();
-                case "PointChart":
+                case nameof(PointChart):
                     return GeneratePointChartExample();
-                case "LineChart":
+                case nameof(LineChart):
                     return GenerateLineChartExample();
-                case "DonutChart":
+                case nameof(DonutChart):
                     return GenerateDonutChartExample();
-                case "RadialGaugeChart":
+                case nameof(RadialGaugeChart):
                     return GenerateRadialGaugeChartExample();
-                case "RadarChart":
+                case nameof(RadarChart):
                     return GenerateRadarChartExample();
-                case "GroupedBarChart":
+                case nameof(GroupedBarChart):
                     return GenerateGroupedBarChartExample();
                 default:
                     return null;
@@ -447,6 +447,44 @@ namespace Microcharts.Samples
                     ValueLabelTextSize = 18,
                     SerieLabelTextSize = 42,
                     LegendOption = GroupedBarLegendOption.None,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Y Axis with text",
+                ExampleDescription = "Grouped bar chart with default legend and Y Axis",
+                Chart = new GroupedBarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
                     Series = new List<ChartSerie>()
                     {
                         new ChartSerie()
