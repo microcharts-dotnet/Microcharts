@@ -11,7 +11,7 @@ namespace Microcharts
 
         public string Name { get; set; } = "Default";
 
-        public SKColor Color { get; set; } = SKColors.Black;
+        public SKColor? Color { get; set; } = SKColors.Black;
 
         public IEnumerable<ChartEntry> Entries { get; set; }
     }

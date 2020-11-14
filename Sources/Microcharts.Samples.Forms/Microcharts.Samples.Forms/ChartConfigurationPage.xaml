@@ -31,12 +31,33 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </Frame.GestureRecognizers>
-                            <Grid RowDefinitions="Auto, *" Margin="10,0">
+                            <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto" Margin="10,0">
                                 <Label FontSize="Large"
                                        Text="{Binding ExampleName}"
                                        TextColor="Black" />
+                                <Frame Grid.Column="1"
+                                       Margin="5,3"
+                                       Padding="10,3"
+                                       BackgroundColor="Red"
+                                       IsVisible="{Binding IsSeries}"
+                                       VerticalOptions="Center">
+                                    <Label FontSize="Small"
+                                           Text="SERIES"
+                                           TextColor="White" />
+                                </Frame>
+                                <Frame Grid.Column="1"
+                                       Margin="5,3"
+                                       Padding="10,3"
+                                       BackgroundColor="DarkGreen"
+                                       IsVisible="{Binding IsSimple}"
+                                       VerticalOptions="Center">
+                                    <Label FontSize="Small"
+                                           Text="SIMPLE"
+                                           TextColor="White" />
+                                </Frame>
                                 <Label FontSize="Medium"
                                        Grid.Row="1"
+                                       Grid.ColumnSpan="2"
                                        Text="{Binding ExampleDescription}" />
                             </Grid>
                         </Frame>

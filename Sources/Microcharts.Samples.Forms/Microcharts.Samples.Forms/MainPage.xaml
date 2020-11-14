@@ -7,13 +7,17 @@
              x:Name="Page"
              Title="Microcharts">
     <Grid RowDefinitions="Auto, Auto, *">
-        <Label Margin="20,0,0,0" TextColor="Black" FontSize="Title" Text="List of charts available" />
-        <Label Margin="20,0,0,0" FontSize="Subtitle" Grid.Row="1" Text="Tap on item for more examples" />
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Items,
-                                              Source={x:Reference Page}}">
+        <Label Margin="20,0,0,0"
+               FontSize="Title"
+               Text="List of charts available"
+               TextColor="Black" />
+        <Label Grid.Row="1"
+               Margin="20,0,0,0"
+               FontSize="Subtitle"
+               Text="Tap on item for more examples" />
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Items, Source={x:Reference Page}}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="10"
-                                   Orientation="Vertical" />
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -26,13 +30,28 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </Frame.GestureRecognizers>
-                            <Grid RowDefinitions="Auto, *" Padding="0" Margin="0">
-                                <Label FontSize="Large"
-                                       Margin="20,0"
+                            <Grid Margin="0"
+                                  Padding="0"
+                                  ColumnDefinitions="*, Auto"
+                                  RowDefinitions="Auto, *">
+                                <Label Margin="20,0"
+                                       FontSize="Large"
+                                       Text="{Binding Name}"
                                        TextColor="Black"
-                                       Text="{Binding Name}" />
+                                       VerticalOptions="Center" />
+                                <Frame Grid.Column="1"
+                                       Margin="5,3"
+                                       Padding="10,3"
+                                       BackgroundColor="Red"
+                                       IsVisible="{Binding HasSeries}"
+                                       VerticalOptions="Center">
+                                    <Label FontSize="Small"
+                                           Text="SERIES"
+                                           TextColor="White" />
+                                </Frame>
                                 <microcharts:ChartView x:Name="chartView"
                                                        Grid.Row="1"
+                                                       Grid.ColumnSpan="2"
                                                        BackgroundColor="White"
                                                        Chart="{Binding Chart}"
                                                        HeightRequest="250" />

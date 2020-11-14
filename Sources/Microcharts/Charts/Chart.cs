@@ -140,7 +140,15 @@ namespace Microcharts
         public float LabelTextSize
         {
             get => labelTextSize;
-            set => Set(ref labelTextSize, value);
+            set
+            {
+                Set(ref labelTextSize, value);
+                OnLabelTextSizeChanged();
+            }
+        }
+
+        protected virtual void OnLabelTextSizeChanged()
+        {
         }
 
         /// <summary>

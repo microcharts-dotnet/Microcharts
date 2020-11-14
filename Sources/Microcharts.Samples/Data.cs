@@ -167,7 +167,7 @@ namespace Microcharts.Samples
                     Entries = entries,
                     LabelTextSize = 42
                 },
-                new GroupedBarChart
+                new BarSeriesChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -247,7 +247,7 @@ namespace Microcharts.Samples
                     return GenerateRadialGaugeChartExample();
                 case nameof(RadarChart):
                     return GenerateRadarChartExample();
-                case nameof(GroupedBarChart):
+                case nameof(BarSeriesChart):
                     return GenerateGroupedBarChartExample();
                 default:
                     return null;
@@ -365,9 +365,52 @@ namespace Microcharts.Samples
             Random r = new Random((int)DateTime.Now.Ticks);
             yield return new ExampleChartItem()
             {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new BarSeriesChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at right",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new BarSeriesChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    YAxisPosition = Position.Right
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Show Y axis at left",
+                ExampleDescription = "Display Y axis lines and values",
+                Chart = new BarSeriesChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
                 ExampleName = "Bottom legend",
                 ExampleDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
-                Chart = new GroupedBarChart
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarSeriesChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Vertical,
@@ -403,7 +446,8 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Top legend",
                 ExampleDescription = "Grouped bar chart with legend at top",
-                Chart = new GroupedBarChart
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarSeriesChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -439,7 +483,8 @@ namespace Microcharts.Samples
             {
                 ExampleName = "No legend",
                 ExampleDescription = "Grouped bar chart without legend",
-                Chart = new GroupedBarChart
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarSeriesChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -475,7 +520,8 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Y Axis with text",
                 ExampleDescription = "Grouped bar chart with default legend and Y Axis",
-                Chart = new GroupedBarChart
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarSeriesChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
