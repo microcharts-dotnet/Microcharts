@@ -12,7 +12,7 @@ namespace Microcharts
     ///
     /// A bar chart.
     /// </summary>
-    public class BarChart : PointChart, IBarChart
+    public class BarChart : PointChart
     {
         #region Constructors
 
@@ -28,10 +28,16 @@ namespace Microcharts
 
         #region Properties
 
-        /// <inheritdoc cref="IBarChart"/>
+        /// <summary>
+        /// Gets or sets the bar background area alpha.
+        /// </summary>
+        /// <value>The bar area alpha.</value>
         public byte BarAreaAlpha { get; set; } = DefaultValues.BarAreaAlpha;
 
-        /// <inheritdoc cref="IBarChart"/>
+        /// <summary>
+        /// Get or sets the minimum height for a bar
+        /// </summary>
+        /// <value>The minium height of a bar.</value>
         public float MinBarHeight { get; set; } = DefaultValues.MinBarHeight;
 
         #endregion

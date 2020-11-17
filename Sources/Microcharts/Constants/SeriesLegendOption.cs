@@ -1,9 +1,9 @@
 namespace Microcharts
 {
     /// <summary>
-    /// Define the legend layout option of the <see cref="T:Microcharts.GroupedBarChart"/>
+    /// Define the legend layout option of <see cref="T:Microcharts.AxisBasedChart"/> charts
     /// </summary>
-    public enum GroupedBarLegendOption
+    public enum SeriesLegendOption
     {
         /// <summary>
         /// Legend displayed on top of the chart
@@ -14,7 +14,7 @@ namespace Microcharts
         /// </summary>
         Bottom,
         /// <summary>
-        /// No legent displayed
+        /// No legend displayed
         /// </summary>
         None
     }
