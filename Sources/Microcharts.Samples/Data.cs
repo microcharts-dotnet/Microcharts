@@ -89,6 +89,35 @@ namespace Microcharts.Samples
 
         };
 
+        public static Chart[] CreateXamarinLegacySample()
+        {
+            ChartEntry[] entries = GenerateDefaultXamarinEntries();
+            return new Chart[]
+            {
+                new LegacyBarChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                },
+                new LegacyPointChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                },
+                new LegacyLineChart
+                {
+                    Entries = entries,
+                    LineMode = LineMode.Straight,
+                    LineSize = 8,
+                    LabelTextSize = 42,
+                    PointMode = PointMode.Square,
+                    PointSize = 18,
+                },
+            };
+        }
+
         public static Chart[] CreateXamarinSample()
         {
             ChartEntry[] entries = GenerateDefaultXamarinEntries();
@@ -131,24 +160,93 @@ namespace Microcharts.Samples
             {
                 new BarChart
                 {
-                    Entries = entries,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
                     LabelTextSize = 42,
-                    LabelOrientation = Orientation.Horizontal
+                    ValueLabelTextSize= 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = SeriesLegendOption.Bottom,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
                 },
                 new PointChart
                 {
-                    Entries = entries,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
                     LabelTextSize = 42,
-                    LabelOrientation = Orientation.Horizontal
+                    ValueLabelTextSize= 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = SeriesLegendOption.Bottom,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
                 },
                 new LineChart
                 {
-                    Entries = entries,
-                    LineMode = LineMode.Straight,
-                    LineSize = 8,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
                     LabelTextSize = 42,
-                    PointMode = PointMode.Square,
-                    PointSize = 18,
+                    ValueLabelTextSize= 18,
+                    SerieLabelTextSize = 42,
+                    LegendOption = SeriesLegendOption.Bottom,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r, 4),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r, 4),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r, 4),
+                        },
+                    }
                 },
                 new DonutChart
                 {
@@ -167,96 +265,6 @@ namespace Microcharts.Samples
                     Entries = entries,
                     LabelTextSize = 42
                 },
-                new BarSeriesChart
-                {
-                    LabelOrientation = Orientation.Horizontal,
-                    ValueLabelOrientation = Orientation.Horizontal,
-                    LabelTextSize = 42,
-                    ValueLabelTextSize= 18,
-                    SerieLabelTextSize = 42,
-                    LegendOption = SeriesLegendOption.Bottom,
-                    Series = new List<ChartSerie>()
-                    {
-                        new ChartSerie()
-                        {
-                            Name = "UWP",
-                            Color = SKColor.Parse("#2c3e50"),
-                            Entries = GenerateSeriesEntry(r),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "Android",
-                            Color = SKColor.Parse("#77d065"),
-                            Entries = GenerateSeriesEntry(r),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "iOS",
-                            Color = SKColor.Parse("#b455b6"),
-                            Entries = GenerateSeriesEntry(r),
-                        },
-                    }
-                },
-                new PointSeriesChart
-                {
-                    LabelOrientation = Orientation.Horizontal,
-                    ValueLabelOrientation = Orientation.Horizontal,
-                    LabelTextSize = 42,
-                    ValueLabelTextSize= 18,
-                    SerieLabelTextSize = 42,
-                    LegendOption = SeriesLegendOption.Bottom,
-                    Series = new List<ChartSerie>()
-                    {
-                        new ChartSerie()
-                        {
-                            Name = "UWP",
-                            Color = SKColor.Parse("#2c3e50"),
-                            Entries = GenerateSeriesEntry(r),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "Android",
-                            Color = SKColor.Parse("#77d065"),
-                            Entries = GenerateSeriesEntry(r),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "iOS",
-                            Color = SKColor.Parse("#b455b6"),
-                            Entries = GenerateSeriesEntry(r),
-                        },
-                    }
-                },
-                new LineSeriesChart
-                {
-                    LabelOrientation = Orientation.Horizontal,
-                    ValueLabelOrientation = Orientation.Horizontal,
-                    LabelTextSize = 42,
-                    ValueLabelTextSize= 18,
-                    SerieLabelTextSize = 42,
-                    LegendOption = SeriesLegendOption.Bottom,
-                    Series = new List<ChartSerie>()
-                    {
-                        new ChartSerie()
-                        {
-                            Name = "UWP",
-                            Color = SKColor.Parse("#2c3e50"),
-                            Entries = GenerateSeriesEntry(r, 4),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "Android",
-                            Color = SKColor.Parse("#77d065"),
-                            Entries = GenerateSeriesEntry(r, 4),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "iOS",
-                            Color = SKColor.Parse("#b455b6"),
-                            Entries = GenerateSeriesEntry(r, 4),
-                        },
-                    }
-                }
             };
         }
 
@@ -295,11 +303,11 @@ namespace Microcharts.Samples
         {
             switch (chartType)
             {
-                case nameof(BarChart):
+                case nameof(LegacyBarChart):
                     return GenerateBarChartExample();
-                case nameof(PointChart):
+                case nameof(LegacyPointChart):
                     return GeneratePointChartExample();
-                case nameof(LineChart):
+                case nameof(LegacyLineChart):
                     return GenerateLineChartExample();
                 case nameof(DonutChart):
                     return GenerateDonutChartExample();
@@ -307,11 +315,11 @@ namespace Microcharts.Samples
                     return GenerateRadialGaugeChartExample();
                 case nameof(RadarChart):
                     return GenerateRadarChartExample();
-                case nameof(BarSeriesChart):
+                case nameof(BarChart):
                     return GenerateGroupedBarChartExample();
-                case nameof(PointSeriesChart):
+                case nameof(PointChart):
                     return GeneratePointSeriesChartExample();
-                case nameof(LineSeriesChart):
+                case nameof(LineChart):
                     return GenerateLineSeriesChartExample();
                 default:
                     return null;
@@ -324,7 +332,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Default",
                 ExampleDescription = "Default example",
-                Chart = new LineChart
+                Chart = new LegacyLineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LineMode = LineMode.Straight,
@@ -339,7 +347,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at right",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new LineChart
+                Chart = new LegacyLineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LineMode = LineMode.Straight,
@@ -357,7 +365,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at left",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new LineChart
+                Chart = new LegacyLineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LineMode = LineMode.Straight,
@@ -431,7 +439,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Default",
                 ExampleDescription = "Default example",
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -443,7 +451,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at right",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -459,7 +467,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at left",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -475,7 +483,7 @@ namespace Microcharts.Samples
                 ExampleName = "Bottom legend",
                 ExampleDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Vertical,
@@ -512,7 +520,7 @@ namespace Microcharts.Samples
                 ExampleName = "Top legend",
                 ExampleDescription = "Grouped bar chart with legend at top",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -549,7 +557,7 @@ namespace Microcharts.Samples
                 ExampleName = "No legend",
                 ExampleDescription = "Grouped bar chart without legend",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -586,7 +594,7 @@ namespace Microcharts.Samples
                 ExampleName = "Y Axis with text",
                 ExampleDescription = "Grouped bar chart with default legend and Y Axis",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new BarSeriesChart
+                Chart = new BarChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -630,7 +638,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Default",
                 ExampleDescription = "Default example",
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -642,7 +650,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at right",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -658,7 +666,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at left",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -674,7 +682,7 @@ namespace Microcharts.Samples
                 ExampleName = "Bottom legend",
                 ExampleDescription = "Grouped point chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Vertical,
@@ -712,7 +720,7 @@ namespace Microcharts.Samples
                 ExampleName = "Top legend",
                 ExampleDescription = "Grouped point chart with legend at top",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -749,7 +757,7 @@ namespace Microcharts.Samples
                 ExampleName = "No legend",
                 ExampleDescription = "Grouped point chart without legend",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -786,7 +794,7 @@ namespace Microcharts.Samples
                 ExampleName = "Y Axis with text",
                 ExampleDescription = "Grouped point chart with default legend and Y Axis",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new PointSeriesChart
+                Chart = new PointChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -830,7 +838,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Default",
                 ExampleDescription = "Default example",
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -842,7 +850,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at right",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -858,7 +866,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at left",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -872,9 +880,9 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Bottom legend",
-                ExampleDescription = "Grouped point chart with legend at bottom with vertical value label orientation",
+                ExampleDescription = "Multiple lines chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Vertical,
@@ -910,9 +918,9 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Top legend",
-                ExampleDescription = "Grouped point chart with legend at top",
+                ExampleDescription = "Multiple lines with legend at top and no area",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -947,16 +955,17 @@ namespace Microcharts.Samples
 
             yield return new ExampleChartItem()
             {
-                ExampleName = "No legend",
-                ExampleDescription = "Grouped point chart without legend",
+                ExampleName = "Straight lines",
+                ExampleDescription = "Multiple lines without legend and line in Straight mode",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
                     LabelTextSize = 42,
                     ValueLabelTextSize = 18,
                     SerieLabelTextSize = 42,
+                    LineMode = LineMode.Straight,
                     LineAreaAlpha = 0,
                     LegendOption = SeriesLegendOption.None,
                     Series = new List<ChartSerie>()
@@ -986,9 +995,9 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Y Axis with text",
-                ExampleDescription = "Grouped point chart with default legend and Y Axis",
+                ExampleDescription = "Multiple lines chart with default legend and Y Axis",
                 ExampleChartType = ExampleChartType.Series,
-                Chart = new LineSeriesChart
+                Chart = new LineChart
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
@@ -1032,7 +1041,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Default",
                 ExampleDescription = "Default example",
-                Chart = new PointChart
+                Chart = new LegacyPointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -1044,7 +1053,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at right",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new PointChart
+                Chart = new LegacyPointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -1060,7 +1069,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at left",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new PointChart
+                Chart = new LegacyPointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -1081,7 +1090,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Default",
                 ExampleDescription = "Default example",
-                Chart = new BarChart
+                Chart = new LegacyBarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -1093,7 +1102,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at right",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new BarChart
+                Chart = new LegacyBarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -1109,7 +1118,7 @@ namespace Microcharts.Samples
             {
                 ExampleName = "Show Y axis at left",
                 ExampleDescription = "Display Y axis lines and values",
-                Chart = new BarChart
+                Chart = new LegacyBarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42,
@@ -1178,21 +1187,21 @@ namespace Microcharts.Samples
 
             return new Chart[]
             {
-                new BarChart
+                new LegacyBarChart
                 {
                     Entries = entries,
                     LabelTextSize = 55,
                     LabelOrientation = Orientation.Horizontal,
                     Margin = 10
                 },
-                new PointChart
+                new LegacyPointChart
                 {
                     Entries = entries,
                     LabelTextSize = 55,
                     LabelOrientation = Orientation.Horizontal,
                     Margin = 10
                 },
-                new LineChart
+                new LegacyLineChart
                 {
                     Entries = entries,
                     LabelTextSize = 55,

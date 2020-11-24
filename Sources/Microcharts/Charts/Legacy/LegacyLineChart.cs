@@ -1,27 +1,26 @@
 // Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 
 namespace Microcharts
 {
     /// <summary>
-    /// ![chart](../images/LineSeries.png)
+    /// ![chart](../images/Line.png)
     ///
-    /// A grouped bar chart.
+    /// Line chart.
     /// </summary>
-    public class LineSeriesChart : PointSeriesChart
+    public class LegacyLineChart : LegacyPointChart
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.LineSeriesChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.LineChart"/> class.
         /// </summary>
-        public LineSeriesChart() : base()
+        public LegacyLineChart()
         {
+            this.PointSize = 10;
         }
 
         #endregion
@@ -52,82 +51,44 @@ namespace Microcharts
         /// <value>The state of the fadeout gradient.</value>
         public bool EnableYFadeOutGradient { get; set; } = false;
 
-        /// <summary>
-        /// Gets or sets the value label layout option
-        /// </summary>
-        /// <remarks>Default is <seealso cref="T:Microcharts.ValueLabelOption.TopOfChart"/></remarks>
-        /// <value>The layout option of value labels</value>
-        public ValueLabelOption ValueLabelOption { get; set; } = ValueLabelOption.TopOfChart;
-
         #endregion
 
         #region Methods
 
-        /// <inheritdoc/>
-        protected override float CalculateHeaderHeight(Dictionary<ChartEntry, SKRect> valueLabelSizes)
+        /// <inheritdoc />
+        protected override void DrawAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
         {
-            if(Series.Count() == 1)
-                return base.CalculateHeaderHeight(valueLabelSizes);
-
-            return Margin;
+            DrawArea(canvas, points, itemSize, origin);
+            DrawLine(canvas, points, itemSize);
         }
 
-        /// <inheritdoc/>
-        public override void DrawContent(SKCanvas canvas, int width, int height)
+        protected void DrawLine(SKCanvas canvas, SKPoint[] points, SKSize itemSize)
         {
-            pointsPerSerie.Clear();
-            foreach (var s in Series)
-                pointsPerSerie.Add(s, new List<SKPoint>());
-
-            base.DrawContent(canvas, width, height);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnDrawContentEnd(SKCanvas canvas, SKSize itemSize, float origin)
-        {
-            base.OnDrawContentEnd(canvas, itemSize, origin);
-
-            DrawSeriesLine(canvas, itemSize);
-            if (pointsPerSerie.Count == 1)
+            if (points.Length > 1 && LineMode != LineMode.None)
             {
-                var pps =  pointsPerSerie.First();
-                DrawLineArea(canvas, pps.Key, pps.Value.ToArray(), itemSize, origin);
-            }
-            else
-            {
-                foreach (var pps in pointsPerSerie)
+                using (var paint = new SKPaint
                 {
-                    DrawLineArea(canvas, pps.Key, pps.Value.ToArray(), itemSize, origin);
-                }
-            }
-        }
-
-        private void DrawSeriesLine(SKCanvas canvas, SKSize itemSize)
-        {
-            if (pointsPerSerie.Any() && pointsPerSerie.Values.First().Count > 1 && LineMode != LineMode.None)
-            {
-                foreach (var s in Series)
+                    Style = SKPaintStyle.Stroke,
+                    Color = SKColors.White,
+                    StrokeWidth = LineSize,
+                    IsAntialias = true,
+                })
                 {
-                    var points = pointsPerSerie[s].ToArray();
-                    using (var paint = new SKPaint
+                    using (var shader = CreateXGradient(points))
                     {
-                        Style = SKPaintStyle.Stroke,
-                        Color = s.Color ?? SKColors.White,
-                        StrokeWidth = LineSize,
-                        IsAntialias = true,
-                    })
-                    {
-                        if (s.Color == null)
-                            using (var shader = CreateXGradient(points, s.Entries, s.Color))
-                                paint.Shader = shader;
+                        paint.Shader = shader;
 
                         var path = new SKPath();
+
                         path.MoveTo(points.First());
+
                         var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
                             if (LineMode == LineMode.Spline)
                             {
+                                var entry = Entries.ElementAt(i);
+                                var nextEntry = Entries.ElementAt(i + 1);
                                 var cubicInfo = CalculateCubicInfo(points, i, itemSize);
                                 path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
                             }
@@ -143,7 +104,7 @@ namespace Microcharts
             }
         }
 
-        private void DrawLineArea(SKCanvas canvas, ChartSerie serie, SKPoint[] points, SKSize itemSize, float origin)
+        protected void DrawArea(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin)
         {
             if (LineAreaAlpha > 0 && points.Length > 1)
             {
@@ -154,7 +115,7 @@ namespace Microcharts
                     IsAntialias = true,
                 })
                 {
-                    using (var shaderX = CreateXGradient(points, serie.Entries, serie.Color, (byte)(LineAreaAlpha * AnimationProgress)))
+                    using (var shaderX = CreateXGradient(points, (byte)(LineAreaAlpha * AnimationProgress)))
                     using (var shaderY = CreateYGradient(points, (byte)(LineAreaAlpha * AnimationProgress)))
                     {
                         paint.Shader = EnableYFadeOutGradient ? SKShader.CreateCompose(shaderY, shaderX, SKBlendMode.SrcOut) : shaderX;
@@ -169,6 +130,8 @@ namespace Microcharts
                         {
                             if (LineMode == LineMode.Spline)
                             {
+                                var entry = Entries.ElementAt(i);
+                                var nextEntry = Entries.ElementAt(i + 1);
                                 var cubicInfo = CalculateCubicInfo(points, i, itemSize);
                                 path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
                             }
@@ -179,47 +142,26 @@ namespace Microcharts
                         }
 
                         path.LineTo(points.Last().X, origin);
+
                         path.Close();
+
                         canvas.DrawPath(path, paint);
                     }
                 }
             }
         }
 
-        /// <inheritdoc/>
-        protected override void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX)
-        {
-            if(Series.Count() == 1 && ValueLabelOption == ValueLabelOption.TopOfChart)
-                base.DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX);
-        }
-
-        /// <inheritdoc/>
-        protected override void DrawBar(ChartSerie serie, SKCanvas canvas, float headerHeight, float itemX, SKSize itemSize, SKSize barSize, float origin, float barX, float barY, SKColor color)
-        {
-            //Drawing entry point at center of the item (label) part
-            var point = new SKPoint(itemX, barY);
-            pointsPerSerie[serie].Add(point);
-            if (PointMode != PointMode.None)
-                canvas.DrawPoint(point, color, PointSize, PointMode);
-        }
-
-        /// <inheritdoc/>
-        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float origin, float value, float barX, float barY)
-        {
-            //Area is draw on the OnDrawContentEnd
-        }
-
-        private (SKPoint control, SKPoint nextPoint, SKPoint nextControl) CalculateCubicInfo(SKPoint[] points, int i, SKSize itemSize)
+        private (SKPoint point, SKPoint control, SKPoint nextPoint, SKPoint nextControl) CalculateCubicInfo(SKPoint[] points, int i, SKSize itemSize)
         {
             var point = points[i];
             var nextPoint = points[i + 1];
             var controlOffset = new SKPoint(itemSize.Width * 0.8f, 0);
             var currentControl = point + controlOffset;
             var nextControl = nextPoint - controlOffset;
-            return (currentControl, nextPoint, nextControl);
+            return (point, currentControl, nextPoint, nextControl);
         }
 
-        private SKShader CreateXGradient(SKPoint[] points, IEnumerable<ChartEntry> entries, SKColor? serieColor, byte alpha = 255)
+        private SKShader CreateXGradient(SKPoint[] points, byte alpha = 255)
         {
             var startX = points.First().X;
             var endX = points.Last().X;
@@ -228,7 +170,7 @@ namespace Microcharts
             return SKShader.CreateLinearGradient(
                 new SKPoint(startX, 0),
                 new SKPoint(endX, 0),
-                entries.Select(x => serieColor?.WithAlpha(alpha) ?? x.Color.WithAlpha(alpha)).ToArray(),
+                Entries.Select(x => x.Color.WithAlpha(alpha)).ToArray(),
                 null,
                 SKShaderTileMode.Clamp);
         }
@@ -241,7 +183,7 @@ namespace Microcharts
             return SKShader.CreateLinearGradient(
                 new SKPoint(0, startY),
                 new SKPoint(0, endY),
-                new[] { SKColors.White.WithAlpha(alpha), SKColors.White.WithAlpha(0) },
+                new[] {SKColors.White.WithAlpha(alpha), SKColors.White.WithAlpha(0)},
                 null,
                 SKShaderTileMode.Clamp);
         }

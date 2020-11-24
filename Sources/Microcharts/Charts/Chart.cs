@@ -20,6 +20,9 @@ namespace Microcharts
     {
         #region Fields
 
+        /// <summary>
+        /// IEnumerable of <seealso cref="T:Microcharts.ChartEntry" /> corresponding of Entries of the chart.
+        /// </summary>
         protected IEnumerable<ChartEntry> entries;
 
         private float animationProgress, margin = 20, labelTextSize = 16;
@@ -147,6 +150,9 @@ namespace Microcharts
             }
         }
 
+        /// <summary>
+        /// Method call when LabelTextSizeChanged
+        /// </summary>
         protected virtual void OnLabelTextSizeChanged()
         {
         }
@@ -230,7 +236,11 @@ namespace Microcharts
             set => InternalMaxValue = value;
         }
 
-        protected float ValueRange => MaxValue - MinValue;
+
+        /// <summary>
+        /// Value range of the chart entries
+        /// </summary>
+        protected virtual float ValueRange => MaxValue - MinValue;
 
         /// <summary>
         /// Gets or sets a value whether debug rectangles should be drawn.
@@ -506,6 +516,10 @@ namespace Microcharts
             IsAnimating = false;
         }
 
+        /// <summary>
+        /// Base method of the generation items on entries changed
+        /// </summary>
+        /// <param name="value"></param>
         protected async void UpdateEntries(IEnumerable<ChartEntry> value)
         {
             try

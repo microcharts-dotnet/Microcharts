@@ -38,7 +38,8 @@ namespace Microcharts
 
         private float AbsoluteMaximum => Entries?.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x)) ?? 0;
 
-        private float ValueRange => AbsoluteMaximum - AbsoluteMinimum;
+        /// <inheritdoc />
+        protected override float ValueRange => AbsoluteMaximum - AbsoluteMinimum;
 
         #endregion
 

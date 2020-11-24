@@ -20,6 +20,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="LegacyPage.xaml.cs">
+        <DependentUpon>LegacyPage.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
       <EmbeddedResource Update="ChartConfigurationPage.xaml">
         <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       </EmbeddedResource>
