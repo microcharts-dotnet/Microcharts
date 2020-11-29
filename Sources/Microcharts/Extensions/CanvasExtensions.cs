@@ -139,6 +139,34 @@ namespace Microcharts
         }
 
         /// <summary>
+        /// Draws text vertically aligned
+        /// </summary>
+        /// <param name="canvas">The canvas.</param>
+        /// <param name="text">The text to display</param>
+        /// <param name="paint">The paint to use for text and calculations</param>
+        /// <param name="point">The baseLine point where to vertically draw</param>
+        /// <remarks>https://stackoverflow.com/questions/27631736/meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font</remarks>
+        public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKPaint paint, SKPoint point)
+        {
+            canvas.DrawTextCenteredVertically(text, paint, point.X, point.Y);
+        }
+
+        /// <summary>
+        /// Draws text vertically aligned
+        /// </summary>
+        /// <param name="canvas">The canvas.</param>
+        /// <param name="text">The text to display</param>
+        /// <param name="paint">The paint to use for text and calculations</param>
+        /// <param name="x">The baseLine point x where to vertically draw</param>
+        /// <param name="y">The baseLine point y where to vertically draw</param>
+        /// <remarks>https://stackoverflow.com/questions/27631736/meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font</remarks>
+        public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKPaint paint, float x, float y)
+        {
+            var textY = y + (((-paint.FontMetrics.Ascent + paint.FontMetrics.Descent) / 2) - paint.FontMetrics.Descent);
+            canvas.DrawText(text, x, textY, paint);
+        }
+
+        /// <summary>
         /// Gets the absolute bounds of a given rectangle, aligned at a given position.
         /// </summary>
         /// <param name="x">The absolute x position.</param>

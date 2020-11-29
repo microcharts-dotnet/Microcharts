@@ -33,8 +33,6 @@
 
     <ItemGroup>
         <Folder Include="Extensions\" />
-        <Folder Include="Helpers\" />
-        <Folder Include="Charts\" />
         <Folder Include="WeakEventHandlers\" />
     </ItemGroup>
 

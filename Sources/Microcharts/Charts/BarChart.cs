@@ -1,27 +1,25 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using System.Linq;
 using SkiaSharp;
 
 namespace Microcharts
 {
     /// <summary>
-    /// ![chart](../images/Bar.png)
+    /// ![chart](../images/BarSeries.png)
     ///
-    /// A bar chart.
+    /// A grouped bar chart.
     /// </summary>
-    public class BarChart : PointChart
+    public class BarChart : AxisBasedChart
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.BarChart"/> class.
+        /// Initializes a new instance of the <see cref="T:Microcharts.BarSeriesChart"/> class.
         /// </summary>
-        public BarChart()
+        public BarChart() : base()
         {
-            PointSize = 0;
         }
 
         #endregion
@@ -32,112 +30,58 @@ namespace Microcharts
         /// Gets or sets the bar background area alpha.
         /// </summary>
         /// <value>The bar area alpha.</value>
-        public byte BarAreaAlpha { get; set; } = 32;
+        public byte BarAreaAlpha { get; set; } = DefaultValues.BarAreaAlpha;
 
+        /// <summary>
+        /// Get or sets the minimum height for a bar
+        /// </summary>
+        /// <value>The minium height of a bar.</value>
+        public float MinBarHeight { get; set; } = DefaultValues.MinBarHeight;
         #endregion
 
         #region Methods
 
-        /// <summary>
-        /// Draws the content of the chart onto the specified canvas.
-        /// </summary>
-        /// <param name="canvas">The output canvas.</param>
-        /// <param name="width">The width of the chart.</param>
-        /// <param name="height">The height of the chart.</param>
-        public override void DrawContent(SKCanvas canvas, int width, int height)
+        /// <inheritdoc />
+        protected override void DrawBar(ChartSerie serie, SKCanvas canvas, float headerHeight, float itemX, SKSize itemSize, SKSize barSize, float origin, float barX, float barY, SKColor color)
         {
-            if (Entries != null)
+            using (var paint = new SKPaint
             {
-                var labels = Entries.Select(x => x.Label).ToArray();
-                var labelSizes = MeasureLabels(labels);
-                var footerHeight = CalculateFooterHeaderHeight(labelSizes, LabelOrientation);
-
-                var valueLabels = Entries.Select(x => x.ValueLabel).ToArray();
-                var valueLabelSizes = MeasureLabels(valueLabels);
-                var headerHeight = CalculateFooterHeaderHeight(valueLabelSizes, ValueLabelOrientation);
-
-                var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
-                var origin = CalculateYOrigin(itemSize.Height, headerHeight);
-                var points = CalculatePoints(itemSize, origin, headerHeight);
-
-                DrawBarAreas(canvas, points, itemSize, headerHeight);
-                DrawBars(canvas, points, itemSize, origin, headerHeight);
-                DrawPoints(canvas, points);
-                DrawHeader(canvas, valueLabels, valueLabelSizes, points, itemSize, height, headerHeight);
-                DrawFooter(canvas, labels, labelSizes, points, itemSize, height, footerHeight);
-            }
-        }
-
-        /// <summary>
-        /// Draws the value bars.
-        /// </summary>
-        /// <param name="canvas">The canvas.</param>
-        /// <param name="points">The points.</param>
-        /// <param name="itemSize">The item size.</param>
-        /// <param name="origin">The origin.</param>
-        /// <param name="headerHeight">The Header height.</param>
-        protected void DrawBars(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float origin, float headerHeight)
-        {
-            const float MinBarHeight = 4;
-            if (points.Length > 0)
+                Style = SKPaintStyle.Fill,
+                Color = color,
+            })
             {
-                for (int i = 0; i < Entries.Count(); i++)
+                var x = barX - (itemSize.Width / 2);
+                var y = Math.Min(origin, barY);
+                var height = Math.Max(MinBarHeight, Math.Abs(origin - barY));
+                if (height < MinBarHeight)
                 {
-                    var entry = Entries.ElementAt(i);
-                    var point = points[i];
-
-                    using (var paint = new SKPaint
+                    height = MinBarHeight;
+                    if (y + height > Margin + itemSize.Height)
                     {
-                        Style = SKPaintStyle.Fill,
-                        Color = entry.Color,
-                    })
-                    {
-                        var x = point.X - (itemSize.Width / 2);
-                        var y = Math.Min(origin, point.Y);
-                        var height = Math.Max(MinBarHeight, Math.Abs(origin - point.Y));
-                        if (height < MinBarHeight)
-                        {
-                            height = MinBarHeight;
-                            if (y + height > Margin + itemSize.Height)
-                            {
-                                y = headerHeight + itemSize.Height - height;
-                            }
-                        }
-
-                        var rect = SKRect.Create(x, y, itemSize.Width, height);
-                        canvas.DrawRect(rect, paint);
+                        y = headerHeight + itemSize.Height - height;
                     }
                 }
+
+                var rect = SKRect.Create(x, y, barSize.Width, height);
+                canvas.DrawRect(rect, paint);
             }
         }
 
-        /// <summary>
-        /// Draws the bar background areas.
-        /// </summary>
-        /// <param name="canvas">The output canvas.</param>
-        /// <param name="points">The entry points.</param>
-        /// <param name="itemSize">The item size.</param>
-        /// <param name="headerHeight">The header height.</param>
-        protected void DrawBarAreas(SKCanvas canvas, SKPoint[] points, SKSize itemSize, float headerHeight)
+        /// <inheritdoc />
+        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float origin, float value, float barX, float barY)
         {
-            if (points.Length > 0 && PointAreaAlpha > 0)
+            if (BarAreaAlpha > 0)
             {
-                for (int i = 0; i < points.Length; i++)
+                using (var paint = new SKPaint
                 {
-                    var entry = Entries.ElementAt(i);
-                    var point = points[i];
-
-                    using (var paint = new SKPaint
-                    {
-                        Style = SKPaintStyle.Fill,
-                        Color = entry.Color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress)),
-                    })
-                    {
-                        var max = entry.Value > 0 ? headerHeight : headerHeight + itemSize.Height;
-                        var height = Math.Abs(max - point.Y);
-                        var y = Math.Min(max, point.Y);
-                        canvas.DrawRect(SKRect.Create(point.X - (itemSize.Width / 2), y, itemSize.Width, height), paint);
-                    }
+                    Style = SKPaintStyle.Fill,
+                    Color = color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress)),
+                })
+                {
+                    var max = value > 0 ? headerHeight : headerHeight + itemSize.Height;
+                    var height = Math.Abs(max - barY);
+                    var y = Math.Min(max, barY);
+                    canvas.DrawRect(SKRect.Create(barX - (itemSize.Width / 2), y, barSize.Width, height), paint);
                 }
             }
         }
