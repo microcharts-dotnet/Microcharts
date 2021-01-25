@@ -77,8 +77,17 @@ namespace Microcharts
                 var yAxisWidth = width;
 
                 var enumerable = entries.ToList(); // to avoid double enumeration
+                var minValue = enumerable.Min(e => e.Value);
+                var maxValue = enumerable.Max(e => e.Value);
+                if(minValue == maxValue)
+                {
+                    if (minValue >= 0)
+                        maxValue += 100;
+                    else
+                        maxValue = 0;
+                }
 
-                NiceScale.Calculate(enumerable.Min(e => e.Value), enumerable.Max(e => e.Value), yAxisMaxTicks, out var range, out var tickSpacing, out var niceMin, out var niceMax);
+                NiceScale.Calculate(minValue, maxValue, yAxisMaxTicks, out var range, out var tickSpacing, out var niceMin, out var niceMax);
 
                 var ticks = (int)(range / tickSpacing);
 
