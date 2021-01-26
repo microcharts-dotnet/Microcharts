@@ -52,7 +52,7 @@ namespace Microcharts
             {
                 var x = barX - (itemSize.Width / 2);
                 var y = Math.Min(origin, barY);
-                var height = Math.Max(MinBarHeight, Math.Abs(origin - barY));
+                var height = Math.Abs(origin - barY);
                 if (height < MinBarHeight)
                 {
                     height = MinBarHeight;
