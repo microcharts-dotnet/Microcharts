@@ -126,20 +126,22 @@ namespace Microcharts
                     for (int i = 0; i < pps.Value.Count; i++)
                     {
                         var entry = entries[i];
-                        var drawedPoint = pps.Value.ElementAt(i);
-                        SKPoint point;
-                        var valueLabelSize = valueLabelSizes[entry];
-                        if (valueLabelOption == ValueLabelOption.TopOfPoint)
+                        if (!string.IsNullOrEmpty(entry.ValueLabel))
                         {
+                            var drawedPoint = pps.Value.ElementAt(i);
+                            SKPoint point;
+                            var valueLabelSize = valueLabelSizes[entry];
+                            if (valueLabelOption == ValueLabelOption.TopOfPoint)
+                            {
+                                point = new SKPoint(drawedPoint.X, drawedPoint.Y - (PointSize / 2) - (Margin / 2));
+                            }
+                            else
+                            {
+                                point = new SKPoint(drawedPoint.X, drawedPoint.Y);
+                            }
 
-                            point = new SKPoint(drawedPoint.X, drawedPoint.Y - (PointSize / 2) - (Margin / 2));
+                            DrawHelper.DrawLabel(canvas, Orientation.Horizontal, false, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
                         }
-                        else
-                        {
-                            point = new SKPoint(drawedPoint.X, drawedPoint.Y);
-                        }
-
-                        DrawHelper.DrawLabel(canvas, Orientation.Horizontal, false, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
                     }
                 }
             }
