@@ -447,6 +447,20 @@ namespace Microcharts.Samples
                 }
             };
 
+            var entries = GenerateDefaultXamarinEntries();
+            Array.ForEach(entries, (e) => e.Label = string.Empty);
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Empty label",
+                ExampleDescription = "Default data with empty label (issue #137)",
+                Chart = new BarChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42,
+                    LabelOrientation = Orientation.Horizontal
+                }
+            };
+
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
@@ -625,6 +639,45 @@ namespace Microcharts.Samples
                             Entries = GenerateSeriesEntry(r),
                         },
                     }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Empty label",
+                ExampleDescription = "Default data with empty label (issue #137)",
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    Series = new List<ChartSerie>()
+                        {
+                            new ChartSerie()
+                            {
+                                Name = "UWP",
+                                Color = SKColor.Parse("#2c3e50"),
+                                Entries = GenerateSeriesEntry(r, withLabel:false),
+                            },
+                            new ChartSerie()
+                            {
+                                Name = "Android",
+                                Color = SKColor.Parse("#77d065"),
+                                Entries = GenerateSeriesEntry(r, withLabel:false),
+                            },
+                            new ChartSerie()
+                            {
+                                Name = "iOS",
+                                Color = SKColor.Parse("#b455b6"),
+                                Entries = GenerateSeriesEntry(r, withLabel:false),
+                            },
+                        }
                 },
             };
 
@@ -1132,15 +1185,15 @@ namespace Microcharts.Samples
             yield break;
         }
 
-        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3)
+        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3, bool withLabel = true)
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
-            int label = 2020 - ((labelNumber-1) * 5);
+            int label = 2020 - ((labelNumber - 1) * 5);
             var value = r.Next(0, 700);
             do
             {
-                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString() });
+                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = withLabel ? label.ToString() : null });
                 value = r.Next(0, 700);
                 label += 5;
             }
