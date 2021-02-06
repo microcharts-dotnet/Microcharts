@@ -1392,7 +1392,7 @@ namespace Microcharts.Samples
             yield break;
         }
 
-        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3)
+        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3, bool withLabel = true)
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
@@ -1400,7 +1400,7 @@ namespace Microcharts.Samples
             var value = r.Next(0, 700);
             do
             {
-                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString() });
+                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = withLabel ? label.ToString() : null });
                 value = r.Next(0, 700);
                 label += 5;
             }
