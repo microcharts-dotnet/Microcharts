@@ -165,6 +165,7 @@ namespace Microcharts.Samples
                     LabelTextSize = 42,
                     ValueLabelTextSize= 18,
                     SerieLabelTextSize = 42,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
                     LegendOption = SeriesLegendOption.Bottom,
                     Series = new List<ChartSerie>()
                     {
@@ -480,6 +481,74 @@ namespace Microcharts.Samples
 
             yield return new ExampleChartItem()
             {
+                ExampleName = "Simple chart with vertical label on top of bar",
+                ExampleDescription = "Display Y axis lines and values, with value label on top of bar",
+                Chart = new BarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Simple chart with horizontal label on top of bar",
+                ExampleDescription = "Display Y axis lines and values, with value label on top of bar",
+                Chart = new BarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Simple chart with vertical label over bar",
+                ExampleDescription = "Display Y axis lines and values, with value label over bar",
+                Chart = new BarChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Vertical,
+                    ValueLabelOption = ValueLabelOption.OverElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Simple chart with horizontal label over bar",
+                ExampleDescription = "Display Y axis lines and values, with value label over bar",
+                Chart = new BarChart
+                {
+                    AnimationDuration = TimeSpan.FromSeconds(0),
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.OverElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
                 ExampleName = "Bottom legend",
                 ExampleDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
@@ -628,6 +697,125 @@ namespace Microcharts.Samples
                 },
             };
 
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label top of Bar item",
+                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars.",
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label over Bar item",
+                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display over bars.",
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    ValueLabelOption = ValueLabelOption.OverElement,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Empty label",
+                ExampleDescription = "Default data with empty label (issue #137)",
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    Series = new List<ChartSerie>()
+                        {
+                            new ChartSerie()
+                            {
+                                Name = "UWP",
+                                Color = SKColor.Parse("#2c3e50"),
+                                Entries = GenerateSeriesEntry(r, withLabel:false),
+                            },
+                            new ChartSerie()
+                            {
+                                Name = "Android",
+                                Color = SKColor.Parse("#77d065"),
+                                Entries = GenerateSeriesEntry(r, withLabel:false),
+                            },
+                            new ChartSerie()
+                            {
+                                Name = "iOS",
+                                Color = SKColor.Parse("#b455b6"),
+                                Entries = GenerateSeriesEntry(r, withLabel:false),
+                            },
+                        }
+                },
+            };
+
             yield break;
         }
 
@@ -673,6 +861,77 @@ namespace Microcharts.Samples
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
                     LabelOrientation = Orientation.Horizontal,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label vertical on top of point",
+                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    ValueLabelTextSize = 20,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Vertical,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label horizontal on top of point",
+                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    ValueLabelTextSize = 20,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label on point vertical",
+                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelTextSize = 20,
+                    ValueLabelOption = ValueLabelOption.OverElement,
+                    YAxisPosition = Position.Left
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label on point horizontal",
+                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                Chart = new PointChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelTextSize = 20,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.OverElement,
                     YAxisPosition = Position.Left
                 }
             };
@@ -924,6 +1183,7 @@ namespace Microcharts.Samples
                 {
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.OverElement,
                     LabelTextSize = 42,
                     ValueLabelTextSize = 18,
                     SerieLabelTextSize = 42,

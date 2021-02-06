@@ -108,6 +108,13 @@ namespace Microcharts
         }
 
         /// <summary>
+        /// Gets or sets the value label layout option
+        /// </summary>
+        /// <remarks>Default is <seealso cref="T:Microcharts.ValueLabelOption.TopOfChart"/></remarks>
+        /// <value>The layout option of value labels</value>
+        public ValueLabelOption ValueLabelOption { get; set; } = ValueLabelOption.TopOfChart;
+
+        /// <summary>
         /// Gets or sets the text size of the serie labels.
         /// </summary>
         /// <value>The size of the serie label text.</value>
@@ -208,10 +215,11 @@ namespace Microcharts
 
                         DrawBarArea(canvas, headerWithLegendHeight, itemSize, barSize, serie.Color ?? entry.Color, origin, value, barX, barY);
                         DrawBar(serie, canvas, headerWithLegendHeight, itemX, itemSize, barSize, origin, barX, barY, serie.Color ?? entry.Color);
-                        DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX);
+                        DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
                     }
 
-                    DrawHelper.DrawLabel(canvas, LabelOrientation, false, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
+                    if(!string.IsNullOrEmpty(label))
+                        DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                 }
 
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
@@ -241,10 +249,10 @@ namespace Microcharts
         /// <param name="barX"></param>
         /// <param name="barY"></param>
         /// <param name="itemX"></param>
-        protected virtual void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX)
+        protected virtual void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX, float origin)
         {
             if (!string.IsNullOrEmpty(entry?.ValueLabel))
-                DrawHelper.DrawLabel(canvas, ValueLabelOrientation, true, barSize, new SKPoint(barX - (itemSize.Width / 2) + (barSize.Width / 2), headerWithLegendHeight - Margin), entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSizes[entry], entry.ValueLabel, ValueLabelTextSize, Typeface);
+                DrawHelper.DrawLabel(canvas, ValueLabelOrientation, YPositionBehavior.UpToElementHeight, barSize, new SKPoint(barX - (itemSize.Width / 2) + (barSize.Width / 2), headerWithLegendHeight - Margin), entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSizes[entry], entry.ValueLabel, ValueLabelTextSize, Typeface);
         }
 
         /// <summary>
