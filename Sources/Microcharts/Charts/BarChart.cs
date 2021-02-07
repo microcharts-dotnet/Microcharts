@@ -78,7 +78,6 @@ namespace Microcharts
             })
             {
                 (SKPoint location, SKSize size) = GetBarDrawingProperties(headerHeight, itemSize, barSize, origin, barX, barY);
-
                 var rect = SKRect.Create(location, size);
                 canvas.DrawRect(rect, paint);
             }

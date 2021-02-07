@@ -119,29 +119,31 @@ namespace Microcharts
                     for (int i = 0; i < pps.Value.Count; i++)
                     {
                         var entry = entries[i];
-                        var drawedPoint = pps.Value.ElementAt(i);
-                        SKPoint point;
-                        YPositionBehavior yPositionBehavior = YPositionBehavior.None;
-                        var valueLabelSize = valueLabelSizes[entry];
-                        if (valueLabelOption == ValueLabelOption.TopOfElement)
+                        if (!string.IsNullOrEmpty(entry.ValueLabel))
                         {
+                          var drawedPoint = pps.Value.ElementAt(i);
+                          SKPoint point;
+                          YPositionBehavior yPositionBehavior = YPositionBehavior.None;
+                          var valueLabelSize = valueLabelSizes[entry];
+                          if (valueLabelOption == ValueLabelOption.TopOfElement)
+                          {
+                              point = new SKPoint(drawedPoint.X, drawedPoint.Y - (PointSize / 2) - (Margin / 2));
+                              if (ValueLabelOrientation == Orientation.Vertical)
+                                  yPositionBehavior = YPositionBehavior.UpToElementHeight;
+                          }
+                          else
+                          {
+                              if (ValueLabelOrientation == Orientation.Vertical)
+                                  yPositionBehavior = YPositionBehavior.UpToElementMiddle;
+                              else
+                                  yPositionBehavior = YPositionBehavior.DownToElementMiddle;
 
-                            point = new SKPoint(drawedPoint.X, drawedPoint.Y - (PointSize / 2) - (Margin / 2));
-                            if (ValueLabelOrientation == Orientation.Vertical)
-                                yPositionBehavior = YPositionBehavior.UpToElementHeight;
+                              point = new SKPoint(drawedPoint.X, drawedPoint.Y);
+
+                          }
+
+                          DrawHelper.DrawLabel(canvas, ValueLabelOrientation, yPositionBehavior, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
                         }
-                        else
-                        {
-                            if (ValueLabelOrientation == Orientation.Vertical)
-                                yPositionBehavior = YPositionBehavior.UpToElementMiddle;
-                            else
-                                yPositionBehavior = YPositionBehavior.DownToElementMiddle;
-
-                            point = new SKPoint(drawedPoint.X, drawedPoint.Y);
-                            
-                        }
-
-                        DrawHelper.DrawLabel(canvas, ValueLabelOrientation, yPositionBehavior, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
                     }
                 }
             }
