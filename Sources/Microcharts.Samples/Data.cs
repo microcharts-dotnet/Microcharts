@@ -364,6 +364,33 @@ namespace Microcharts.Samples
                 },
             };
 
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Two entry",
+                ExampleDescription = "First item greater than the second one (issue #184)",
+                Chart = new DonutChart
+                {
+                    Entries = new List<ChartEntry>()
+                    {
+                        new ChartEntry(458)
+                        {
+                            Label = "Android",
+                            ValueLabel = "458",
+                            Color = SKColor.Parse("#77d065"),
+                        },
+                        new ChartEntry(128)
+                        {
+                            Label = "iOS",
+                            ValueLabel = "128",
+                            Color = SKColor.Parse("#b455b6"),
+                        },
+                    },
+                    LabelTextSize = 32,
+                    GraphPosition = GraphPosition.Center,
+                    LabelMode = LabelMode.RightOnly
+                },
+            };
+
             yield break;
         }
 
