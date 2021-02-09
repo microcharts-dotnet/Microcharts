@@ -6,9 +6,18 @@ using SkiaSharp;
 
 namespace Microcharts
 {
+    internal enum YPositionBehavior
+    {
+        None,
+        UpToElementHeight,
+        UpToElementMiddle,
+        DownToElementMiddle
+    }
+
     internal static class DrawHelper
     {
-        internal static void DrawLabel(SKCanvas canvas, Orientation orientation, bool isTop, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text, float textSize, SKTypeface typeface)
+        
+        internal static void DrawLabel(SKCanvas canvas, Orientation orientation, YPositionBehavior yPositionBehavior, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text, float textSize, SKTypeface typeface)
         {
             using (new SKAutoCanvasRestore(canvas))
             {
@@ -24,9 +33,20 @@ namespace Microcharts
                     {
                         var y = point.Y;
 
-                        if (isTop)
+                        switch (yPositionBehavior)
                         {
-                            y -= bounds.Width;
+                            case YPositionBehavior.UpToElementHeight:
+                                y -= bounds.Width;
+                                break;
+                            case YPositionBehavior.UpToElementMiddle:
+                                y -= bounds.Width / 2;
+                                break;
+                            case YPositionBehavior.DownToElementMiddle:
+                                y += bounds.Width / 2;
+                                break;
+                            case YPositionBehavior.None:
+                            default:
+                                break;
                         }
 
                         canvas.RotateDegrees(90);
@@ -48,9 +68,20 @@ namespace Microcharts
 
                         var y = point.Y;
 
-                        if (isTop)
+                        switch (yPositionBehavior)
                         {
-                            y -= bounds.Height;
+                            case YPositionBehavior.UpToElementHeight:
+                                y -= bounds.Height;
+                                break;
+                            case YPositionBehavior.UpToElementMiddle:
+                                y -= bounds.Height / 2;
+                                break;
+                            case YPositionBehavior.DownToElementMiddle:
+                                y += bounds.Height / 2;
+                                break;
+                            case YPositionBehavior.None:
+                            default:
+                                break;
                         }
 
                         canvas.Translate(point.X - (bounds.Width / 2), y);

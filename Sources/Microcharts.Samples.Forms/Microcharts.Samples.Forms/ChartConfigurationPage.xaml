@@ -33,6 +33,7 @@
                             </Frame.GestureRecognizers>
                             <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto" Margin="10,0">
                                 <Label FontSize="Large"
+                                       LineBreakMode="WordWrap"
                                        Text="{Binding ExampleName}"
                                        TextColor="Black" />
                                 <Frame Grid.Column="1"

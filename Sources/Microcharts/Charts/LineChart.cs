@@ -50,13 +50,6 @@ namespace Microcharts
         /// <value>The state of the fadeout gradient.</value>
         public bool EnableYFadeOutGradient { get; set; } = false;
 
-        /// <summary>
-        /// Gets or sets the value label layout option
-        /// </summary>
-        /// <remarks>Default is <seealso cref="T:Microcharts.ValueLabelOption.TopOfChart"/></remarks>
-        /// <value>The layout option of value labels</value>
-        public ValueLabelOption ValueLabelOption { get; set; } = ValueLabelOption.TopOfChart;
-
         #endregion
 
         #region Methods
@@ -64,7 +57,7 @@ namespace Microcharts
         /// <inheritdoc/>
         protected override float CalculateHeaderHeight(Dictionary<ChartEntry, SKRect> valueLabelSizes)
         {
-            if(ValueLabelOption == ValueLabelOption.None || ValueLabelOption == ValueLabelOption.OverPoint)
+            if(ValueLabelOption == ValueLabelOption.None || ValueLabelOption == ValueLabelOption.OverElement)
                 return Margin;
 
             return base.CalculateHeaderHeight(valueLabelSizes);
@@ -116,9 +109,9 @@ namespace Microcharts
         {
             ValueLabelOption valueLabelOption = ValueLabelOption;
             if (ValueLabelOption == ValueLabelOption.TopOfChart && Series.Count() > 1)
-                valueLabelOption = ValueLabelOption.TopOfPoint;
+                valueLabelOption = ValueLabelOption.TopOfElement;
 
-            if (valueLabelOption == ValueLabelOption.TopOfPoint || valueLabelOption == ValueLabelOption.OverPoint)
+            if (valueLabelOption == ValueLabelOption.TopOfElement || valueLabelOption == ValueLabelOption.OverElement)
             {
                 foreach (var pps in pointsPerSerie)
                 {
@@ -128,19 +121,28 @@ namespace Microcharts
                         var entry = entries[i];
                         if (!string.IsNullOrEmpty(entry.ValueLabel))
                         {
-                            var drawedPoint = pps.Value.ElementAt(i);
-                            SKPoint point;
-                            var valueLabelSize = valueLabelSizes[entry];
-                            if (valueLabelOption == ValueLabelOption.TopOfPoint)
-                            {
-                                point = new SKPoint(drawedPoint.X, drawedPoint.Y - (PointSize / 2) - (Margin / 2));
-                            }
-                            else
-                            {
-                                point = new SKPoint(drawedPoint.X, drawedPoint.Y);
-                            }
+                          var drawedPoint = pps.Value.ElementAt(i);
+                          SKPoint point;
+                          YPositionBehavior yPositionBehavior = YPositionBehavior.None;
+                          var valueLabelSize = valueLabelSizes[entry];
+                          if (valueLabelOption == ValueLabelOption.TopOfElement)
+                          {
+                              point = new SKPoint(drawedPoint.X, drawedPoint.Y - (PointSize / 2) - (Margin / 2));
+                              if (ValueLabelOrientation == Orientation.Vertical)
+                                  yPositionBehavior = YPositionBehavior.UpToElementHeight;
+                          }
+                          else
+                          {
+                              if (ValueLabelOrientation == Orientation.Vertical)
+                                  yPositionBehavior = YPositionBehavior.UpToElementMiddle;
+                              else
+                                  yPositionBehavior = YPositionBehavior.DownToElementMiddle;
 
-                            DrawHelper.DrawLabel(canvas, Orientation.Horizontal, false, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
+                              point = new SKPoint(drawedPoint.X, drawedPoint.Y);
+
+                          }
+
+                          DrawHelper.DrawLabel(canvas, ValueLabelOrientation, yPositionBehavior, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
                         }
                     }
                 }
@@ -232,10 +234,10 @@ namespace Microcharts
         }
 
         /// <inheritdoc/>
-        protected override void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX)
+        protected override void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX, float origin)
         {
             if(Series.Count() == 1 && ValueLabelOption == ValueLabelOption.TopOfChart)
-                base.DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX);
+                base.DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
         }
 
         /// <inheritdoc/>
