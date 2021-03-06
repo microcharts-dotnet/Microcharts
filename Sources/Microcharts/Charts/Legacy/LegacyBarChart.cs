@@ -12,6 +12,7 @@ namespace Microcharts
     ///
     /// A bar chart.
     /// </summary>
+    [Obsolete("Use BarChart instead.")]
     public class LegacyBarChart : LegacyPointChart
     {
         #region Constructors

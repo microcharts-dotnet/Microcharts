@@ -14,6 +14,7 @@ namespace Microcharts
     ///
     /// Point chart.
     /// </summary>
+    [Obsolete("Use PointChart instead.")]
     public class LegacyPointChart : SimpleChart
     {
         #region Constructors
