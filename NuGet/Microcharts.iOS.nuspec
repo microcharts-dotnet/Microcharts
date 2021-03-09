@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Microcharts.iOS</id>
+    <version>1.0.0-preview1</version>
+    <title>Microcharts.iOS</title>
+    <authors>Aloïs Deniel, Ed Lomonaco</authors>
+    <owners>Aloïs Deniel, Ed Lomonaco</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple, cross-platform chart library for Xamarin.iOS.</description>
+    <copyright>Copyright 2021</copyright>
+    <tags>xamarin ios chart skia</tags>
+    <dependencies>
+        <group targetFramework="xamarinios1.0">
+            <dependency id="SkiaSharp" version="2.80.2" />
+            <dependency id="SkiaSharp.Views"  version="2.80.2" />
+            <dependency id="System.ValueTuple" version="4.5.0" />
+        </group>
+    </dependencies>
+  </metadata>
+   <files>
+     <!-- iOS -->
+	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.dll" target="lib\xamarinios1.0\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.iOS.dll" target="lib\xamarinios1.0\Microcharts.iOS.dll"/>
+   </files>
+</package>

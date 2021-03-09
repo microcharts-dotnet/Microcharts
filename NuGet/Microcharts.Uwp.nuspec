@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Microcharts.Uwp</id>
+    <version>1.0.0-preview1</version>
+    <title>Microcharts.Uwp</title>
+    <authors>Aloïs Deniel, Ed Lomonaco</authors>
+    <owners>Aloïs Deniel, Ed Lomonaco</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple, cross-platform chart library for UWP.</description>
+    <copyright>Copyright 2021</copyright>
+    <tags>uwp chart skia</tags>
+    <dependencies>
+        <group targetFramework="uap10.0">
+            <dependency id="SkiaSharp" version="2.80.2" />
+            <dependency id="SkiaSharp.Views"  version="2.80.2" />
+            <dependency id="System.ValueTuple" version="4.5.0" />
+        </group>
+    </dependencies>
+  </metadata>
+   <files>
+     <!-- UWP -->
+     <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap10.0\Microcharts.dll"/>
+	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap10.0\Microcharts.Uwp.dll"/>
+   </files>
+</package>
