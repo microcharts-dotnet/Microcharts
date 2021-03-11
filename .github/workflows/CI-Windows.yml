@@ -1,4 +1,4 @@
-name: Mac Builds
+name: Windows Builds
 
 on:
   # Allows you to run this workflow manually from the Actions tab
