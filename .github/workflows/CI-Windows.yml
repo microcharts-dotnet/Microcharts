@@ -5,13 +5,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  Windows-NuGet-Builds:
+  Windows-nuget-Builds:
     env:
       NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_TOKEN}}
 
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Build Microcharts
+      run: |
+        cd Sources/Microcharts
+        dotnet restore
+        msbuild Microcharts.csproj /p:Configuration=Release
     - name: Build Microcharts.Uwp
       run: |
         cd Sources/Microcharts.Uwp
