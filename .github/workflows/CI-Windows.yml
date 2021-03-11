@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Windows-nuget-Builds:
+  Windows-NuGet-Builds:
     env:
       NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_TOKEN}}
 
