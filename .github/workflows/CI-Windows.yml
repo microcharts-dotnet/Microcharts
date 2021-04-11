@@ -1,0 +1,39 @@
+name: Windows Builds
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  Windows-nuget-Builds:
+    env:
+      NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_TOKEN}}
+
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Microcharts
+      run: |
+        cd Sources/Microcharts
+        dotnet restore
+        msbuild Microcharts.csproj /p:Configuration=Release
+    - name: Build Microcharts.Uwp
+      run: |
+        cd Sources/Microcharts.Uwp
+        dotnet restore
+        msbuild Microcharts.Uwp.csproj /p:Configuration=Release
+    - name: Publish Microcharts.Uwp
+      run: |
+        cd NuGet
+        nuget pack Microcharts.Uwp.nuspec
+        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
+    - name: Build Microcharts.Forms
+      run: |
+        cd Sources/Microcharts.Forms
+        dotnet restore
+        msbuild Microcharts.Forms.csproj /p:Configuration=Release
+    - name: Publish Microcharts.Forms
+      run: |
+        cd NuGet
+        nuget pack Microcharts.Forms.nuspec
+        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
