@@ -15,13 +15,11 @@ jobs:
     - name: Build Microcharts
       run: |
         cd Sources/Microcharts
-        dotnet restore
-        msbuild Microcharts.csproj /p:Configuration=Release
+        msbuild -t:build -restore Microcharts.csproj /p:Configuration=Release
     - name: Build Microcharts.Android
       run: |
         cd Sources/Microcharts.Droid
-        dotnet restore
-        msbuild Microcharts.Droid.csproj /p:Configuration=Release
+        msbuild -t:build -restore Microcharts.Droid.csproj /p:Configuration=Release
     - name: Publish Microcharts.Android
       run: |
         cd NuGet
@@ -30,8 +28,7 @@ jobs:
     - name: Build Microcharts.iOS
       run: |
         cd Sources/Microcharts.iOS
-        dotnet restore
-        msbuild Microcharts.iOS.csproj /p:Configuration=Release
+        msbuild -t:build -restore Microcharts.iOS.csproj /p:Configuration=Release
     - name: Publish Microcharts.iOS
       run: |
         cd NuGet
@@ -40,8 +37,7 @@ jobs:
     - name: Build Microcharts.Mac
       run: |
         cd Sources/Microcharts.macOS
-        dotnet restore
-        msbuild Microcharts.macOS.csproj /p:Configuration=Release
+        msbuild -t:build -restore Microcharts.macOS.csproj /p:Configuration=Release
     - name: Publish Microcharts.Mac
       run: |
         cd NuGet
