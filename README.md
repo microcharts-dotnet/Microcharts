@@ -1,8 +1,20 @@
 # Microcharts
 
 [![Mac Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml)
-
 [![Windows Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml)
+
+## !!Version 1.0.0 Beta is now available!!
+
+[![NuGet](https://img.shields.io/nuget/vpre/Microcharts.Forms.svg?label=Microcharts.Forms)](https://www.nuget.org/packages/Microcharts.Forms/)
+
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.Android.svg?label=Microcharts.Android)](https://www.nuget.org/packages/Microcharts.Android/)
+
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.iOS.svg?label=Microcharts.iOS)](https://www.nuget.org/packages/Microcharts.iOS/)
+
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.Mac.svg?label=Microcharts.Mac)](https://www.nuget.org/packages/Microcharts.Mac/)
+
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.Uwp.svg?label=Microcharts.Uwp)](https://www.nuget.org/packages/Microcharts.Uwp/)
+
 
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
