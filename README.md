@@ -3,7 +3,7 @@
 [![Mac Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml)
 [![Windows Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml)
 
-## !!Version 1.0.0 Beta is now available!!
+## Version 1.0.0 Beta is now available
 
 [![NuGet](https://img.shields.io/nuget/vpre/Microcharts.Forms.svg?label=Microcharts.Forms)](https://www.nuget.org/packages/Microcharts.Forms/)
 
