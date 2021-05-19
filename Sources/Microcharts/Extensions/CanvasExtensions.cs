@@ -70,11 +70,11 @@ namespace Microcharts
 
                         if (totalBounds.IsEmpty)
                         {
-                            totalBounds = valueBounds;
+                            totalBounds = valueBounds.Standardized;
                         }
                         else
                         {
-                            totalBounds.Union(valueBounds);
+                            totalBounds.Union(valueBounds.Standardized);
                         }
                     }
                 }
