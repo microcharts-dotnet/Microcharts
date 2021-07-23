@@ -206,6 +206,8 @@ namespace Microcharts
                     for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
                     {
                         ChartSerie serie = Series.ElementAt(serieIndex);
+                        if (i >= serie.Entries.Count()) continue;
+
                         ChartEntry entry = serie.Entries.ElementAt(i);
                         float value = entry?.Value ?? 0;
                         float marge = serieIndex < nbSeries ? Margin / 2 : 0;

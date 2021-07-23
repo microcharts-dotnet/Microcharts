@@ -9,11 +9,13 @@ namespace Microcharts.Samples
         public ExampleChartType ExampleChartType { get; set; }
         public bool IsSimple => ExampleChartType == ExampleChartType.Simple;
         public bool IsSeries => ExampleChartType == ExampleChartType.Series;
+        public bool IsDynamic => ExampleChartType == ExampleChartType.Dynamic;
     }
 
     public enum ExampleChartType
     {
         Simple,
-        Series
+        Series,
+        Dynamic
     }
 }

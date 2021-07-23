@@ -124,6 +124,8 @@ namespace Microcharts
                           var drawedPoint = pps.Value.ElementAt(i);
                           SKPoint point;
                           YPositionBehavior yPositionBehavior = YPositionBehavior.None;
+
+                          if (!valueLabelSizes.ContainsKey(entry)) continue;
                           var valueLabelSize = valueLabelSizes[entry];
                           if (valueLabelOption == ValueLabelOption.TopOfElement)
                           {

@@ -39,6 +39,16 @@
                                 <Frame Grid.Column="1"
                                        Margin="5,3"
                                        Padding="10,3"
+                                       BackgroundColor="Blue"
+                                       IsVisible="{Binding IsDynamic}"
+                                       VerticalOptions="Center">
+                                    <Label FontSize="Small"
+                                           Text="DYNAMIC"
+                                           TextColor="White" />
+                                </Frame>
+                                <Frame Grid.Column="1"
+                                       Margin="5,3"
+                                       Padding="10,3"
                                        BackgroundColor="Red"
                                        IsVisible="{Binding IsSeries}"
                                        VerticalOptions="Center">
