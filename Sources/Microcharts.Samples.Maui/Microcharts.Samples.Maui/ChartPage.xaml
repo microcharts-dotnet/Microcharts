@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Microcharts.Samples.Maui.ChartPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Name="Page">
+    <ContentPage.Content>
+        <Grid Margin="10"
+              RowDefinitions="Auto, Auto, *">
+            <Label Margin="20,0,0,0"
+                   FontSize="Title"
+                   Text="{Binding ExampleChartItem.ExampleName,
+                                  Source={x:Reference Page}}"
+                   TextColor="Black" />
+            <Label Grid.Row="1"
+                   Margin="20,0,0,0"
+                   FontSize="Subtitle"
+                   LineBreakMode="WordWrap"
+                   Text="{Binding ExampleChartItem.ExampleDescription,
+                                  Source={x:Reference Page}}" />
+
+            <microcharts:ChartView x:Name="chartView"
+                                   Grid.Row="2"
+                                   BackgroundColor="White"
+                                   HeightRequest="250" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

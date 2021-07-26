@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Microcharts.Samples.Maui.ChartConfigurationPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="Page">
+    <Grid RowDefinitions="Auto, Auto, *">
+        <Label Margin="20,0,0,0"
+               FontSize="Title"
+               Text="List of examples"
+               TextColor="Black" />
+        <Label Grid.Row="1"
+               Margin="20,0,0,0"
+               FontSize="Subtitle"
+               Text="Tap on item to see the chart" />
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Items,
+                                              Source={x:Reference Page}}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10"
+                                   Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0"
+                          Padding="0">
+                        <Frame Margin="10"
+                               Padding="5"
+                               BackgroundColor="White"
+                               BorderColor="LightGray"
+                               CornerRadius="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto" Margin="10,0">
+                                <Label FontSize="Large"
+                                       LineBreakMode="WordWrap"
+                                       Text="{Binding ExampleName}"
+                                       TextColor="Black" />
+                                <Frame Grid.Column="1"
+                                       Margin="5,3"
+                                       Padding="10,3"
+                                       BackgroundColor="Red"
+                                       IsVisible="{Binding IsSeries}"
+                                       VerticalOptions="Center">
+                                    <Label FontSize="Small"
+                                           Text="SERIES"
+                                           TextColor="White" />
+                                </Frame>
+                                <Frame Grid.Column="1"
+                                       Margin="5,3"
+                                       Padding="10,3"
+                                       BackgroundColor="DarkGreen"
+                                       IsVisible="{Binding IsSimple}"
+                                       VerticalOptions="Center">
+                                    <Label FontSize="Small"
+                                           Text="SIMPLE"
+                                           TextColor="White" />
+                                </Frame>
+                                <Label FontSize="Medium"
+                                       Grid.Row="1"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding ExampleDescription}" />
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

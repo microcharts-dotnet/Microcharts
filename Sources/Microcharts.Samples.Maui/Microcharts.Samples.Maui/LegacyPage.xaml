@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="Microcharts.Samples.Maui.MainPage"
+<ContentPage x:Class="Microcharts.Samples.Maui.LegacyPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Microcharts.Samples.Maui"
+             xmlns:local="clr-namespace:Microcharts.Samples.Forms"
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Name="Page"
-             Title="Microcharts">
-    <Grid RowDefinitions="Auto, Auto, *, Auto">
+             Title="Legacy charts">
+    <Grid RowDefinitions="Auto, Auto, *">
         <Label Margin="20,0,0,0"
                FontSize="Title"
-               Text="List of charts available"
+               Text="List of legacy charts"
                TextColor="Black" />
         <Label Grid.Row="1"
                Margin="20,0,0,0"
@@ -61,19 +61,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label Grid.Row="3"
-               Margin="0,0"
-               HorizontalOptions="Center">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="You can access to " />
-                    <Span Text="legacy charts" TextDecorations="Underline">
-                        <Span.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizerLegacyChartsTapped" />
-                        </Span.GestureRecognizers>
-                    </Span>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
     </Grid>
 </ContentPage>

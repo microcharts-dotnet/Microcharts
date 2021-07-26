@@ -34,7 +34,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.0-preview.61" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\..\Microcharts.Maui\Microcharts.Maui.csproj" />
+	  <ProjectReference Include="..\..\Microcharts.Samples\Microcharts.Samples.csproj" />
 	</ItemGroup>
 
 	<PropertyGroup>

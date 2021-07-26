@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microcharts.Samples.Maui.Model;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 namespace Microcharts.Samples.Maui
 {
-    public partial class MainPage : ContentPage
+    public partial class LegacyPage : ContentPage
     {
-        public MainPage()
+        public LegacyPage()
         {
-            var charts = Data.CreateXamarinSample();
+            var charts = Data.CreateXamarinLegacySample();
             var items = new List<ChartItem>();
             for (int i = 0; i < charts.Length; i++)
             {
@@ -32,11 +36,6 @@ namespace Microcharts.Samples.Maui
             Frame frame = (sender as Frame);
             ChartItem chartItem = frame.BindingContext as ChartItem;
             Navigation.PushAsync(new ChartConfigurationPage(chartItem.Name));
-        }
-
-        private void TapGestureRecognizerLegacyChartsTapped(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new LegacyPage());
         }
     }
 }
