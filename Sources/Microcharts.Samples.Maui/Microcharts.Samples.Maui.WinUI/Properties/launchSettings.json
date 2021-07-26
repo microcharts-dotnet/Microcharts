@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Microcharts.Samples.Maui.WinUI": {
+      "commandName": "MsixPackage"
+    }
+  }
+}
