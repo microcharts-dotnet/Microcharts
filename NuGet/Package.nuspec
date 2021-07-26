@@ -4,10 +4,10 @@
     <id>Microcharts</id>
     <version>0.9.5.9</version>
     <title>Microcharts</title>
-    <authors>Aloïs Deniel, Ed Lomonaco</authors>
-    <owners>Aloïs Deniel, Ed Lomonaco</owners>
+    <authors>Microcharts Team</authors>
+    <owners>Microcharts Team</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+    <projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple, cross-platform chart library.</description>
     <copyright>Copyright 2020</copyright>

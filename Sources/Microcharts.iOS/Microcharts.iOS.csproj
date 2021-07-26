@@ -55,9 +55,9 @@
     <Compile Include="ChartView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="SkiaSharp.Views" Version="2.80.3" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.Views" Version="2.88.3" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">
       <Project>{D07D3E94-E645-4035-A142-5F933A15D585}</Project>

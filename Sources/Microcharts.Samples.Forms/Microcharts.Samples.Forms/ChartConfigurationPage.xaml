@@ -69,7 +69,7 @@
                                 <Label FontSize="Medium"
                                        Grid.Row="1"
                                        Grid.ColumnSpan="2"
-                                       Text="{Binding ExampleDescription}" />
+                                       Text="{Binding ExampleTextDescription}" />
                             </Grid>
                         </Frame>
                     </Grid>

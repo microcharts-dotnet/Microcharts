@@ -8,7 +8,7 @@
         <DocumentationFile>bin\Debug\$(TargetFramework)\Microcharts.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.80.3" />
+        <PackageReference Include="SkiaSharp" Version="2.88.3" />
         <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     </ItemGroup>
 

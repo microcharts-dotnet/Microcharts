@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -8,11 +8,11 @@
         <Title>Microcharts.Forms</Title>
         <Description>Simple, cross-platform chart library.</Description>
         <Copyright>Copyright 2020</Copyright>
-        <PackageLicenseUrl>https://github.com/dotnet-ad/Microcharts/blob/main/LICENSE</PackageLicenseUrl>
-        <PackageProjectUrl>https://github.com/dotnet-ad/Microcharts</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/dotnet-ad/Microcharts</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/microcharts-dotnet/Microcharts/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/microcharts-dotnet/Microcharts</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/microcharts-dotnet/Microcharts</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <Authors>Aloïs Deniel, Ed Lomonaco</Authors>
+        <Authors>Microcharts Team</Authors>
         <PackageTags>xamarin ios android chart skia Forms</PackageTags>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -29,9 +29,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.80.3" />
-        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.3" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
