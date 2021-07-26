@@ -68,8 +68,8 @@
                HorizontalOptions="Center">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="You can access to " />
-                    <Span Text="legacy charts" TextDecorations="Underline">
+                    <Span Text="You can access to " TextColor="Gray" />
+                    <Span Text="legacy charts" TextColor="Gray" TextDecorations="Underline">
                         <Span.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizerLegacyChartsTapped" />
                         </Span.GestureRecognizers>
