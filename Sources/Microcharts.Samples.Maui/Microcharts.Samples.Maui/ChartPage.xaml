@@ -16,7 +16,8 @@
                    Margin="20,0,0,0"
                    FontSize="Subtitle"
                    LineBreakMode="WordWrap"
-                   Text="{Binding ExampleChartItem.ExampleDescription,
+                   TextColor="Gray"
+                   Text="{Binding ExampleChartItem.ExampleTextDescription,
                                   Source={x:Reference Page}}" />
 
             <microcharts:ChartView x:Name="chartView"

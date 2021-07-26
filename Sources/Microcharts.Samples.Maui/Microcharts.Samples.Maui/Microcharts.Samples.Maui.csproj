@@ -9,10 +9,10 @@
 		<RootNamespace>Microcharts.Samples.Maui</RootNamespace>
 
 		<!-- Display name -->
-		<ApplicationTitle>Microcharts.Samples.Maui</ApplicationTitle>
+		<ApplicationTitle>Microcharts Maui</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.Microcharts.Samples.Maui</ApplicationId>
+		<ApplicationId>com.Microcharts.Samples.Maui</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationVersion>1.0</ApplicationVersion>

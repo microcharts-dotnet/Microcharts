@@ -15,11 +15,7 @@ namespace Microcharts.Samples.Maui
         {
             appBuilder
                 .UseMauiApp<App>()
-                .UseSkiaSharpHandlers()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                });
+                .UseSkiaSharpHandlers();
         }
     }
 }
