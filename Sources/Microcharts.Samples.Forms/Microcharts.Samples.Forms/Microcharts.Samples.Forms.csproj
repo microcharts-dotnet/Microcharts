@@ -16,7 +16,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Microcharts.Forms\Microcharts.Forms.csproj" />
       <ProjectReference Include="..\..\Microcharts.Samples\Microcharts.Samples.csproj" />
-      <ProjectReference Include="..\..\Microcharts\Microcharts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
