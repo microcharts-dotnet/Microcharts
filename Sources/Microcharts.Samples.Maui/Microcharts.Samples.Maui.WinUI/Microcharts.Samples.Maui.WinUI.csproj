@@ -16,39 +16,21 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiImage
-			Include="..\Microcharts.Samples.Maui\Resources\appicon.svg"
-			Link="Resources\appicon.svg"
-			ForegroundFile="..\Microcharts.Samples.Maui\Resources\appiconfg.svg"
-			IsAppIcon="true"
-			Color="#512BD4" />
+		<MauiImage Include="..\Microcharts.Samples.Maui\Resources\appicon.svg" Link="Resources\appicon.svg" ForegroundFile="..\Microcharts.Samples.Maui\Resources\appiconfg.svg" IsAppIcon="true" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen
-			Include="..\Microcharts.Samples.Maui\Resources\appiconfg.svg"
-			Link="Resources\appiconfg.svg"
-			Color="#512BD4" />
+		<MauiSplashScreen Include="..\Microcharts.Samples.Maui\Resources\appiconfg.svg" Link="Resources\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Images -->
-		<MauiImage
-			Include="..\Microcharts.Samples.Maui\Resources\Images\*"
-			Link="Resources\Images\%(Filename)%(Extension)" />
+		<MauiImage Include="..\Microcharts.Samples.Maui\Resources\Images\*" Link="Resources\Images\%(Filename)%(Extension)" />
 
 		<!-- Custom Fonts -->
-		<MauiFont
-			Include="..\Microcharts.Samples.Maui\Resources\Fonts\*"
-			Link="Resources\Fonts\%(Filename)%(Extension)" />
+		<MauiFont Include="..\Microcharts.Samples.Maui\Resources\Fonts\*" Link="Resources\Fonts\%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile
-			Include="..\Microcharts.Samples.Maui\**\*.cs"
-			Exclude="..\Microcharts.Samples.Maui\bin\**;..\Microcharts.Samples.Maui\obj\**;..\Microcharts.Samples.Maui\Platforms\**"
-			Link="%(RecursiveDir)%(Filename)%(Extension)"/>
-		<MauiXaml
-			Include="..\Microcharts.Samples.Maui\**\*.xaml"
-			Exclude="..\Microcharts.Samples.Maui\bin\**;..\Microcharts.Samples.Maui\obj\**"
-			Link="%(RecursiveDir)%(FileName)%(Extension)" />
+		<Compile Include="..\Microcharts.Samples.Maui\**\*.cs" Exclude="..\Microcharts.Samples.Maui\bin\**;..\Microcharts.Samples.Maui\obj\**;..\Microcharts.Samples.Maui\Platforms\**" Link="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiXaml Include="..\Microcharts.Samples.Maui\**\*.xaml" Exclude="..\Microcharts.Samples.Maui\bin\**;..\Microcharts.Samples.Maui\obj\**" Link="%(RecursiveDir)%(FileName)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -56,6 +38,11 @@
 		<PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.8.0" />
 		<PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.0" />
 		<PackageReference Include="Microsoft.ProjectReunion.InteractiveExperiences" Version="0.8.0" NoWarn="NU1701" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Microcharts.Maui\Microcharts.Maui.csproj" />
+	  <ProjectReference Include="..\..\Microcharts.Samples\Microcharts.Samples.csproj" />
 	</ItemGroup>
 
 </Project>

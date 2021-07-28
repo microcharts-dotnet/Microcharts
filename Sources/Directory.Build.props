@@ -1,0 +1,18 @@
+<Project>
+    <PropertyGroup>
+        <IsWindows>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))</IsWindows>
+        <IsMacOS>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))</IsMacOS>
+    </PropertyGroup>
+
+
+    <Target Name="PrintRID"
+         BeforeTargets="BeforeBuild">
+        <Message Text="Operating System: Windows"
+                 Condition=" '$(IsWindows)' == 'true' " />
+        <Message Text="Operating System: macOS"
+                 Condition=" '$(IsMacOS)' == 'true' " />
+
+        <Error Text="There appears to be a problem selecting the operating system. IsWindows='$(IsWindows)',  IsMacOS='$(IsMacOS)'"
+           Condition=" !$(IsWindows) and !$(IsMacOS) " />
+    </Target>
+</Project>

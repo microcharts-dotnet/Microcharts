@@ -51,6 +51,13 @@ Available on NuGet
 
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
+**.Net Maui**
+
+Not yet available thought nuget
+
+> [!IMPORTANT]
+> Don't forget to call `UseMicrocharts()` to IAppHostBuilder in the Configure method of the Startup class.
+
 ## Tutorials
 
 * [Video: Charts for Xamarin Forms](https://www.youtube.com/watch?v=tmymWdmf1y4) by [@HoussemDellai](https://github.com/HoussemDellai)
