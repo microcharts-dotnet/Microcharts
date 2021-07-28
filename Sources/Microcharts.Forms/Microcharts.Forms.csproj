@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -29,8 +29,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.80.2" />
-        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.0-preview.61" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     </ItemGroup>
     <ItemGroup>

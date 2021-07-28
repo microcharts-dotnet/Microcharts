@@ -1,26 +1,26 @@
-namespace Microcharts.Maui
+namespace Microcharts.WinUI
 {
-    using Microsoft.Maui.Controls;
-    using Microsoft.Maui.Graphics;
+    using Microsoft.UI;
+    using Microsoft.UI.Xaml;
+    using Microsoft.UI.Xaml.Media;
     using SkiaSharp;
-    using SkiaSharp.Views.Maui;
-    using SkiaSharp.Views.Maui.Controls;
+    using SkiaSharp.Views.Windows;
 
-    public class ChartView : SKCanvasView
+    public class ChartView : SKXamlCanvas
     {
         #region Constructors
 
         public ChartView()
         {
-            this.BackgroundColor = Colors.Transparent;
-            this.PaintSurface += OnPaintCanvas;
+            Background = new SolidColorBrush(Colors.Transparent);
+            PaintSurface += OnPaintCanvas;
         }
 
         #endregion
 
         #region Static fields
 
-        public static readonly BindableProperty ChartProperty = BindableProperty.Create(nameof(Chart), typeof(Chart), typeof(ChartView), null, propertyChanged: OnChartChanged);
+        public static readonly DependencyProperty ChartProperty = DependencyProperty.Register(nameof(Chart), typeof(Chart), typeof(ChartView), new PropertyMetadata(null, new PropertyChangedCallback(OnChartChanged)));
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace Microcharts.Maui
 
         #region Methods
 
-        private static void OnChartChanged(BindableObject d, object oldValue, object value)
+        private static void OnChartChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var view = d as ChartView;
 
@@ -54,20 +54,20 @@ namespace Microcharts.Maui
                 view.handler = null;
             }
 
-            view.chart = value as Chart;
-            view.InvalidateSurface();
+            view.chart = e.NewValue as Chart;
+            view.Invalidate();
 
             if (view.chart != null)
             {
-                view.handler = view.chart.ObserveInvalidate(view, (v) => v.InvalidateSurface());
+                view.handler = view.chart.ObserveInvalidate(view, (v) => v.Invalidate());
             }
         }
 
         private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
         {
-            if (this.chart != null)
+            if (chart != null)
             {
-                this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
+                chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
             }
             else
             {
