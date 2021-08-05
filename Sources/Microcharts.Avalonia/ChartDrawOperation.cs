@@ -1,5 +1,6 @@
 using System;
 using Avalonia;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
@@ -9,38 +10,25 @@ namespace Microcharts.Avalonia
 {
     public class ChartDrawOperation : ICustomDrawOperation
     {
-        readonly Func<Chart?> chartGetter;
-        readonly Func<Rect> boundsGetter;
+        public ChartView Parent { get; }
 
-        public ChartDrawOperation(Func<Chart?> chartGetter, Func<Rect> boundsGetter)
+        public ChartDrawOperation(ChartView parent)
         {
-            this.chartGetter = chartGetter;
-            this.boundsGetter = boundsGetter;
+            Parent = parent;
         }
 
         public void Dispose() { }
-        public bool HitTest(Point p) => boundsGetter().Contains(p);
+        public bool HitTest(Point p) => Parent.Bounds.Contains(p);
         public bool Equals(ICustomDrawOperation other) => this == other;
 
         public void Render(IDrawingContextImpl context)
         {
-            var bounds = boundsGetter();
-            var chart = chartGetter();
-            var width = (int)bounds.Width;
-            var height = (int)bounds.Height;
-
-            var bitmap = new SKBitmap(width, height, false);
-            var canvas = new SKCanvas(bitmap);
-            canvas.Save();
-
-            chart?.Draw(canvas, width, height);
-
             if (context is ISkiaDrawingContextImpl skia)
             {
-                skia.SkCanvas.DrawBitmap(bitmap, (int)bounds.X, (int)bounds.Y);
+                Parent.Chart?.Draw(skia.SkCanvas, (int)Parent.Bounds.Width, (int)Parent.Bounds.Height);
             }
         }
 
-        public Rect Bounds => boundsGetter();
+        public Rect Bounds => Parent.Bounds;
     }
 }
