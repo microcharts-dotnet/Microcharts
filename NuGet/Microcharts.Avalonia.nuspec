@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Microcharts.Uwp</id>
+    <id>Microcharts.Avalonia</id>
     <version>1.0.0-preview1</version>
     <title>Microcharts.Avalonia</title>
     <authors>Aloïs Deniel, Ed Lomonaco</authors>
@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Simple, cross-platform chart library for UWP.</description>
+    <description>Simple, cross-platform chart library for Avalonia.</description>
     <copyright>Copyright 2021</copyright>
     <tags>avalonia chart skia</tags>
     <dependencies>
