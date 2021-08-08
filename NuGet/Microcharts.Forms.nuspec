@@ -14,7 +14,6 @@
     <tags>xamarin.forms chart skia</tags>
     <dependencies>
         <group targetFramework="netstandard2.0">
-            <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="SkiaSharp.Views.Forms" version="2.80.2" />
             <dependency id="System.ValueTuple" version="4.5.0" />
             <dependency id="Xamarin.Forms" version="5.0.0.2012" />
