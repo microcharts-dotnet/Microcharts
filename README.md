@@ -3,6 +3,8 @@
 [![Mac Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml)
 [![Windows Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml)
 
+[Looking for more contributors](https://github.com/microcharts-dotnet/Microcharts/discussions/274)
+
 ## Version 1.0.0 Beta is now available
 
 [![NuGet](https://img.shields.io/nuget/vpre/Microcharts.Forms.svg?label=Microcharts.Forms)](https://www.nuget.org/packages/Microcharts.Forms/)
@@ -57,10 +59,6 @@ Not yet available thought nuget
 
 > [!IMPORTANT]
 > Don't forget to call `UseMicrocharts()` to IAppHostBuilder in the Configure method of the Startup class.
-
-## Tutorials
-
-* [Video: Charts for Xamarin Forms](https://www.youtube.com/watch?v=tmymWdmf1y4) by [@HoussemDellai](https://github.com/HoussemDellai)
 
 ## Compatibility
 
