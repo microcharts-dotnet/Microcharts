@@ -14,7 +14,7 @@
     <tags>xamarin ios chart skia</tags>
     <dependencies>
         <group targetFramework="xamarinios1.0">
-            <dependency id="SkiaSharp.Views"  version="2.80.2" />
+            <dependency id="SkiaSharp.Views"  version="2.88.0-preview.61" />
             <dependency id="System.ValueTuple" version="4.5.0" />
         </group>
     </dependencies>
