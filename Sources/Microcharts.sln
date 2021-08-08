@@ -53,6 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\NuGet\Microcharts.Mac.nuspec = ..\NuGet\Microcharts.Mac.nuspec
 		..\NuGet\Microcharts.Maui.nuspec = ..\NuGet\Microcharts.Maui.nuspec
 		..\NuGet\Microcharts.Uwp.nuspec = ..\NuGet\Microcharts.Uwp.nuspec
+		..\NuGet\Microcharts.WinUI.nuspec = ..\NuGet\Microcharts.WinUI.nuspec
 		Nuget.config = Nuget.config
 		..\NuGet\Package.Forms.nuspec = ..\NuGet\Package.Forms.nuspec
 		..\NuGet\Package.nuspec = ..\NuGet\Package.nuspec

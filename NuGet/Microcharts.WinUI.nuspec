@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>Microcharts.WinUI</id>
+        <version>1.0.0-WinUI</version>
+        <title>Microcharts.WinUI</title>
+        <authors>Aloïs Deniel, Ed Lomonaco</authors>
+        <owners>Aloïs Deniel, Ed Lomonaco</owners>
+        <license type="expression">MIT</license>
+        <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Simple, cross-platform chart library for Project Reunion aka WinUI.</description>
+        <copyright>Copyright 2021</copyright>
+        <tags>WinUI dotnet chart skia skiasharp windows reunion</tags>
+        <dependencies>
+            <group targetFramework="net6.0-windows10.0.19041">
+              <dependency id="SkiaSharp.Views.WinUI"  version="2.88.0-preview.61" />
+              <dependency id="Microsoft.ProjectReunion" version="1.0.0" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+      <!-- Microcharts (netstandard2.0) -->
+      <file platform="windows" src="../Sources/Microcharts/bin/Release/netstandard2.0/Microcharts.dll" target="lib/netstandard2.0/Microcharts.dll"/>
+      <!-- Microcharts.WinUI -->
+      <file platform="windows" src="../Sources/Microcharts.WinUI/bin/Release/net6.0-windows10.0.19041/Microcharts.WinUI.dll" target="lib/net6.0-windows10.0.19041/Microcharts.WinUI.dll" />
+    </files>
+</package>
