@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>Microcharts.Maui</id>
+        <version>1.0.0-preview1</version>
+        <title>Microcharts.Maui</title>
+        <authors>Aloïs Deniel, Ed Lomonaco</authors>
+        <owners>Aloïs Deniel, Ed Lomonaco</owners>
+        <license type="expression">MIT</license>
+        <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Simple, cross-platform chart library for Maui.</description>
+        <copyright>Copyright 2021</copyright>
+        <tags>maui dotnet chart skia skiasharp cross-platform</tags>
+        <dependencies>
+            <group targetFramework="net6.0-android">
+                <dependency id="SkiaSharp.Views.Maui.Controls"  version="2.88.0-preview.61" />
+                <dependency id="Microsoft.Maui.Dependencies" version="6.0.100-preview.6.1003" />
+            </group>
+            <group targetFramework="net6.0-ios">
+                <dependency id="SkiaSharp.Views.Maui.Controls"  version="2.88.0-preview.61" />
+                <dependency id="Microsoft.Maui.Dependencies" version="6.0.100-preview.6.1003" />
+            </group>
+            <group targetFramework="net6.0-maccatalyst">
+                <dependency id="SkiaSharp.Views.Maui.Controls"  version="2.88.0-preview.61" />
+                <dependency id="Microsoft.Maui.Dependencies" version="6.0.100-preview.6.1003" />
+            </group>
+            <group targetFramework="net6.0-windows10.0.19041">
+                <dependency id="SkiaSharp.Views.Maui.Controls"  version="2.88.0-preview.61" />
+                <dependency id="Microsoft.Maui.Dependencies" version="6.0.100-preview.6.1003" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+      <!-- Microcharts (netstandard2.0) -->
+      <file platform="windows" src="../Sources/Microcharts/bin/Release/netstandard2.0/Microcharts.dll" target="lib/netstandard2.0/Microcharts.dll"/>
+      <!-- Microcharts.Maui (Multi-targeting) -->
+      <file platform="windows" src="../Sources/Microcharts.Maui/bin/Release/net6.0/Microcharts.Maui.dll" target="lib/net6.0/Microcharts.Maui.dll" />
+      <file platform="windows" src="../Sources/Microcharts.Maui/bin/Release/net6.0-android/Microcharts.Maui.dll" target="lib/net6.0-android30.0/Microcharts.Maui.dll" />
+      <file platform="windows" src="../Sources/Microcharts.Maui/bin/Release/net6.0-ios/Microcharts.Maui.dll" target="lib/net6.0-ios13.6/Microcharts.Maui.dll" />
+      <file platform="windows" src="../Sources/Microcharts.Maui/bin/Release/net6.0-maccatalyst/Microcharts.Maui.dll" target="lib/net6.0-maccatalyst13.5/Microcharts.Maui.dll" />
+      <file platform="windows" src="../Sources/Microcharts.Maui/bin/Release/net6.0-windows/Microcharts.Maui.dll" target="lib/net6.0-windows10.0.18362/Microcharts.Maui.dll" />
+    </files>
+</package>
