@@ -35,7 +35,7 @@ namespace Microcharts.Samples.Forms
             Random r = new Random((int)DateTime.Now.Ticks);
             LineChart lc = (LineChart)chartView.Chart;
 
-            int ticks = (int)(1000 * TimeSpan.TicksPerMillisecond);
+            int ticks = (int)(1100 * TimeSpan.TicksPerMillisecond);
 
             var series = lc.Series;
             
@@ -47,36 +47,41 @@ namespace Microcharts.Samples.Forms
                 DelayTimer timer = Timer.Create() as DelayTimer;
                 timer.Start(new TimeSpan(ticks), () =>
                 {
-                    var label = DateTime.Now.ToString("mm:ss");
-
-                    foreach (var curSeries in series)
+                    Device.InvokeOnMainThreadAsync(() =>
                     {
-                        var entries = curSeries.Entries.ToList();
-                        if (s == curSeries)
-                        {
-                            var value = r.Next(rMin, rMax);
-                            var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label };
-                            entries.Add(entry);
-                            if( entries.Count() > count*1.5 ) entries.RemoveAt(0);
-                        }
-                        else
-                        {
-                            var entry = new ChartEntry(null) { ValueLabel = null, Label = label };
-                            entries.Add(entry);
-                            if (entries.Count() > count * 1.5) entries.RemoveAt(0);
-                        }
-                        curSeries.Entries = entries;
-                    }
+                        var label = DateTime.Now.ToString("mm:ss");
 
-                    if (!lc.IsAnimating)
-                    {
-                        lc.IsAnimated = false;
-                        lc.Series = series;
-                        chartView.InvalidateSurface();
-                    }
+                        foreach (var curSeries in series)
+                        {
+                            var entries = curSeries.Entries.ToList();
+                            if (s == curSeries)
+                            {
+                                var value = r.Next(rMin, rMax);
+                                var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label };
+                                entries.Add(entry);
+                                if (entries.Count() > count * 1.5) entries.RemoveAt(0);
+                            }
+                            else
+                            {
+                                var entry = new ChartEntry(null) { ValueLabel = null, Label = label };
+                                entries.Add(entry);
+                                if (entries.Count() > count * 1.5) entries.RemoveAt(0);
+                            }
+                            curSeries.Entries = entries;
+                        }
+
+                        if (!lc.IsAnimating)
+                        {
+                            lc.IsAnimated = false;
+                            lc.Series = series;
+                            chartView.InvalidateSurface();
+                        }
+                    }).ContinueWith(t => {
+                        if (t.IsFaulted) Console.WriteLine(t.Exception);
+                    });
                     return Running;
                 });
-                ticks += (int)(1000 * TimeSpan.TicksPerMillisecond);
+                ticks += (int)(1100 * TimeSpan.TicksPerMillisecond);
             }
         }
 

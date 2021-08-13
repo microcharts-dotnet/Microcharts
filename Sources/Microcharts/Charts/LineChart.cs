@@ -184,15 +184,22 @@ namespace Microcharts
                                 paint.Shader = shader;
 
                         var path = new SKPath();
-                        path.MoveTo(points.First());
+                        //path.MoveTo(points.First());
 
-
+                        var isFirst = true;
                         var entries = s.Entries;
                         var lineMode = LineMode.Straight; // LineMode;
                         var last = (lineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
                             if (!entries.ElementAt(i).Value.HasValue) continue;
+                            if (isFirst)
+                            {
+                                path.MoveTo(points[i]);
+                                isFirst = false;
+                            }
+
+
                             if (lineMode == LineMode.Spline)
                             {
                                 int next = i + 1;
@@ -239,9 +246,7 @@ namespace Microcharts
 
                         var path = new SKPath();
 
-                        path.MoveTo(points.First().X, origin);
-                        path.LineTo(points.First());
-
+                        var isFirst = true;
                         var entries = serie.Entries;
                         var lineMode = LineMode.Straight; // LineMode;
                         var last = (lineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
@@ -249,6 +254,13 @@ namespace Microcharts
                         for (int i = 0; i < last; i++)
                         {
                             if (!entries.ElementAt(i).Value.HasValue) continue;
+
+                            if( isFirst )
+                            {
+                                path.MoveTo(points[i].X, origin);
+                                path.LineTo(points[i]);
+                                isFirst = false;
+                            }
 
                             if (lineMode == LineMode.Spline)
                             {
