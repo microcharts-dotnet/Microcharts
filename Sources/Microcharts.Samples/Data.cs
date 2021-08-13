@@ -1313,7 +1313,6 @@ namespace Microcharts.Samples
                     LabelTextSize = 14,
                     ValueLabelTextSize = 14,
                     SerieLabelTextSize = 42,
-                    LineAreaAlpha = 0,
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
                     YAxisPosition = Position.Left,

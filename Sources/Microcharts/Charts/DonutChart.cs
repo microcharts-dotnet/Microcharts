@@ -58,14 +58,16 @@ namespace Microcharts
 
                     canvas.Translate(DrawableChartArea.Left + DrawableChartArea.Width / 2, height / 2);
 
-                    var sumValue = Entries.Sum(x => Math.Abs(x.Value));
+                    var sumValue = Entries.Where( x => x.Value.HasValue ).Sum(x => Math.Abs(x.Value.Value));
                     var radius = (Math.Min(DrawableChartArea.Width, DrawableChartArea.Height) - (2 * Margin)) / 2;
                     var start = 0.0f;
 
                     for (int i = 0; i < Entries.Count(); i++)
                     {
                         var entry = Entries.ElementAt(i);
-                        var end = start + ((Math.Abs(entry.Value) / sumValue) * AnimationProgress);
+                        if (!entry.Value.HasValue) continue;
+
+                        var end = start + ((Math.Abs(entry.Value.Value) / sumValue) * AnimationProgress);
 
                         // Sector
                         var path = RadialHelpers.CreateSectorPath(start, end, radius, radius * HoleRadius);
@@ -88,7 +90,7 @@ namespace Microcharts
         private void DrawCaption(SKCanvas canvas, int width, int height)
         {
             var isGraphCentered = GraphPosition == GraphPosition.Center;
-            var sumValue = Entries.Sum(x => Math.Abs(x.Value));
+            var sumValue = Entries.Where( x => x.Value.HasValue ).Sum(x => Math.Abs(x.Value.Value));
 
             switch (LabelMode)
             {
@@ -107,7 +109,7 @@ namespace Microcharts
 
         private void DrawCaptionLeftAndRight(SKCanvas canvas, int width, int height, bool isGraphCentered)
         {
-            var sumValue = Entries.Sum(x => Math.Abs(x.Value));
+            var sumValue = Entries.Where(x => x.Value.HasValue).Sum(x => Math.Abs(x.Value.Value));
             var rightValues = new List<ChartEntry>();
             var leftValues = new List<ChartEntry>();
             int i = 0;
@@ -116,14 +118,18 @@ namespace Microcharts
             while (i < Entries.Count() && (current < sumValue / 2))
             {
                 var entry = Entries.ElementAt(i);
+                if (!entry.Value.HasValue) continue;
+
                 rightValues.Add(entry);
-                current += Math.Abs(entry.Value);
+                current += Math.Abs(entry.Value.Value);
                 i++;
             }
 
             while (i < Entries.Count())
             {
                 var entry = Entries.ElementAt(i);
+                if (!entry.Value.HasValue) continue;
+
                 leftValues.Add(entry);
                 i++;
             }

@@ -30,6 +30,56 @@ namespace Microcharts.Samples.Forms
             base.OnDisappearing();
         }
 
+        protected void GenerateDynamicData()
+        {
+            Random r = new Random((int)DateTime.Now.Ticks);
+            LineChart lc = (LineChart)chartView.Chart;
+
+            int ticks = (int)(1000 * TimeSpan.TicksPerMillisecond);
+
+            var series = lc.Series;
+            
+            int rMax = (int)(lc.MinValue + (lc.MaxValue - lc.MinValue) * 0.66f);
+            int rMin = (int)(lc.MinValue + (lc.MaxValue - lc.MinValue) * 0.33f);
+            foreach (var s in series)
+            {
+                int count = s.Entries.Count();
+                DelayTimer timer = Timer.Create() as DelayTimer;
+                timer.Start(new TimeSpan(ticks), () =>
+                {
+                    var label = DateTime.Now.ToString("mm:ss");
+
+                    foreach (var curSeries in series)
+                    {
+                        var entries = curSeries.Entries.ToList();
+                        if (s == curSeries)
+                        {
+                            var value = r.Next(rMin, rMax);
+                            var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label };
+                            entries.Add(entry);
+                            if( entries.Count() > count*1.5 ) entries.RemoveAt(0);
+                        }
+                        else
+                        {
+                            var entry = new ChartEntry(null) { ValueLabel = null, Label = label };
+                            entries.Add(entry);
+                            if (entries.Count() > count * 1.5) entries.RemoveAt(0);
+                        }
+                        curSeries.Entries = entries;
+                    }
+
+                    if (!lc.IsAnimating)
+                    {
+                        lc.IsAnimated = false;
+                        lc.Series = series;
+                        chartView.InvalidateSurface();
+                    }
+                    return Running;
+                });
+                ticks += (int)(1000 * TimeSpan.TicksPerMillisecond);
+            }
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -40,65 +90,7 @@ namespace Microcharts.Samples.Forms
 
             if (ExampleChartItem.IsDynamic && (chartView.Chart as LineChart) != null )
             {
-                Random r = new Random((int)DateTime.Now.Ticks);
-                LineChart lc = (LineChart)chartView.Chart;
-
-
-#if false
-/*
-                DelayTimer timer = Timer.Create() as DelayTimer;
-
-                int minTicks = (int)(1000 * TimeSpan.TicksPerMillisecond);
-                int maxTicks = (int)(2000 * TimeSpan.TicksPerMillisecond);
-
-                timer.Start(new TimeSpan(r.Next(minTicks, maxTicks)), () =>
-                {
-                    chartView.Chart = null;
-                    foreach (var s in lc.Series)
-                    {
-                        DateTime label = DateTime.Now;
-                        var value = r.Next(0, 100);
-                        var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString("mm:ss") };
-                        var entries = s.Entries.ToList();
-                        entries.Add(entry);
-
-                        if (entries.Count > 15) entries.RemoveAt(0);
-
-                        s.Entries = entries;
-                    }
-
-                    chartView.Chart = lc;
-                    return Running;
-                });
-*/
-
-#else
-                int ticks = (int)(1000 * TimeSpan.TicksPerMillisecond);
-
-                foreach ( var s in lc.Series )
-                {
-                    DelayTimer timer = Timer.Create() as DelayTimer;
-
-
-                    timer.Start(new TimeSpan(ticks), () =>
-                    {
-                        chartView.Chart = null;
-
-                        DateTime label = DateTime.Now;
-                        var value = r.Next(0, 100);
-                        var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString("mm:ss") };
-                        var entries = s.Entries.ToList();
-                        entries.Add(entry);
-
-                        s.Entries = entries;
-                        chartView.Chart = lc;
-
-                        return Running;
-                    });
-
-                    ticks += (int)(1000 * TimeSpan.TicksPerMillisecond);
-                }
-#endif
+                GenerateDynamicData();
             }
         }
     }

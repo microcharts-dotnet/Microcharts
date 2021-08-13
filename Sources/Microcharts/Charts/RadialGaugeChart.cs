@@ -34,9 +34,9 @@ namespace Microcharts
         /// <value>The start angle.</value>
         public float StartAngle { get; set; } = -90;
 
-        private float AbsoluteMinimum => Entries?.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Min(x => Math.Abs(x)) ?? 0;
+        private float AbsoluteMinimum => Entries?.Where(x=>x.Value.HasValue).Select(x => x.Value.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Min(x => Math.Abs(x)) ?? 0;
 
-        private float AbsoluteMaximum => Entries?.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x)) ?? 0;
+        private float AbsoluteMaximum => Entries?.Where(x => x.Value.HasValue).Select(x => x.Value.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x)) ?? 0;
 
         /// <inheritdoc />
         protected override float ValueRange => AbsoluteMaximum - AbsoluteMinimum;
@@ -59,20 +59,20 @@ namespace Microcharts
             }
         }
 
-        public void DrawGauge(SKCanvas canvas, ChartEntry entry, float radius, int cx, int cy, float strokeWidth)
+        public void DrawGauge(SKCanvas canvas, SKColor color, float value, float radius, int cx, int cy, float strokeWidth)
         {
             using (var paint = new SKPaint
             {
                 Style = SKPaintStyle.Stroke,
                 StrokeWidth = strokeWidth,
                 StrokeCap = SKStrokeCap.Round,
-                Color = entry.Color,
+                Color = color,
                 IsAntialias = true,
             })
             {
                 using (SKPath path = new SKPath())
                 {
-                    var sweepAngle = AnimationProgress * 360 * (Math.Abs(entry.Value) - AbsoluteMinimum) / ValueRange;
+                    var sweepAngle = AnimationProgress * 360 * (Math.Abs(value) - AbsoluteMinimum) / ValueRange;
                     path.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), StartAngle, sweepAngle);
                     canvas.DrawPath(path, paint);
                 }
@@ -85,7 +85,7 @@ namespace Microcharts
             {
                 DrawCaption(canvas, width, height);
 
-                var sumValue = Entries.Sum(x => Math.Abs(x.Value));
+                var sumValue = Entries.Where( x=>x.Value.HasValue).Sum(x => Math.Abs(x.Value.Value));
                 var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
                 var cx = width / 2;
                 var cy = height / 2;
@@ -95,9 +95,13 @@ namespace Microcharts
                 for (int i = 0; i < Entries.Count(); i++)
                 {
                     var entry = Entries.ElementAt(i);
+
+                    //Skip the ring if it has a null value
+                    if (!entry.Value.HasValue) continue;
+
                     var entryRadius = (i + 1) * radiusSpace;
                     DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
-                    DrawGauge(canvas, entry, entryRadius, cx, cy, lineWidth);
+                    DrawGauge(canvas, entry.Color, entry.Value.Value, entryRadius, cx, cy, lineWidth);
                 }
             }
         }
