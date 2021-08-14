@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Microcharts.Avalonia</id>
+    <version>1.0.0-preview1</version>
+    <title>Microcharts.Avalonia</title>
+    <authors>Aloïs Deniel, Ed Lomonaco</authors>
+    <owners>Aloïs Deniel, Ed Lomonaco</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple, cross-platform chart library for Avalonia.</description>
+    <copyright>Copyright 2021</copyright>
+    <tags>avalonia chart skia</tags>
+    <dependencies>
+      <group targetFramework="netstandard2.0">
+        <dependency id="Avalonia" version="0.10.3" />
+        <dependency id="Avalonia.Skia" version="0.10.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Avalonia -->
+    <file src="..\Sources\Microcharts.Avalonia\bin\Release\Microcharts.dll" target="lib\netstandard2.0\Microcharts.dll" />
+    <file src="..\Sources\Microcharts.Avalonia\bin\Release\Microcharts.Avalonia.dll" target="lib\netstandard2.0\Microcharts.Avalonia.dll" />
+  </files>
+</package>
