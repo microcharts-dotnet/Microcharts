@@ -101,64 +101,68 @@ namespace Microcharts
                 var rangeAngle = (float)((Math.PI * 2) / total);
                 var startAngle = (float)Math.PI;
 
-                //FIXME: Handle Null Values
-                var nextEntry = Entries.First();
-                var nextAngle = startAngle;
-                var nextPoint = GetPoint(nextEntry.Value.Value * AnimationProgress, center, nextAngle, radius);
-
                 DrawBorder(canvas, center, radius);
 
                 using (var clip = new SKPath())
                 {
                     clip.AddCircle(center.X, center.Y, radius);
 
+                    
                     for (int i = 0; i < total; i++)
                     {
-                        var angle = nextAngle;
-                        var entry = nextEntry;
-                        var point = nextPoint;
+                        var angle = startAngle + (rangeAngle * i);
+                        var entry = Entries.ElementAt(i);
 
-                        //FIXME: Handle Null Values
-                        var nextIndex = (i + 1) % total;
-                        nextAngle = startAngle + (rangeAngle * nextIndex);
-                        nextEntry = Entries.ElementAt(nextIndex);
-                        nextPoint = GetPoint(nextEntry.Value.Value * AnimationProgress, center, nextAngle, radius);
+
+                        int nextIndex = (i + 1) % total;
+                        var nextAngle = startAngle + (rangeAngle * nextIndex);
+                        var nextEntry = Entries.ElementAt(nextIndex);
+                        while( !nextEntry.Value.HasValue)
+                        {
+                            nextIndex = (nextIndex + 1) % total;
+                            nextAngle = startAngle + (rangeAngle * nextIndex);
+                            nextEntry = Entries.ElementAt(nextIndex);
+                        }
 
                         canvas.Save();
-                        canvas.ClipPath(clip);
+                        if (entry.Value.HasValue)
+                        {
+                            var point = GetPoint(entry.Value.Value * AnimationProgress, center, angle, radius);
+                            var nextPoint = GetPoint(nextEntry.Value.Value * AnimationProgress, center, nextAngle, radius);
 
-                        // Border center bars
-                        using (var paint = new SKPaint()
-                        {
-                            Style = SKPaintStyle.Stroke,
-                            StrokeWidth = BorderLineSize,
-                            Color = BorderLineColor,
-                            IsAntialias = true,
-                        })
-                        {
-                            var borderPoint = GetPoint(MaxValue, center, angle, radius);
-                            canvas.DrawLine(point.X, point.Y, borderPoint.X, borderPoint.Y, paint);
+                            canvas.ClipPath(clip);
+
+                            // Border center bars
+                            using (var paint = new SKPaint()
+                            {
+                                Style = SKPaintStyle.Stroke,
+                                StrokeWidth = BorderLineSize,
+                                Color = BorderLineColor,
+                                IsAntialias = true,
+                            })
+                            {
+                                var borderPoint = GetPoint(MaxValue, center, angle, radius);
+                                canvas.DrawLine(point.X, point.Y, borderPoint.X, borderPoint.Y, paint);
+                            }
+
+                            // Values points and lines
+                            using (var paint = new SKPaint()
+                            {
+                                Style = SKPaintStyle.Stroke,
+                                StrokeWidth = BorderLineSize,
+                                Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f * AnimationProgress)),
+                                PathEffect = SKPathEffect.CreateDash(new[] { BorderLineSize, BorderLineSize * 2 }, 0),
+                                IsAntialias = true,
+                            })
+                            {
+                                var amount = Math.Abs(entry.Value.Value - AbsoluteMinimum) / ValueRange;
+                                canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
+                            }
+
+                            canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), LineSize);
+                            canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, LineSize);
+                            canvas.DrawPoint(point, entry.Color, PointSize, PointMode);
                         }
-
-                        // Values points and lines
-                        using (var paint = new SKPaint()
-                        {
-                            Style = SKPaintStyle.Stroke,
-                            StrokeWidth = BorderLineSize,
-                            Color = entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f * AnimationProgress)),
-                            PathEffect = SKPathEffect.CreateDash(new[] { BorderLineSize, BorderLineSize * 2 }, 0),
-                            IsAntialias = true,
-                        })
-                        {
-                            //FIXME: Handle Null Values
-                            var amount = Math.Abs(entry.Value.Value - AbsoluteMinimum) / ValueRange;
-                            canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
-                        }
-
-                        canvas.DrawGradientLine(center, entry.Color.WithAlpha(0), point, entry.Color.WithAlpha((byte)(entry.Color.Alpha * 0.75f)), LineSize);
-                        canvas.DrawGradientLine(point, entry.Color, nextPoint, nextEntry.Color, LineSize);
-                        canvas.DrawPoint(point, entry.Color, PointSize, PointMode);
-
                         canvas.Restore();
 
                         // Labels

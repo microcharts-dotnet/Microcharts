@@ -251,6 +251,12 @@ namespace Microcharts.Samples
                     ValueLabel = "648",
                     Color = SKColor.Parse("#77d065"),
                 },
+                new ChartEntry(null)
+                {
+                    Label = "React",
+                    ValueLabel = "214",
+                    Color = SKColor.Parse("#db3498"),
+                },
                 new ChartEntry(128)
                 {
                     Label = "iOS",
@@ -399,7 +405,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleDescription = "Default radial gauge example",
                 Chart = new RadialGaugeChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -686,19 +692,19 @@ namespace Microcharts.Samples
                         {
                             Name = "UWP",
                             Color = SKColor.Parse("#2c3e50"),
-                            Entries = GenerateSeriesEntry(r),
+                            Entries = GenerateSeriesEntry(r, 3, true, true),
                         },
                         new ChartSerie()
                         {
                             Name = "Android",
                             Color = SKColor.Parse("#77d065"),
-                            Entries = GenerateSeriesEntry(r),
+                            Entries = GenerateSeriesEntry(r, 3, true, true),
                         },
                         new ChartSerie()
                         {
                             Name = "iOS",
                             Color = SKColor.Parse("#b455b6"),
-                            Entries = GenerateSeriesEntry(r),
+                            Entries = GenerateSeriesEntry(r, 3, true, true),
                         },
                     }
                 },
@@ -1076,19 +1082,19 @@ namespace Microcharts.Samples
                         {
                             Name = "UWP",
                             Color = SKColor.Parse("#2c3e50"),
-                            Entries = GenerateSeriesEntry(r),
+                            Entries = GenerateSeriesEntry(r, 3, true, true),
                         },
                         new ChartSerie()
                         {
                             Name = "Android",
                             Color = SKColor.Parse("#77d065"),
-                            Entries = GenerateSeriesEntry(r),
+                            Entries = GenerateSeriesEntry(r, 3, true, true),
                         },
                         new ChartSerie()
                         {
                             Name = "iOS",
                             Color = SKColor.Parse("#b455b6"),
-                            Entries = GenerateSeriesEntry(r),
+                            Entries = GenerateSeriesEntry(r, 3, true, true),
                         },
                     }
                 },
@@ -1437,16 +1443,17 @@ namespace Microcharts.Samples
             yield break;
         }
 
-        private static IEnumerable<ChartEntry> GenerateTimeSeriesEntry( Random r )
+        private static IEnumerable<ChartEntry> GenerateTimeSeriesEntry( Random r, bool withNulls = true)
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
             DateTime end = DateTime.Now;
-            DateTime label = end.AddSeconds(-10);
+            DateTime label = end.AddSeconds(-30);
 
-            var value = r.Next(0, 100);
+            int? value = r.Next(0, 100);
             do
             {
+                if (withNulls && (value.Value % 10) == 0) value = null;
                 entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString("mm:ss") });
                 value = r.Next(0, 100);
                 label = label.AddSeconds(1);
@@ -1456,14 +1463,15 @@ namespace Microcharts.Samples
             return entries;
         }
 
-        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3, bool withLabel = true)
+        private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3, bool withLabel = true, bool withNulls = false)
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
             int label = 2020 - ((labelNumber - 1) * 5);
-            var value = r.Next(0, 700);
+            int? value = r.Next(0, 700);
             do
             {
+                if (withNulls && (value.Value % 10) == 0) value = null;
                 entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = withLabel ? label.ToString() : null });
                 value = r.Next(0, 700);
                 label += 5;
