@@ -98,6 +98,11 @@ namespace Microcharts
                     for (int i = 0; i < pps.Value.Count; i++)
                     {
                         var entry = entries[i];
+                        if (!entry.Value.HasValue)
+                        {
+                            continue;
+                        }
+
                         var point = pps.Value.ElementAt(i);
                         canvas.DrawPoint(point, pps.Key.Color ?? entry.Color, PointSize, PointMode);
                     }
@@ -119,11 +124,18 @@ namespace Microcharts
                     for (int i = 0; i < pps.Value.Count; i++)
                     {
                         var entry = entries[i];
-                        if (!string.IsNullOrEmpty(entry.ValueLabel))
+                        string label = entry.ValueLabel;
+                        if (!string.IsNullOrEmpty(label))
                         {
                           var drawedPoint = pps.Value.ElementAt(i);
                           SKPoint point;
                           YPositionBehavior yPositionBehavior = YPositionBehavior.None;
+
+                            if (!valueLabelSizes.ContainsKey(entry))
+                            {
+                                continue;
+                            }
+
                           var valueLabelSize = valueLabelSizes[entry];
                           if (valueLabelOption == ValueLabelOption.TopOfElement)
                           {
@@ -142,7 +154,10 @@ namespace Microcharts
 
                           }
 
-                          DrawHelper.DrawLabel(canvas, ValueLabelOrientation, yPositionBehavior, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, entry.ValueLabel, ValueLabelTextSize, Typeface);
+                          DrawHelper.DrawLabel(canvas, ValueLabelOrientation, yPositionBehavior, itemSize, point, entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSize, label, ValueLabelTextSize, Typeface);
+                        } else
+                        {
+                            continue;
                         }
                     }
                 }
@@ -169,16 +184,39 @@ namespace Microcharts
                                 paint.Shader = shader;
 
                         var path = new SKPath();
-                        path.MoveTo(points.First());
-                        var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
+                        //path.MoveTo(points.First());
+
+                        var isFirst = true;
+                        var entries = s.Entries;
+                        var lineMode = LineMode.Straight; // LineMode;
+                        var last = (lineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
-                            if (LineMode == LineMode.Spline)
+                            if (!entries.ElementAt(i).Value.HasValue) continue;
+                            if (isFirst)
                             {
-                                var cubicInfo = CalculateCubicInfo(points, i, itemSize);
+                                path.MoveTo(points[i]);
+                                isFirst = false;
+                            }
+
+
+                            if (lineMode == LineMode.Spline)
+                            {
+                                int next = i + 1;
+                                while (next < last && !entries.ElementAt(next).Value.HasValue)
+                                {
+                                    next++;
+                                }
+
+                                if (next == last && !entries.ElementAt(next).Value.HasValue)
+                                {
+                                    break;
+                                }
+
+                                var cubicInfo = CalculateCubicInfo(points, i, next, itemSize);
                                 path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
                             }
-                            else if (LineMode == LineMode.Straight)
+                            else if (lineMode == LineMode.Straight)
                             {
                                 path.LineTo(points[i]);
                             }
@@ -208,24 +246,48 @@ namespace Microcharts
 
                         var path = new SKPath();
 
-                        path.MoveTo(points.First().X, origin);
-                        path.LineTo(points.First());
-
-                        var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
+                        var isFirst = true;
+                        var entries = serie.Entries;
+                        var lineMode = LineMode.Straight; // LineMode;
+                        var last = (lineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
+                        SKPoint lastPoint = points.First();
                         for (int i = 0; i < last; i++)
                         {
-                            if (LineMode == LineMode.Spline)
+                            if (!entries.ElementAt(i).Value.HasValue) continue;
+
+                            if( isFirst )
                             {
-                                var cubicInfo = CalculateCubicInfo(points, i, itemSize);
-                                path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
+                                path.MoveTo(points[i].X, origin);
+                                path.LineTo(points[i]);
+                                isFirst = false;
                             }
-                            else if (LineMode == LineMode.Straight)
+
+                            if (lineMode == LineMode.Spline)
+                            {
+                                int next = i + 1;
+                                while (next < last && !entries.ElementAt(next).Value.HasValue)
+                                {
+                                    next++;
+                                }
+
+                                if (next == last && !entries.ElementAt(next).Value.HasValue)
+                                {
+                                    lastPoint = points[i];
+                                    break;
+                                }
+
+                                var cubicInfo = CalculateCubicInfo(points, i, next, itemSize);
+                                path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
+                                lastPoint = cubicInfo.nextPoint;
+                            }
+                            else if (lineMode == LineMode.Straight)
                             {
                                 path.LineTo(points[i]);
+                                lastPoint = points[i];
                             }
                         }
 
-                        path.LineTo(points.Last().X, origin);
+                        path.LineTo(lastPoint.X, origin);
                         path.Close();
                         canvas.DrawPath(path, paint);
                     }
@@ -254,10 +316,10 @@ namespace Microcharts
             //Area is draw on the OnDrawContentEnd
         }
 
-        private (SKPoint control, SKPoint nextPoint, SKPoint nextControl) CalculateCubicInfo(SKPoint[] points, int i, SKSize itemSize)
+        private (SKPoint control, SKPoint nextPoint, SKPoint nextControl) CalculateCubicInfo(SKPoint[] points, int i, int next, SKSize itemSize)
         {
             var point = points[i];
-            var nextPoint = points[i + 1];
+            var nextPoint = points[next];
             var controlOffset = new SKPoint(itemSize.Width * 0.8f, 0);
             var currentControl = point + controlOffset;
             var nextControl = nextPoint - controlOffset;

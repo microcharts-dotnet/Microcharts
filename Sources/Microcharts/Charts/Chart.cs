@@ -202,10 +202,10 @@ namespace Microcharts
 
                 if (InternalMinValue == null)
                 {
-                    return Math.Min(0, entries.Min(x => x.Value));
+                    return Math.Min(0, entries.Where( x=>x.Value.HasValue).Min(x => x.Value.Value));
                 }
 
-                return Math.Min(InternalMinValue.Value, entries.Min(x => x.Value));
+                return Math.Min(InternalMinValue.Value, entries.Where(x => x.Value.HasValue).Min(x => x.Value.Value));
             }
 
             set => InternalMinValue = value;
@@ -227,10 +227,10 @@ namespace Microcharts
 
                 if (InternalMaxValue == null)
                 {
-                    return Math.Max(0, entries.Max(x => x.Value));
+                    return Math.Max(0, entries.Where( x=>x.Value.HasValue ).Max(x => x.Value.Value));
                 }
 
-                return Math.Max(InternalMaxValue.Value, entries.Max(x => x.Value));
+                return Math.Max(InternalMaxValue.Value, entries.Where(x => x.Value.HasValue).Max(x => x.Value.Value));
             }
 
             set => InternalMaxValue = value;

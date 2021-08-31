@@ -179,9 +179,10 @@ namespace Microcharts
             for (int i = 0; i < Entries.Count(); i++)
             {
                 var entry = Entries.ElementAt(i);
-                var value = entry.Value;
+                if (!entry.Value.HasValue) continue;
 
-                result.Add(MeasureHelper.CalculatePoint(Margin, AnimationProgress, MaxValue, ValueRange, value, i, itemSize, origin, headerHeight, originX));
+                var value = entry.Value;
+                result.Add(MeasureHelper.CalculatePoint(Margin, AnimationProgress, MaxValue, ValueRange, value.Value, i, itemSize, origin, headerHeight, originX));
             }
 
             return result.ToArray();

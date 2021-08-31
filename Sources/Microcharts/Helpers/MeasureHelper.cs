@@ -77,8 +77,8 @@ namespace Microcharts
                 var yAxisWidth = width;
 
                 var enumerable = entries.ToList(); // to avoid double enumeration
-                var minValue = enumerable.Min(e => e.Value);
-                var maxValue = enumerable.Max(e => e.Value);
+                var minValue = enumerable.Where(e=>e.Value.HasValue).Min(e => e.Value.Value);
+                var maxValue = enumerable.Where(e => e.Value.HasValue).Max(e => e.Value.Value);
                 if(minValue == maxValue)
                 {
                     if (minValue >= 0)

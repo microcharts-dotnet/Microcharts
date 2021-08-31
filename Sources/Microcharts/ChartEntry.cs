@@ -16,7 +16,7 @@ namespace Microcharts
         /// Initializes a new instance of the <see cref="T:Microcharts.ChartEntry"/> class.
         /// </summary>
         /// <param name="value">The entry value.</param>
-        public ChartEntry(float value)
+        public ChartEntry(float? value)
         {
             this.Value = value;
         }
@@ -29,7 +29,7 @@ namespace Microcharts
         /// Gets the value.
         /// </summary>
         /// <value>The value.</value>
-        public float Value { get; }
+        public float? Value { get; }
 
         /// <summary>
         /// Gets or sets the caption label.

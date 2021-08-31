@@ -1299,6 +1299,44 @@ namespace Microcharts.Samples
                 },
             };
 
+
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Dynamic Line Chart",
+                ExampleDescription = "Line Chart with updating series",
+                ExampleChartType = ExampleChartType.Dynamic,
+                Chart = new LineChart
+                {
+                    LabelOrientation = Orientation.Vertical,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 14,
+                    ValueLabelTextSize = 14,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    LegendOption = SeriesLegendOption.Bottom,
+
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "Sensor 1",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateTimeSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Sensor 2",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateTimeSeriesEntry(r),
+                        }
+                    }
+                }
+            };
+
+
             yield break;
         }
 
@@ -1397,6 +1435,25 @@ namespace Microcharts.Samples
             };
 
             yield break;
+        }
+
+        private static IEnumerable<ChartEntry> GenerateTimeSeriesEntry( Random r )
+        {
+            List<ChartEntry> entries = new List<ChartEntry>();
+
+            DateTime end = DateTime.Now;
+            DateTime label = end.AddSeconds(-10);
+
+            var value = r.Next(0, 100);
+            do
+            {
+                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString("mm:ss") });
+                value = r.Next(0, 100);
+                label = label.AddSeconds(1);
+            }
+            while (label <= end);
+
+            return entries;
         }
 
         private static IEnumerable<ChartEntry> GenerateSeriesEntry(Random r, int labelNumber = 3, bool withLabel = true)

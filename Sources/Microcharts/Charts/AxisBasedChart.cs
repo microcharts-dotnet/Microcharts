@@ -206,6 +206,8 @@ namespace Microcharts
                     for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
                     {
                         ChartSerie serie = Series.ElementAt(serieIndex);
+                        if (i >= serie.Entries.Count()) continue;
+
                         ChartEntry entry = serie.Entries.ElementAt(i);
                         float value = entry?.Value ?? 0;
                         float marge = serieIndex < nbSeries ? Margin / 2 : 0;
@@ -251,8 +253,9 @@ namespace Microcharts
         /// <param name="itemX"></param>
         protected virtual void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX, float origin)
         {
-            if (!string.IsNullOrEmpty(entry?.ValueLabel))
-                DrawHelper.DrawLabel(canvas, ValueLabelOrientation, YPositionBehavior.UpToElementHeight, barSize, new SKPoint(barX - (itemSize.Width / 2) + (barSize.Width / 2), headerWithLegendHeight - Margin), entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSizes[entry], entry.ValueLabel, ValueLabelTextSize, Typeface);
+            string label = entry?.ValueLabel;
+            if (!string.IsNullOrEmpty(label))
+                DrawHelper.DrawLabel(canvas, ValueLabelOrientation, YPositionBehavior.UpToElementHeight, barSize, new SKPoint(barX - (itemSize.Width / 2) + (barSize.Width / 2), headerWithLegendHeight - Margin), entry.ValueLabelColor.WithAlpha((byte)(255 * AnimationProgress)), valueLabelSizes[entry], label, ValueLabelTextSize, Typeface);
         }
 
         /// <summary>

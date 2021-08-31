@@ -52,9 +52,9 @@ namespace Microcharts
         /// <value>The size of the point.</value>
         public float PointSize { get; set; } = 14;
 
-        private float AbsoluteMinimum => Entries.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
+        private float AbsoluteMinimum => Entries.Where( x=>x.Value.HasValue).Select(x => x.Value.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Min(x => Math.Abs(x));
 
-        private float AbsoluteMaximum => Entries.Select(x => x.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
+        private float AbsoluteMaximum => Entries.Where(x => x.Value.HasValue).Select(x => x.Value.Value).Concat(new[] { MaxValue, MinValue, InternalMinValue ?? 0 }).Max(x => Math.Abs(x));
 
         /// <inheritdoc />
         protected override float ValueRange => AbsoluteMaximum - AbsoluteMinimum;
@@ -101,9 +101,10 @@ namespace Microcharts
                 var rangeAngle = (float)((Math.PI * 2) / total);
                 var startAngle = (float)Math.PI;
 
+                //FIXME: Handle Null Values
                 var nextEntry = Entries.First();
                 var nextAngle = startAngle;
-                var nextPoint = GetPoint(nextEntry.Value * AnimationProgress, center, nextAngle, radius);
+                var nextPoint = GetPoint(nextEntry.Value.Value * AnimationProgress, center, nextAngle, radius);
 
                 DrawBorder(canvas, center, radius);
 
@@ -117,10 +118,11 @@ namespace Microcharts
                         var entry = nextEntry;
                         var point = nextPoint;
 
+                        //FIXME: Handle Null Values
                         var nextIndex = (i + 1) % total;
                         nextAngle = startAngle + (rangeAngle * nextIndex);
                         nextEntry = Entries.ElementAt(nextIndex);
-                        nextPoint = GetPoint(nextEntry.Value * AnimationProgress, center, nextAngle, radius);
+                        nextPoint = GetPoint(nextEntry.Value.Value * AnimationProgress, center, nextAngle, radius);
 
                         canvas.Save();
                         canvas.ClipPath(clip);
@@ -148,7 +150,8 @@ namespace Microcharts
                             IsAntialias = true,
                         })
                         {
-                            var amount = Math.Abs(entry.Value - AbsoluteMinimum) / ValueRange;
+                            //FIXME: Handle Null Values
+                            var amount = Math.Abs(entry.Value.Value - AbsoluteMinimum) / ValueRange;
                             canvas.DrawCircle(center.X, center.Y, radius * amount, paint);
                         }
 
