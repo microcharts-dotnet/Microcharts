@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Microcharts.Core</id>
+    <version>1.0.0-preview2</version>
+    <title>Microcharts.Android</title>
+    <authors>Microcharts Team</authors>
+    <owners>Microcharts Team</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Core Component for Microcharts.</description>
+    <copyright>Copyright 2021</copyright>
+    <tags>microcharts</tags>
+    <dependencies>
+        <group targetFramework="netstandard2.0">
+            <dependency id="SkiaSharp" version="2.80.3" />
+            <dependency id="System.ValueTuple" version="4.5.0" />
+        </group>
+    </dependencies>
+  </metadata>
+   <files>
+     <!-- Android -->
+     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
+     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.Droid.dll" target="lib\MonoAndroid10\Microcharts.Droid.dll"/>
+   </files>
+</package>
