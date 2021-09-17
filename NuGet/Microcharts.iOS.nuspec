@@ -22,8 +22,6 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- iOS -->
-	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.dll" target="lib\xamarinios1.0\Microcharts.dll"/>
 	 <file src="..\Sources\Microcharts.iOS\bin\Release\Microcharts.iOS.dll" target="lib\xamarinios1.0\Microcharts.iOS.dll"/>
    </files>
 </package>

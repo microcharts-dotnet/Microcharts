@@ -33,8 +33,6 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- .NET Standard 2.0 -->
-     <file src="..\Sources\Microcharts\bin\Release\netstandard2.0\Microcharts.dll" target="lib\netstandard2.0\Microcharts.dll"/>
      <file src="..\Sources\Microcharts.Forms\bin\Release\netstandard2.0\Microcharts.Forms.dll" target="lib\netstandard2.0\Microcharts.Forms.dll"/>
    </files>
 </package>

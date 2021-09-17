@@ -22,8 +22,6 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- UWP -->
-     <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.dll" target="lib\uap10.0\Microcharts.dll"/>
 	 <file src="..\Sources\Microcharts.Uwp\bin\Release\Microcharts.Uwp.dll" target="lib\uap10.0\Microcharts.Uwp.dll"/>
    </files>
 </package>

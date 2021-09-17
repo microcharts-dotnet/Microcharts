@@ -20,8 +20,6 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- Android -->
      <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
-     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.Droid.dll" target="lib\MonoAndroid10\Microcharts.Droid.dll"/>
    </files>
 </package>

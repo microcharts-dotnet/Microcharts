@@ -22,8 +22,6 @@
     </dependencies>
   </metadata>
    <files>
-     <!-- macOS -->
-	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.dll" target="lib\xamarinmac2.0\Microcharts.dll"/>
 	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.macOS.dll" target="lib\xamarinmac2.0\Microcharts.macOS.dll"/>
    </files>
 </package>
