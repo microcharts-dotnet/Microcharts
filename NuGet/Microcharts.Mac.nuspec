@@ -2,18 +2,19 @@
 <package >
   <metadata>
     <id>Microcharts.Mac</id>
-    <version>1.0.0-preview1</version>
+    <version>1.0.0-preview2</version>
     <title>Microcharts.Mac</title>
-    <authors>Aloïs Deniel, Ed Lomonaco</authors>
-    <owners>Aloïs Deniel, Ed Lomonaco</owners>
+    <authors>Microcharts Team</authors>
+    <owners>Microcharts Team</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+    <projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple, cross-platform chart library for Xamarin.Mac.</description>
     <copyright>Copyright 2021</copyright>
     <tags>xamarin mac chart skia</tags>
     <dependencies>
         <group targetFramework="xamarinmac2.0">
+            <dependency id="Microcharts.Core" version="1.0.0-preview2" />
             <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="SkiaSharp.Views"  version="2.80.2" />
             <dependency id="System.ValueTuple" version="4.5.0" />

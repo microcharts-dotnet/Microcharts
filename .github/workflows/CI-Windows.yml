@@ -12,10 +12,15 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build Microcharts
+    - name: Build Microcharts.Avalonia
       run: |
-        cd Sources/Microcharts
-        msbuild -t:build -restore Microcharts.csproj /p:Configuration=Release
+        cd Sources/Microcharts.Avalonia
+        msbuild -t:build -restore Microcharts.Avalonia.csproj /p:Configuration=Release
+    - name: Publish Microcharts.Avalonia
+      run: |
+        cd NuGet
+        nuget pack Microcharts.Avalonia.nuspec
+        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
     - name: Build Microcharts.Uwp
       run: |
         cd Sources/Microcharts.Uwp
