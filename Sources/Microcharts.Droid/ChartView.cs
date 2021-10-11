@@ -1,4 +1,4 @@
-﻿namespace Microcharts.Droid
+namespace Microcharts.Droid
 {
     using Android.Content;
     using SkiaSharp.Views.Android;
@@ -60,7 +60,7 @@
 
                     if (this.chart != null)
                     {
-                        this.handler = this.chart.ObserveInvalidate(this, (view) => view.Invalidate());
+                        this.handler = this.chart.ObserveInvalidate(this, (view) => { try { view.Invalidate(); } catch (ObjectDisposedException) { } });
                     }
                 }
             }

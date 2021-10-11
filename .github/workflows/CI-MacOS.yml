@@ -12,10 +12,15 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build Microcharts
+    - name: Build Microcharts.Core
       run: |
         cd Sources/Microcharts
         msbuild -t:build -restore Microcharts.csproj /p:Configuration=Release
+    - name: Publish Microcharts.Core
+      run: |
+        cd NuGet
+        nuget pack Microcharts.Core.nuspec
+        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
     - name: Build Microcharts.Android
       run: |
         cd Sources/Microcharts.Droid
