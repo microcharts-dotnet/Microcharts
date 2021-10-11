@@ -1321,6 +1321,8 @@ namespace Microcharts.Samples
                     SerieLabelTextSize = 42,
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
+                    MaxValue = 150,
+                    MinValue = -50,
                     YAxisPosition = Position.Left,
                     LegendOption = SeriesLegendOption.Bottom,
 
@@ -1447,8 +1449,9 @@ namespace Microcharts.Samples
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
+            Console.WriteLine("Generating Data");
             DateTime end = DateTime.Now;
-            DateTime label = end.AddSeconds(-30);
+            DateTime label = end.AddSeconds(-1000);
 
             int? value = r.Next(0, 100);
             do
@@ -1460,6 +1463,7 @@ namespace Microcharts.Samples
             }
             while (label <= end);
 
+            Console.WriteLine("Data Generated");
             return entries;
         }
 

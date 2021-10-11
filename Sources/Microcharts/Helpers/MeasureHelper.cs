@@ -68,7 +68,7 @@ namespace Microcharts
             return result;
         }
 
-        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, out float yAxisXShift, out List<float> yAxisIntervalLabels)
+        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, float maxValue, float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
         {
             yAxisXShift = 0.0f;
             yAxisIntervalLabels = new List<float>();
@@ -76,9 +76,7 @@ namespace Microcharts
             {
                 var yAxisWidth = width;
 
-                var enumerable = entries.ToList(); // to avoid double enumeration
-                var minValue = enumerable.Where(e=>e.Value.HasValue).Min(e => e.Value.Value);
-                var maxValue = enumerable.Where(e => e.Value.HasValue).Max(e => e.Value.Value);
+                //var enumerable = entries.ToList(); // to avoid double enumeration
                 if(minValue == maxValue)
                 {
                     if (minValue >= 0)

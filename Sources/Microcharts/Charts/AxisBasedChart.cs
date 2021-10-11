@@ -167,9 +167,14 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
+            Console.WriteLine("DrawContent");
             if (Series != null && entries != null)
             {
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                float maxValue = MaxValue;
+                float minValue = MinValue;
+                float valRange = maxValue - minValue;
+
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, maxValue, minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 var firstSerie = Series.FirstOrDefault();
                 var labels = firstSerie.Entries.Select(x => x.Label).ToArray();
                 int nbItems = labels.Length;
@@ -190,42 +195,51 @@ namespace Microcharts
                 float headerHeight = CalculateHeaderHeight(valueLabelSizes);
                 var headerWithLegendHeight = headerHeight + (LegendOption == SeriesLegendOption.Top ? legendHeight : 0);
 
+
+
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight + headerHeight + legendHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
-                var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                Console.WriteLine("Begin Points");
+
 
                 int nbSeries = series.Count();
-                for (int i = 0; i < labels.Length; i++)
+                for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
                 {
-                    string label = labels[i];
-                    SKRect labelSize = labelSizes[i];
+                    ChartSerie serie = Series.ElementAt(serieIndex);
+                    IEnumerable<ChartEntry> entries = serie.Entries;
+                    int entryCount = entries.Count();
 
-                    var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin));
 
-                    for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
+                    Console.WriteLine("Drawing Series: " + serieIndex);
+                    for (int i = 0; i < labels.Length; i++)
                     {
-                        ChartSerie serie = Series.ElementAt(serieIndex);
-                        if (i >= serie.Entries.Count()) continue;
+                        if (i >= entryCount) break;
 
-                        ChartEntry entry = serie.Entries.ElementAt(i);
+                        ChartEntry entry = entries.ElementAt(i);
                         if (!entry.Value.HasValue) continue;
+
+                        string label = labels[i];
+                        SKRect labelSize = labelSizes[i];
+
+                        var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin));
 
                         float value = entry?.Value ?? 0;
                         float marge = serieIndex < nbSeries ? Margin / 2 : 0;
                         float totalBarMarge = serieIndex * Margin / 2;
                         float barX = itemX + serieIndex * barSize.Width + totalBarMarge;
-                        float barY = headerWithLegendHeight + ((1 - AnimationProgress) * (origin - headerWithLegendHeight) + (((MaxValue - value) / ValueRange) * itemSize.Height) * AnimationProgress);
+                        float barY = headerWithLegendHeight + ((1 - AnimationProgress) * (origin - headerWithLegendHeight) + (((maxValue - value) / valRange) * itemSize.Height) * AnimationProgress);
 
                         DrawBarArea(canvas, headerWithLegendHeight, itemSize, barSize, serie.Color ?? entry.Color, origin, value, barX, barY);
                         DrawBar(serie, canvas, headerWithLegendHeight, itemX, itemSize, barSize, origin, barX, barY, serie.Color ?? entry.Color);
                         DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
+                        if (!string.IsNullOrEmpty(label))
+                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                     }
-
-                    if(!string.IsNullOrEmpty(label))
-                        DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                 }
 
+                Console.WriteLine("Begin Legend");
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
                 OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
             }
@@ -382,19 +396,19 @@ namespace Microcharts
             return nbLine * height + nbLine * Margin;
         }
 
-        private float CalculateYOrigin(float itemHeight, float headerHeight)
+        private float CalculateYOrigin(float itemHeight, float headerHeight, float max, float min, float range)
         {
-            if (MaxValue <= 0)
+            if (max <= 0)
             {
                 return headerHeight;
             }
 
-            if (MinValue > 0)
+            if (min > 0)
             {
                 return headerHeight + itemHeight;
             }
 
-            return headerHeight + ((MaxValue / ValueRange) * itemHeight);
+            return headerHeight + ((max / range) * itemHeight);
         }
 
         private Dictionary<ChartEntry, SKRect> MeasureValueLabels()
