@@ -79,20 +79,14 @@ namespace Microcharts
         {
             base.OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
 
-            Console.WriteLine("DrawContentEnd");
             foreach (var pps in pointsPerSerie)
             {
                 DrawLineArea(canvas, pps.Key, pps.Value.ToArray(), itemSize, origin);
             }
 
-            Console.WriteLine("DrawSeriesLine");
             DrawSeriesLine(canvas, itemSize);
-            Console.WriteLine("DrawPoints");
             DrawPoints(canvas);
-            Console.WriteLine("DrawValueLabels");
             DrawValueLabels(canvas, itemSize, valueLabelSizes);
-            Console.WriteLine("Done");
-            Console.WriteLine("");
         }
 
         private void DrawPoints(SKCanvas canvas)

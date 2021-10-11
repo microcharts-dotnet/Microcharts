@@ -51,23 +51,32 @@ namespace Microcharts.Samples.Forms
                     {
                         var label = DateTime.Now.ToString("mm:ss");
 
+                        int idx = 0;
                         foreach (var curSeries in series)
                         {
                             var entries = curSeries.Entries.ToList();
+                            bool addLabel = (entries.Count % 100) == 0;
+
                             if (s == curSeries)
                             {
-                                var value = r.Next(rMin, rMax);
-                                var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label };
-                                entries.Add(entry);
+                                var entry = Data.GenerateTimeSeriesEntry(r, idx, 1);
+                                if (!addLabel) entry.First().Label = null;
+
+                                entries.AddRange(entry);
+
                                 if (entries.Count() > count * 1.5) entries.RemoveAt(0);
                             }
                             else
                             {
                                 var entry = new ChartEntry(null) { ValueLabel = null, Label = label };
+                                if (!addLabel) entry.Label = null;
+
                                 entries.Add(entry);
                                 if (entries.Count() > count * 1.5) entries.RemoveAt(0);
                             }
+                            
                             curSeries.Entries = entries;
+                            idx++;
                         }
 
                         if (!lc.IsAnimating)

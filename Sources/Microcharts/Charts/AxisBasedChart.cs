@@ -167,7 +167,6 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            Console.WriteLine("DrawContent");
             if (Series != null && entries != null)
             {
                 float maxValue = MaxValue;
@@ -195,13 +194,10 @@ namespace Microcharts
                 float headerHeight = CalculateHeaderHeight(valueLabelSizes);
                 var headerWithLegendHeight = headerHeight + (LegendOption == SeriesLegendOption.Top ? legendHeight : 0);
 
-
-
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight + headerHeight + legendHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
                 DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
-                Console.WriteLine("Begin Points");
 
 
                 int nbSeries = series.Count();
@@ -212,7 +208,6 @@ namespace Microcharts
                     int entryCount = entries.Count();
 
 
-                    Console.WriteLine("Drawing Series: " + serieIndex);
                     for (int i = 0; i < labels.Length; i++)
                     {
                         if (i >= entryCount) break;
@@ -239,7 +234,6 @@ namespace Microcharts
                     }
                 }
 
-                Console.WriteLine("Begin Legend");
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
                 OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
             }
