@@ -170,7 +170,10 @@ namespace Microcharts
             if (Series != null && entries != null)
             {
                 //Caching the min/max values for performance
-                bool fixedRange = InternalMaxValue != null || InternalMinValue != null;
+                bool fixedRange = InternalMaxValue.HasValue || InternalMinValue.HasValue;
+
+                //Ideally we'd use the internal values here, but the drawing does not crop to the bounds
+                //So the min and min cannot be set less than the actual min/max of the values
                 float maxValue = MaxValue;
                 float minValue = MinValue;
 
