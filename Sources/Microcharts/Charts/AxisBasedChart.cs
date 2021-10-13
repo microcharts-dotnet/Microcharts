@@ -169,10 +169,12 @@ namespace Microcharts
         {
             if (Series != null && entries != null)
             {
+                //Caching the min/max values for performance
                 bool fixedRange = InternalMaxValue != null || InternalMinValue != null;
                 float maxValue = MaxValue;
                 float minValue = MinValue;
 
+                //This function might change the min/max value
                 width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 float valRange = maxValue - minValue;
 
