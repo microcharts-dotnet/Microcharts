@@ -554,6 +554,10 @@ namespace Microcharts
                 {
                     await AnimateAsync(false, cancellation.Token);
                 }
+                else if( !IsAnimated )
+                {
+                    AnimationProgress = 1; //This prevents an extra property change on dynamic data
+                }
                 else
                 {
                     AnimationProgress = 0;
@@ -611,7 +615,7 @@ namespace Microcharts
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         protected bool Set<T>(ref T field, T value, [CallerMemberName] string property = null)
         {
-            if (!EqualityComparer<T>.Equals(field, property))
+            if ((field == null && value != null) || !field.Equals(value))
             {
                 field = value;
                 RaisePropertyChanged(property);
