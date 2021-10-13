@@ -201,7 +201,6 @@ namespace Microcharts
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
                 DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
 
-
                 int nbSeries = series.Count();
                 for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
                 {
@@ -220,7 +219,7 @@ namespace Microcharts
                         string label = labels[i];
                         SKRect labelSize = labelSizes[i];
 
-                        var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin));
+                        var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
 
                         float value = entry?.Value ?? 0;
                         float marge = serieIndex < nbSeries ? Margin / 2 : 0;
