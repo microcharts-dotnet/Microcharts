@@ -128,7 +128,9 @@ namespace Microcharts
         {
             if (Entries != null)
             {
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, Entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, MaxValue, MinValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                float maxValue = MaxValue;
+                float minValue = MinValue;
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, Entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, false, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 var labels = Entries.Select(x => x.Label).ToArray();
                 var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
                 var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, LabelOrientation);

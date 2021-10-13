@@ -169,11 +169,13 @@ namespace Microcharts
         {
             if (Series != null && entries != null)
             {
+                bool fixedRange = InternalMaxValue != null || InternalMinValue != null;
                 float maxValue = MaxValue;
                 float minValue = MinValue;
+
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 float valRange = maxValue - minValue;
 
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, maxValue, minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 var firstSerie = Series.FirstOrDefault();
                 var labels = firstSerie.Entries.Select(x => x.Label).ToArray();
                 int nbItems = labels.Length;

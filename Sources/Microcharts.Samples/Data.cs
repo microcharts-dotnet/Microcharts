@@ -1315,10 +1315,12 @@ namespace Microcharts.Samples
                 Chart = new LineChart
                 {
                     LabelOrientation = Orientation.Vertical,
-                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Vertical,
                     LabelTextSize = 14,
                     LineMode = LineMode.Straight,
                     PointMode = PointMode.None,
+                    LineAreaAlpha = 0,
+                    PointAreaAlpha = 0,
                     ValueLabelTextSize = 14,
                     SerieLabelTextSize = 42,
                     ValueLabelOption = ValueLabelOption.None,
@@ -1333,23 +1335,34 @@ namespace Microcharts.Samples
                     {
                         new ChartSerie()
                         {
-                            Name = "Sensor 1",
-                            Color = SKColor.Parse("#2c3e50"),
-                            Entries = GenerateTimeSeriesEntry(r, 0, 1000),
+                            Name = "S1",
+                            Color = Data.Colors[0],
+                            Entries = GenerateTimeSeriesEntry(r, 0, 10000),
                         },
                         new ChartSerie()
                         {
-                            Name = "Sensor 2",
-                            Color = SKColor.Parse("#77d065"),
-                            Entries = GenerateTimeSeriesEntry(r, 1, 1000),
+                            Name = "S2",
+                            Color = Data.Colors[1],
+                            Entries = GenerateTimeSeriesEntry(r, 1, 10000),
                         },
                         new ChartSerie()
                         {
-                            Name = "Sensor 3",
-                            Color = SKColor.Parse("#b455b6"),
-                            Entries = GenerateTimeSeriesEntry(r, 2, 1000)
+                            Name = "S3",
+                            Color = Data.Colors[2],
+                            Entries = GenerateTimeSeriesEntry(r, 2, 10000)
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "S4",
+                            Color = Data.Colors[3],
+                            Entries = GenerateTimeSeriesEntry(r, 3, 10000)
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "S5",
+                            Color = Data.Colors[4],
+                            Entries = GenerateTimeSeriesEntry(r, 4, 10000)
                         }
-
                     }
                 }
             };
@@ -1464,22 +1477,22 @@ namespace Microcharts.Samples
             DateTime label = end.AddSeconds(-seconds);
             DateTime baseTime = DateTime.Today;
 
-            float amp = 100.0f;
+            float amp = 25.0f;
             float ampScale = 0.001f + (idx*0.0005f);
             float valScale = 0.05f + (idx*0.01f);
             int phase = (idx * 33333);
             double valOffset = ((label - baseTime).TotalSeconds + phase) * valScale;
             double ampOffset = ((label - baseTime).TotalSeconds + phase) * ampScale;
-            float? value = (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) *amp));
-
+            float valueShift = (amp * 0.75f * (idx-2));
+            float? value = valueShift + (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) *amp));
             int count = 0;
             do
             {
                 if (withNulls && (value.Value % 10) == 0) value = null;
-                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = count % 100 == 0 ? label.ToString("mm:ss") : null });
+                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = count % 1000 == 0 ? label.ToString("mm:ss") : null });
                 valOffset = ((label - baseTime).TotalSeconds + phase) * valScale;
                 ampOffset = ((label - baseTime).TotalSeconds + phase) * ampScale;
-                value = (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) * amp));
+                value = valueShift + (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) * amp));
                 label = label.AddSeconds(1);
                 count++;
             }

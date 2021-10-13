@@ -68,26 +68,38 @@ namespace Microcharts
             return result;
         }
 
-        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, float maxValue, float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
+        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
         {
             yAxisXShift = 0.0f;
             yAxisIntervalLabels = new List<float>();
             if (showYAxisText || showYAxisLines)
             {
                 var yAxisWidth = width;
+                double range, niceMin, niceMax, tickSpacing;
+                int ticks;
 
-                //var enumerable = entries.ToList(); // to avoid double enumeration
-                if(minValue == maxValue)
+                if (!fixedRange)
                 {
-                    if (minValue >= 0)
-                        maxValue += 100;
-                    else
-                        maxValue = 0;
+                    //var enumerable = entries.ToList(); // to avoid double enumeration
+                    if (minValue == maxValue)
+                    {
+                        if (minValue >= 0)
+                            maxValue += 100;
+                        else
+                            maxValue = 0;
+                    }
+
+                    NiceScale.Calculate(minValue, maxValue, yAxisMaxTicks, out range, out tickSpacing, out niceMin, out niceMax);
+                    ticks = (int)(range / tickSpacing);
                 }
-
-                NiceScale.Calculate(minValue, maxValue, yAxisMaxTicks, out var range, out var tickSpacing, out var niceMin, out var niceMax);
-
-                var ticks = (int)(range / tickSpacing);
+                else
+                {
+                    niceMin = minValue;
+                    niceMax = maxValue;
+                    range = niceMax - niceMin;
+                    tickSpacing = range / (yAxisMaxTicks-1);
+                    ticks = yAxisMaxTicks;
+                }
 
                 yAxisIntervalLabels = Enumerable.Range(0, ticks)
                     .Select(i => (float)(niceMax - (i * tickSpacing)))
@@ -103,6 +115,8 @@ namespace Microcharts
 
                 // to reduce chart width
                 width = yAxisWidth;
+                maxValue = (float)niceMax;
+                minValue = (float)niceMin;
             }
 
             return width;

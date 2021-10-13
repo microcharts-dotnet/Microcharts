@@ -29,13 +29,13 @@ namespace Microcharts.Samples.Forms
             Running = false;
             base.OnDisappearing();
         }
-
+        bool IsDrawing = false;
         protected void GenerateDynamicData()
         {
             Random r = new Random((int)DateTime.Now.Ticks);
             LineChart lc = (LineChart)chartView.Chart;
 
-            int ticks = (int)(1100 * TimeSpan.TicksPerMillisecond);
+            int ticks = (int)(250 * TimeSpan.TicksPerMillisecond);
 
             var series = lc.Series;
             
@@ -83,14 +83,18 @@ namespace Microcharts.Samples.Forms
                         {
                             lc.IsAnimated = false;
                             lc.Series = series;
-                            chartView.InvalidateSurface();
+                            if (!IsDrawing)
+                            {
+                                IsDrawing = true;
+                                chartView.InvalidateSurface();
+                            }
                         }
                     }).ContinueWith(t => {
                         if (t.IsFaulted) Console.WriteLine(t.Exception);
                     });
                     return Running;
                 });
-                ticks += (int)(1100 * TimeSpan.TicksPerMillisecond);
+                ticks += (int)(250 * TimeSpan.TicksPerMillisecond);
             }
         }
 
@@ -99,7 +103,12 @@ namespace Microcharts.Samples.Forms
             base.OnAppearing();
 
             chartView.Chart = ExampleChartItem.Chart;
-            if(!chartView.Chart.IsAnimating)
+            chartView.ChartPainted += (sender, args) =>
+            {
+                IsDrawing = false;
+            };
+
+            if (!chartView.Chart.IsAnimating)
                 chartView.Chart.AnimateAsync(true).ConfigureAwait(false);
 
             if (ExampleChartItem.IsDynamic && (chartView.Chart as LineChart) != null )

@@ -434,7 +434,7 @@ namespace Microcharts
                 case nameof(MaxValue):
                 case nameof(MinValue):
                 case nameof(BackgroundColor):
-                    PlanifyInvalidate();
+                    Invalidate();
                     break;
                 default:
                     break;
