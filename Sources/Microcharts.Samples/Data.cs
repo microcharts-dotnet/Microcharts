@@ -245,7 +245,7 @@ namespace Microcharts.Samples
                     ValueLabel = "112",
                     Color = SKColor.Parse("#2c3e50"),
                 },
-                new ChartEntry(248)
+                new ChartEntry(648)
                 {
                     Label = "Android",
                     ValueLabel = "648",
@@ -254,10 +254,10 @@ namespace Microcharts.Samples
                 new ChartEntry(null)
                 {
                     Label = "React",
-                    ValueLabel = "214",
+                    ValueLabel = "",
                     Color = SKColor.Parse("#db3498"),
                 },
-                new ChartEntry(128)
+                new ChartEntry(428)
                 {
                     Label = "iOS",
                     ValueLabel = "428",
@@ -266,7 +266,7 @@ namespace Microcharts.Samples
                 new ChartEntry(514)
                 {
                     Label = "Forms",
-                    ValueLabel = "214",
+                    ValueLabel = "514",
                     Color = SKColor.Parse("#3498db"),
                 }
             };
