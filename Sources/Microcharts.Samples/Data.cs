@@ -242,25 +242,25 @@ namespace Microcharts.Samples
                 new ChartEntry(212)
                 {
                     Label = "UWP",
-                    ValueLabel = "112",
+                    ValueLabel = "212",
                     Color = SKColor.Parse("#2c3e50"),
                 },
-                new ChartEntry(648)
+                new ChartEntry(248)
                 {
                     Label = "Android",
-                    ValueLabel = "648",
+                    ValueLabel = "248",
                     Color = SKColor.Parse("#77d065"),
                 },
                 new ChartEntry(null)
                 {
                     Label = "React",
-                    ValueLabel = "",
+                    ValueLabel = null,
                     Color = SKColor.Parse("#db3498"),
                 },
-                new ChartEntry(428)
+                new ChartEntry(128)
                 {
                     Label = "iOS",
-                    ValueLabel = "428",
+                    ValueLabel = "128",
                     Color = SKColor.Parse("#b455b6"),
                 },
                 new ChartEntry(514)
@@ -1315,19 +1315,12 @@ namespace Microcharts.Samples
                 Chart = new LineChart
                 {
                     LabelOrientation = Orientation.Vertical,
-                    ValueLabelOrientation = Orientation.Vertical,
+                    ValueLabelOrientation = Orientation.Horizontal,
                     LabelTextSize = 14,
-                    LineMode = LineMode.Straight,
-                    PointMode = PointMode.None,
-                    LineAreaAlpha = 0,
-                    PointAreaAlpha = 0,
                     ValueLabelTextSize = 14,
                     SerieLabelTextSize = 42,
-                    ValueLabelOption = ValueLabelOption.None,
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
-                    MaxValue = 150,
-                    MinValue = -150,
                     YAxisPosition = Position.Left,
                     LegendOption = SeriesLegendOption.Bottom,
 
@@ -1335,33 +1328,15 @@ namespace Microcharts.Samples
                     {
                         new ChartSerie()
                         {
-                            Name = "S1",
-                            Color = Data.Colors[0],
-                            Entries = GenerateTimeSeriesEntry(r, 0, 10000),
+                            Name = "Sensor 1",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateTimeSeriesEntry(r),
                         },
                         new ChartSerie()
                         {
-                            Name = "S2",
-                            Color = Data.Colors[1],
-                            Entries = GenerateTimeSeriesEntry(r, 1, 10000),
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "S3",
-                            Color = Data.Colors[2],
-                            Entries = GenerateTimeSeriesEntry(r, 2, 10000)
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "S4",
-                            Color = Data.Colors[3],
-                            Entries = GenerateTimeSeriesEntry(r, 3, 10000)
-                        },
-                        new ChartSerie()
-                        {
-                            Name = "S5",
-                            Color = Data.Colors[4],
-                            Entries = GenerateTimeSeriesEntry(r, 4, 10000)
+                            Name = "Sensor 2",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateTimeSeriesEntry(r),
                         }
                     }
                 }
@@ -1468,33 +1443,20 @@ namespace Microcharts.Samples
             yield break;
         }
 
-        public static IEnumerable<ChartEntry> GenerateTimeSeriesEntry( Random r, int idx, int seconds, bool withNulls = true)
+        private static IEnumerable<ChartEntry> GenerateTimeSeriesEntry( Random r, bool withNulls = true)
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
-
             DateTime end = DateTime.Now;
-            DateTime label = end.AddSeconds(-seconds);
-            DateTime baseTime = DateTime.Today;
+            DateTime label = end.AddSeconds(-30);
 
-            float amp = 25.0f;
-            float ampScale = 0.001f + (idx*0.0005f);
-            float valScale = 0.05f + (idx*0.01f);
-            int phase = (idx * 33333);
-            double valOffset = ((label - baseTime).TotalSeconds + phase) * valScale;
-            double ampOffset = ((label - baseTime).TotalSeconds + phase) * ampScale;
-            float valueShift = (amp * 0.75f * (idx-2));
-            float? value = valueShift + (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) *amp));
-            int count = 0;
+            int? value = r.Next(0, 100);
             do
             {
                 if (withNulls && (value.Value % 10) == 0) value = null;
-                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = count % 1000 == 0 ? label.ToString("mm:ss") : null });
-                valOffset = ((label - baseTime).TotalSeconds + phase) * valScale;
-                ampOffset = ((label - baseTime).TotalSeconds + phase) * ampScale;
-                value = valueShift + (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) * amp));
+                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = label.ToString("mm:ss") });
+                value = r.Next(0, 100);
                 label = label.AddSeconds(1);
-                count++;
             }
             while (label <= end);
 
