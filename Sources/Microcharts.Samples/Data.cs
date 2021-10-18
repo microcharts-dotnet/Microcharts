@@ -239,7 +239,7 @@ namespace Microcharts.Samples
         {
             return new[]
             {
-                new ChartEntry(212)
+                new ChartEntry(112)
                 {
                     Label = "UWP",
                     ValueLabel = "112",
