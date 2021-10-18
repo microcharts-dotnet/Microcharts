@@ -8,6 +8,12 @@ using SkiaSharp;
 
 namespace Microcharts
 {
+    public class ChartXForm
+    {
+        public float Scale = 1.0f;
+        public SKPoint Offset = new SKPoint(0, 0);
+    }
+
     /// <summary>
     /// Base chart for Series chart based on Axis work
     /// </summary>
@@ -155,6 +161,9 @@ namespace Microcharts
         /// </summary>
         public SKPaint YAxisLinesPaint { get; set; }
 
+
+        public ChartXForm XForm { get; } = new ChartXForm();
+
         #endregion
 
         #region Methods
@@ -167,6 +176,7 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
+            SKRect canvasRect = new SKRect(0, 0, width, height);
             if (Series != null && entries != null)
             {
                 //Caching the min/max values for performance
@@ -174,8 +184,8 @@ namespace Microcharts
 
                 //Ideally we'd use the internal values here, but the drawing does not crop to the bounds
                 //So the min and min cannot be set less than the actual min/max of the values
-                float maxValue = MaxValue;
-                float minValue = MinValue;
+                float maxValue = InternalMaxValue.HasValue ? InternalMaxValue.Value : MaxValue;
+                float minValue = InternalMinValue.HasValue ? InternalMinValue.Value : MinValue;
 
                 //This function might change the min/max value
                 width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
@@ -206,6 +216,20 @@ namespace Microcharts
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
                 DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
 
+                
+                SKRect chartRect = new SKRect(canvasRect.Left+yAxisXShift, canvasRect.Top+headerWithLegendHeight, canvasRect.Right-yAxisXShift, canvasRect.Bottom-footerWithLegendHeight);
+
+
+                //Clear chart bounds for testing
+                /*
+                canvas.Save();
+                canvas.Clear(SKColors.Purple);
+                canvas.ClipRect(chartRect);
+                canvas.Clear(SKColors.Pink);
+                canvas.Restore();
+                */
+
+                canvas.Save();
                 int nbSeries = series.Count();
                 for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
                 {
@@ -219,6 +243,7 @@ namespace Microcharts
                         if (i >= entryCount) break;
                         var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
 
+
                         ChartEntry entry = entries.ElementAt(i);
                         if (entry != null && entry.Value.HasValue)
                         {
@@ -228,10 +253,16 @@ namespace Microcharts
                             float barX = itemX + serieIndex * barSize.Width + totalBarMarge;
                             float barY = headerWithLegendHeight + ((1 - AnimationProgress) * (origin - headerWithLegendHeight) + (((maxValue - value) / valRange) * itemSize.Height) * AnimationProgress);
 
+                            canvas.Save();
+                            canvas.ClipRect(chartRect);
+                            canvas.Translate(XForm.Offset);
+                            canvas.Scale(XForm.Scale);
                             DrawBarArea(canvas, headerWithLegendHeight, itemSize, barSize, serie.Color ?? entry.Color, origin, value, barX, barY);
                             DrawBar(serie, canvas, headerWithLegendHeight, itemX, itemSize, barSize, origin, barX, barY, serie.Color ?? entry.Color);
                             DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
+                            canvas.Restore();
                         }
+
 
                         string label = labels[i];
                         if (!string.IsNullOrEmpty(label))
@@ -242,8 +273,16 @@ namespace Microcharts
                     }
                 }
 
+                canvas.Restore();
+
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
+
+                canvas.Save();
+                canvas.ClipRect(chartRect);
+                canvas.Translate(XForm.Offset);
+                canvas.Scale(XForm.Scale);
                 OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
+                canvas.Restore();
             }
         }
 
