@@ -87,15 +87,16 @@ namespace Microcharts
                         var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
+                            var entry = Entries.ElementAt(i);
                             if (LineMode == LineMode.Spline)
                             {
-                                var entry = Entries.ElementAt(i);
                                 var nextEntry = Entries.ElementAt(i + 1);
                                 var cubicInfo = CalculateCubicInfo(points, i, itemSize);
                                 path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
                             }
                             else if (LineMode == LineMode.Straight)
                             {
+                                if (!entry.Value.HasValue) continue;
                                 path.LineTo(points[i]);
                             }
                         }
@@ -130,15 +131,16 @@ namespace Microcharts
                         var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
+                            var entry = Entries.ElementAt(i);
                             if (LineMode == LineMode.Spline)
                             {
-                                var entry = Entries.ElementAt(i);
                                 var nextEntry = Entries.ElementAt(i + 1);
                                 var cubicInfo = CalculateCubicInfo(points, i, itemSize);
                                 path.CubicTo(cubicInfo.control, cubicInfo.nextControl, cubicInfo.nextPoint);
                             }
                             else if (LineMode == LineMode.Straight)
                             {
+                                if (!entry.Value.HasValue) continue;
                                 path.LineTo(points[i]);
                             }
                         }
