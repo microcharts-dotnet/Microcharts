@@ -242,31 +242,31 @@ namespace Microcharts.Samples
                 new ChartEntry(212)
                 {
                     Label = "UWP",
-                    ValueLabel = "112",
+                    ValueLabel = "212",
                     Color = SKColor.Parse("#2c3e50"),
                 },
                 new ChartEntry(248)
                 {
                     Label = "Android",
-                    ValueLabel = "648",
+                    ValueLabel = "248",
                     Color = SKColor.Parse("#77d065"),
                 },
                 new ChartEntry(null)
                 {
                     Label = "React",
-                    ValueLabel = "214",
+                    ValueLabel = null,
                     Color = SKColor.Parse("#db3498"),
                 },
                 new ChartEntry(128)
                 {
                     Label = "iOS",
-                    ValueLabel = "428",
+                    ValueLabel = "128",
                     Color = SKColor.Parse("#b455b6"),
                 },
                 new ChartEntry(514)
                 {
                     Label = "Forms",
-                    ValueLabel = "214",
+                    ValueLabel = "514",
                     Color = SKColor.Parse("#3498db"),
                 }
             };
