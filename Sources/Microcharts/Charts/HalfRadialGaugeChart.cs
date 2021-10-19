@@ -92,6 +92,8 @@ namespace Microcharts
 
                 var sumValue = Entries.Where(x => x.Value.HasValue).Sum(x => Math.Abs(x.Value.Value));
                 var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
+                if (width < height)
+                    radius = (Math.Min(width, height) - (2 * Margin)) / 4;
                 var cx = width / 2;
                 var cy = height / 2 + (int)radius - (int)Margin;
                 var lineWidth = (LineSize < 0) ? (radius / ((Entries.Count() + 1))) : LineSize;
