@@ -92,11 +92,11 @@ namespace Microcharts
 
                 var sumValue = Entries.Where(x => x.Value.HasValue).Sum(x => Math.Abs(x.Value.Value));
                 var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
-                if (width < height)
+                if (width / 2 < height)
                     radius = (Math.Min(width, height) - (2 * Margin)) / 4;
                 var cx = width / 2;
                 var cy = height / 2 + (int)radius - (int)Margin;
-                var lineWidth = (LineSize < 0) ? (radius / ((Entries.Count() + 1))) : LineSize;
+                var lineWidth = (LineSize < 0) ? (radius / (Entries.Count() + 1)) : LineSize;
                 var radiusSpace = lineWidth;
 
                 for (int i = 0; i < Entries.Count(); i++)
@@ -107,6 +107,8 @@ namespace Microcharts
                     if (!entry.Value.HasValue) continue;
 
                     var entryRadius = (i + 1) * radiusSpace;
+                    if (entries.Count() == 1)
+                        entryRadius = radius - radiusSpace / 2;
                     DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
                     DrawGauge(canvas, entry.Color, entry.Value.Value, entryRadius, cx, cy, lineWidth);
                 }
