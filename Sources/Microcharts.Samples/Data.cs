@@ -227,6 +227,11 @@ namespace Microcharts.Samples
                     Entries = entries,
                     LabelTextSize = 42
                 },
+                new HalfRadialGaugeChart
+                {
+                    Entries = entries,
+                    LabelTextSize = 42
+                },
                 new RadarChart
                 {
                     Entries = entries,
@@ -286,6 +291,8 @@ namespace Microcharts.Samples
                     return GenerateDonutChartExample();
                 case nameof(RadialGaugeChart):
                     return GenerateRadialGaugeChartExample();
+                case nameof(HalfRadialGaugeChart):
+                    return GenerateHalfRadialGaugeChartExample();
                 case nameof(RadarChart):
                     return GenerateRadarChartExample();
                 case nameof(BarChart):
@@ -407,6 +414,22 @@ namespace Microcharts.Samples
                 ExampleName = "Default",
                 ExampleDescription = "Default radial gauge example",
                 Chart = new RadialGaugeChart
+                {
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42
+                },
+            };
+
+            yield break;
+        }
+
+        private static IEnumerable<ExampleChartItem> GenerateHalfRadialGaugeChartExample()
+        {
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Default",
+                ExampleDescription = "Default example",
+                Chart = new HalfRadialGaugeChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
                     LabelTextSize = 42
