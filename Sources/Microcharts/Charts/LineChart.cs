@@ -74,6 +74,12 @@ namespace Microcharts
             base.DrawContent(canvas, width, height);
         }
 
+        protected override void DrawNullPoint(ChartSerie serie, SKCanvas canvas) {
+            //Some of the drawing algorithms index into pointsPerSerie
+            var point = new SKPoint(float.MinValue, float.MinValue);
+            pointsPerSerie[serie].Add(point);
+        }
+
         /// <inheritdoc/>
         protected override void OnDrawContentEnd(SKCanvas canvas, SKSize itemSize, float origin, Dictionary<ChartEntry, SKRect> valueLabelSizes)
         {
