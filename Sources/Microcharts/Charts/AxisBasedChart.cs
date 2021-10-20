@@ -262,6 +262,10 @@ namespace Microcharts
                             DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
                             canvas.Restore();
                         }
+                        else
+                        {
+                            DrawNullPoint(serie, canvas);
+                        }
 
 
                         string label = labels[i];
@@ -492,6 +496,13 @@ namespace Microcharts
         /// <param name="barY"></param>
         /// <param name="color"></param>
         protected abstract void DrawBar(ChartSerie serie, SKCanvas canvas, float headerHeight, float itemX, SKSize itemSize, SKSize barSize, float origin, float barX, float barY, SKColor color);
+
+
+        /// <summary>
+        /// Called during the draw cycle when encountering a point with a null value
+        /// </summary>
+        protected virtual void DrawNullPoint(ChartSerie serie, SKCanvas canvas) { }
+        
 
         /// <summary>
         /// Draw bar (or point) area of an entry
