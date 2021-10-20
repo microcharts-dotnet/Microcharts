@@ -188,7 +188,7 @@ namespace Microcharts
 
                         var isFirst = true;
                         var entries = s.Entries;
-                        var lineMode = LineMode.Straight; // LineMode;
+                        var lineMode = LineMode;
                         var last = (lineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         for (int i = 0; i < last; i++)
                         {
@@ -248,7 +248,7 @@ namespace Microcharts
 
                         var isFirst = true;
                         var entries = serie.Entries;
-                        var lineMode = LineMode.Straight; // LineMode;
+                        var lineMode = LineMode;
                         var last = (lineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
                         SKPoint lastPoint = points.First();
                         for (int i = 0; i < last; i++)

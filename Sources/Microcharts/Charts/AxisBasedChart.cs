@@ -209,6 +209,8 @@ namespace Microcharts
                         if (i >= serie.Entries.Count()) continue;
 
                         ChartEntry entry = serie.Entries.ElementAt(i);
+                        if (!entry.Value.HasValue) continue;
+
                         float value = entry?.Value ?? 0;
                         float marge = serieIndex < nbSeries ? Margin / 2 : 0;
                         float totalBarMarge = serieIndex * Margin / 2;

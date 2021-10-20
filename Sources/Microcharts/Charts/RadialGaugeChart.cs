@@ -83,8 +83,6 @@ namespace Microcharts
         {
             if (Entries != null)
             {
-                DrawCaption(canvas, width, height);
-
                 var sumValue = Entries.Where( x=>x.Value.HasValue).Sum(x => Math.Abs(x.Value.Value));
                 var radius = (Math.Min(width, height) - (2 * Margin)) / 2;
                 var cx = width / 2;
@@ -103,6 +101,9 @@ namespace Microcharts
                     DrawGaugeArea(canvas, entry, entryRadius, cx, cy, lineWidth);
                     DrawGauge(canvas, entry.Color, entry.Value.Value, entryRadius, cx, cy, lineWidth);
                 }
+
+                //Make sure captions draw on top of chart
+                DrawCaption(canvas, width, height); 
             }
         }
 

@@ -67,8 +67,9 @@ namespace Microcharts
                 for (int i = 0; i < Entries.Count(); i++)
                 {
                     var entry = Entries.ElementAt(i);
-                    var point = points[i];
+                    if (!entry.Value.HasValue) continue;
 
+                    var point = points[i];
                     using (var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Fill,
