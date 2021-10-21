@@ -214,20 +214,33 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight + headerHeight + legendHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                var chartMinY = MeasureHelper.CalculatePoint(Margin, 1.0f, maxValue, valRange, minValue, 0, itemSize, origin, headerHeight).Y;
 
-                
-                SKRect chartRect = new SKRect(canvasRect.Left+yAxisXShift, canvasRect.Top+headerWithLegendHeight, canvasRect.Right-yAxisXShift, canvasRect.Bottom-footerWithLegendHeight);
+                SKRect chartRect = new SKRect(canvasRect.Left+yAxisXShift+Margin, canvasRect.Top+headerWithLegendHeight, width, chartMinY);
+                SKRect labelRect = new SKRect(chartRect.Left, canvasRect.Top + chartMinY, chartRect.Right, canvasRect.Bottom);
+                SKRect yAxisRect = new SKRect(canvasRect.Left, chartRect.Top, canvasRect.Right, chartRect.Bottom);
+
 
 
                 //Clear chart bounds for testing
                 /*
                 canvas.Save();
                 canvas.Clear(SKColors.Purple);
-                canvas.ClipRect(chartRect);
+                canvas.ClipRect(yAxisRect);
                 canvas.Clear(SKColors.Pink);
                 canvas.Restore();
+                
+                canvas.Save();
+                canvas.ClipRect(labelRect);
+                canvas.Clear(SKColors.Blue);
+                canvas.Restore();
                 */
+
+                canvas.Save();
+                canvas.ClipRect(yAxisRect);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, XForm.Offset, XForm.Scale, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                canvas.Restore();
+
 
                 canvas.Save();
                 int nbSeries = series.Count();
@@ -272,7 +285,12 @@ namespace Microcharts
                         if (!string.IsNullOrEmpty(label))
                         {
                             SKRect labelSize = labelSizes[i];
-                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
+                            float labelX = XForm.Offset.X + (itemX * XForm.Scale);
+
+                            canvas.Save();
+                            canvas.ClipRect(labelRect);
+                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(labelX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
+                            canvas.Restore();
                         }
                     }
                 }

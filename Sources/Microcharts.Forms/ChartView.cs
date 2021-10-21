@@ -108,7 +108,7 @@ namespace Microcharts.Forms
                 // Calculate the scale factor to be applied.
                 currentScale += (float)((e.Scale - 1) * startScale);
                 currentScale = Math.Max(1, currentScale);
-                currentScale = Math.Min(3, currentScale);
+                currentScale = Math.Min(5, currentScale);
 
                 // The ScaleOrigin is in relative coordinates to the wrapped user interface element,
                 // so get the X pixel coordinate.
@@ -132,7 +132,7 @@ namespace Microcharts.Forms
                 translation.X = (float)targetX.Clamp(-CanvasSize.Width * (currentScale - 1), 0);
                 translation.Y = (float)targetY.Clamp(-CanvasSize.Height * (currentScale - 1), 0);
 
-                Console.WriteLine("{0}, {1}", translation.X, translation.Y);
+                //Console.WriteLine("{0}, {1}", translation.X, translation.Y);
 
                 axisChart.XForm.Scale = currentScale;
                 axisChart.XForm.Offset = translation;

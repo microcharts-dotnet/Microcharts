@@ -142,7 +142,7 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);
                 var points = CalculatePoints(itemSize, origin, headerHeight, yAxisXShift);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, new SKPoint(0,0), 1.0f, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
 
                 DrawAreas(canvas, points, itemSize, origin, headerHeight);
                 DrawPoints(canvas, points);
