@@ -55,7 +55,7 @@ namespace Microcharts.Samples.Forms
                         foreach (var curSeries in series)
                         {
                             var entries = curSeries.Entries.ToList();
-                            bool addLabel = (entries.Count % 100) == 0;
+                            bool addLabel = (entries.Count % 1000) == 0;
 
                             if (s == curSeries)
                             {

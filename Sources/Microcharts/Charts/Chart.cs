@@ -615,7 +615,7 @@ namespace Microcharts
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         protected bool Set<T>(ref T field, T value, [CallerMemberName] string property = null)
         {
-            if ((field == null && value != null) || !field.Equals(value))
+            if(!EqualityComparer<T>.Default.Equals(field, value))
             {
                 field = value;
                 RaisePropertyChanged(property);

@@ -213,6 +213,18 @@ namespace Microcharts
                     IEnumerable<ChartEntry> entries = serie.Entries;
                     int entryCount = entries.Count();
 
+                    for (int i = 0; i < labels.Length; i++)
+                    {
+                        var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
+
+                        string label = labels[i];
+                        if (!string.IsNullOrEmpty(label))
+                        {
+                            SKRect labelSize = labelSizes[i];
+                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
+                        }
+                    }
+
 
                     for (int i = 0; i < labels.Length; i++)
                     {
@@ -235,13 +247,6 @@ namespace Microcharts
                         else
                         {
                             DrawNullPoint(serie, canvas);
-                        }
-
-                        string label = labels[i];
-                        if (!string.IsNullOrEmpty(label))
-                        {
-                            SKRect labelSize = labelSizes[i];
-                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                         }
                     }
                 }
