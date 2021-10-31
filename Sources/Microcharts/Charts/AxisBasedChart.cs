@@ -133,7 +133,7 @@ namespace Microcharts
         /// <summary>
         /// Determines whether pinch to zoom will work on the chart
         /// </summary>
-        public bool EnableZoom { get; set; } = false;
+        public bool EnableZoom { get; set; } = true; //FIXME: This should be off by default, but easier to test charts with it on
 
         public ChartXForm XForm { get; } = new ChartXForm();
 
@@ -197,10 +197,22 @@ namespace Microcharts
                 float maxValue = InternalMaxValue.HasValue ? InternalMaxValue.Value : MaxValue;
                 float minValue = InternalMinValue.HasValue ? InternalMinValue.Value : MinValue;
 
-                //This function might change the min/max value
-                string yAxisFormat = XForm.Scale == 1.0f ? "G" : "F1";
+                //FIXME: If you don't mark it as fixed range, the vertical scale can change while zooming based on rounding in NiceNum
+                //This causes a POP in scale, so we calculated the Min/Max based on a scale of 1.0 and mark it has fixed
+
+                float yAxisXShift;
+                List<float> yAxisIntervalLabels;
+                string yAxisFormat = XForm.Scale == 1.0f ? "G" : "F1"; //As we scale the yAxis we get more decimal places
+                if (EnableZoom && !fixedRange)
+                {
+                    //WARNING: This will change Min/Max based on a scale of 1.0
+                    MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out yAxisXShift, out yAxisIntervalLabels);
+                    fixedRange = true;
+                }
+
+                //WARNING: This will change Min/Max based on a scale of XForm.Scale
                 int yMaxTicks = (int)(YAxisMaxTicks * XForm.Scale);
-                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, yMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, yMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out yAxisXShift, out yAxisIntervalLabels);
                 width = (int)yAxisSize.Width;
 
                 float valRange = maxValue - minValue;
