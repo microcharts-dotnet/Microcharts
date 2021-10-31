@@ -133,7 +133,7 @@ namespace Microcharts
         /// <summary>
         /// Determines whether pinch to zoom will work on the chart
         /// </summary>
-        public bool EnableZoom { get; set; } = true; //FIXME: This should be off by default, but easier to test charts with it on
+        public bool EnableZoom { get; set; } = false; //FIXME: This should be off by default, but easier to test charts with it on
 
         public ChartXForm XForm { get; } = new ChartXForm();
 
