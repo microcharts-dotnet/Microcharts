@@ -17,10 +17,6 @@ namespace Microcharts.Forms
         {
             this.BackgroundColor = Color.Transparent;
             this.PaintSurface += OnPaintCanvas;
-
-            var pinchGesture = new PinchGestureRecognizer();
-            pinchGesture.PinchUpdated += OnPinchUpdated;
-            GestureRecognizers.Add(pinchGesture);
         }
 
         public event EventHandler<SKPaintSurfaceEventArgs> ChartPainted;
@@ -68,6 +64,15 @@ namespace Microcharts.Forms
 
             if (view.chart != null)
             {
+                AxisBasedChart axisChart = view.chart as AxisBasedChart;
+                if( axisChart != null && axisChart.EnableZoom )
+                {
+                    //FIXME: how to handle disable zoom after already enabled
+                    var pinchGesture = new PinchGestureRecognizer();
+                    pinchGesture.PinchUpdated += view.OnPinchUpdated;
+                    view.GestureRecognizers.Add(pinchGesture);
+                }
+
                 view.handler = view.chart.ObserveInvalidate(view, (v) => v.InvalidateSurface());
             }
         }

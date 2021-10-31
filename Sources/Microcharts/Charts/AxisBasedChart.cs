@@ -131,6 +131,13 @@ namespace Microcharts
         }
 
         /// <summary>
+        /// Determines whether pinch to zoom will work on the chart
+        /// </summary>
+        public bool EnableZoom { get; set; } = false;
+
+        public ChartXForm XForm { get; } = new ChartXForm();
+
+        /// <summary>
         /// Show Y Axis Text?
         /// </summary>
         public bool ShowYAxisText { get; set; } = false;
@@ -162,7 +169,10 @@ namespace Microcharts
         public SKPaint YAxisLinesPaint { get; set; }
 
 
-        public ChartXForm XForm { get; } = new ChartXForm();
+        /// <summary>
+        /// How many labels to draw, -1 means all of them
+        /// </summary>
+        public int XAxisMaxLabels { get; set; } = -1;
 
         #endregion
 
@@ -188,7 +198,8 @@ namespace Microcharts
                 float minValue = InternalMinValue.HasValue ? InternalMinValue.Value : MinValue;
 
                 //This function might change the min/max value
-                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                int yMaxTicks = (int)(YAxisMaxTicks * XForm.Scale);
+                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, yMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 width = (int)yAxisSize.Width;
 
                 float valRange = maxValue - minValue;
@@ -238,7 +249,7 @@ namespace Microcharts
                 */
 
                 canvas.Save();
-                canvas.ClipRect(yAxisRect);
+                if(EnableZoom) canvas.ClipRect(yAxisRect);
                 DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, XForm.Offset, XForm.Scale, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
                 canvas.Restore();
 
@@ -252,9 +263,11 @@ namespace Microcharts
                     int entryCount = entries.Count();
 
                     canvas.Save();
-                    canvas.ClipRect(labelRect);
+                    if (EnableZoom) canvas.ClipRect(labelRect);
 
-                    for (int i = 0; i < labels.Length; i++)
+                    int xMaxLabels = (int)(XAxisMaxLabels * XForm.Scale);
+                    int xlabelSkip = XAxisMaxLabels > 0 ? labels.Length / xMaxLabels : 1;
+                    for (int i = 0; i < labels.Length; i+= xlabelSkip)
                     {
                         var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
                         float labelX = XForm.Offset.X + (itemX * XForm.Scale);
@@ -269,9 +282,13 @@ namespace Microcharts
                     canvas.Restore();
 
                     canvas.Save();
-                    canvas.ClipRect(chartRect);
-                    canvas.Translate(XForm.Offset);
-                    canvas.Scale(XForm.Scale);
+                    if (EnableZoom)
+                    {
+                        canvas.ClipRect(chartRect);
+                        canvas.Translate(XForm.Offset);
+                        canvas.Scale(XForm.Scale);
+                    }
+
                     for (int i = 0; i < labels.Length; i++)
                     {
                         if (i >= entryCount) break;
@@ -304,9 +321,12 @@ namespace Microcharts
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
 
                 canvas.Save();
-                canvas.ClipRect(chartRect);
-                canvas.Translate(XForm.Offset);
-                canvas.Scale(XForm.Scale);
+                if (EnableZoom)
+                {
+                    canvas.ClipRect(chartRect);
+                    canvas.Translate(XForm.Offset);
+                    canvas.Scale(XForm.Scale);
+                }
                 OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
                 canvas.Restore();
             }
