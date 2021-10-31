@@ -68,8 +68,9 @@ namespace Microcharts
             return result;
         }
 
-        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
+        internal static SKSize CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
         {
+            float height = 0;
             yAxisXShift = 0.0f;
             yAxisIntervalLabels = new List<float>();
             if (showYAxisText || showYAxisLines)
@@ -106,20 +107,22 @@ namespace Microcharts
                     .ToList();
 
                 var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
-                var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
-                yAxisWidth = (int)(width - longestYAxisLabelWidth);
+                var longestYAxisLabelRect = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).FirstOrDefault();
+
+                yAxisWidth = (int)(width - longestYAxisLabelRect.Width);
                 if (yAxisPosition == Position.Left)
                 {
-                    yAxisXShift = longestYAxisLabelWidth;
+                    yAxisXShift = longestYAxisLabelRect.Width;
                 }
 
                 // to reduce chart width
                 width = yAxisWidth;
+                height = longestYAxisLabelRect.Height;
                 maxValue = (float)niceMax;
                 minValue = (float)niceMin;
             }
 
-            return width;
+            return new SKSize( width, height );
         }
 
         internal static SKPoint CalculatePoint(float margin, float animationProgress, float maxValue, float valueRange, float value, int i, SKSize itemSize, float origin, float headerHeight, float originX = 0)

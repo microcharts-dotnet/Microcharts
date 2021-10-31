@@ -188,7 +188,9 @@ namespace Microcharts
                 float minValue = InternalMinValue.HasValue ? InternalMinValue.Value : MinValue;
 
                 //This function might change the min/max value
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                width = (int)yAxisSize.Width;
+
                 float valRange = maxValue - minValue;
 
                 var firstSerie = Series.FirstOrDefault();
@@ -218,9 +220,7 @@ namespace Microcharts
 
                 SKRect chartRect = new SKRect(canvasRect.Left+yAxisXShift+Margin, canvasRect.Top+headerWithLegendHeight, width, chartMinY);
                 SKRect labelRect = new SKRect(chartRect.Left, canvasRect.Top + chartMinY, chartRect.Right, canvasRect.Bottom);
-                SKRect yAxisRect = new SKRect(canvasRect.Left, chartRect.Top, canvasRect.Right, chartRect.Bottom);
-
-
+                SKRect yAxisRect = new SKRect(canvasRect.Left, chartRect.Top - (yAxisSize.Height/2.0f), canvasRect.Right, chartRect.Bottom + (yAxisSize.Height/2.0f));
 
                 //Clear chart bounds for testing
                 /*
@@ -229,7 +229,8 @@ namespace Microcharts
                 canvas.ClipRect(yAxisRect);
                 canvas.Clear(SKColors.Pink);
                 canvas.Restore();
-                
+                */
+                /*
                 canvas.Save();
                 canvas.ClipRect(labelRect);
                 canvas.Clear(SKColors.Blue);
