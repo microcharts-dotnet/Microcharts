@@ -198,8 +198,9 @@ namespace Microcharts
                 float minValue = InternalMinValue.HasValue ? InternalMinValue.Value : MinValue;
 
                 //This function might change the min/max value
+                string yAxisFormat = XForm.Scale == 1.0f ? "G" : "F1";
                 int yMaxTicks = (int)(YAxisMaxTicks * XForm.Scale);
-                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, yMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, yMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 width = (int)yAxisSize.Width;
 
                 float valRange = maxValue - minValue;
@@ -250,7 +251,7 @@ namespace Microcharts
 
                 canvas.Save();
                 if(EnableZoom) canvas.ClipRect(yAxisRect);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, XForm.Offset, XForm.Scale, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, XForm.Offset, XForm.Scale, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
                 canvas.Restore();
 
 

@@ -130,8 +130,9 @@ namespace Microcharts
             {
                 float maxValue = MaxValue;
                 float minValue = MinValue;
-                var yAxisRect = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, Entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, false, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
-                width = (int)yAxisRect.Width;
+                string yAxisFormat = "G";
+                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, false, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                width = (int)yAxisSize.Width;
 
                 var labels = Entries.Select(x => x.Label).ToArray();
                 var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
@@ -144,7 +145,7 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(width, height, footerHeight, headerHeight);
                 var origin = CalculateYOrigin(itemSize.Height, headerHeight);
                 var points = CalculatePoints(itemSize, origin, headerHeight, yAxisXShift);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, new SKPoint(0,0), 1.0f, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, new SKPoint(0,0), 1.0f, Margin, AnimationProgress, MaxValue, ValueRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
 
                 DrawAreas(canvas, points, itemSize, origin, headerHeight);
                 DrawPoints(canvas, points);

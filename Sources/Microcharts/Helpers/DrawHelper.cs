@@ -92,7 +92,7 @@ namespace Microcharts
             }
         }
 
-        internal static void DrawYAxis(bool showYAxisText, bool showYAxisLines, Position yAxisPosition, SKPaint yAxisTextPaint, SKPaint yAxisLinesPaint, SKPoint offset, float scale, float margin, float animationProgress, float maxValue, float valueRange, SKCanvas canvas, int width, float yAxisXShift, List<float> yAxisIntervalLabels, float headerHeight, SKSize itemSize, float origin)
+        internal static void DrawYAxis(bool showYAxisText, bool showYAxisLines, string yAxisFormat, Position yAxisPosition, SKPaint yAxisTextPaint, SKPaint yAxisLinesPaint, SKPoint offset, float scale, float margin, float animationProgress, float maxValue, float valueRange, SKCanvas canvas, int width, float yAxisXShift, List<float> yAxisIntervalLabels, float headerHeight, SKSize itemSize, float origin)
         {
             if (showYAxisText || showYAxisLines)
             {
@@ -100,7 +100,7 @@ namespace Microcharts
                 var intervals = yAxisIntervalLabels
                     .Select(t => new ValueTuple<string, SKPoint>
                     (
-                        t.ToString(),
+                        t.ToString(yAxisFormat),
                         new SKPoint(yAxisPosition == Position.Left ? yAxisXShift : width, offset.Y+(scale * MeasureHelper.CalculatePoint(margin, animationProgress, maxValue, valueRange, t, cnt++, itemSize, origin, headerHeight).Y))
                     ))
                     .ToList();
