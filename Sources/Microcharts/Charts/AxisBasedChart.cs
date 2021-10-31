@@ -250,7 +250,27 @@ namespace Microcharts
                     IEnumerable<ChartEntry> entries = serie.Entries;
                     int entryCount = entries.Count();
 
+                    canvas.Save();
+                    canvas.ClipRect(labelRect);
 
+                    for (int i = 0; i < labels.Length; i++)
+                    {
+                        var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
+                        float labelX = XForm.Offset.X + (itemX * XForm.Scale);
+
+                        string label = labels[i];
+                        if (!string.IsNullOrEmpty(label))
+                        {
+                            SKRect labelSize = labelSizes[i];
+                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(labelX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
+                        }
+                    }
+                    canvas.Restore();
+
+                    canvas.Save();
+                    canvas.ClipRect(chartRect);
+                    canvas.Translate(XForm.Offset);
+                    canvas.Scale(XForm.Scale);
                     for (int i = 0; i < labels.Length; i++)
                     {
                         if (i >= entryCount) break;
@@ -266,33 +286,16 @@ namespace Microcharts
                             float barX = itemX + serieIndex * barSize.Width + totalBarMarge;
                             float barY = headerWithLegendHeight + ((1 - AnimationProgress) * (origin - headerWithLegendHeight) + (((maxValue - value) / valRange) * itemSize.Height) * AnimationProgress);
 
-                            canvas.Save();
-                            canvas.ClipRect(chartRect);
-                            canvas.Translate(XForm.Offset);
-                            canvas.Scale(XForm.Scale);
                             DrawBarArea(canvas, headerWithLegendHeight, itemSize, barSize, serie.Color ?? entry.Color, origin, value, barX, barY);
                             DrawBar(serie, canvas, headerWithLegendHeight, itemX, itemSize, barSize, origin, barX, barY, serie.Color ?? entry.Color);
                             DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
-                            canvas.Restore();
                         }
                         else
                         {
                             DrawNullPoint(serie, canvas);
                         }
-
-
-                        string label = labels[i];
-                        if (!string.IsNullOrEmpty(label))
-                        {
-                            SKRect labelSize = labelSizes[i];
-                            float labelX = XForm.Offset.X + (itemX * XForm.Scale);
-
-                            canvas.Save();
-                            canvas.ClipRect(labelRect);
-                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(labelX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
-                            canvas.Restore();
-                        }
                     }
+                    canvas.Restore();
                 }
 
                 canvas.Restore();
