@@ -92,10 +92,12 @@ namespace Microcharts.Forms
         }
 
 
-        float currentScale = 1;
-        float startScale = 1;
-        SKPoint offsetPosition = new SKPoint(0, 0);
-        SKPoint translation = new SKPoint(0, 0);
+        double zoomCurScale = 1;
+        double zoomStartScale = 1;
+
+        SKPoint zoomStartOrigin = new SKPoint(0, 0);
+        SKPoint zoomStartOffset = new SKPoint(0, 0);
+        SKPoint zoomTranslation = new SKPoint(0, 0);
 
         void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
@@ -106,51 +108,60 @@ namespace Microcharts.Forms
             {
                 // Store the current scale factor applied to the wrapped user interface element,
                 // and zero the components for the center point of the translate transform.
-                startScale = currentScale;
+                zoomStartScale = zoomCurScale = axisChart.XForm.Scale;
+                zoomStartOrigin = new SKPoint( (float)e.ScaleOrigin.X, (float)e.ScaleOrigin.Y);
+                zoomStartOffset = axisChart.XForm.Offset;
             }
+
             if (e.Status == GestureStatus.Running)
             {
+                // e.Scale is the delta to be applied for the current frame
                 // Calculate the scale factor to be applied.
-                currentScale += (float)((e.Scale - 1) * startScale);
-                currentScale = Math.Max(1, currentScale);
-                currentScale = Math.Min(5, currentScale);
+                zoomCurScale += (e.Scale - 1) * zoomStartScale;
+                zoomCurScale = Math.Max(1, zoomCurScale);
+                zoomCurScale = Math.Min(5, zoomCurScale);
+
+
+                SKPoint zoomPanDelta = new SKPoint((float)((e.ScaleOrigin.X - zoomStartOrigin.X) * CanvasSize.Width), (float)((e.ScaleOrigin.Y - zoomStartOrigin.Y) * CanvasSize.Height));
 
                 // The ScaleOrigin is in relative coordinates to the wrapped user interface element,
                 // so get the X pixel coordinate.
-                double renderedX = X + offsetPosition.X;
+                double renderedX = X + zoomStartOffset.X;
                 double deltaX = renderedX / CanvasSize.Width;
-                double deltaWidth = CanvasSize.Width / (CanvasSize.Width * startScale);
+                double deltaWidth = CanvasSize.Width / (CanvasSize.Width * zoomStartScale);
                 double originX = (e.ScaleOrigin.X - deltaX) * deltaWidth;
+
+                //Console.WriteLine("ScaleOrigin: {0}, {1}", e.ScaleOrigin.X, e.ScaleOrigin.Y);
 
                 // The ScaleOrigin is in relative coordinates to the wrapped user interface element,
                 // so get the Y pixel coordinate.
-                double renderedY = Y + offsetPosition.Y;
+                double renderedY = Y + zoomStartOffset.Y;
                 double deltaY = renderedY / CanvasSize.Height;
-                double deltaHeight = CanvasSize.Height / (CanvasSize.Height * startScale);
+                double deltaHeight = CanvasSize.Height / (CanvasSize.Height * zoomStartScale);
                 double originY = (e.ScaleOrigin.Y - deltaY) * deltaHeight;
 
                 // Calculate the transformed element pixel coordinates.
-                double targetX = offsetPosition.X - (originX * CanvasSize.Width) * (currentScale - startScale);
-                double targetY = offsetPosition.Y - (originY * CanvasSize.Height) * (currentScale - startScale);
+                double targetX = zoomStartOffset.X - (originX * CanvasSize.Width) * (zoomCurScale - zoomStartScale);
+                double targetY = zoomStartOffset.Y - (originY * CanvasSize.Height) * (zoomCurScale - zoomStartScale);
 
                 // Apply translation based on the change in origin.
-                translation.X = (float)targetX.Clamp(-CanvasSize.Width * (currentScale - 1), 0);
-                translation.Y = (float)targetY.Clamp(-CanvasSize.Height * (currentScale - 1), 0);
+                zoomTranslation.X = (float)targetX;
+                zoomTranslation.Y = (float)targetY;
 
-                //Console.WriteLine("{0}, {1}", translation.X, translation.Y);
 
-                axisChart.XForm.Scale = currentScale;
-                axisChart.XForm.Offset = translation;
+                SKPoint final = zoomTranslation + zoomPanDelta;
+                final.X = Math.Min(Math.Max(final.X, -CanvasSize.Width * (float)(zoomCurScale - 1)), 0);
+                final.Y = Math.Min(Math.Max(final.Y, -CanvasSize.Height * (float)(zoomCurScale - 1)), 0);
+                
+
+                axisChart.XForm.Scale = (float)zoomCurScale;
+                axisChart.XForm.Offset = final;
                 InvalidateSurface();
 
             }
+
             if (e.Status == GestureStatus.Completed)
             {
-                // Store the translation delta's of the wrapped user interface element.
-                offsetPosition = translation;
-
-                axisChart.XForm.Scale = currentScale;
-                axisChart.XForm.Offset = translation;
                 InvalidateSurface();
             }
         }
