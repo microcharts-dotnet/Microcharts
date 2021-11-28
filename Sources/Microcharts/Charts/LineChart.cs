@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
@@ -71,6 +72,12 @@ namespace Microcharts
                 pointsPerSerie.Add(s, new List<SKPoint>());
 
             base.DrawContent(canvas, width, height);
+        }
+
+        protected override void DrawNullPoint(ChartSerie serie, SKCanvas canvas) {
+            //Some of the drawing algorithms index into pointsPerSerie
+            var point = new SKPoint(float.MinValue, float.MinValue);
+            pointsPerSerie[serie].Add(point);
         }
 
         /// <inheritdoc/>

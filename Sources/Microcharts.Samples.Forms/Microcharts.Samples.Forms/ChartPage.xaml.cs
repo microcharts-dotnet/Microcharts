@@ -29,13 +29,13 @@ namespace Microcharts.Samples.Forms
             Running = false;
             base.OnDisappearing();
         }
-
+        bool IsDrawing = false;
         protected void GenerateDynamicData()
         {
             Random r = new Random((int)DateTime.Now.Ticks);
             LineChart lc = (LineChart)chartView.Chart;
 
-            int ticks = (int)(1100 * TimeSpan.TicksPerMillisecond);
+            int ticks = (int)(250 * TimeSpan.TicksPerMillisecond);
 
             var series = lc.Series;
             
@@ -51,37 +51,50 @@ namespace Microcharts.Samples.Forms
                     {
                         var label = DateTime.Now.ToString("mm:ss");
 
+                        int idx = 0;
                         foreach (var curSeries in series)
                         {
                             var entries = curSeries.Entries.ToList();
+                            bool addLabel = (entries.Count % 1000) == 0;
+
                             if (s == curSeries)
                             {
-                                var value = r.Next(rMin, rMax);
-                                var entry = new ChartEntry(value) { ValueLabel = value.ToString(), Label = label };
-                                entries.Add(entry);
+                                var entry = Data.GenerateTimeSeriesEntry(r, idx, 1);
+                                if (!addLabel) entry.First().Label = null;
+
+                                entries.AddRange(entry);
+
                                 if (entries.Count() > count * 1.5) entries.RemoveAt(0);
                             }
                             else
                             {
                                 var entry = new ChartEntry(null) { ValueLabel = null, Label = label };
+                                if (!addLabel) entry.Label = null;
+
                                 entries.Add(entry);
                                 if (entries.Count() > count * 1.5) entries.RemoveAt(0);
                             }
+                            
                             curSeries.Entries = entries;
+                            idx++;
                         }
 
                         if (!lc.IsAnimating)
                         {
                             lc.IsAnimated = false;
                             lc.Series = series;
-                            chartView.InvalidateSurface();
+                            if (!IsDrawing)
+                            {
+                                IsDrawing = true;
+                                chartView.InvalidateSurface();
+                            }
                         }
                     }).ContinueWith(t => {
                         if (t.IsFaulted) Console.WriteLine(t.Exception);
                     });
                     return Running;
                 });
-                ticks += (int)(1100 * TimeSpan.TicksPerMillisecond);
+                ticks += (int)(250 * TimeSpan.TicksPerMillisecond);
             }
         }
 
@@ -90,7 +103,12 @@ namespace Microcharts.Samples.Forms
             base.OnAppearing();
 
             chartView.Chart = ExampleChartItem.Chart;
-            if(!chartView.Chart.IsAnimating)
+            chartView.ChartPainted += (sender, args) =>
+            {
+                IsDrawing = false;
+            };
+
+            if (!chartView.Chart.IsAnimating)
                 chartView.Chart.AnimateAsync(true).ConfigureAwait(false);
 
             if (ExampleChartItem.IsDynamic && (chartView.Chart as LineChart) != null )

@@ -6,6 +6,7 @@ namespace Microcharts.Forms
     using Xamarin.Forms;
     using SkiaSharp.Views.Forms;
     using SkiaSharp;
+    using System;
 
     public class ChartView : SKCanvasView
     {
@@ -16,6 +17,8 @@ namespace Microcharts.Forms
             this.BackgroundColor = Color.Transparent;
             this.PaintSurface += OnPaintCanvas;
         }
+
+        public event EventHandler<SKPaintSurfaceEventArgs> ChartPainted;
 
         #endregion
 
@@ -74,6 +77,8 @@ namespace Microcharts.Forms
             {
                 e.Surface.Canvas.Clear(SKColors.Transparent);
             }
+
+            ChartPainted?.Invoke(sender, e);
         }
 
         #endregion
