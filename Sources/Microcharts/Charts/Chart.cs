@@ -516,7 +516,7 @@ namespace Microcharts
 
                 var progress = (float)(watch.Elapsed.TotalSeconds / animationDuration.TotalSeconds);
                 progress = entrance ? Ease.In(progress) : Ease.Out(progress);
-                AnimationProgress = start + (progress * (end - start));
+                AnimationProgress = IsAnimated ? start + (progress * (end - start)) : end;
 
                 var shouldContinue = (entrance && AnimationProgress < 1) || (!entrance && AnimationProgress > 0);
 
