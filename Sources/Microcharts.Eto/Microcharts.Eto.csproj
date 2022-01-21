@@ -4,14 +4,14 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-	 </PropertyGroup>
+    </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Eto.SkiaDraw" Version="0.1.0" />
-	</ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+        <PackageReference Include="Eto.SkiaDraw" Version="0.1.0" />
     </ItemGroup>
 
- </Project>
+    <ItemGroup>
+        <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+    </ItemGroup>
+
+</Project>
