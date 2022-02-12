@@ -55,13 +55,10 @@ namespace Microcharts.Samples.Forms
                         foreach (var curSeries in series)
                         {
                             var entries = curSeries.Entries.ToList();
-                            bool addLabel = (entries.Count % 1000) == 0;
 
                             if (s == curSeries)
                             {
                                 var entry = Data.GenerateTimeSeriesEntry(r, idx, 1);
-                                if (!addLabel) entry.First().Label = null;
-
                                 entries.AddRange(entry);
 
                                 if (entries.Count() > count * 1.5) entries.RemoveAt(0);
@@ -69,8 +66,6 @@ namespace Microcharts.Samples.Forms
                             else
                             {
                                 var entry = new ChartEntry(null) { ValueLabel = null, Label = label };
-                                if (!addLabel) entry.Label = null;
-
                                 entries.Add(entry);
                                 if (entries.Count() > count * 1.5) entries.RemoveAt(0);
                             }

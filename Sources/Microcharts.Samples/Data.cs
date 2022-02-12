@@ -1340,6 +1340,7 @@ namespace Microcharts.Samples
                     LabelOrientation = Orientation.Vertical,
                     ValueLabelOrientation = Orientation.Vertical,
                     LabelTextSize = 14,
+                    EnableZoom = true,
                     LineMode = LineMode.Straight,
                     PointMode = PointMode.None,
                     LineAreaAlpha = 0,
@@ -1352,6 +1353,7 @@ namespace Microcharts.Samples
                     MaxValue = 150,
                     MinValue = -150,
                     YAxisPosition = Position.Left,
+                    XAxisMaxLabels = 20,
                     LegendOption = SeriesLegendOption.Bottom,
 
                     Series = new List<ChartSerie>()
@@ -1512,7 +1514,7 @@ namespace Microcharts.Samples
             do
             {
                 if (withNulls && (value.Value % 10) == 0) value = null;
-                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label = count % 1000 == 0 ? label.ToString("mm:ss") : null });
+                entries.Add(new ChartEntry(value) { ValueLabel = value.ToString(), Label =label.ToString("mm:ss") });
                 valOffset = ((label - baseTime).TotalSeconds + phase) * valScale;
                 ampOffset = ((label - baseTime).TotalSeconds + phase) * ampScale;
                 value = valueShift + (float)(Math.Sin(valOffset) * (Math.Cos(ampOffset) * amp));

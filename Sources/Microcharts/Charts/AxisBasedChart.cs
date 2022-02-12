@@ -8,6 +8,12 @@ using SkiaSharp;
 
 namespace Microcharts
 {
+    public class ChartXForm
+    {
+        public float Scale = 1.0f;
+        public SKPoint Offset = new SKPoint(0, 0);
+    }
+
     /// <summary>
     /// Base chart for Series chart based on Axis work
     /// </summary>
@@ -125,6 +131,13 @@ namespace Microcharts
         }
 
         /// <summary>
+        /// Determines whether pinch to zoom will work on the chart
+        /// </summary>
+        public bool EnableZoom { get; set; } = false; //FIXME: This should be off by default, but easier to test charts with it on
+
+        public ChartXForm XForm { get; } = new ChartXForm();
+
+        /// <summary>
         /// Show Y Axis Text?
         /// </summary>
         public bool ShowYAxisText { get; set; } = false;
@@ -155,6 +168,12 @@ namespace Microcharts
         /// </summary>
         public SKPaint YAxisLinesPaint { get; set; }
 
+
+        /// <summary>
+        /// How many labels to draw, -1 means all of them
+        /// </summary>
+        public int XAxisMaxLabels { get; set; } = -1;
+
         #endregion
 
         #region Methods
@@ -167,6 +186,7 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
+            SKRect canvasRect = new SKRect(0, 0, width, height);
             if (Series != null && entries != null)
             {
                 //Caching the min/max values for performance
@@ -174,11 +194,27 @@ namespace Microcharts
 
                 //Ideally we'd use the internal values here, but the drawing does not crop to the bounds
                 //So the min and min cannot be set less than the actual min/max of the values
-                float maxValue = MaxValue;
-                float minValue = MinValue;
+                float maxValue = InternalMaxValue.HasValue ? InternalMaxValue.Value : MaxValue;
+                float minValue = InternalMinValue.HasValue ? InternalMinValue.Value : MinValue;
 
-                //This function might change the min/max value
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                //FIXME: If you don't mark it as fixed range, the vertical scale can change while zooming based on rounding in NiceNum
+                //This causes a POP in scale, so we calculated the Min/Max based on a scale of 1.0 and mark it has fixed
+
+                float yAxisXShift;
+                List<float> yAxisIntervalLabels;
+                string yAxisFormat = XForm.Scale == 1.0f ? "G" : "F1"; //As we scale the yAxis we get more decimal places
+                if (EnableZoom && !fixedRange)
+                {
+                    //WARNING: This will change Min/Max based on a scale of 1.0
+                    MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out yAxisXShift, out yAxisIntervalLabels);
+                    fixedRange = true;
+                }
+
+                //WARNING: This will change Min/Max based on a scale of XForm.Scale
+                int yMaxTicks = (int)(YAxisMaxTicks * XForm.Scale);
+                var yAxisSize = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, yMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out yAxisXShift, out yAxisIntervalLabels);
+                width = (int)yAxisSize.Width;
+
                 float valRange = maxValue - minValue;
 
                 var firstSerie = Series.FirstOrDefault();
@@ -204,8 +240,34 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight + headerHeight + legendHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                var chartMinY = MeasureHelper.CalculatePoint(Margin, 1.0f, maxValue, valRange, minValue, 0, itemSize, origin, headerHeight).Y;
 
+                SKRect chartRect = new SKRect(canvasRect.Left+yAxisXShift+Margin, canvasRect.Top+headerWithLegendHeight, width, chartMinY);
+                SKRect labelRect = new SKRect(chartRect.Left, canvasRect.Top + chartMinY, chartRect.Right, canvasRect.Bottom);
+                SKRect yAxisRect = new SKRect(canvasRect.Left, chartRect.Top - (yAxisSize.Height/2.0f), canvasRect.Right, chartRect.Bottom + (yAxisSize.Height/2.0f));
+
+                //Clear chart bounds for testing
+                /*
+                canvas.Save();
+                canvas.Clear(SKColors.Purple);
+                canvas.ClipRect(yAxisRect);
+                canvas.Clear(SKColors.Pink);
+                canvas.Restore();
+                */
+                /*
+                canvas.Save();
+                canvas.ClipRect(labelRect);
+                canvas.Clear(SKColors.Blue);
+                canvas.Restore();
+                */
+
+                canvas.Save();
+                if(EnableZoom) canvas.ClipRect(yAxisRect);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, yAxisFormat, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, XForm.Offset, XForm.Scale, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                canvas.Restore();
+
+
+                canvas.Save();
                 int nbSeries = series.Count();
                 for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
                 {
@@ -213,23 +275,38 @@ namespace Microcharts
                     IEnumerable<ChartEntry> entries = serie.Entries;
                     int entryCount = entries.Count();
 
-                    for (int i = 0; i < labels.Length; i++)
+                    canvas.Save();
+                    if (EnableZoom) canvas.ClipRect(labelRect);
+
+                    int xMaxLabels = (int)(XAxisMaxLabels * XForm.Scale);
+                    int xlabelSkip = XAxisMaxLabels > 0 ? labels.Length / xMaxLabels : 1;
+                    for (int i = 0; i < labels.Length; i+= xlabelSkip)
                     {
                         var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
+                        float labelX = XForm.Offset.X + (itemX * XForm.Scale);
 
                         string label = labels[i];
                         if (!string.IsNullOrEmpty(label))
                         {
                             SKRect labelSize = labelSizes[i];
-                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
+                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(labelX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                         }
                     }
+                    canvas.Restore();
 
+                    canvas.Save();
+                    if (EnableZoom)
+                    {
+                        canvas.ClipRect(chartRect);
+                        canvas.Translate(XForm.Offset);
+                        canvas.Scale(XForm.Scale);
+                    }
 
                     for (int i = 0; i < labels.Length; i++)
                     {
                         if (i >= entryCount) break;
                         var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
+
 
                         ChartEntry entry = entries.ElementAt(i);
                         if (entry != null && entry.Value.HasValue)
@@ -249,10 +326,22 @@ namespace Microcharts
                             DrawNullPoint(serie, canvas);
                         }
                     }
+                    canvas.Restore();
                 }
 
+                canvas.Restore();
+
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
+
+                canvas.Save();
+                if (EnableZoom)
+                {
+                    canvas.ClipRect(chartRect);
+                    canvas.Translate(XForm.Offset);
+                    canvas.Scale(XForm.Scale);
+                }
                 OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
+                canvas.Restore();
             }
         }
 
