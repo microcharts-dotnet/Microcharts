@@ -249,30 +249,35 @@ namespace Microcharts.Samples
                     Label = "UWP",
                     ValueLabel = "112",
                     Color = SKColor.Parse("#2c3e50"),
+                    ValueLabelColor = SKColors.White,
                 },
                 new ChartEntry(648)
                 {
                     Label = "Android",
                     ValueLabel = "648",
                     Color = SKColor.Parse("#77d065"),
+                    ValueLabelColor = SKColors.White,
                 },
-                new ChartEntry(null)
+                new ChartEntry(2)
                 {
                     Label = "React",
-                    ValueLabel = "",
+                    ValueLabel = "2",
                     Color = SKColor.Parse("#db3498"),
+                    ValueLabelColor = SKColors.White,
                 },
                 new ChartEntry(428)
                 {
                     Label = "iOS",
                     ValueLabel = "428",
                     Color = SKColor.Parse("#b455b6"),
+                    ValueLabelColor = SKColors.White,
                 },
                 new ChartEntry(514)
                 {
                     Label = "Forms",
                     ValueLabel = "514",
                     Color = SKColor.Parse("#3498db"),
+                    ValueLabelColor = SKColors.White,
                 }
             };
         }
@@ -579,7 +584,8 @@ namespace Microcharts.Samples
                     LabelOrientation = Orientation.Horizontal,
                     ValueLabelOrientation = Orientation.Horizontal,
                     ValueLabelOption = ValueLabelOption.OverElement,
-                    YAxisPosition = Position.Left
+                    YAxisPosition = Position.Left,
+                    CornerRadius = 30,
                 }
             };
 

@@ -40,6 +40,12 @@ namespace Microcharts
         /// <value>The minium height of a bar.</value>
         public float MinBarHeight { get; set; } = DefaultValues.MinBarHeight;
 
+        /// <summary>
+        /// Get or sets the corner radius for a bar
+        /// </summary>
+        /// <value>The corner radius of a bar.</value>
+        public float CornerRadius { get; set; } = DefaultValues.CornerRadius;
+
         #endregion
 
         #region Methods
@@ -79,7 +85,13 @@ namespace Microcharts
             {
                 (SKPoint location, SKSize size) = GetBarDrawingProperties(headerHeight, itemSize, barSize, origin, barX, barY);
                 var rect = SKRect.Create(location, size);
-                canvas.DrawRect(rect, paint);
+                canvas.DrawRoundRect(rect, CornerRadius, CornerRadius, paint);
+
+                if (CornerRadius > 0)
+                {
+                    var coverRect = SKRect.Create(rect.Location.X, rect.Location.Y + CornerRadius, rect.Width, Math.Max(0, rect.Height - CornerRadius));
+                    canvas.DrawRect(coverRect, paint);
+                }
             }
         }
 
@@ -112,9 +124,10 @@ namespace Microcharts
                 })
                 {
                     var max = value > 0 ? headerHeight : headerHeight + itemSize.Height;
-                    var height = Math.Abs(max - barY);
+                    var height = Math.Abs(max - barY) + Math.Min(origin - barY, CornerRadius);
                     var y = Math.Min(max, barY);
-                    canvas.DrawRect(SKRect.Create(barX - (itemSize.Width / 2), y, barSize.Width, height), paint);
+                    var rect = SKRect.Create(barX - (itemSize.Width / 2), y, barSize.Width, height);
+                    canvas.DrawRect(rect, paint);
                 }
             }
         }
