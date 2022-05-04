@@ -89,7 +89,9 @@ namespace Microcharts
 
                 if (CornerRadius > 0)
                 {
-                    var coverRect = SKRect.Create(rect.Location.X, rect.Location.Y + CornerRadius, rect.Width, Math.Max(0, rect.Height - CornerRadius));
+                    float coverRectHeight = rect.Height / 2;
+                    float coverRectY = rect.Location.Y + rect.Height - coverRectHeight;
+                    var coverRect = SKRect.Create(rect.Location.X, coverRectY, rect.Width, coverRectHeight);
                     canvas.DrawRect(coverRect, paint);
                 }
             }
