@@ -249,35 +249,30 @@ namespace Microcharts.Samples
                     Label = "UWP",
                     ValueLabel = "112",
                     Color = SKColor.Parse("#2c3e50"),
-                    ValueLabelColor = SKColors.White,
                 },
                 new ChartEntry(648)
                 {
                     Label = "Android",
                     ValueLabel = "648",
                     Color = SKColor.Parse("#77d065"),
-                    ValueLabelColor = SKColors.White,
                 },
-                new ChartEntry(2)
+                new ChartEntry(null)
                 {
                     Label = "React",
-                    ValueLabel = "2",
+                    ValueLabel = "",
                     Color = SKColor.Parse("#db3498"),
-                    ValueLabelColor = SKColors.White,
                 },
                 new ChartEntry(428)
                 {
                     Label = "iOS",
                     ValueLabel = "428",
                     Color = SKColor.Parse("#b455b6"),
-                    ValueLabelColor = SKColors.White,
                 },
                 new ChartEntry(514)
                 {
                     Label = "Forms",
                     ValueLabel = "514",
                     Color = SKColor.Parse("#3498db"),
-                    ValueLabelColor = SKColors.White,
                 }
             };
         }
@@ -585,6 +580,24 @@ namespace Microcharts.Samples
                     ValueLabelOrientation = Orientation.Horizontal,
                     ValueLabelOption = ValueLabelOption.OverElement,
                     YAxisPosition = Position.Left,
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Simple chart with horizontal label over bar with rounded top corners",
+                ExampleDescription = "Display Y axis lines and values, with value label over bar with rounded top corners",
+                Chart = new BarChart
+                {
+                    AnimationDuration = TimeSpan.FromSeconds(0),
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.OverElement,
+                    YAxisPosition = Position.Left,
                     CornerRadius = 30,
                 }
             };
@@ -755,6 +768,47 @@ namespace Microcharts.Samples
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
                     YAxisPosition = Position.Left,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
+                ExampleName = "Value label top of Bar item, with rounded top corners",
+                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars with rounded top corners.",
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    CornerRadius = 20,
                     Series = new List<ChartSerie>()
                     {
                         new ChartSerie()
