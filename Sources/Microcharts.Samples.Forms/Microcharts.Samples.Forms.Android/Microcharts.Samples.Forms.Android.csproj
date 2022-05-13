@@ -54,7 +54,7 @@
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.9" />
     <PackageReference Include="Xamarin.AndroidX.Core" Version="1.6.0.1" />
     <PackageReference Include="Xamarin.AndroidX.Interpolator" Version="1.0.0.8" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.1" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.2.1" />
     <PackageReference Include="Xamarin.AndroidX.Palette" Version="1.0.0.8" />

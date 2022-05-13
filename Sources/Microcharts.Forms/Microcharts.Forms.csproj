@@ -31,7 +31,7 @@
     <ItemGroup>
         <PackageReference Include="SkiaSharp" Version="2.80.3" />
         <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
