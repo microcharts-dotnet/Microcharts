@@ -13,19 +13,19 @@ namespace Microcharts.Samples
 
         public static readonly SKColor[] Colors =
         {
-                        SKColor.Parse("#266489"),
-                        SKColor.Parse("#68B9C0"),
-                        SKColor.Parse("#90D585"),
-                        SKColor.Parse("#F3C151"),
-                        SKColor.Parse("#F37F64"),
-                        SKColor.Parse("#424856"),
-                        SKColor.Parse("#8F97A4"),
-                        SKColor.Parse("#DAC096"),
-                        SKColor.Parse("#76846E"),
-                        SKColor.Parse("#DABFAF"),
-                        SKColor.Parse("#A65B69"),
-                        SKColor.Parse("#97A69D"),
-                };
+            SKColor.Parse("#266489"),
+            SKColor.Parse("#68B9C0"),
+            SKColor.Parse("#90D585"),
+            SKColor.Parse("#F3C151"),
+            SKColor.Parse("#F37F64"),
+            SKColor.Parse("#424856"),
+            SKColor.Parse("#8F97A4"),
+            SKColor.Parse("#DAC096"),
+            SKColor.Parse("#76846E"),
+            SKColor.Parse("#DABFAF"),
+            SKColor.Parse("#A65B69"),
+            SKColor.Parse("#97A69D"),
+        };
 
         private static int ColorIndex = 0;
 
@@ -52,7 +52,6 @@ namespace Microcharts.Samples
             ("October",     800),
             ("November",    950),
             ("December",    700),
-
         };
 
         public static (string label, int value)[] MixedData =
@@ -585,6 +584,25 @@ namespace Microcharts.Samples
 
             yield return new ExampleChartItem()
             {
+                ExampleName = "Simple chart with horizontal label over bar with rounded top corners",
+                ExampleDescription = "Display Y axis lines and values, with value label over bar with rounded top corners",
+                Chart = new BarChart
+                {
+                    AnimationDuration = TimeSpan.FromSeconds(0),
+                    Entries = GenerateDefaultXamarinEntries(),
+                    LabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    ValueLabelOption = ValueLabelOption.OverElement,
+                    YAxisPosition = Position.Left,
+                    CornerRadius = 30,
+                }
+            };
+
+            yield return new ExampleChartItem()
+            {
                 ExampleName = "Bottom legend",
                 ExampleDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
@@ -775,6 +793,47 @@ namespace Microcharts.Samples
 
             yield return new ExampleChartItem()
             {
+                ExampleName = "Value label top of Bar item, with rounded top corners",
+                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars with rounded top corners.",
+                ExampleChartType = ExampleChartType.Series,
+                Chart = new BarChart
+                {
+                    LabelOrientation = Orientation.Horizontal,
+                    ValueLabelOrientation = Orientation.Horizontal,
+                    LabelTextSize = 42,
+                    ValueLabelTextSize = 18,
+                    ValueLabelOption = ValueLabelOption.TopOfElement,
+                    SerieLabelTextSize = 42,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    YAxisPosition = Position.Left,
+                    CornerRadius = 20,
+                    Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
+                        {
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r),
+                        },
+                    }
+                },
+            };
+
+            yield return new ExampleChartItem()
+            {
                 ExampleName = "Value label over Bar item",
                 ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display over bars.",
                 ExampleChartType = ExampleChartType.Series,
@@ -829,26 +888,26 @@ namespace Microcharts.Samples
                     ShowYAxisText = true,
                     YAxisPosition = Position.Left,
                     Series = new List<ChartSerie>()
+                    {
+                        new ChartSerie()
                         {
-                            new ChartSerie()
-                            {
-                                Name = "UWP",
-                                Color = SKColor.Parse("#2c3e50"),
-                                Entries = GenerateSeriesEntry(r, withLabel:false),
-                            },
-                            new ChartSerie()
-                            {
-                                Name = "Android",
-                                Color = SKColor.Parse("#77d065"),
-                                Entries = GenerateSeriesEntry(r, withLabel:false),
-                            },
-                            new ChartSerie()
-                            {
-                                Name = "iOS",
-                                Color = SKColor.Parse("#b455b6"),
-                                Entries = GenerateSeriesEntry(r, withLabel:false),
-                            },
-                        }
+                            Name = "UWP",
+                            Color = SKColor.Parse("#2c3e50"),
+                            Entries = GenerateSeriesEntry(r, withLabel:false),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "Android",
+                            Color = SKColor.Parse("#77d065"),
+                            Entries = GenerateSeriesEntry(r, withLabel:false),
+                        },
+                        new ChartSerie()
+                        {
+                            Name = "iOS",
+                            Color = SKColor.Parse("#b455b6"),
+                            Entries = GenerateSeriesEntry(r, withLabel:false),
+                        },
+                    }
                 },
             };
 
@@ -1328,8 +1387,6 @@ namespace Microcharts.Samples
                 },
             };
 
-
-
             yield return new ExampleChartItem()
             {
                 ExampleName = "Dynamic Line Chart",
@@ -1390,7 +1447,6 @@ namespace Microcharts.Samples
                 }
             };
 
-
             yield break;
         }
 
@@ -1419,7 +1475,6 @@ namespace Microcharts.Samples
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
                     LabelOrientation = Orientation.Horizontal,
-
                     YAxisPosition = Position.Right
                 }
             };
@@ -1435,7 +1490,6 @@ namespace Microcharts.Samples
                     ShowYAxisLines = true,
                     ShowYAxisText = true,
                     LabelOrientation = Orientation.Horizontal,
-
                     YAxisPosition = Position.Left
                 }
             };
@@ -1495,7 +1549,6 @@ namespace Microcharts.Samples
         {
             List<ChartEntry> entries = new List<ChartEntry>();
 
-
             DateTime end = DateTime.Now;
             DateTime label = end.AddSeconds(-seconds);
             DateTime baseTime = DateTime.Today;
@@ -1548,21 +1601,21 @@ namespace Microcharts.Samples
             {
                 new ChartEntry(200)
                 {
-                        Label = "Week 1",
-                        ValueLabel = "200",
-                        Color = SKColor.Parse("#266489")
+                    Label = "Week 1",
+                    ValueLabel = "200",
+                    Color = SKColor.Parse("#266489")
                 },
                 new ChartEntry(400)
                 {
-                        Label = "Week 2",
-                        ValueLabel = "400",
-                        Color = SKColor.Parse("#68B9C0")
+                    Label = "Week 2",
+                    ValueLabel = "400",
+                    Color = SKColor.Parse("#68B9C0")
                 },
                 new ChartEntry(100)
                 {
-                        Label = "Week 3",
-                        ValueLabel = "100",
-                        Color = SKColor.Parse("#90D585")
+                    Label = "Week 3",
+                    ValueLabel = "100",
+                    Color = SKColor.Parse("#90D585")
                 },
                 new ChartEntry(600)
                 {
