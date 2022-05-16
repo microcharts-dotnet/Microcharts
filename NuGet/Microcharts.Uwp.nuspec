@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts.Uwp</id>
-    <version>1.0.0-preview-bd1</version>
+    <version>1.0.0-preview-bd3</version>
     <title>Microcharts.Uwp</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
@@ -14,7 +14,7 @@
     <tags>uwp chart skia</tags>
     <dependencies>
         <group targetFramework="uap10.0">
-            <dependency id="Microcharts.Core" version="1.0.0-preview2" />
+            <dependency id="Microcharts.Core" version="1.0.0-preview-bd3" />
             <dependency id="SkiaSharp" version="2.80.3" />
             <dependency id="SkiaSharp.Views"  version="2.80.3" />
             <dependency id="System.ValueTuple" version="4.5.0" />

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Microcharts.Avalonia</id>
-    <version>1.0.0-preview-bd1</version>
+    <version>1.0.0-preview-bd3</version>
     <title>Microcharts.Avalonia</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
@@ -14,7 +14,7 @@
     <tags>avalonia chart skia</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="Microcharts.Core" version="1.0.0-preview2" />
+        <dependency id="Microcharts.Core" version="1.0.0-preview-bd3" />
         <dependency id="Avalonia" version="0.10.7" />
         <dependency id="Avalonia.Skia" version="0.10.7" />
       </group>

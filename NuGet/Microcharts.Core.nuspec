@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts.Core</id>
-    <version>1.0.0-preview-bd2</version>
+    <version>1.0.0-preview-bd3</version>
     <title>Microcharts.Android</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
@@ -20,6 +20,7 @@
     </dependencies>
   </metadata>
    <files>
-     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
+     <!-- .NET Standard 2.0 -->
+     <file src="..\Sources\Microcharts\bin\Release\netstandard2.0\Microcharts.dll" target="lib\netstandard2.0\Microcharts.dll"/>
    </files>
 </package>

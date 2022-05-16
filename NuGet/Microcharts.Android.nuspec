@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts.Android</id>
-    <version>1.0.0-preview-bd1</version>
+    <version>1.0.0-preview-bd3</version>
     <title>Microcharts.Android</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
@@ -14,7 +14,7 @@
     <tags>xamarin android chart skia</tags>
     <dependencies>
         <group targetFramework="monoandroid1.0">
-            <dependency id="Microcharts.Core" version="1.0.0-preview2" />
+            <dependency id="Microcharts.Core" version="1.0.0-preview-bd3" />
             <dependency id="SkiaSharp" version="2.80.3" />
             <dependency id="SkiaSharp.Views"  version="2.80.3" />
             <dependency id="System.ValueTuple" version="4.5.0" />

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts.Forms</id>
-    <version>1.0.0-preview-bd2</version>
+    <version>1.0.0-preview-bd3</version>
     <title>Microcharts.Forms</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
@@ -14,20 +14,20 @@
     <tags>xamarin.forms chart skia</tags>
     <dependencies>
         <group targetFramework="netstandard2.0">
-            <dependency id="Microcharts.Core" version="1.0.0-preview-bd2" />
+            <dependency id="Microcharts.Core" version="1.0.0-preview-bd3" />
             <dependency id="SkiaSharp" version="2.80.3" />
             <dependency id="SkiaSharp.Views.Forms" version="2.80.3" />
             <dependency id="System.ValueTuple" version="4.5.0" />
             <dependency id="Xamarin.Forms" version="4.8.0.1821" />
         </group>
         <group targetFramework="monoandroid1.0">
-            <dependency id="Microcharts.Core" version="1.0.0-preview-bd2" />
-            <dependency id="Microcharts.Android" version="1.0.0-preview-bd2" />
+            <dependency id="Microcharts.Core" version="1.0.0-preview-bd3" />
+            <dependency id="Microcharts.Android" version="1.0.0-preview-bd3" />
             <dependency id="Xamarin.Forms" version="4.8.0.1821" />
         </group>
         <group targetFramework="xamarinios1.0">
-            <dependency id="Microcharts.Core" version="1.0.0-preview-bd2" />
-            <dependency id="Microcharts.iOS" version="1.0.0-preview-bd2" />
+            <dependency id="Microcharts.Core" version="1.0.0-preview-bd3" />
+            <dependency id="Microcharts.iOS" version="1.0.0-preview-bd3" />
             <dependency id="Xamarin.Forms" version="4.8.0.1821" />
         </group>
     </dependencies>
