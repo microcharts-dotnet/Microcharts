@@ -149,5 +149,5 @@ steps:
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '07581f72-b7dd-40bc-8318-ae6650290111'
-    # allowPackageConflicts: 'true'
-    allowOverwriteExistingPackages: 'true'
+    allowPackageConflicts: 'true'
+    
