@@ -4,7 +4,7 @@ resources:
     
 
 trigger:
-- PBI-44356
+- main
 # Build and pub Nuget package for DocStore
 # TODO make MyVersion just $(GitVersion.MajorMinorPatch) for master branch - perhaps - or GitVersion.NuGetVersionV2 NOT SURE
 # So - when on develop the MyVersion ==  looks just fine.  
