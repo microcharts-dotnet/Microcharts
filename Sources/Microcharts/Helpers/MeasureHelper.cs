@@ -107,7 +107,7 @@ namespace Microcharts
 
                 var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
                 var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
-                yAxisWidth = (int)(width - longestYAxisLabelWidth);
+                yAxisWidth = (int)(width - longestYAxisLabelWidth) - 10;
                 if (yAxisPosition == Position.Left)
                 {
                     yAxisXShift = longestYAxisLabelWidth;
