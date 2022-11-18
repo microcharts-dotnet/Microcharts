@@ -318,7 +318,7 @@ namespace Microcharts
         }
 
         /// <inheritdoc/>
-        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float origin, float value, float barX, float barY)
+        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, SKColor otherColor, float origin, float value, float barX, float barY)
         {
             //Area is draw on the OnDrawContentEnd
         }

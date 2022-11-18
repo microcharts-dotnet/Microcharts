@@ -240,7 +240,7 @@ namespace Microcharts
                             float barX = itemX + serieIndex * barSize.Width + totalBarMarge;
                             float barY = headerWithLegendHeight + ((1 - AnimationProgress) * (origin - headerWithLegendHeight) + (((maxValue - value) / valRange) * itemSize.Height) * AnimationProgress);
 
-                            DrawBarArea(canvas, headerWithLegendHeight, itemSize, barSize, serie.Color ?? entry.Color, origin, value, barX, barY);
+                            DrawBarArea(canvas, headerWithLegendHeight, itemSize, barSize, serie.Color ?? entry.Color, serie.OtherColor ?? entry.OtherColor, origin, value, barX, barY);
                             DrawBar(serie, canvas, headerWithLegendHeight, itemX, itemSize, barSize, origin, barX, barY, serie.Color ?? entry.Color);
                             DrawValueLabel(canvas, valueLabelSizes, headerWithLegendHeight, itemSize, barSize, entry, barX, barY, itemX, origin);
                         }
@@ -468,7 +468,7 @@ namespace Microcharts
         /// Called during the draw cycle when encountering a point with a null value
         /// </summary>
         protected virtual void DrawNullPoint(ChartSerie serie, SKCanvas canvas) { }
-        
+
 
         /// <summary>
         /// Draw bar (or point) area of an entry
@@ -478,11 +478,12 @@ namespace Microcharts
         /// <param name="itemSize"></param>
         /// <param name="barSize"></param>
         /// <param name="color"></param>
+        /// <param name="otherColor"></param>
         /// <param name="origin"></param>
         /// <param name="value"></param>
         /// <param name="barX"></param>
         /// <param name="barY"></param>
-        protected abstract void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float origin, float value, float barX, float barY);
+        protected abstract void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, SKColor otherColor, float origin, float value, float barX, float barY);
 
         private SKSize CalculateBarSize(SKSize itemSize, int barPerItems)
         {
