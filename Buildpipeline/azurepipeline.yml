@@ -145,11 +145,14 @@ steps:
     versioningScheme: 'off'
     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
-- task: XamariniOS@1
+- task: XamariniOS@2
   displayName: 'Build Microchart.iOS package'
   inputs:
     projectFile: '**/Microcharts.iOS.csproj'
+    runNugetRestore: false 
     configuration: 'Release'
+    createAppPackage: false
+    msbuildVersionOption: '15.0'
 
 - task: NuGetCommand@2
   displayName: "Create Microcharts.IOS Nuget package"
