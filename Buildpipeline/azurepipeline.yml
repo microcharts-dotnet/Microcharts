@@ -98,14 +98,14 @@ steps:
     arguments: '--configuration Release'    
 
 
-- task: NuGetCommand@2  
-  displayName: 'Create Microchart.Forms NuGet package'
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/Microcharts.Forms.nuspec'
-    configuration: 'Release'
-    versioningScheme: 'off'
-    buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
+# - task: NuGetCommand@2  
+#   displayName: 'Create Microchart.Forms NuGet package'
+#   inputs:
+#     command: 'pack'
+#     packagesToPack: '**/Microcharts.Forms.nuspec'
+#     configuration: 'Release'
+#     versioningScheme: 'off'
+#     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
 
 - task: MSBuild@1
@@ -127,14 +127,43 @@ steps:
     msbuildVersionOption: '15.0'
     
 
+# - task: NuGetCommand@2
+#   displayName: "Create Microcharts.Core Nuget package"
+#   inputs:
+#     command: 'pack'
+#     packagesToPack: '**/Microcharts.Core.nuspec'
+#     configuration: 'Release'
+#     versioningScheme: 'off'
+#     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
+
 - task: NuGetCommand@2
   displayName: "Create Microcharts.Droid Nuget package"
   inputs:
     command: 'pack'
-    packagesToPack: '**/Microcharts.Core.nuspec'
+    packagesToPack: '**/Microcharts.Android.nuspec'
     configuration: 'Release'
     versioningScheme: 'off'
     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
+
+- task: XamarinAndroid@1
+  displayName: 'Build Microchart.iOS package'
+  inputs:
+    projectFile: '**/Microcharts.iOS.csproj'
+    configuration: 'Release'
+    createAppPackage: false
+    jdkOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    msbuildVersionOption: '15.0'
+
+- task: NuGetCommand@2
+  displayName: "Create Microcharts.IOS Nuget package"
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/Microcharts.iOS.nuspec'
+    configuration: 'Release'
+    versioningScheme: 'off'
+    buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
+
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish Nuget packages"
