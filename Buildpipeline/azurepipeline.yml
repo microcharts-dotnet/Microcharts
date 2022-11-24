@@ -35,7 +35,7 @@ steps:
   displayName: 'Use .NET Core sdk'
   inputs:
     packageType: sdk
-    version: 6.0.x
+    version: 3.0.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: gittools.gittools.setup-gitversion-task.gitversion/setup@0
