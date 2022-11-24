@@ -101,14 +101,24 @@ namespace Microcharts
         }
 
         /// <inheritdoc />
-        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float origin, float value, float barX, float barY)
+        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, SKColor otherColor, float origin, float value, float barX, float barY)
         {
-            if (BarAreaAlpha > 0)
+            SKColor fillColor = SKColor.Empty;
+            if(otherColor != SKColor.Empty)
+            {
+                fillColor = otherColor;
+            }else if(BarAreaAlpha > 0)
+            {
+                fillColor = color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress));
+            }
+
+
+            if (fillColor != SKColor.Empty)
             {
                 using (var paint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
-                    Color = color.WithAlpha((byte)(this.BarAreaAlpha * this.AnimationProgress)),
+                    Color = fillColor,
                 })
                 {
                     var max = value > 0 ? headerHeight : headerHeight + itemSize.Height;

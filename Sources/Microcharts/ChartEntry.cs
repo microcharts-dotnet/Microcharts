@@ -50,6 +50,12 @@ namespace Microcharts
         public SKColor Color { get; set; } = SKColors.Black;
 
         /// <summary>
+        /// Gets or sets the color of the rest part
+        /// </summary>
+        /// <value>The color of the rest part.</value>
+        public SKColor OtherColor { get; set; } = SKColor.Empty;
+
+        /// <summary>
         /// Gets or sets the color of the text (for the caption label).
         /// </summary>
         /// <value>The color of the text.</value>

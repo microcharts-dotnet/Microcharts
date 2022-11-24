@@ -73,17 +73,31 @@ namespace Microcharts
         }
 
         /// <inheritdoc />
-        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, float origin, float value, float barX, float barY)
+        protected override void DrawBarArea(SKCanvas canvas, float headerHeight, SKSize itemSize, SKSize barSize, SKColor color, SKColor otherColor, float origin, float value, float barX, float barY)
         {
-            if (PointAreaAlpha > 0)
+            SKColor fillColor = SKColor.Empty;
+            SKColor[] colors = new SKColor[2];
+            if (otherColor != SKColor.Empty)
+            {
+                fillColor = otherColor;
+                colors[0] = otherColor;
+                colors[1] = otherColor.WithAlpha((byte)(100 / 3));
+            }
+            else if (PointAreaAlpha > 0)
+            {
+                fillColor = color.WithAlpha(PointAreaAlpha);
+                colors[0] = color.WithAlpha(PointAreaAlpha);
+                colors[1] = color.WithAlpha((byte)(PointAreaAlpha / 3));
+            }
+
+            if (fillColor != SKColor.Empty)
             {
                 var y = Math.Min(origin, barY);
-
-                using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, barY), new[] { color.WithAlpha(PointAreaAlpha), color.WithAlpha((byte)(PointAreaAlpha / 3)) }, null, SKShaderTileMode.Clamp))
+                using (var shader = SKShader.CreateLinearGradient(new SKPoint(0, origin), new SKPoint(0, barY), colors, null, SKShaderTileMode.Clamp))
                 using (var paint = new SKPaint
                 {
                     Style = SKPaintStyle.Fill,
-                    Color = color.WithAlpha(PointAreaAlpha),
+                    Color = fillColor,
                 })
                 {
                     paint.Shader = shader;

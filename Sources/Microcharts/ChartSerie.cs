@@ -21,6 +21,12 @@ namespace Microcharts
         public SKColor? Color { get; set; } = SKColors.Black;
 
         /// <summary>
+        /// Gets or sets the color of the rest part
+        /// </summary>
+        /// <value>The color of the rest part.</value>
+        public SKColor? OtherColor { get; set; } = SKColors.Empty;
+
+        /// <summary>
         /// Gets or sets the entries value for the serie 
         /// </summary>
         public IEnumerable<ChartEntry> Entries { get; set; }
