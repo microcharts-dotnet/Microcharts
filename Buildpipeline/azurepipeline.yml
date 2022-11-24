@@ -35,7 +35,7 @@ steps:
   displayName: 'Use .NET Core sdk'
   inputs:
     packageType: sdk
-    version: 3.0.x
+    version: 6.0.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: gittools.gittools.setup-gitversion-task.gitversion/setup@0
@@ -78,7 +78,7 @@ steps:
    xcrun simctl erase all
   displayName: 'Set SDK Versions (Mono, Xamarin-iOS, Xamarin-Android, Xamarin-Mac)'
 
-- script: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_13.0.app;sudo xcode-select --switch /Applications/Xcode_13.0.app/Contents/Developer
+- script: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_13.3.app;sudo xcode-select --switch /Applications/Xcode_13.3.app/Contents/Developer
   displayName: 'Updating xcode version'
 
 
