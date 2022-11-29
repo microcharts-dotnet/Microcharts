@@ -149,7 +149,7 @@ steps:
   displayName: 'Build Microchart.iOS package'
   inputs:
     solution: '**/Microcharts.iOS.csproj'
-    configuration: 'Release'
+    # configuration: 'Release'
 
 - task: NuGetCommand@2
   displayName: "Create Microcharts.IOS Nuget package"
