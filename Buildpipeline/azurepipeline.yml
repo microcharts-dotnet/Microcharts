@@ -98,14 +98,14 @@ steps:
     arguments: '--configuration Release'    
 
 
-# - task: NuGetCommand@2  
-#   displayName: 'Create Microchart.Forms NuGet package'
-#   inputs:
-#     command: 'pack'
-#     packagesToPack: '**/Microcharts.Forms.nuspec'
-#     configuration: 'Release'
-#     versioningScheme: 'off'
-#     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
+- task: NuGetCommand@2  
+  displayName: 'Create Microchart.Forms NuGet package'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/Microcharts.Forms.nuspec'
+    configuration: 'Release'
+    versioningScheme: 'off'
+    buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
 
 - task: MSBuild@1
@@ -126,15 +126,14 @@ steps:
     jdkVersionOption: '1.8'
     msbuildVersionOption: '15.0'
     
-
-# - task: NuGetCommand@2
-#   displayName: "Create Microcharts.Core Nuget package"
-#   inputs:
-#     command: 'pack'
-#     packagesToPack: '**/Microcharts.Core.nuspec'
-#     configuration: 'Release'
-#     versioningScheme: 'off'
-#     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
+- task: NuGetCommand@2
+  displayName: "Create Microcharts.Core Nuget package"
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/Microcharts.Core.nuspec'
+    configuration: 'Release'
+    versioningScheme: 'off'
+    buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
 - task: NuGetCommand@2
   displayName: "Create Microcharts.Droid Nuget package"
