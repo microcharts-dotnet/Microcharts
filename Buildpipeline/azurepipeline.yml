@@ -158,6 +158,7 @@ steps:
     packagesToPack: '**/Microcharts.iOS.nuspec'
     configuration: 'Release'
     versioningScheme: 'off'
+    clean: 'true'
     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
 
