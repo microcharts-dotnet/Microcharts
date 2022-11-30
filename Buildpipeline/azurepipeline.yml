@@ -50,13 +50,13 @@ steps:
     updateAssemblyInfo: false
 
 - bash: |
-   echo "Setting SDK version to 6_12_0"
-   SYMLINK=6_12_0
+   echo "Setting SDK version to 6_12_15"
+   SYMLINK=6_12_15
    MONOPREFIX=/Library/Frameworks/Mono.framework/Versions/$SYMLINK
    echo "##vso[task.setvariable variable=DYLD_FALLBACK_LIBRARY_PATH;]$MONOPREFIX/lib:/lib:/usr/lib:$DYLD_LIBRARY_FALLBACK_PATH"
    echo "##vso[task.setvariable variable=PKG_CONFIG_PATH;]$MONOPREFIX/lib/pkgconfig:$MONOPREFIX/share/pkgconfig:$PKG_CONFIG_PATH"
    echo "##vso[task.setvariable variable=PATH;]$MONOPREFIX/bin:$PATH"
-   sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_12_0
+   sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 6_12_15
    
    
    echo "Mono current"
