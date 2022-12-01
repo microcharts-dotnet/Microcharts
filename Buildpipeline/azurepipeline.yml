@@ -160,6 +160,21 @@ steps:
     clean: 'true'
     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'Build Microcharts package'
+  inputs:
+    solution: '**/Microcharts.csproj'
+    configuration: 'Release'
+
+- task: NuGetCommand@2
+  displayName: "Create Microcharts Nuget package"
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/Package.nuspec'
+    configuration: 'Release'
+    versioningScheme: 'off'
+    clean: 'true'
+    buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish Nuget packages"
