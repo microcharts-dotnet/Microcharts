@@ -161,6 +161,13 @@ steps:
     buildProperties: 'version=$(GitVersion.MajorMinorPatch)-$(GitVersion.EscapedBranchName)-$(GitVersion.BuildMetaDataPadded)'
 
 - task: DotNetCoreCLI@2
+  displayName: "Restore Microcharts packages"
+  inputs:
+    command: 'restore'
+    projects: '**/Microcharts.csproj'
+    restoreDirectory: '../../packages/'
+
+- task: DotNetCoreCLI@2
   displayName: 'Build Microcharts package'
   inputs:
     solution: '**/Microcharts.csproj'
