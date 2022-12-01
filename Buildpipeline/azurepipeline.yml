@@ -170,7 +170,7 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Build Microcharts package'
   inputs:
-    projects: '**/Microcharts.csproj'
+    projects: '**/Microcharts.csproj';'**/Microcharts.Uwp.csproj'
     configuration: 'Release'
 
 - task: NuGetCommand@2
