@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 #if WINUI
-namespace Microcharts.UI.Xaml
+namespace Microcharts.WinUI
 #else
 namespace Microcharts.Uwp
 #endif
@@ -10,12 +10,7 @@ namespace Microcharts.Uwp
     using SkiaSharp;
 #if WINUI
     using Microsoft.UI.Xaml;
-    
-#if WINDOWS10_0_18362_0_OR_GREATER
-    using SkiaSharp.Views.Desktop;
-#else
     using SkiaSharp.Views.Windows;
-#endif
 #else
     using Windows.UI.Xaml;
     using SkiaSharp.Views.UWP;
