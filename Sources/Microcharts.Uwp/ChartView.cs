@@ -1,38 +1,52 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+#if WINUI
+namespace Microcharts.UI.Xaml
+#else
 namespace Microcharts.Uwp
+#endif
 {
     using SkiaSharp;
-    using SkiaSharp.Views.UWP;
+#if WINUI
+    using Microsoft.UI.Xaml;
+    
+#if WINDOWS10_0_18362_0_OR_GREATER
+    using SkiaSharp.Views.Desktop;
+#else
+    using SkiaSharp.Views.Windows;
+#endif
+#else
     using Windows.UI.Xaml;
+    using SkiaSharp.Views.UWP;
+#endif
 
-    public class ChartView : SKXamlCanvas
+    public partial class ChartView : SKXamlCanvas
     {
-        #region Constructors
+#region Constructors
 
         public ChartView()
         {
             this.PaintSurface += OnPaintCanvas;
         }
 
-        #endregion
+#endregion
 
-        #region Static fields
+#region Static fields
 
         public static readonly DependencyProperty ChartProperty = DependencyProperty.Register(nameof(Chart), typeof(Chart), typeof(ChartView), new PropertyMetadata(null, new PropertyChangedCallback(OnChartChanged)));
 
-        #endregion
+#endregion
 
-        #region Fields
+#region Fields
 
         private InvalidatedWeakEventHandler<ChartView> handler;
 
         private Chart chart;
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         public Chart Chart
         {
@@ -40,9 +54,9 @@ namespace Microcharts.Uwp
             set { SetValue(ChartProperty, value); }
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         private static void OnChartChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -75,6 +89,6 @@ namespace Microcharts.Uwp
             }
         }
 
-        #endregion
+#endregion
     }
 }

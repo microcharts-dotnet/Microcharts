@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>9</LangVersion>
+	  <UseWinUI>true</UseWinUI>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DefineConstants>WINUI</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DefineConstants>WINUI</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\Microcharts.Uwp\ChartView.cs" Link="ChartView.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+	<PackageReference Include="SkiaSharp.Views.WinUI" Version="2.88.3" />
+	<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230118.102" />
+    </ItemGroup>
+
+</Project>

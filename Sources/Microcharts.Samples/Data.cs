@@ -1636,38 +1636,38 @@ namespace Microcharts.Samples
                 new LegacyBarChart
                 {
                     Entries = entries,
-                    LabelTextSize = 55,
+                    LabelTextSize = 16,
                     LabelOrientation = Orientation.Horizontal,
                     Margin = 10
                 },
                 new LegacyPointChart
                 {
                     Entries = entries,
-                    LabelTextSize = 55,
+                    LabelTextSize = 16,
                     LabelOrientation = Orientation.Horizontal,
                     Margin = 10
                 },
                 new LegacyLineChart
                 {
                     Entries = entries,
-                    LabelTextSize = 55,
+                    LabelTextSize = 16,
                     LabelOrientation = Orientation.Horizontal,
                     Margin = 10
                 },
                 new DonutChart
                 {
                     Entries = entries,
-                    LabelTextSize = 60
+                    LabelTextSize = 16
                 },
                 new RadialGaugeChart
                 {
                     Entries = entries,
-                    LabelTextSize = 60
+                    LabelTextSize = 16
                 },
                 new RadarChart
                 {
                     Entries = entries,
-                    LabelTextSize = 60
+                    LabelTextSize = 16
                 }
             };
         }
