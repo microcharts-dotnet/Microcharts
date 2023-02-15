@@ -1,11 +1,7 @@
 // Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#if WINUI
 namespace Microcharts.WinUI
-#else
-namespace Microcharts.Uwp
-#endif
 {
     using SkiaSharp;
 #if WINUI
