@@ -104,7 +104,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <DefineConstants>$(DefineConstants);MICROCHARTS_UWP</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChartView.cs" />
