@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Microcharts.Samples.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Microcharts.Samples.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -100,3 +100,6 @@ paket-files/
 Sources/Microcharts.Droid/Resources/Resource.designer.cs
 Sources/Microcharts.Samples.Droid/Resources/Resource.designer.cs
 Sources/Microcharts.Samples.Forms/Microcharts.Samples.Forms.Android/Resources/Resource.designer.cs
+/Sources/.vsconfig
+/Sources/NuGet.config
+/Sources/Microcharts.Samples.Android/Resources/Resource.designer.cs
