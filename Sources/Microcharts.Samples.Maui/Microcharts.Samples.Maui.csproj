@@ -71,7 +71,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Microcharts.Maui\Microcharts.Maui.csproj" />
-	  <ProjectReference Include="..\..\Microcharts.Samples\Microcharts.Samples.csproj" />
+	  <ProjectReference Include="..\Microcharts.Maui\Microcharts.Maui.csproj" />
+	  <ProjectReference Include="..\Microcharts.Samples\Microcharts.Samples.csproj" />
 	</ItemGroup>
 </Project>
