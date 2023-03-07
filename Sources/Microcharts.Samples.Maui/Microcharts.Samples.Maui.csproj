@@ -49,24 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\appicon.svg" />
-	  <None Remove="Resources\appiconfg.svg" />
-	  <None Remove="Resources\AppIcon\appicon.svg" />
-	  <None Remove="Resources\AppIcon\appiconfg.svg" />
-	  <None Remove="Resources\Raw\AboutAssets.txt" />
-	  <None Remove="Resources\Splash\splash.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AndroidResource Include="Resources\appicon.svg" />
-	  <AndroidResource Include="Resources\appiconfg.svg" />
-	  <AndroidResource Include="Resources\AppIcon\appicon.svg" />
-	  <AndroidResource Include="Resources\AppIcon\appiconfg.svg" />
-	  <AndroidResource Include="Resources\Raw\AboutAssets.txt" />
-	  <AndroidResource Include="Resources\Splash\splash.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
         <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
 	</ItemGroup>
 
