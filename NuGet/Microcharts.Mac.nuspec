@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>Microcharts.Mac</id>
-    <version>1.0.0-preview1</version>
-    <title>Microcharts.Mac</title>
-    <authors>Microcharts Team</authors>
-    <owners>Microcharts Team</owners>
-    <license type="expression">MIT</license>
-    <projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Simple, cross-platform chart library for Xamarin.Mac.</description>
-    <copyright>Copyright 2021</copyright>
-    <tags>xamarin mac chart skia</tags>
-    <dependencies>
-        <group targetFramework="xamarinmac2.0">
-            <dependency id="SkiaSharp.Views"  version="2.88.3" />
-            <dependency id="System.ValueTuple" version="4.5.0" />
-        </group>
-    </dependencies>
-  </metadata>
-   <files>
-     <!-- macOS -->
-	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.dll" target="lib\xamarinmac2.0\Microcharts.dll"/>
-	 <file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.macOS.dll" target="lib\xamarinmac2.0\Microcharts.macOS.dll"/>
-   </files>
+	<metadata>
+		<id>Microcharts.Mac</id>
+		<version>1.0.0-preview1</version>
+		<title>Microcharts.Mac</title>
+		<authors>Microcharts Team</authors>
+		<owners>Microcharts Team</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Simple, cross-platform chart library for Xamarin.Mac.</description>
+		<copyright>Copyright 2021</copyright>
+		<tags>xamarin mac chart skia</tags>
+		<dependencies>
+			<group targetFramework="xamarinmac2.0">
+				<dependency id="SkiaSharp.Views"  version="2.88.3" />
+				<dependency id="System.ValueTuple" version="4.5.0" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<!-- macOS -->
+		<file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.dll" target="lib\xamarinmac2.0\Microcharts.dll"/>
+		<file src="..\Sources\Microcharts.macOS\bin\Release\Microcharts.macOS.dll" target="lib\xamarinmac2.0\Microcharts.macOS.dll"/>
+	</files>
 </package>

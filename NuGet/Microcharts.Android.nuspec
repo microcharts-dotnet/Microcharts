@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>Microcharts.Android</id>
-    <version>1.0.0-preview1</version>
-    <title>Microcharts.Android</title>
-    <authors>Microcharts Team</authors>
-    <owners>Microcharts Team</owners>
-    <license type="expression">MIT</license>
-    <projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Simple, cross-platform chart library for Xamarin.Android.</description>
-    <copyright>Copyright 2021</copyright>
-    <tags>xamarin android chart skia</tags>
-    <dependencies>
-        <group targetFramework="monoandroid1.0">
-            <dependency id="SkiaSharp.Views"  version="2.88.3" />
-            <dependency id="System.ValueTuple" version="4.5.0" />
-        </group>
-    </dependencies>
-  </metadata>
-   <files>
-     <!-- Android -->
-     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
-     <file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.Droid.dll" target="lib\MonoAndroid10\Microcharts.Droid.dll"/>
-   </files>
+	<metadata>
+		<id>Microcharts.Android</id>
+		<version>1.0.0-preview1</version>
+		<title>Microcharts.Android</title>
+		<authors>Microcharts Team</authors>
+		<owners>Microcharts Team</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Simple, cross-platform chart library for Xamarin.Android.</description>
+		<copyright>Copyright 2021</copyright>
+		<tags>xamarin android chart skia</tags>
+		<dependencies>
+			<group targetFramework="monoandroid1.0">
+				<dependency id="SkiaSharp.Views"  version="2.88.3" />
+				<dependency id="System.ValueTuple" version="4.5.0" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<!-- Android -->
+		<file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.dll" target="lib\MonoAndroid10\Microcharts.dll"/>
+		<file src="..\Sources\Microcharts.Droid\bin\Release\Microcharts.Droid.dll" target="lib\MonoAndroid10\Microcharts.Droid.dll"/>
+	</files>
 </package>

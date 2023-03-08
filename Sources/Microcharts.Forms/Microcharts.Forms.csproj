@@ -1,20 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <Version>0.9.5.1</Version>
-        <AssemblyVersion>0.9.5.1</AssemblyVersion>
-        <FileVersion>0.9.5.1</FileVersion>
-        <Title>Microcharts.Forms</Title>
-        <Description>Simple, cross-platform chart library.</Description>
-        <Copyright>Copyright 2020</Copyright>
-        <PackageLicenseUrl>https://github.com/microcharts-dotnet/Microcharts/blob/main/LICENSE</PackageLicenseUrl>
-        <PackageProjectUrl>https://github.com/microcharts-dotnet/Microcharts</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/microcharts-dotnet/Microcharts</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <Authors>Microcharts Team</Authors>
+        <Description>Simple, cross-platform chart library for Xamarin.Forms.</Description>
         <PackageTags>xamarin ios android chart skia Forms</PackageTags>
-        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
