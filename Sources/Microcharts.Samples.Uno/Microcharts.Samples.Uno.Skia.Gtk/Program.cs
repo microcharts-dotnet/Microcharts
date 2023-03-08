@@ -1,4 +1,5 @@
-﻿using GLib;
+using GLib;
+using Microcharts.Samples.Uno;
 using System;
 using Uno.UI.Runtime.Skia;
 
