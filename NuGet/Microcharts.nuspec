@@ -14,6 +14,7 @@
 		<tags>microcharts</tags>
 		<dependencies>
 			<group targetFramework="netstandard2.0">
+				<dependency id="Microcharts.Core" version="1.0.0-preview2" />
 				<dependency id="SkiaSharp" version="2.80.3" />
 				<dependency id="System.ValueTuple" version="4.5.0" />
 			</group>

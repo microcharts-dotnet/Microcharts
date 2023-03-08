@@ -4,6 +4,9 @@
         <TargetFrameworks>netstandard2.0;</TargetFrameworks>
         <Nullable>enable</Nullable>
         <LangVersion>9</LangVersion>
+
+        <Description>Simple, cross-platform chart library for Uno WinUI.</Description>
+        <PackageTags>WinUI dotnet chart skia skiasharp windows uno</PackageTags>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

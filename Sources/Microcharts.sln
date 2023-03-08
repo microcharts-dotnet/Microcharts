@@ -72,15 +72,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Maui", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{A2C7EDA0-7803-491E-8D99-B1A73C545629}"
 	ProjectSection(SolutionItems) = preProject
-		..\NuGet\Microcharts.Android.nuspec = ..\NuGet\Microcharts.Android.nuspec
-		..\NuGet\Microcharts.Avalonia.nuspec = ..\NuGet\Microcharts.Avalonia.nuspec
-		..\NuGet\Microcharts.Forms.nuspec = ..\NuGet\Microcharts.Forms.nuspec
-		..\NuGet\Microcharts.iOS.nuspec = ..\NuGet\Microcharts.iOS.nuspec
-		..\NuGet\Microcharts.Mac.nuspec = ..\NuGet\Microcharts.Mac.nuspec
-		..\NuGet\Microcharts.Maui.nuspec = ..\NuGet\Microcharts.Maui.nuspec
 		..\NuGet\Microcharts.nuspec = ..\NuGet\Microcharts.nuspec
-		..\NuGet\Microcharts.Uwp.nuspec = ..\NuGet\Microcharts.Uwp.nuspec
-		..\NuGet\Microcharts.WinUI.nuspec = ..\NuGet\Microcharts.WinUI.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{9353A93F-FCE9-44C6-A513-10D8C0FCFC35}"

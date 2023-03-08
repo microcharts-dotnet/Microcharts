@@ -7,6 +7,9 @@
         <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
         <PackagingPlatform Condition="$(TargetFramework.Contains('-windows'))">net6.0-windows</PackagingPlatform>
         <UseMaui>true</UseMaui>
+
+        <Description>Simple, cross-platform chart library for .NET MAUI.</Description>
+        <PackageTags>maui dotnet chart skia skiasharp</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

@@ -4,6 +4,9 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+
+        <Description>Simple, cross-platform chart library for Eto.</Description>
+        <PackageTags>eto chart skia</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
