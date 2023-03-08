@@ -8,8 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4F0AFDCA-C6AB-43A5-9F52-C271DCDC46FD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{FB35FC3F-ED04-4392-AD76-A37BBA50D158}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Forms", "Microcharts.Forms\Microcharts.Forms.csproj", "{09B1401F-E6C1-42E9-A721-8A4FCD77B14A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Forms", "Microcharts.Samples.Forms\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj", "{72AAF4AA-B414-4E26-BCE2-C25DBC0F498C}"
@@ -63,6 +61,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.WinUI", "Microcharts.Samples.WinUI\Microcharts.Samples.WinUI.csproj", "{3BC8F77F-992B-4E0F-962F-C60C28C1DA7F}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microcharts.Samples.Uno.Shared", "Microcharts.Samples.Uno\Microcharts.Samples.Uno.Shared\Microcharts.Samples.Uno.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0AF5E95-DCE8-44D6-B2F1-CBEC22A07345}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\CI-MacOS.yml = ..\.github\workflows\CI-MacOS.yml
+		..\.github\workflows\CI-Windows.yml = ..\.github\workflows\CI-Windows.yml
+		Directory.Build.props = Directory.Build.props
+		Nuget.config = Nuget.config
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
