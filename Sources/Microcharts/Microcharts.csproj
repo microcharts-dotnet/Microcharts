@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>Microcharts.Core</PackageId>
         <Description>Core components for Microcharts.</Description>
         <PackageTags>microcharts</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
