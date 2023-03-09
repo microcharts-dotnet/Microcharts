@@ -1,0 +1,34 @@
+{
+  "solution": {
+    "path": "Microcharts.sln",
+    "projects": [
+      "Microcharts.Avalonia\\Microcharts.Avalonia.csproj",
+      "Microcharts.Droid\\Microcharts.Droid.csproj",
+      "Microcharts.Eto\\Microcharts.Eto.csproj",
+      "Microcharts.Forms\\Microcharts.Forms.csproj",
+      "Microcharts.Maui\\Microcharts.Maui.csproj",
+      "Microcharts.MetaPackage\\Microcharts.Metapackage.csproj",
+      "Microcharts.Samples.Android\\Microcharts.Samples.Android.csproj",
+      "Microcharts.Samples.Avalonia\\Microcharts.Samples.Avalonia.csproj",
+      "Microcharts.Samples.Eto\\Microcharts.Samples.Eto.csproj",
+      "Microcharts.Samples.Forms\\Microcharts.Samples.Forms.Android\\Microcharts.Samples.Forms.Android.csproj",
+      "Microcharts.Samples.Forms\\Microcharts.Samples.Forms.iOS\\Microcharts.Samples.Forms.iOS.csproj",
+      "Microcharts.Samples.Forms\\Microcharts.Samples.Forms\\Microcharts.Samples.Forms.csproj",
+      "Microcharts.Samples.Maui\\Microcharts.Samples.Maui.csproj",
+      "Microcharts.Samples.Uno\\Microcharts.Samples.Uno.Mobile\\Microcharts.Samples.Uno.Mobile.csproj",
+      "Microcharts.Samples.Uno\\Microcharts.Samples.Uno.Shared\\Microcharts.Samples.Uno.Shared.shproj",
+      "Microcharts.Samples.Uno\\Microcharts.Samples.Uno.Skia.Gtk\\Microcharts.Samples.Uno.Skia.Gtk.csproj",
+      "Microcharts.Samples.Uno\\Microcharts.Samples.Uno.Windows\\Microcharts.Samples.Uno.Windows.csproj",
+      "Microcharts.Samples.WinUI\\Microcharts.Samples.WinUI.csproj",
+      "Microcharts.Samples.iOS\\Microcharts.Samples.iOS.csproj",
+      "Microcharts.Samples.macOS\\Microcharts.Samples.macOS.csproj",
+      "Microcharts.Samples\\Microcharts.Samples.csproj",
+      "Microcharts.Uno.WinUI\\Microcharts.Uno.WinUI.csproj",
+      "Microcharts.Uno\\Microcharts.Uno.csproj",
+      "Microcharts.WinUI\\Microcharts.WinUI.csproj",
+      "Microcharts.iOS\\Microcharts.iOS.csproj",
+      "Microcharts.macOS\\Microcharts.macOS.csproj",
+      "Microcharts\\Microcharts.csproj"
+    ]
+  }
+}

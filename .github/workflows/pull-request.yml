@@ -30,8 +30,13 @@ jobs:
             6.0.x
             7.0.x
 
-      - name: "Restore NuGet packages"
+      - name: "Restore NuGet packages (Windows)"
         run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln
+        if: matrix.os == 'windows-latest'
+
+      - name: "Restore NuGet packages (Mac)"
+        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf
+        if: matrix.os == 'macos-latest'
 
       - name: "Build and pack Microcharts"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
