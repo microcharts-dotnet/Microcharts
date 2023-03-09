@@ -68,6 +68,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.github\workflows\CI-Windows.yml = ..\.github\workflows\CI-Windows.yml
 		Directory.Build.props = Directory.Build.props
 		Nuget.config = Nuget.config
+		..\.github\workflows\pull-request.yml = ..\.github\workflows\pull-request.yml
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
