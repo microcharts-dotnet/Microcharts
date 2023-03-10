@@ -31,12 +31,22 @@ jobs:
             7.0.x
 
       - name: "Restore NuGet packages (Windows)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln
+        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /v:diag /bl:win-build.binlog
         if: matrix.os == 'windows-latest'
 
       - name: "Restore NuGet packages (Mac)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf
+        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /v:diag /bl:mac-build.binlog
         if: matrix.os == 'macos-latest'
+
+      - task: CopyFiles@2
+        inputs:
+          contents: '**/*.binlog'
+          targetFolder: $(Build.ArtifactStagingDirectory)
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: MSBuildBinLogs
 
       - name: "Build and pack Microcharts"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
