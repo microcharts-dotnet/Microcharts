@@ -38,8 +38,8 @@ jobs:
         run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /v:diag /bl:mac-build.binlog
         if: matrix.os == 'macos-latest'
 
-      - name: "Save bin logs"
-        uses: CopyFiles@2
+      - name: "Publish bin logs as artifacts"
+        uses: actions/upload-artifact@v3
         with:
           name: msbuild-binlogs
           path: '**/*.binlog'
