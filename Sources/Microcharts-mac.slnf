@@ -4,6 +4,7 @@
     "projects": [
       "Microcharts.Droid\\Microcharts.Droid.csproj",
       "Microcharts.Forms\\Microcharts.Forms.csproj",
+      "Microcharts.Maui\\Microcharts.Maui.csproj",
       "Microcharts.MetaPackage\\Microcharts.Metapackage.csproj",
       "Microcharts.iOS\\Microcharts.iOS.csproj",
       "Microcharts.macOS\\Microcharts.macOS.csproj",
