@@ -2,6 +2,16 @@
   "solution": {
     "path": "Microcharts.sln",
     "projects": [
+      "Microcharts.Avalonia\\Microcharts.Avalonia.csproj",
+      "Microcharts.Droid\\Microcharts.Droid.csproj",
+      "Microcharts.Eto\\Microcharts.Eto.csproj",
+      "Microcharts.Forms\\Microcharts.Forms.csproj",
+      "Microcharts.Maui\\Microcharts.Maui.csproj",
+      "Microcharts.MetaPackage\\Microcharts.Metapackage.csproj",
+      "Microcharts.Uno.WinUI\\Microcharts.Uno.WinUI.csproj",
+      "Microcharts.Uno\\Microcharts.Uno.csproj",
+      "Microcharts.iOS\\Microcharts.iOS.csproj",
+      "Microcharts.macOS\\Microcharts.macOS.csproj",
       "Microcharts\\Microcharts.csproj"
     ]
   }
