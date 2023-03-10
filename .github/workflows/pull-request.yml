@@ -43,6 +43,7 @@ jobs:
         with:
           name: msbuild-binlogs
           path: '**/*.binlog'
+        if: always()
 
       - name: "Build and pack Microcharts"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
