@@ -27,7 +27,7 @@
 
     <ItemGroup>
 	<PackageReference Include="SkiaSharp.Views.Uno.WinUI" Version="2.88.3" />
-	<PackageReference Include="Uno.WinUI" Version="4.7.30" />
+	<PackageReference Include="Uno.WinUI" Version="4.7.44" />
     </ItemGroup>
 
 </Project>

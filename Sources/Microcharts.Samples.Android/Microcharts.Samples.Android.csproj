@@ -19,7 +19,7 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
@@ -108,7 +108,7 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.7" />
     <PackageReference Include="Xamarin.AndroidX.Interpolator" Version="1.0.0.7" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.2.1" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.3.0.1" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts.Droid\Microcharts.Droid.csproj">

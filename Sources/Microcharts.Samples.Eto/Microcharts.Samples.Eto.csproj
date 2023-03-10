@@ -19,4 +19,12 @@
         <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Update="Eto.Forms" Version="2.7.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Eto.Platform.Wpf" Version="2.7.3" />
+    </ItemGroup>
+
 </Project>
