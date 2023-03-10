@@ -40,15 +40,9 @@ jobs:
 
       - name: "Save bin logs"
         uses: CopyFiles@2
-        inputs:
-          contents: '**/*.binlog'
-          targetFolder: $(Build.ArtifactStagingDirectory)
-
-      - name: "Publish bin logs as artifacts"
-        uses: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: $(Build.ArtifactStagingDirectory)
-          artifactName: MSBuildBinLogs
+        with:
+          name: msbuild-binlogs
+          path: '**/*.binlog'
 
       - name: "Build and pack Microcharts"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
