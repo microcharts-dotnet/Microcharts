@@ -67,9 +67,11 @@ jobs:
 
       - name: "Build and pack Microcharts Avalonia"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Avalonia/Microcharts.Avalonia.csproj
+        if: matrix.os == 'windows-latest'
 
       - name: "Build and pack Microcharts Eto"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Eto/Microcharts.Eto.csproj
+        if: matrix.os == 'windows-latest'
 
       - name: "Build and pack Microcharts .NET MAUI"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Maui/Microcharts.Maui.csproj
@@ -77,6 +79,7 @@ jobs:
 
       - name: "Build and pack Microcharts Uno"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uno/Microcharts.Uno.csproj
+        if: matrix.os == 'windows-latest'
 
       - name: "Build and pack Microcharts Uno WinUI"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uno.WinUI/Microcharts.Uno.WinUI.csproj
@@ -88,4 +91,3 @@ jobs:
 
       - name: "Build and pack Microcharts Meta-package"
         run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj
-
