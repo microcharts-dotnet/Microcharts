@@ -1,19 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>Microcharts.Core</PackageId>
+        <Description>Core components for Microcharts.</Description>
+        <PackageTags>microcharts</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DocumentationFile>bin\Debug\$(TargetFramework)\Microcharts.xml</DocumentationFile>
-    </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.80.3" />
+        <PackageReference Include="SkiaSharp" Version="2.88.3" />
         <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Extensions\" />
-        <Folder Include="WeakEventHandlers\" />
     </ItemGroup>
 </Project>

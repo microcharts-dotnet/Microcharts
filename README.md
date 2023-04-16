@@ -53,9 +53,26 @@ Available on NuGet
 
 [![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
 
+**.NET MAUI**
+
+Not yet available through NuGet.
+
+> [!IMPORTANT]
+> Don't forget to call `UseMicrocharts()` on `MauiAppBuilder` in the `MauiProgram` class.
+
+## Tutorials
+
+* [Video: Charts for Xamarin Forms](https://www.youtube.com/watch?v=tmymWdmf1y4) by [@HoussemDellai](https://github.com/HoussemDellai)
+
 ## Compatibility
 
-Built in views are provided for **UWP**, **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**, but any other **.NET Standard 2.0** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
+Built in views are provided for:
+
+* **UWP**
+* **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**
+* **.NET MAUI** (Windows, Android, iOS, and macOS)
+* **WinUI** (Windows App SDK)
+* And any other **.NET Standard 2.0** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
 
 ## License
 

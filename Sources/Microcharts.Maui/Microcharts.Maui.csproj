@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <!-- iOS, Android, MacCatalyst -->
+        <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks Condition="$(IsWindows)">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
+        <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
+        <PackagingPlatform Condition="$(TargetFramework.Contains('-windows'))">net6.0-windows</PackagingPlatform>
+        <UseMaui>true</UseMaui>
+
+        <Description>Simple, cross-platform chart library for .NET MAUI.</Description>
+        <PackageTags>maui dotnet chart skia skiasharp</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+    </ItemGroup>
+
+</Project>

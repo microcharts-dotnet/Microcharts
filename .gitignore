@@ -103,3 +103,6 @@ Sources/Microcharts.Samples.Forms/Microcharts.Samples.Forms.Android/Resources/Re
 /Sources/.vsconfig
 /Sources/NuGet.config
 /Sources/Microcharts.Samples.Android/Resources/Resource.designer.cs
+
+# Exclude built NuGet packages
+artifacts/

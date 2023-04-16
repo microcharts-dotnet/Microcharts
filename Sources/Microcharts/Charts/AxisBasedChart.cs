@@ -278,6 +278,7 @@ namespace Microcharts
         /// <param name="barX"></param>
         /// <param name="barY"></param>
         /// <param name="itemX"></param>
+        /// <param name="origin"></param>
         protected virtual void DrawValueLabel(SKCanvas canvas, Dictionary<ChartEntry, SKRect> valueLabelSizes, float headerWithLegendHeight, SKSize itemSize, SKSize barSize, ChartEntry entry, float barX, float barY, float itemX, float origin)
         {
             string label = entry?.ValueLabel;

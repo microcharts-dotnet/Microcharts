@@ -310,7 +310,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new LegacyLineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -325,7 +325,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LegacyLineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -343,7 +343,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at left",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LegacyLineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -366,7 +366,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new DonutChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -379,7 +379,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Two entry",
-                ExampleDescription = "First item greater than the second one (issue #184)",
+                ExampleTextDescription = "First item greater than the second one (issue #184)",
                 Chart = new DonutChart
                 {
                     Entries = new List<ChartEntry>()
@@ -411,7 +411,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default radial gauge example",
+                ExampleTextDescription = "Default radial gauge example",
                 Chart = new RadialGaugeChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -427,7 +427,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new HalfRadialGaugeChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -443,7 +443,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new RadarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -460,7 +460,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -474,7 +474,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Empty label",
-                ExampleDescription = "Default data with empty label (issue #137)",
+                ExampleTextDescription = "Default data with empty label (issue #137)",
                 Chart = new BarChart
                 {
                     Entries = entries,
@@ -486,7 +486,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -502,7 +502,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at left",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -517,7 +517,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Simple chart with vertical label on top of bar",
-                ExampleDescription = "Display Y axis lines and values, with value label on top of bar",
+                ExampleTextDescription = "Display Y axis lines and values, with value label on top of bar",
                 Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -533,7 +533,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Simple chart with horizontal label on top of bar",
-                ExampleDescription = "Display Y axis lines and values, with value label on top of bar",
+                ExampleTextDescription = "Display Y axis lines and values, with value label on top of bar",
                 Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -550,7 +550,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Simple chart with vertical label over bar",
-                ExampleDescription = "Display Y axis lines and values, with value label over bar",
+                ExampleTextDescription = "Display Y axis lines and values, with value label over bar",
                 Chart = new BarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -567,7 +567,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Simple chart with horizontal label over bar",
-                ExampleDescription = "Display Y axis lines and values, with value label over bar",
+                ExampleTextDescription = "Display Y axis lines and values, with value label over bar",
                 Chart = new BarChart
                 {
                     AnimationDuration = TimeSpan.FromSeconds(0),
@@ -585,7 +585,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Simple chart with horizontal label over bar with rounded top corners",
-                ExampleDescription = "Display Y axis lines and values, with value label over bar with rounded top corners",
+                ExampleTextDescription = "Display Y axis lines and values, with value label over bar with rounded top corners",
                 Chart = new BarChart
                 {
                     AnimationDuration = TimeSpan.FromSeconds(0),
@@ -604,7 +604,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Bottom legend",
-                ExampleDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
+                ExampleTextDescription = "Grouped bar chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -641,7 +641,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Top legend",
-                ExampleDescription = "Grouped bar chart with legend at top",
+                ExampleTextDescription = "Grouped bar chart with legend at top",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -678,7 +678,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "No legend",
-                ExampleDescription = "Grouped bar chart without legend",
+                ExampleTextDescription = "Grouped bar chart without legend",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -715,7 +715,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Y Axis with text",
-                ExampleDescription = "Grouped bar chart with default legend and Y Axis",
+                ExampleTextDescription = "Grouped bar chart with default legend and Y Axis",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -754,7 +754,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label top of Bar item",
-                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars.",
+                ExampleTextDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars.",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -794,7 +794,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label top of Bar item, with rounded top corners",
-                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars with rounded top corners.",
+                ExampleTextDescription = "Grouped bar chart with default legend and Y Axis and value display on top of bars with rounded top corners.",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -835,7 +835,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label over Bar item",
-                ExampleDescription = "Grouped bar chart with default legend and Y Axis and value display over bars.",
+                ExampleTextDescription = "Grouped bar chart with default legend and Y Axis and value display over bars.",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -875,7 +875,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Empty label",
-                ExampleDescription = "Default data with empty label (issue #137)",
+                ExampleTextDescription = "Default data with empty label (issue #137)",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new BarChart
                 {
@@ -920,7 +920,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -932,7 +932,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -948,7 +948,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at left",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -963,7 +963,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label vertical on top of point",
-                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                ExampleTextDescription = "Display Y axis lines and values with value label on top of point",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -981,7 +981,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label horizontal on top of point",
-                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                ExampleTextDescription = "Display Y axis lines and values with value label on top of point",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -999,7 +999,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label on point vertical",
-                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                ExampleTextDescription = "Display Y axis lines and values with value label on top of point",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1016,7 +1016,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Value label on point horizontal",
-                ExampleDescription = "Display Y axis lines and values with value label on top of point",
+                ExampleTextDescription = "Display Y axis lines and values with value label on top of point",
                 Chart = new PointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1034,7 +1034,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Bottom legend",
-                ExampleDescription = "Grouped point chart with legend at bottom with vertical value label orientation",
+                ExampleTextDescription = "Grouped point chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new PointChart
                 {
@@ -1072,7 +1072,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Top legend",
-                ExampleDescription = "Grouped point chart with legend at top",
+                ExampleTextDescription = "Grouped point chart with legend at top",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new PointChart
                 {
@@ -1109,7 +1109,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "No legend",
-                ExampleDescription = "Grouped point chart without legend",
+                ExampleTextDescription = "Grouped point chart without legend",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new PointChart
                 {
@@ -1146,7 +1146,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Y Axis with text",
-                ExampleDescription = "Grouped point chart with default legend and Y Axis",
+                ExampleTextDescription = "Grouped point chart with default legend and Y Axis",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new PointChart
                 {
@@ -1191,7 +1191,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new LineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1203,7 +1203,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1219,7 +1219,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at left",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LineChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1234,7 +1234,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Bottom legend",
-                ExampleDescription = "Multiple lines chart with legend at bottom with vertical value label orientation",
+                ExampleTextDescription = "Multiple lines chart with legend at bottom with vertical value label orientation",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new LineChart
                 {
@@ -1272,7 +1272,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Top legend",
-                ExampleDescription = "Multiple lines with legend at top and no area",
+                ExampleTextDescription = "Multiple lines with legend at top and no area",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new LineChart
                 {
@@ -1311,7 +1311,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Straight lines",
-                ExampleDescription = "Multiple lines without legend and line in Straight mode",
+                ExampleTextDescription = "Multiple lines without legend and line in Straight mode",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new LineChart
                 {
@@ -1350,7 +1350,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Y Axis with text",
-                ExampleDescription = "Multiple lines chart with default legend and Y Axis",
+                ExampleTextDescription = "Multiple lines chart with default legend and Y Axis",
                 ExampleChartType = ExampleChartType.Series,
                 Chart = new LineChart
                 {
@@ -1390,7 +1390,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Dynamic Line Chart",
-                ExampleDescription = "Line Chart with updating series",
+                ExampleTextDescription = "Line Chart with updating series",
                 ExampleChartType = ExampleChartType.Dynamic,
                 Chart = new LineChart
                 {
@@ -1455,7 +1455,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new LegacyPointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1467,7 +1467,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LegacyPointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1482,7 +1482,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at left",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LegacyPointChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1502,7 +1502,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Default",
-                ExampleDescription = "Default example",
+                ExampleTextDescription = "Default example",
                 Chart = new LegacyBarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1514,7 +1514,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at right",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LegacyBarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),
@@ -1530,7 +1530,7 @@ namespace Microcharts.Samples
             yield return new ExampleChartItem()
             {
                 ExampleName = "Show Y axis at left",
-                ExampleDescription = "Display Y axis lines and values",
+                ExampleTextDescription = "Display Y axis lines and values",
                 Chart = new LegacyBarChart
                 {
                     Entries = GenerateDefaultXamarinEntries(),

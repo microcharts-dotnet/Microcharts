@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,7 +19,7 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
@@ -60,9 +60,6 @@
     <Reference Include="Mono.Android" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors" />
-    <Reference Include="Xamarin.AndroidX.AppCompat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\Users\elomo\.nuget\packages\xamarin.androidx.appcompat\1.1.0.1\lib\monoandroid90\Xamarin.AndroidX.AppCompat.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -104,14 +101,11 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" Version="2.80.3" />
-    <PackageReference Include="SkiaSharp.Views" Version="2.80.3" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.1" />
-    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.9" />
-    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.6.0.1" />
-    <PackageReference Include="Xamarin.AndroidX.Interpolator" Version="1.0.0.8" />
-    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.4.1" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.2" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.88.3" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.3" />
+    <PackageReference Include="Xamarin.AndroidX.Interpolator" Version="1.0.0.16" />
+    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.2.1" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts.Droid\Microcharts.Droid.csproj">

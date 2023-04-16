@@ -4,6 +4,9 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>9</LangVersion>
+
+        <Description>Simple, cross-platform chart library for Uno.</Description>
+        <PackageTags>dotnet chart skia skiasharp uno</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +19,7 @@
 
     <ItemGroup>
 	<PackageReference Include="SkiaSharp.Views.Uno" Version="2.88.3" />
-	<PackageReference Include="Uno.UI" Version="4.7.30" />
+	<PackageReference Include="Uno.UI" Version="4.7.44" />
     </ItemGroup>
 
 </Project>
