@@ -1,4 +1,4 @@
-name: Mac Builds
+name: Publish NuGet packages (Mac)
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -8,43 +8,36 @@ jobs:
   Mac-NuGet-Builds:
     env:
       NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_TOKEN}}
+      DOTNET_NOLOGO: true
 
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build Microcharts.Core
+    - name: Clone source
+      uses: actions/checkout@v3.1.0
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          6.0.x
+          7.0.x
+
+    - name: "Restore NuGet packages (Mac)"
+      run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /v:diag /bl:mac-build.binlog
+
+    - name: "Publish bin logs as artifacts"
+      uses: actions/upload-artifact@v3
+      with:
+        name: msbuild-binlogs
+        path: '**/*.binlog'
+      if: always()
+
+    - name: "Build and pack Microcharts macOS"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.macOS/Microcharts.macOS.csproj
+
+    - name: Publish packages to nuget.org
       run: |
-        cd Sources/Microcharts
-        msbuild -t:build -restore Microcharts.csproj /p:Configuration=Release
-    - name: Publish Microcharts.Core
-      run: |
-        cd NuGet
-        nuget pack Microcharts.Core.nuspec
-        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
-    - name: Build Microcharts.Android
-      run: |
-        cd Sources/Microcharts.Droid
-        msbuild -t:build -restore Microcharts.Droid.csproj /p:Configuration=Release
-    - name: Publish Microcharts.Android
-      run: |
-        cd NuGet
-        nuget pack Microcharts.Android.nuspec
-        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
-    - name: Build Microcharts.iOS
-      run: |
-        cd Sources/Microcharts.iOS
-        msbuild -t:build -restore Microcharts.iOS.csproj /p:Configuration=Release
-    - name: Publish Microcharts.iOS
-      run: |
-        cd NuGet
-        nuget pack Microcharts.iOS.nuspec
-        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
-    - name: Build Microcharts.Mac
-      run: |
-        cd Sources/Microcharts.macOS
-        msbuild -t:build -restore Microcharts.macOS.csproj /p:Configuration=Release
-    - name: Publish Microcharts.Mac
-      run: |
-        cd NuGet
-        nuget pack Microcharts.Mac.nuspec
+        cd artifacts
         nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
