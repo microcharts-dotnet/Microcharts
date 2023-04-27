@@ -19,7 +19,6 @@ jobs:
 
     - name: Add MSBuild to PATH (Windows)
       uses: microsoft/setup-msbuild@v1.1.3
-      if: matrix.os == 'windows-latest'
 
     - name: Install .NET SDK
       uses: actions/setup-dotnet@v3
@@ -77,4 +76,5 @@ jobs:
     - name: Publish packages to nuget.org
       run: |
         cd artifacts
+        dir *.nupkg
         nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
