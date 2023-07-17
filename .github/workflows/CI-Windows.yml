@@ -1,4 +1,4 @@
-name: Windows Builds
+name: Publish NuGet packages (Windows)
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -8,34 +8,73 @@ jobs:
   Windows-nuget-Builds:
     env:
       NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_TOKEN}}
+      DOTNET_NOLOGO: true
 
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build Microcharts.Avalonia
+    - name: Clone source
+      uses: actions/checkout@v3.1.0
+      with:
+        fetch-depth: 0
+
+    - name: Add MSBuild to PATH (Windows)
+      uses: microsoft/setup-msbuild@v1.1.3
+
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          6.0.x
+          7.0.x
+
+    - name: "Restore NuGet packages (Windows)"
+      run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /v:diag /bl:win-build.binlog
+
+    - name: "Publish bin logs as artifacts"
+      uses: actions/upload-artifact@v3
+      with:
+        name: msbuild-binlogs
+        path: '**/*.binlog'
+      if: always()
+
+    - name: "Build and pack Microcharts"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
+
+    - name: "Build and pack Microcharts Android"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
+
+    - name: "Build and pack Microcharts Xamarin.Forms"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Forms/Microcharts.Forms.csproj
+
+    - name: "Build and pack Microcharts iOS"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.iOS/Microcharts.iOS.csproj
+
+    - name: "Build and pack Microcharts UWP"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uwp/Microcharts.Uwp.csproj
+
+    - name: "Build and pack Microcharts Avalonia"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Avalonia/Microcharts.Avalonia.csproj
+
+    - name: "Build and pack Microcharts Eto"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Eto/Microcharts.Eto.csproj
+
+    - name: "Build and pack Microcharts .NET MAUI"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Maui/Microcharts.Maui.csproj
+
+    - name: "Build and pack Microcharts Uno"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uno/Microcharts.Uno.csproj
+
+    - name: "Build and pack Microcharts Uno WinUI"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uno.WinUI/Microcharts.Uno.WinUI.csproj
+
+    - name: "Build and pack Microcharts WinUI"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.WinUI/Microcharts.WinUI.csproj
+
+    - name: "Build and pack Microcharts Meta-package"
+      run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj
+
+    - name: Publish packages to nuget.org
       run: |
-        cd Sources/Microcharts.Avalonia
-        msbuild -t:build -restore Microcharts.Avalonia.csproj /p:Configuration=Release
-    - name: Publish Microcharts.Avalonia
-      run: |
-        cd NuGet
-        nuget pack Microcharts.Avalonia.nuspec
-        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
-    - name: Build Microcharts.Uwp
-      run: |
-        cd Sources/Microcharts.Uwp
-        msbuild -t:build -restore Microcharts.Uwp.csproj /p:Configuration=Release
-    - name: Publish Microcharts.Uwp
-      run: |
-        cd NuGet
-        nuget pack Microcharts.Uwp.nuspec
-        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
-    - name: Build Microcharts.Forms
-      run: |
-        cd Sources/Microcharts.Forms
-        msbuild -t:build -restore Microcharts.Forms.csproj /p:Configuration=Release
-    - name: Publish Microcharts.Forms
-      run: |
-        cd NuGet
-        nuget pack Microcharts.Forms.nuspec
+        cd artifacts
+        dir *.nupkg
         nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
