@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Microcharts</id>
-    <version>1.0.0-preview2</version>
+    <version>1.0.1</version>
     <title>Microcharts</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
@@ -14,27 +14,27 @@
     <tags>xamarin ios android chart skia</tags>
     <dependencies>
         <group targetFramework="netstandard2.0">
-            <dependency id="Microcharts" version="1.0.0-preview2" />
+            <dependency id="Microcharts" version="1.0.1" />
             <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="System.ValueTuple" version="4.5.0" />
         </group>
         <group targetFramework="monoandroid1.0">
-            <dependency id="Microcharts.Droid" version="1.0.0-preview2" />
+            <dependency id="Microcharts.Droid" version="1.0.1" />
             <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="SkiaSharp.Views"  version="2.80.2" />
         </group>
         <group targetFramework="xamarinios1.0">
-            <dependency id="Microcharts.iOS" version="1.0.0-preview2" />
+            <dependency id="Microcharts.iOS" version="1.0.1" />
             <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="SkiaSharp.Views"  version="2.80.2" />
         </group>
         <group targetFramework="uap10.0">
-            <dependency id="Microcharts.Uwp" version="1.0.0-preview2" />
+            <dependency id="Microcharts.Uwp" version="1.0.1" />
             <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="SkiaSharp.Views"  version="2.80.2" />
         </group>
         <group targetFramework="xamarinmac2.0">
-            <dependency id="Microcharts.macOS" version="1.0.0-preview2" />
+            <dependency id="Microcharts.macOS" version="1.0.1" />
             <dependency id="SkiaSharp" version="2.80.2" />
             <dependency id="SkiaSharp.Views"  version="2.80.2" />
         </group>
