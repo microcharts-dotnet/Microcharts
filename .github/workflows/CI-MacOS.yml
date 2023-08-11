@@ -25,7 +25,7 @@ jobs:
           7.0.x
 
     - name: "Restore NuGet packages (Mac)"
-      run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /v:diag /bl:mac-build.binlog
+      run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /bl:mac-restore-build.binlog
 
     - name: "Publish bin logs as artifacts"
       uses: actions/upload-artifact@v3

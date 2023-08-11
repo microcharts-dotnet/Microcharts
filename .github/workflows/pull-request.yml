@@ -31,11 +31,11 @@ jobs:
             7.0.x
 
       - name: "Restore NuGet packages (Windows)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /v:diag /bl:win-build.binlog
+        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
         if: matrix.os == 'windows-latest'
 
       - name: "Restore NuGet packages (Mac)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /v:diag /bl:mac-build.binlog
+        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /bl:mac-restore-build.binlog
         if: matrix.os == 'macos-latest'
 
       - name: "Publish bin logs as artifacts"
