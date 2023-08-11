@@ -34,7 +34,7 @@ jobs:
         run: dotnet workload install maui
 
       - name: "Restore NuGet packages (Windows)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
+        run: dotnet msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
         if: matrix.os == 'windows-latest'
 
       - name: "Restore NuGet packages (Mac)"
