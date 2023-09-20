@@ -39,7 +39,7 @@ jobs:
           dotnet workload list
 
       - name: "Restore NuGet packages (Windows)"
-        run: dotnet msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
+        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
         if: matrix.os == 'windows-latest'
 
       - name: "Restore NuGet packages (Mac)"
@@ -57,9 +57,7 @@ jobs:
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
 
       - name: "Build and pack Microcharts Android"
-        run: |
-          dotnet build Sources/Microcharts.Droid/Microcharts.Droid.csproj /p:Configuration=Release
-          msbuild /t:pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
+        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
 
       - name: "Build and pack Microcharts Xamarin.Forms"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Forms/Microcharts.Forms.csproj
