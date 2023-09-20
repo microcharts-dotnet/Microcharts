@@ -52,7 +52,9 @@ jobs:
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
 
       - name: "Build and pack Microcharts Android"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
+        run: |
+          dotnet build Sources/Microcharts.Droid/Microcharts.Droid.csproj /p:Configuration=Release
+          msbuild /t:pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
 
       - name: "Build and pack Microcharts Xamarin.Forms"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Forms/Microcharts.Forms.csproj
