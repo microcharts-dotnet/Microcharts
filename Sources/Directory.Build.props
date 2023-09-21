@@ -29,7 +29,12 @@
         <PackageVersion>$(VersionMain)$(VersionPrelease)</PackageVersion>
         <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
         <LicenseFile>$(MSBuildThisFileDirectory)..\LICENSE</LicenseFile>
+        <PackageIcon>Icon.png</PackageIcon>
     </PropertyGroup>
+
+    <ItemGroup Label="PackageIcon">
+        <None Include="$(MSBuildThisFileDirectory)/../Assets/Icon.png" Pack="true" Visible="false" PackagePath=""/>
+    </ItemGroup>
 
     <Target Name="PrintRID"
          BeforeTargets="BeforeBuild">
