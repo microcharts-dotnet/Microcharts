@@ -1,5 +1,5 @@
 @echo off
-msbuild /t:restore /p:Configuration=Release Sources\Microcharts.sln
+dotnet msbuild /t:restore /p:Configuration=Release Sources\Microcharts.sln
 msbuild /t:build,pack /p:Configuration=Release Sources\Microcharts\Microcharts.csproj
 msbuild /t:build,pack /p:Configuration=Release Sources\Microcharts.Droid\Microcharts.Droid.csproj
 msbuild /t:build,pack /p:Configuration=Release Sources\Microcharts.Forms\Microcharts.Forms.csproj
