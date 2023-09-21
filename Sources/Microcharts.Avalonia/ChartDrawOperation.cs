@@ -1,10 +1,8 @@
-using System;
 using Avalonia;
-using Avalonia.Media.Imaging;
+using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
-using SkiaSharp;
 
 namespace Microcharts.Avalonia
 {
@@ -21,11 +19,15 @@ namespace Microcharts.Avalonia
         public bool HitTest(Point p) => Parent.Bounds.Contains(p);
         public bool Equals(ICustomDrawOperation other) => this == other;
 
-        public void Render(IDrawingContextImpl context)
+        public void Render(ImmediateDrawingContext context)
         {
-            if (context is ISkiaDrawingContextImpl skia)
+            if (context.TryGetFeature<ISkiaSharpApiLeaseFeature>() is { } leaseFeature)
             {
-                Parent.Chart?.Draw(skia.SkCanvas, (int)Parent.Bounds.Width, (int)Parent.Bounds.Height);
+                using var lease = leaseFeature.Lease();
+                var canvas = lease.SkCanvas;
+                canvas.Save();
+                Parent.Chart?.Draw(canvas, (int)Bounds.Width, (int)Bounds.Height);
+                canvas.Restore();
             }
         }
 

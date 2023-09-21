@@ -1,7 +1,4 @@
-﻿using System;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia;
 
 namespace Microcharts.Samples.Avalonia
 {

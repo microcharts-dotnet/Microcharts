@@ -1,12 +1,6 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using Avalonia.Rendering.SceneGraph;
-using Avalonia.Skia;
-using SkiaSharp;
 
 namespace Microcharts.Avalonia
 {
@@ -14,8 +8,16 @@ namespace Microcharts.Avalonia
     {
         public ChartView()
         {
-            this.GetObservable(ChartProperty).Subscribe(_ => InvalidateVisual());
             drawOperation = new ChartDrawOperation(this);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == ChartProperty)
+            {
+                InvalidateVisual();
+            }
         }
 
         readonly ChartDrawOperation drawOperation;
