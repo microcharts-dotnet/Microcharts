@@ -27,8 +27,13 @@ jobs:
           6.0.x
           7.0.x
 
-    - name: "Install .NET MAUI workload"
-      run: dotnet workload install maui
+    - name: "Install .NET cross-plat and MAUI workloads"
+      run: |
+        dotnet workload install android
+        dotnet workload install ios
+        dotnet workload install maccatalyst
+        dotnet workload install maui
+        dotnet workload list
 
     - name: "Restore NuGet packages (Windows)"
       run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
