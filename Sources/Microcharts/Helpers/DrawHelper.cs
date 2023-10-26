@@ -16,7 +16,7 @@ namespace Microcharts
 
     internal static class DrawHelper
     {
-        
+
         internal static void DrawLabel(SKCanvas canvas, Orientation orientation, YPositionBehavior yPositionBehavior, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text, float textSize, SKTypeface typeface)
         {
             using (new SKAutoCanvasRestore(canvas))
@@ -101,7 +101,7 @@ namespace Microcharts
                     .Select(t => new ValueTuple<string, SKPoint>
                     (
                         t.ToString(),
-                        new SKPoint(yAxisPosition == Position.Left ? yAxisXShift : width, MeasureHelper.CalculatePoint(margin, animationProgress, maxValue, valueRange, t, cnt++, itemSize, origin, headerHeight).Y)
+                        new SKPoint(yAxisPosition == Position.Left ? yAxisXShift + margin : width - margin, MeasureHelper.CalculatePoint(margin, animationProgress, maxValue, valueRange, t, cnt++, itemSize, origin, headerHeight).Y)
                     ))
                     .ToList();
 
@@ -117,8 +117,8 @@ namespace Microcharts
                         (_, SKPoint pt) = tup;
 
                         return yAxisPosition == Position.Right ?
-                            SKRect.Create(0, pt.Y, width, 0) :
-                            SKRect.Create(yAxisXShift, pt.Y, width, 0);
+                            SKRect.Create(margin, pt.Y, width - margin * 2, 0) :
+                            SKRect.Create(yAxisXShift + margin, pt.Y, width - margin * 2, 0);
                     });
 
                     DrawYAxisLines(margin, yAxisLinesPaint, canvas, lines);
@@ -154,6 +154,26 @@ namespace Microcharts
             foreach (var @int in intervals)
             {
                 canvas.DrawLine(Margin / 2 + @int.Left, @int.Top, @int.Right - Margin / 2, @int.Bottom, yAxisLinesPaint);
+            }
+        }
+
+        public static void DrawRectWithCornerRadius(this SKCanvas canvas, SKRect rect, SKPaint paint, float topLeft = .0f,
+            float topRight = .0f, float bottomRight = .0f, float bottomLeft = .0f)
+        {
+            using (var path = new SKPath())
+            {
+                path.MoveTo(rect.Left + topLeft, rect.Top);
+                path.LineTo(rect.Right - topRight, rect.Top);
+                path.ArcTo(SKRect.Create(rect.Right - topRight * 2, rect.Top, topRight * 2, topRight * 2), 270, 90, false);
+                path.LineTo(rect.Right, rect.Bottom - bottomRight);
+                path.ArcTo(SKRect.Create(rect.Right - bottomRight * 2, rect.Bottom - bottomRight * 2, bottomRight * 2, bottomRight * 2), 0, 90, false);
+                path.LineTo(rect.Left + bottomLeft, rect.Bottom);
+                path.ArcTo(SKRect.Create(rect.Left, rect.Bottom - bottomLeft * 2, bottomLeft * 2, bottomLeft * 2), 90, 90, false);
+                path.LineTo(rect.Left, rect.Top + topLeft);
+                path.ArcTo(SKRect.Create(rect.Left, rect.Top, topLeft * 2, topLeft * 2), 180, 90, false);
+                path.Close();
+
+                canvas.DrawPath(path, paint);
             }
         }
     }
