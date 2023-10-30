@@ -14,10 +14,17 @@ namespace Microcharts
         DownToElementMiddle
     }
 
+    public enum VerticalTextOrientation
+    {
+        Left,
+        Right,
+        RotatedToRight
+    }
+
     internal static class DrawHelper
     {
 
-        internal static void DrawLabel(SKCanvas canvas, Orientation orientation, YPositionBehavior yPositionBehavior, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text, float textSize, SKTypeface typeface)
+        internal static void DrawLabel(SKCanvas canvas, Orientation orientation, YPositionBehavior yPositionBehavior, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text, float textSize, SKTypeface typeface, VerticalTextOrientation verticalTextOrientation = VerticalTextOrientation.Right)
         {
             using (new SKAutoCanvasRestore(canvas))
             {
@@ -49,8 +56,27 @@ namespace Microcharts
                                 break;
                         }
 
-                        canvas.RotateDegrees(90);
-                        canvas.Translate(y, -point.X + (bounds.Height / 2));
+                        if (verticalTextOrientation == VerticalTextOrientation.Left)
+                        {
+                            canvas.RotateDegrees(-90);
+                            canvas.Translate(-y - bounds.Height , point.X + (bounds.Height / 2));
+                        }
+                        else if(verticalTextOrientation == VerticalTextOrientation.Right)
+                        {
+                            canvas.RotateDegrees(90);
+                            canvas.Translate(y, -point.X + (bounds.Height / 2));
+                        }
+                        else
+                        {
+                            //rotate text by 60 degrees
+                            canvas.Save();
+                            canvas.RotateDegrees(90);
+                            canvas.Translate(y, -point.X + (bounds.Height / 2));
+                            canvas.DrawText(text, 0, 0, paint);
+                            canvas.Restore();
+
+                            return;
+                        }
                     }
                     else
                     {
