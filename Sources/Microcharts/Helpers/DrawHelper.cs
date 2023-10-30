@@ -56,26 +56,27 @@ namespace Microcharts
                                 break;
                         }
 
-                        if (verticalTextOrientation == VerticalTextOrientation.Left)
+                        switch (verticalTextOrientation)
                         {
-                            canvas.RotateDegrees(-90);
-                            canvas.Translate(-y - bounds.Height , point.X + (bounds.Height / 2));
-                        }
-                        else if(verticalTextOrientation == VerticalTextOrientation.Right)
-                        {
-                            canvas.RotateDegrees(90);
-                            canvas.Translate(y, -point.X + (bounds.Height / 2));
-                        }
-                        else
-                        {
-                            //rotate text by 60 degrees
-                            canvas.Save();
-                            canvas.RotateDegrees(90);
-                            canvas.Translate(y, -point.X + (bounds.Height / 2));
-                            canvas.DrawText(text, 0, 0, paint);
-                            canvas.Restore();
+                            case VerticalTextOrientation.Left:
+                                canvas.RotateDegrees(-90);
+                                canvas.Translate(-y - bounds.Height , point.X + (bounds.Height / 2));
+                                break;
+                            case VerticalTextOrientation.Right:
+                                canvas.RotateDegrees(90);
+                                canvas.Translate(y, -point.X + (bounds.Height / 2));
+                                break;
+                            default:
+                            {
+                                SKMatrix matrix = SKMatrix.MakeRotation(60 * (float)Math.PI / 180);
 
-                            return;
+                                canvas.Translate(point.X, y);
+                                canvas.Concat(ref matrix);
+                                canvas.DrawText(text, 0, 0, paint);
+                                canvas.ResetMatrix();
+
+                                return;
+                            }
                         }
                     }
                     else
