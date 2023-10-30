@@ -155,6 +155,8 @@ namespace Microcharts
         /// </summary>
         public SKPaint YAxisLinesPaint { get; set; }
 
+        public float[] RequiredYAxisPoints { get; set; } = Enumerable.Empty<float>().ToArray();
+
         #endregion
 
         #region Methods
@@ -178,7 +180,7 @@ namespace Microcharts
                 float minValue = MinValue;
 
                 //This function might change the min/max value
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels, RequiredYAxisPoints);
                 float valRange = maxValue - minValue;
 
                 var firstSerie = Series.FirstOrDefault();
@@ -253,6 +255,21 @@ namespace Microcharts
 
                 DrawLegend(canvas, seriesSizes, legendHeight, height, width);
                 OnDrawContentEnd(canvas, itemSize, origin, valueLabelSizes);
+            }
+        }
+
+        protected virtual void DrawLabels(SKCanvas canvas, float height, float footerWithLegendHeight, float yAxisXShift, SKSize itemSize, SKRect[] labelSizes, string[] labels)
+        {
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
+
+                string label = labels[i];
+                if (!string.IsNullOrEmpty(label))
+                {
+                    SKRect labelSize = labelSizes[i];
+                    DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface, VerticalTextOrientation.RotatedToRight);
+                }
             }
         }
 
