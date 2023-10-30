@@ -215,18 +215,7 @@ namespace Microcharts
                     IEnumerable<ChartEntry> entries = serie.Entries;
                     int entryCount = entries.Count();
 
-                    for (int i = 0; i < labels.Length; i++)
-                    {
-                        var itemX = Margin + (itemSize.Width / 2) + (i * (itemSize.Width + Margin)) + yAxisXShift;
-
-                        string label = labels[i];
-                        if (!string.IsNullOrEmpty(label))
-                        {
-                            SKRect labelSize = labelSizes[i];
-                            DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
-                        }
-                    }
-
+                    DrawLabels(canvas, height, footerWithLegendHeight, yAxisXShift, itemSize, labelSizes, labels);
 
                     for (int i = 0; i < labels.Length; i++)
                     {
@@ -509,7 +498,7 @@ namespace Microcharts
             return new SKSize(w, itemSize.Height);
         }
 
-        private  SKSize CalculateItemSize(int items, int width, int height, float reservedSpace)
+        protected virtual SKSize CalculateItemSize(int items, int width, int height, float reservedSpace)
         {
             var w = (width - ((items + 1) * Margin)) / items;
             var h = height - Margin - reservedSpace;
