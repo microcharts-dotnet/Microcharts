@@ -196,7 +196,7 @@ namespace Microcharts
 
                 float barWidth = itemSize.Width * barWidthToSpaceRatio;
 
-                if (entry.StartValue.Value < 0 && entry.Value.Value > 0)
+                if (entry.StartValue.Value <= 0 && entry.Value.Value >= 0)
                 {
                     float positiveValue = entry.Value.Value;
 
