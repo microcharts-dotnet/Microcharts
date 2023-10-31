@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
@@ -108,6 +109,62 @@ namespace Microcharts
                 yAxisIntervalLabels.AddRange(requiredPoints);
 
                 var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
+                var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
+                yAxisWidth = (int)(width - longestYAxisLabelWidth) - 10;
+                if (yAxisPosition == Position.Left)
+                {
+                    yAxisXShift = longestYAxisLabelWidth;
+                }
+
+                // to reduce chart width
+                width = yAxisWidth;
+                maxValue = (float)niceMax;
+                minValue = (float)niceMin;
+            }
+
+            return width;
+        }
+
+        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels, Func<float, string> labelFormatter, params float[] requiredPoints)
+        {
+            yAxisXShift = 0.0f;
+            yAxisIntervalLabels = new List<float>();
+            if (showYAxisText || showYAxisLines)
+            {
+                var yAxisWidth = width;
+                double range, niceMin, niceMax, tickSpacing;
+                int ticks;
+
+                if (!fixedRange)
+                {
+                    //var enumerable = entries.ToList(); // to avoid double enumeration
+                    if (minValue == maxValue)
+                    {
+                        if (minValue >= 0)
+                            maxValue += 100;
+                        else
+                            maxValue = 0;
+                    }
+
+                    NiceScale.Calculate(minValue, maxValue, yAxisMaxTicks, out range, out tickSpacing, out niceMin, out niceMax);
+                    ticks = (int)(range / tickSpacing);
+                }
+                else
+                {
+                    niceMin = minValue;
+                    niceMax = maxValue;
+                    range = niceMax - niceMin;
+                    tickSpacing = range / (yAxisMaxTicks-1);
+                    ticks = yAxisMaxTicks;
+                }
+
+                yAxisIntervalLabels = Enumerable.Range(0, ticks)
+                    .Select(i => (float)(niceMax - (i * tickSpacing)))
+                    .ToList();
+
+                yAxisIntervalLabels.AddRange(requiredPoints);
+
+                var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > labelFormatter(cur).Length ? max : labelFormatter(cur).ToString());
                 var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
                 yAxisWidth = (int)(width - longestYAxisLabelWidth) - 10;
                 if (yAxisPosition == Position.Left)
