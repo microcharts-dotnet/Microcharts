@@ -63,8 +63,6 @@ namespace Microcharts
             }
         }
 
-        public ValueLabelOption ValueLabelOption { get; set; } = ValueLabelOption.TopOfChart;
-
         public bool ShowYAxisText { get; set; } = false;
 
         public bool ShowYAxisLines { get; set; } = false;
@@ -83,7 +81,7 @@ namespace Microcharts
             set => barWidthToSpaceRatio = value < 0 ? 0 : value > 1 ? 1 : value;
         }
 
-        public Func<string, string> LabelFormatter { get; set; } = EmptyLabelFormatter;
+        public Func<float, string> YAxisLabelFormatter { get; set; } = EmptyLabelFormatter;
 
         public override float MinValue
         {
@@ -129,11 +127,12 @@ namespace Microcharts
                 YAxisPosition,
                 width,
                 fixedRange,
-                ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels,
+                YAxisLabelFormatter);
 
             float valRange = maxValue - minValue;
 
-            var labels = Entries.Select(x => LabelFormatter(x.Label))
+            var labels = Entries.Select(x => x.Label)
                 .ToArray();
 
             var entriesCount = Entries.Count();
@@ -163,7 +162,8 @@ namespace Microcharts
                 yAxisIntervalLabels,
                 headerHeight,
                 itemSize,
-                yCenterPosition);
+                yCenterPosition,
+                YAxisLabelFormatter);
 
             for (int chartIndex = 0; chartIndex < entriesCount; chartIndex++)
             {
@@ -298,9 +298,9 @@ namespace Microcharts
             return new SKSize(w, h);
         }
 
-        private static string EmptyLabelFormatter(string label)
+        private static string EmptyLabelFormatter(float value)
         {
-            return label;
+            return value.ToString();
         }
 
         #endregion

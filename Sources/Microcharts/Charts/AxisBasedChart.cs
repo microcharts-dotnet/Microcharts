@@ -157,6 +157,8 @@ namespace Microcharts
 
         public float[] RequiredYAxisPoints { get; set; } = Enumerable.Empty<float>().ToArray();
 
+        public Func<float, string> YAxisLabelFormatter { get; set; } = EmptyLabelFormatter;
+
         #endregion
 
         #region Methods
@@ -180,7 +182,7 @@ namespace Microcharts
                 float minValue = MinValue;
 
                 //This function might change the min/max value
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels, RequiredYAxisPoints);
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, fixedRange, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels, YAxisLabelFormatter, RequiredYAxisPoints);
                 float valRange = maxValue - minValue;
 
                 var firstSerie = Series.FirstOrDefault();
@@ -206,7 +208,7 @@ namespace Microcharts
                 var itemSize = CalculateItemSize(nbItems, width, height, footerHeight + headerHeight + legendHeight);
                 var barSize = CalculateBarSize(itemSize, Series.Count());
                 var origin = CalculateYOrigin(itemSize.Height, headerWithLegendHeight, maxValue, minValue, valRange);
-                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin);
+                DrawHelper.DrawYAxis(ShowYAxisText, ShowYAxisLines, YAxisPosition, YAxisTextPaint, YAxisLinesPaint, Margin, AnimationProgress, maxValue, valRange, canvas, width, yAxisXShift, yAxisIntervalLabels, headerHeight, itemSize, origin, YAxisLabelFormatter);
 
                 int nbSeries = series.Count();
                 for (int serieIndex = 0; serieIndex < nbSeries; serieIndex++)
@@ -257,7 +259,7 @@ namespace Microcharts
                 if (!string.IsNullOrEmpty(label))
                 {
                     SKRect labelSize = labelSizes[i];
-                    DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface, VerticalTextOrientation.RotatedToRight);
+                    DrawHelper.DrawLabel(canvas, LabelOrientation, YPositionBehavior.None, itemSize, new SKPoint(itemX, height - footerWithLegendHeight + Margin), LabelColor, labelSize, label, LabelTextSize, Typeface);
                 }
             }
         }
@@ -325,7 +327,7 @@ namespace Microcharts
             {
                 var serie = series[i];
                 var serieBound = seriesNameSize[i];
-            
+
                 float legentItemWidth = Margin + SerieLabelTextSize + Margin + serieBound.Width;
                 if (legentItemWidth > width)
                 {
@@ -445,7 +447,10 @@ namespace Microcharts
                     else
                     {
                         bounds = new SKRect();
-                        paint.MeasureText(e.ValueLabel, ref bounds);
+
+                        var formattedValueLabel = e.ValueLabel;
+
+                        paint.MeasureText(formattedValueLabel, ref bounds);
                     }
 
                     dict.Add(e, bounds);
@@ -503,6 +508,11 @@ namespace Microcharts
             var w = (width - ((items + 1) * Margin)) / items;
             var h = height - Margin - reservedSpace;
             return new SKSize(w, h);
+        }
+
+        private static string EmptyLabelFormatter(float value)
+        {
+            return value.ToString();
         }
 
         #endregion
