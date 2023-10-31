@@ -60,7 +60,7 @@ namespace Microcharts
                         {
                             case VerticalTextOrientation.Left:
                                 canvas.RotateDegrees(-90);
-                                canvas.Translate(-y - bounds.Height , point.X + (bounds.Height / 2));
+                                canvas.Translate(-y, point.X + (bounds.Height / 2));
                                 break;
                             case VerticalTextOrientation.Right:
                                 canvas.RotateDegrees(90);
@@ -128,6 +128,40 @@ namespace Microcharts
                     .Select(t => new ValueTuple<string, SKPoint>
                     (
                         t.ToString(),
+                        new SKPoint(yAxisPosition == Position.Left ? yAxisXShift + margin : width - margin, MeasureHelper.CalculatePoint(margin, animationProgress, maxValue, valueRange, t, cnt++, itemSize, origin, headerHeight).Y)
+                    ))
+                    .ToList();
+
+                if (showYAxisText)
+                {
+                    DrawYAxisText(yAxisTextPaint, yAxisPosition, canvas, intervals);
+                }
+
+                if (showYAxisLines)
+                {
+                    var lines = intervals.Select(tup =>
+                    {
+                        (_, SKPoint pt) = tup;
+
+                        return yAxisPosition == Position.Right ?
+                            SKRect.Create(margin, pt.Y, width - margin * 2, 0) :
+                            SKRect.Create(yAxisXShift + margin, pt.Y, width - margin * 2, 0);
+                    });
+
+                    DrawYAxisLines(margin, yAxisLinesPaint, canvas, lines);
+                }
+            }
+        }
+
+        internal static void DrawYAxis(bool showYAxisText, bool showYAxisLines, Position yAxisPosition, SKPaint yAxisTextPaint, SKPaint yAxisLinesPaint, float margin, float animationProgress, float maxValue, float valueRange, SKCanvas canvas, int width, float yAxisXShift, List<float> yAxisIntervalLabels, float headerHeight, SKSize itemSize, float origin, Func<float, string> labelFormatter)
+        {
+            if (showYAxisText || showYAxisLines)
+            {
+                int cnt = 0;
+                var intervals = yAxisIntervalLabels
+                    .Select(t => new ValueTuple<string, SKPoint>
+                    (
+                        labelFormatter(t),
                         new SKPoint(yAxisPosition == Position.Left ? yAxisXShift + margin : width - margin, MeasureHelper.CalculatePoint(margin, animationProgress, maxValue, valueRange, t, cnt++, itemSize, origin, headerHeight).Y)
                     ))
                     .ToList();
