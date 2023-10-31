@@ -81,6 +81,8 @@ namespace Microcharts
             set => barWidthToSpaceRatio = value < 0 ? 0 : value > 1 ? 1 : value;
         }
 
+        public float CornerRadius { get; set; } = DefaultValues.CornerRadius;
+
         public Func<float, string> YAxisLabelFormatter { get; set; } = EmptyLabelFormatter;
 
         public override float MinValue
@@ -215,7 +217,7 @@ namespace Microcharts
 
                         using (var paint = PaintExtensions.FillPaintWithColor(entry.Color))
                         {
-                            canvas.DrawRectWithCornerRadius(rect, paint, barWidth/2, barWidth/2);
+                            canvas.DrawRectWithCornerRadius(rect, paint, CornerRadius, CornerRadius);
                         }
                     }
 
@@ -232,7 +234,7 @@ namespace Microcharts
 
                         using (var paint = PaintExtensions.FillPaintWithColor(entry.LowerColor))
                         {
-                            canvas.DrawRectWithCornerRadius(rect, paint, bottomLeft: barWidth / 2, bottomRight: barWidth / 2);
+                            canvas.DrawRectWithCornerRadius(rect, paint, bottomLeft: CornerRadius, bottomRight: CornerRadius);
                         }
                     }
                 }
@@ -255,7 +257,7 @@ namespace Microcharts
 
                     using (var paint = PaintExtensions.FillPaintWithColor(color))
                     {
-                        canvas.DrawRoundRect(rect, barWidth/2, barWidth/2, paint);
+                        canvas.DrawRoundRect(rect, CornerRadius, CornerRadius, paint);
                     }
                 }
             }
