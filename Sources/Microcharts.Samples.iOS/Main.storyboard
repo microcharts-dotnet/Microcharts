@@ -1,42 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="202">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="202">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Main View Controller-->
         <scene sceneID="201">
             <objects>
-                <viewController id="202" sceneMemberID="viewController" customClass="MainViewController" storyboardIdentifier="MainViewController">
+                <viewController storyboardIdentifier="MainViewController" id="202" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="199"/>
                         <viewControllerLayoutGuide type="bottom" id="200"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="203">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="206" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="0.0" y="29" width="414" height="172"/>
-                                <color key="backgroundColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="0.666666666666667" alpha="1"/>
-                                <constraints>
-                                    <constraint id="211" firstAttribute="height" constant="172"/>
-                                </constraints>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="czb-0l-gzl">
+                                <rect key="frame" x="0.0" y="59" width="393" height="751"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="HOL-7g-PNo"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="0YE-68-Gj5"/>
+                            </scrollView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint id="208" firstItem="206" firstAttribute="top" secondItem="199" secondAttribute="bottom" constant="9"/>
-                            <constraint id="209" firstItem="206" firstAttribute="trailing" secondItem="203" secondAttribute="trailingMargin" constant="20"/>
-                            <constraint id="210" firstAttribute="leadingMargin" secondItem="206" secondAttribute="leading" constant="20"/>
+                            <constraint firstItem="200" firstAttribute="top" secondItem="czb-0l-gzl" secondAttribute="bottom" id="G1z-ht-gQa"/>
+                            <constraint firstAttribute="trailing" secondItem="czb-0l-gzl" secondAttribute="trailing" id="Je2-E3-YtB"/>
+                            <constraint firstItem="czb-0l-gzl" firstAttribute="top" secondItem="203" secondAttribute="top" constant="16" id="egx-H8-iAw"/>
+                            <constraint firstItem="czb-0l-gzl" firstAttribute="leading" secondItem="203" secondAttribute="leading" id="hIL-8m-pBG"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="chart1" destination="206" id="name-outlet-206"/>
+                        <outlet property="_scrollView" destination="czb-0l-gzl" id="ZXM-r3-0DZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="204" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121" y="61"/>
+            <point key="canvasLocation" x="119.84732824427481" y="60.563380281690144"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

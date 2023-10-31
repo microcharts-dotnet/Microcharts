@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using CoreGraphics;
 using Microcharts.iOS;
 using UIKit;
@@ -8,6 +7,9 @@ namespace Microcharts.Samples.iOS
 {
     public partial class MainViewController : UIViewController
     {
+        private const int ChartHeight = 250;
+        private const int ChartSpacing = 64;
+
         public MainViewController(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
@@ -17,14 +19,21 @@ namespace Microcharts.Samples.iOS
         {
             base.ViewWillAppear(animated);
 
-            var chartView = new ChartView
-            {
-                Frame = new CGRect(0, 0, chart1.Bounds.Width, 172),
-                AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
-                Chart = Data.CreateQuickstart().ElementAt(2)
-            };
+            var charts = Data.CreateQuickstart();
 
-            chart1.AddSubview(chartView);
+            for(int i = 0; i < charts.Length; i++)
+            {
+                var chartView = new ChartView()
+                {
+                    Chart = charts[i],
+                    Frame = new CGRect(0,i * (ChartHeight + ChartSpacing) + ChartSpacing, View.Frame.Size.Width, ChartHeight),
+                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+                };
+
+                _scrollView.AddSubview(chartView);
+            }
+
+            _scrollView.ContentSize = new CGSize(View.Frame.Size.Width, charts.Length * (ChartHeight + ChartSpacing) + ChartSpacing);
         }
     }
 }
