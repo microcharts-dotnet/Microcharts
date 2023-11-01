@@ -20,6 +20,10 @@ namespace Microcharts.Samples.Android
             FindViewById<ChartView>(Resource.Id.chartView2).Chart = charts[1];
             FindViewById<ChartView>(Resource.Id.chartView3).Chart = charts[2];
             FindViewById<ChartView>(Resource.Id.chartView4).Chart = charts[3];
+            FindViewById<ChartView>(Resource.Id.chartView5).Chart = charts[4];
+            FindViewById<ChartView>(Resource.Id.chartView6).Chart = charts[5];
+            FindViewById<ChartView>(Resource.Id.chartView7).Chart = charts[6];
+            FindViewById<ChartView>(Resource.Id.chartView8).Chart = charts[7];
         }
     }
 }

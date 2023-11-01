@@ -9,7 +9,7 @@
         <microcharts.droid.ChartView
             android:id="@+id/chartView1"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:layout_height="250dp"/>
         <microcharts.droid.ChartView
             android:id="@+id/chartView2"
             android:layout_marginTop="12dp"
@@ -22,6 +22,25 @@
             android:layout_height="250dp" />
         <microcharts.droid.ChartView
             android:id="@+id/chartView4"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+        <microcharts.droid.ChartView
+            android:id="@+id/chartView5"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+        <microcharts.droid.ChartView
+            android:id="@+id/chartView6"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+        <microcharts.droid.ChartView
+            android:id="@+id/chartView7"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+        <microcharts.droid.ChartView
+            android:id="@+id/chartView8"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="250dp" />

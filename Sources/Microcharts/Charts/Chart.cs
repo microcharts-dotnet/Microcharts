@@ -191,7 +191,7 @@ namespace Microcharts
         /// minimal entry value.
         /// </summary>
         /// <value>The minimum value.</value>
-        public float MinValue
+        public virtual float MinValue
         {
             get
             {
@@ -216,7 +216,7 @@ namespace Microcharts
         /// maximum entry value.
         /// </summary>
         /// <value>The minimum value.</value>
-        public float MaxValue
+        public virtual float MaxValue
         {
             get
             {

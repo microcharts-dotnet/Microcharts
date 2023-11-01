@@ -1599,35 +1599,40 @@ namespace Microcharts.Samples
         {
             var entries = new[]
             {
-                new ChartEntry(200)
+                new RangeChartEntry(-150,200)
                 {
                     Label = "Week 1",
                     ValueLabel = "200",
-                    Color = SKColor.Parse("#266489")
+                    Color = SKColor.Parse("#266489"),
+                    LowerColor = SKColors.LightSalmon
                 },
-                new ChartEntry(400)
+                new RangeChartEntry(-100,400)
                 {
                     Label = "Week 2",
                     ValueLabel = "400",
-                    Color = SKColor.Parse("#68B9C0")
+                    Color = SKColor.Parse("#68B9C0"),
+                    LowerColor = SKColors.LightSalmon
                 },
-                new ChartEntry(100)
+                new RangeChartEntry(0,100)
                 {
                     Label = "Week 3",
                     ValueLabel = "100",
-                    Color = SKColor.Parse("#90D585")
+                    Color = SKColor.Parse("#90D585"),
+                    LowerColor = SKColors.LightSalmon
                 },
-                new ChartEntry(600)
+                new RangeChartEntry(-120,600)
                 {
                     Label = "Week 4",
                     ValueLabel = "600",
-                    Color = SKColor.Parse("#32a852")
+                    Color = SKColor.Parse("#32a852"),
+                    LowerColor = SKColors.LightSalmon
                 },
-                new ChartEntry(600)
+                new RangeChartEntry(-400,600)
                 {
                     Label = "Week 5",
                     ValueLabel = "1600",
-                    Color = SKColor.Parse("#8EC0D8")
+                    Color = SKColor.Parse("#8EC0D8"),
+                    LowerColor = SKColors.LightSalmon
                 }
             };
 
@@ -1668,6 +1673,22 @@ namespace Microcharts.Samples
                 {
                     Entries = entries,
                     LabelTextSize = 16
+                },
+                new ExtendedBarChart()
+                {
+                    Entries = entries,
+                    LabelTextSize = 26,
+                    VerticalLabelTextOrientation = VerticalTextOrientation.RotatedToRight,
+                    VerticalValueLabelTextOrientation = VerticalTextOrientation.Right,
+                    ValueLabelOption = ValueLabelOption.OverElement
+                },
+                new RangeBarChart()
+                {
+                    Entries = entries,
+                    LabelTextSize = 16,
+                    ShowYAxisLines = true,
+                    ShowYAxisText = true,
+                    LabelOrientation = Orientation.Horizontal
                 }
             };
         }
