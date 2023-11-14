@@ -1,27 +1,22 @@
 name: Microcharts PR Build
+
 on:
-  - pull_request
-  - workflow_dispatch
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   build:
     name: "Build for PR"
-    runs-on: ${{ matrix.os }}
     env:
       DOTNET_NOLOGO: true
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest, macos-latest]
+    runs-on: macos-latest
     steps:
       - name: Clone source
         uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
-
-      - name: Add MSBuild to PATH (Windows)
-        uses: microsoft/setup-msbuild@v1.1.3
-        if: matrix.os == 'windows-latest'
 
       - name: Install .NET SDK
         uses: actions/setup-dotnet@v3
@@ -38,13 +33,8 @@ jobs:
           dotnet workload install maui
           dotnet workload list
 
-      - name: "Restore NuGet packages (Windows)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
-        if: matrix.os == 'windows-latest'
-
-      - name: "Restore NuGet packages (Mac)"
+      - name: "Restore NuGet packages"
         run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /bl:mac-restore-build.binlog
-        if: matrix.os == 'macos-latest'
 
       - name: "Publish bin logs as artifacts"
         uses: actions/upload-artifact@v3
@@ -59,43 +49,8 @@ jobs:
       - name: "Build and pack Microcharts Android"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
 
-      - name: "Build and pack Microcharts Xamarin.Forms"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Forms/Microcharts.Forms.csproj
-
       - name: "Build and pack Microcharts iOS"
         run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.iOS/Microcharts.iOS.csproj
-
-      - name: "Build and pack Microcharts macOS"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.macOS/Microcharts.macOS.csproj
-        if: matrix.os == 'macos-latest'
-
-      - name: "Build and pack Microcharts UWP"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uwp/Microcharts.Uwp.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts Avalonia"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Avalonia/Microcharts.Avalonia.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts Eto"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Eto/Microcharts.Eto.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts .NET MAUI"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Maui/Microcharts.Maui.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts Uno"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uno/Microcharts.Uno.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts Uno WinUI"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uno.WinUI/Microcharts.Uno.WinUI.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts WinUI"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.WinUI/Microcharts.WinUI.csproj
-        if: matrix.os == 'windows-latest'
 
       - name: "Build and pack Microcharts Meta-package"
         run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj

@@ -1,0 +1,58 @@
+name: Publish NuGet packages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Mac-NuGet-Builds:
+    env:
+      DOTNET_NOLOGO: true
+
+    runs-on: macos-latest
+    steps:
+    - name: Clone source
+      uses: actions/checkout@v3.1.0
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          6.0.x
+          7.0.x
+
+    - name: "Restore NuGet packages"
+      run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /bl:mac-restore-build.binlog
+
+    - name: "Publish bin logs as artifacts"
+      uses: actions/upload-artifact@v3
+      with:
+        name: msbuild-binlogs
+        path: '**/*.binlog'
+      if: always()
+
+    - name: "Build and pack Microcharts"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
+
+    - name: "Build and pack Microcharts Android"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
+
+    - name: "Build and pack Microcharts iOS"
+      run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.iOS/Microcharts.iOS.csproj
+
+    - name: "Build and pack Microcharts Meta-package"
+      run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj
+
+    - name: Add GitHub Packages source
+      run: nuget sources add -name github.com -source https://nuget.pkg.github.com/cabvision/index.json -username ${{ secrets.USERNAME }} -password ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish packages to github.com
+      run: |
+        cd artifacts
+        ls *.nupkg
+        nuget push *.nupkg --source github.com --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+
+    - name: Remove GitHub Packages source
+      if: ${{ always() }}
+      run: nuget sources remove -name github.com
