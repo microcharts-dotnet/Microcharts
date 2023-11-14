@@ -45,14 +45,14 @@ jobs:
       run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj
 
     - name: Add GitHub Packages source
-      run: nuget sources add -name github.com -source https://nuget.pkg.github.com/cabvision/index.json -username ${{ secrets.USERNAME }} -password ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github.com "https://nuget.pkg.github.com/cabvision/index.json"
 
     - name: Publish packages to github.com
       run: |
         cd artifacts
         ls *.nupkg
-        nuget push *.nupkg --source github.com --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+        dotnet nuget push *.nupkg --source github.com --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate
 
     - name: Remove GitHub Packages source
       if: ${{ always() }}
-      run: nuget sources remove -name github.com
+      run: dotnet nuget remove source github.com
