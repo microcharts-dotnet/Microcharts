@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <!-- iOS, Android, MacCatalyst -->
-        <TargetFrameworks>net7.0-ios;net7.0-android;net7.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks>net7.0;net7.0-ios;net7.0-android;net7.0-maccatalyst</TargetFrameworks>
         <TargetFrameworks Condition="$(IsWindows)">$(TargetFrameworks);net7.0-windows10.0.19041</TargetFrameworks>
         <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
         <PackagingPlatform Condition="$(TargetFramework.Contains('-windows'))">net7.0-windows</PackagingPlatform>
