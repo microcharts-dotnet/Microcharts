@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Text="Microcharts" Margin="6"/>
-        <ItemsControl Grid.Row="1" Items="{Binding Charts}" Margin="0, 0, 20, 20">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Charts}" Margin="0, 0, 20, 20">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="3" Rows="2" />
