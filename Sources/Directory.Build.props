@@ -25,7 +25,7 @@
         <RepositoryUrl>https://github.com/microcharts-dotnet/Microcharts.git</RepositoryUrl>
         <PackageProjectUrl>https://github.com/microcharts-dotnet/Microcharts</PackageProjectUrl>
         <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-        <Copyright>© 2023 Microcharts Team</Copyright>
+        <Copyright>Copyright 2017-$([System.DateTime]::Now.ToString(`yyyy`)) &#169; Microcharts Team</Copyright>
         <PackageVersion>$(VersionMain)$(VersionPrelease)</PackageVersion>
         <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
         <LicenseFile>$(MSBuildThisFileDirectory)..\LICENSE</LicenseFile>
