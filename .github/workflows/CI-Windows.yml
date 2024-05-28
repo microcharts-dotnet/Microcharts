@@ -6,8 +6,6 @@ on:
 
 jobs:
   Windows-nuget-Builds:
-    env:
-      DOTNET_NOLOGO: true
 
     runs-on: windows-latest
     steps:
@@ -46,11 +44,12 @@ jobs:
 
     - name: "Build and pack Microcharts"
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
+    
     - name: "Install Android SDK"
       uses: mndvs/android-sdk-setup@v1
-        with: 
-          api-level: 29
-          build-tools-version: 32.0.0
+      with: 
+        api-level: 29
+        build-tools-version: 32.0.0
           
     - name: "Build and pack Microcharts Android"
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
