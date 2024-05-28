@@ -6,6 +6,9 @@ on:
 
 jobs:
   Windows-nuget-Builds:
+    env:
+      NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_TOKEN}}
+      DOTNET_NOLOGO: true
 
     runs-on: windows-latest
     steps:
@@ -44,20 +47,7 @@ jobs:
 
     - name: "Build and pack Microcharts"
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
-    
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v2
 
-    - name: Install Android SDK packages
-      run: |
-        sdkmanager "platforms;android-29" "build-tools;29.0.2"
-
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-          java-version: '11'
-          distribution: 'adopt'
-          
     - name: "Build and pack Microcharts Android"
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
 
@@ -90,3 +80,9 @@ jobs:
 
     - name: "Build and pack Microcharts Meta-package"
       run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj
+
+    - name: Publish packages to nuget.org
+      run: |
+        cd artifacts
+        dir *.nupkg
+        nuget push "*.nupkg" -SkipDuplicate -NoSymbols -ApiKey $NUGET_AUTH_TOKEN -Source https://api.nuget.org/v3/index.json
