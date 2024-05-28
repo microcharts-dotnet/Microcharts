@@ -45,11 +45,12 @@ jobs:
     - name: "Build and pack Microcharts"
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
     
-    - name: "Install Android SDK"
+    - name: Set up Android SDK
       uses: android-actions/setup-android@v2
-      with: 
-        api-level: 29
-        build-tools-version: 32.0.0
+
+    - name: Install Android SDK packages
+      run: |
+        sdkmanager "platforms;android-29" "build-tools;29.0.2"
           
     - name: "Build and pack Microcharts Android"
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
