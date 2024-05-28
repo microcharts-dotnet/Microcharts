@@ -46,7 +46,7 @@ jobs:
       run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
     
     - name: "Install Android SDK"
-      uses: mndvs/android-sdk-setup@v1
+      uses: android-actions/setup-android@v2
       with: 
         api-level: 29
         build-tools-version: 32.0.0
