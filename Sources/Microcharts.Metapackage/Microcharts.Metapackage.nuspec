@@ -14,41 +14,38 @@
     <tags>maui ios android chart skia</tags>
     <icon>assets/Icon.png</icon>
     <dependencies>
-      <group targetFramework="net9.0">
+      <group targetFramework="net10.0">
         <dependency id="Microcharts.Core" version="2.0.0" />
         <dependency id="SkiaSharp" version="3.116.1" />
       </group>
-      <group targetFramework="net9.0-android35.0">
+      <group targetFramework="net10.0-android36.0">
         <dependency id="Microcharts.Core" version="2.0.0" />
         <dependency id="Microcharts.Maui" version="2.0.0" />
         <dependency id="SkiaSharp" version="3.116.1" />
         <dependency id="SkiaSharp.Views" version="3.116.1" />
         <dependency id="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
-        <dependency id="Microsoft.Maui.Controls" Version="9.0.30" />
       </group>
-      <group targetFramework="net9.0-ios18.0">
+      <group targetFramework="net10.0-ios19.0">
         <dependency id="Microcharts.Core" version="2.0.0" />
         <dependency id="Microcharts.Maui" version="2.0.0" />
         <dependency id="SkiaSharp" version="3.116.1" />
         <dependency id="SkiaSharp.Views" version="3.116.1" />
         <dependency id="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
-        <dependency id="Microsoft.Maui.Controls" Version="9.0.30" />        
       </group>
-      <group targetFramework="net9.0-maccatalyst18.0">
+      <group targetFramework="net10.0-maccatalyst19.0">
         <dependency id="Microcharts.Core" version="2.0.0" />
         <dependency id="Microcharts.Maui" version="2.0.0" />
         <dependency id="SkiaSharp" version="3.116.1" />
         <dependency id="SkiaSharp.Views" version="3.116.1" />
         <dependency id="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
-        <dependency id="Microsoft.Maui.Controls" Version="9.0.30" />        
       </group>
     </dependencies>
   </metadata>
   <files>
     <file src="../../assets/Icon.png" target="assets/" />
-    <file src="_._" target="lib/net9.0" />
-    <file src="_._" target="lib/net9.0-android35.0" />
-    <file src="_._" target="lib/net9.0-ios18.0" />
-    <file src="_._" target="lib/net9.0-maccatalyst18.0" />
+    <file src="_._" target="lib/net10.0" />
+    <file src="_._" target="lib/net10.0-android36.0" />
+    <file src="_._" target="lib/net10.0-ios19.0" />
+    <file src="_._" target="lib/net10.0-maccatalyst19.0" />
   </files>
 </package>
