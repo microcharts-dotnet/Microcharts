@@ -1,24 +1,12 @@
 # Microcharts
 
-[![Mac Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml)
-[![Windows Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml)
-
-## Version 1.0.0 Beta is now available
-
-[![NuGet](https://img.shields.io/nuget/vpre/Microcharts.Forms.svg?label=Microcharts.Forms)](https://www.nuget.org/packages/Microcharts.Forms/)
-
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Android.svg?label=Microcharts.Android)](https://www.nuget.org/packages/Microcharts.Android/)
-
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.iOS.svg?label=Microcharts.iOS)](https://www.nuget.org/packages/Microcharts.iOS/)
-
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Mac.svg?label=Microcharts.Mac)](https://www.nuget.org/packages/Microcharts.Mac/)
-
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Uwp.svg?label=Microcharts.Uwp)](https://www.nuget.org/packages/Microcharts.Uwp/)
+[![PR Build](https://github.com/microcharts-dotnet/Microcharts/actions/workflows/pull-request.yml/badge.svg)](https://github.com/microcharts-dotnet/Microcharts/actions/workflows/pull-request.yml)
+[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg)](https://www.nuget.org/packages/Microcharts/)
 
 
 **Microcharts** is an extremely simple charting library for a wide range of platforms (see *Compatibility* section below), with shared code and rendering for all of them!
 
-read our [wiki](https://github.com/dotnet-ad/Microcharts/wiki) to learn more about how to use this library.
+Read our [wiki](https://github.com/microcharts-dotnet/Microcharts/wiki) to learn more about how to use this library.
 
 ## About
 
@@ -30,7 +18,7 @@ Contributions are welcome! If you find a bug please report it and if you want a 
 
 If you want to contribute code please file an issue and create a branch off of the current dev branch and file a pull request.
 
-More info on how you can help can be found [here](https://github.com/dotnet-ad/Microcharts/wiki/Contributing).
+More info on how you can help can be found [here](https://github.com/microcharts-dotnet/Microcharts/wiki/Contributing).
 
 ## Gallery
 
@@ -60,7 +48,7 @@ Don't forget to call `UseMicrocharts()` on `MauiAppBuilder` in the `MauiProgram`
 
 Built in views are provided for:
 
-* .NET 9.0 (on all platforms)
+* .NET 10 (on all platforms)
 * MAUI (Windows, Android, iOS, and macOS Catalyst)
 
 ## License
