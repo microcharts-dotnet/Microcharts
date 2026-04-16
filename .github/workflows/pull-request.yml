@@ -19,17 +19,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Add MSBuild to PATH (Windows)
-        uses: microsoft/setup-msbuild@v1.1.3
-        if: matrix.os == 'windows-latest'
-
       - name: Install .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
             9.0.x
 
-      - name: "Install .NET cross-plat and MAUI workloads"
+      - name: "Install .NET workloads"
         run: |
           dotnet workload install android
           dotnet workload install ios
@@ -37,45 +33,23 @@ jobs:
           dotnet workload install maui
           dotnet workload list
 
-      - name: "Restore NuGet packages (Windows)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts.sln /bl:win-restore-build.binlog
-        if: matrix.os == 'windows-latest'
+      - name: "Restore NuGet packages"
+        run: dotnet restore Sources/Microcharts.Maui.sln
 
-      - name: "Restore NuGet packages (Mac)"
-        run: msbuild /t:restore /p:Configuration=Release Sources/Microcharts-mac.slnf /bl:mac-restore-build.binlog
-        if: matrix.os == 'macos-latest'
+      - name: "Build solution"
+        run: dotnet build Sources/Microcharts.Maui.sln --configuration Release --no-restore
 
-      - name: "Publish bin logs as artifacts"
-        uses: actions/upload-artifact@v3
-        with:
-          name: msbuild-binlogs
-          path: '**/*.binlog'
-        if: always()
+      - name: "Pack Microcharts Core"
+        run: dotnet pack Sources/Microcharts/Microcharts.csproj --configuration Release --no-build
 
-      - name: "Build and pack Microcharts"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts/Microcharts.csproj
+      - name: "Pack Microcharts Droid"
+        run: dotnet pack Sources/Microcharts.Droid/Microcharts.Droid.csproj --configuration Release --no-build
 
-      - name: "Build and pack Microcharts Android"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Droid/Microcharts.Droid.csproj
+      - name: "Pack Microcharts iOS"
+        run: dotnet pack Sources/Microcharts.iOS/Microcharts.iOS.csproj --configuration Release --no-build
 
-      - name: "Build and pack Microcharts iOS"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.iOS/Microcharts.iOS.csproj
+      - name: "Pack Microcharts MAUI"
+        run: dotnet pack Sources/Microcharts.Maui/Microcharts.Maui.csproj --configuration Release --no-build
 
-      - name: "Build and pack Microcharts macOS"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.macOS/Microcharts.macOS.csproj
-        if: matrix.os == 'macos-latest'
-
-      - name: "Build and pack Microcharts UWP"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Uwp/Microcharts.Uwp.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts .NET MAUI"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.Maui/Microcharts.Maui.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts WinUI"
-        run: msbuild /t:build,pack /p:Configuration=Release Sources/Microcharts.WinUI/Microcharts.WinUI.csproj
-        if: matrix.os == 'windows-latest'
-
-      - name: "Build and pack Microcharts Meta-package"
-        run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj
+      - name: "Pack Microcharts Meta-package"
+        run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj --configuration Release
