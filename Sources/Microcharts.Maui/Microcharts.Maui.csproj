@@ -8,8 +8,8 @@
     <Nullable>disable</Nullable>
     <Description>Simple, cross-platform chart library for .NET MAUI.</Description>
     <PackageTags>maui dotnet chart skia skiasharp</PackageTags>
-    <RepositoryUrl>https://github.com/follesoe/Microcharts.git</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/follesoe/Microcharts.git</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/microcharts-dotnet/Microcharts.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/microcharts-dotnet/Microcharts.git</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />

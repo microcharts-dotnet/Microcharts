@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 10.0.x
-        source-url: https://nuget.pkg.github.com/follesoe/index.json
+        source-url: https://nuget.pkg.github.com/microcharts-dotnet/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -54,5 +54,5 @@ jobs:
 
     - name: Publish packages to GitHub
       run: |
-        dotnet nuget add source --username follesoe --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/follesoe/index.json"
+        dotnet nuget add source --username microcharts-dotnet --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/microcharts-dotnet/index.json"
         dotnet nuget push artifacts\*.nupkg --skip-duplicate --no-symbols  --source "github"
