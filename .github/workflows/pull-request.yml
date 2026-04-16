@@ -33,11 +33,21 @@ jobs:
           dotnet workload install maui
           dotnet workload list
 
-      - name: "Restore NuGet packages"
-        run: dotnet restore Sources/Microcharts.Maui.sln
+      - name: Select Xcode 26.3
+        if: matrix.os == 'macos-latest'
+        run: |
+          if [ -d "/Applications/Xcode_26.3.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
+          elif [ -d "/Applications/Xcode_26.3_beta.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_26.3_beta.app/Contents/Developer
+          else
+            echo "Available Xcode versions:"
+            ls -d /Applications/Xcode*.app 2>/dev/null || echo "None found"
+            echo "::warning::Xcode 26.3 not found. iOS/macCatalyst sample builds may fail."
+          fi
 
       - name: "Build solution"
-        run: dotnet build Sources/Microcharts.Maui.sln --configuration Release --no-restore
+        run: dotnet build Sources/Microcharts.Maui.sln --configuration Release
 
       - name: "Pack Microcharts Core"
         run: dotnet pack Sources/Microcharts/Microcharts.csproj --configuration Release --no-build
