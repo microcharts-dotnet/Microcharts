@@ -1,45 +1,51 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>Microcharts</id>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
     <title>Microcharts</title>
     <authors>Microcharts Team</authors>
     <owners>Microcharts Team</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/dotnet-ad/Microcharts/</projectUrl>
+    <projectUrl>https://github.com/microcharts-dotnet/Microcharts</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple, cross-platform chart library.</description>
-    <copyright>© 2023 Microcharts Team</copyright>
-    <tags>xamarin ios android chart skia</tags>
+    <copyright>© 2025 Microcharts Team</copyright>
+    <tags>maui ios android chart skia</tags>
+    <icon>assets/Icon.png</icon>
     <dependencies>
-        <group targetFramework="netstandard2.0">
-            <dependency id="Microcharts" version="1.0.1" />
-            <dependency id="SkiaSharp" version="2.80.2" />
-            <dependency id="System.ValueTuple" version="4.5.0" />
-        </group>
-        <group targetFramework="monoandroid1.0">
-            <dependency id="Microcharts.Droid" version="1.0.1" />
-            <dependency id="SkiaSharp" version="2.80.2" />
-            <dependency id="SkiaSharp.Views"  version="2.80.2" />
-        </group>
-        <group targetFramework="xamarinios1.0">
-            <dependency id="Microcharts.iOS" version="1.0.1" />
-            <dependency id="SkiaSharp" version="2.80.2" />
-            <dependency id="SkiaSharp.Views"  version="2.80.2" />
-        </group>
-        <group targetFramework="uap10.0">
-            <dependency id="Microcharts.Uwp" version="1.0.1" />
-            <dependency id="SkiaSharp" version="2.80.2" />
-            <dependency id="SkiaSharp.Views"  version="2.80.2" />
-        </group>
-        <group targetFramework="xamarinmac2.0">
-            <dependency id="Microcharts.macOS" version="1.0.1" />
-            <dependency id="SkiaSharp" version="2.80.2" />
-            <dependency id="SkiaSharp.Views"  version="2.80.2" />
-        </group>
+      <group targetFramework="net10.0">
+        <dependency id="Microcharts.Core" version="2.0.0" />
+        <dependency id="SkiaSharp" version="3.116.1" />
+      </group>
+      <group targetFramework="net10.0-android36.0">
+        <dependency id="Microcharts.Core" version="2.0.0" />
+        <dependency id="Microcharts.Maui" version="2.0.0" />
+        <dependency id="SkiaSharp" version="3.116.1" />
+        <dependency id="SkiaSharp.Views" version="3.116.1" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
+      </group>
+      <group targetFramework="net10.0-ios19.0">
+        <dependency id="Microcharts.Core" version="2.0.0" />
+        <dependency id="Microcharts.Maui" version="2.0.0" />
+        <dependency id="SkiaSharp" version="3.116.1" />
+        <dependency id="SkiaSharp.Views" version="3.116.1" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
+      </group>
+      <group targetFramework="net10.0-maccatalyst19.0">
+        <dependency id="Microcharts.Core" version="2.0.0" />
+        <dependency id="Microcharts.Maui" version="2.0.0" />
+        <dependency id="SkiaSharp" version="3.116.1" />
+        <dependency id="SkiaSharp.Views" version="3.116.1" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
+      </group>
     </dependencies>
   </metadata>
-   <files>
-   </files>
+  <files>
+    <file src="../../assets/Icon.png" target="assets/" />
+    <file src="_._" target="lib/net10.0" />
+    <file src="_._" target="lib/net10.0-android36.0" />
+    <file src="_._" target="lib/net10.0-ios19.0" />
+    <file src="_._" target="lib/net10.0-maccatalyst19.0" />
+  </files>
 </package>

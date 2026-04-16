@@ -22,60 +22,54 @@ namespace Microcharts
 
                 if (hasLabel)
                 {
-                    using (var paint = new SKPaint
-                    {
-                        TextSize = textSize,
-                        IsAntialias = true,
-                        Color = labelColor,
-                        IsStroke = false,
-                        TextAlign = horizontalAlignment,
-                        Typeface = typeface
-                    })
-                    {
-                        var bounds = new SKRect();
-                        var text = label;
-                        paint.MeasureText(text, ref bounds);
+                    using var font = new SKFont();
+                    font.Size = textSize;
+                    font.Typeface = typeface;
 
-                        var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
+                    using var paint = new SKPaint();
+                    paint.IsAntialias = true;
+                    paint.Color = labelColor;
+                    paint.IsStroke = false;
 
-                        canvas.DrawText(text, point.X, y, paint);
+                    var text = label;
+                    font.MeasureText(text, out var bounds);
 
-                        var labelBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
-                        totalBounds = labelBounds.Standardized;
-                    }
+                    var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
+
+                    canvas.DrawText(text, point.X, y, horizontalAlignment, font, paint);
+
+                    var labelBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
+                    totalBounds = labelBounds.Standardized;
                 }
 
                 if (hasValueLabel)
                 {
-                    using (var paint = new SKPaint()
+                    using var font = new SKFont();
+                    font.Size = textSize;
+                    font.Typeface = typeface;
+                    font.Embolden = true;
+
+                    using var paint = new SKPaint();
+                    paint.IsAntialias = true;
+                    paint.Color = valueColor;
+                    paint.IsStroke = false;
+
+                    var text = value;
+                    font.MeasureText(text, out var bounds);
+
+                    var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) + space;
+
+                    canvas.DrawText(text, point.X, y, horizontalAlignment, font, paint);
+
+                    var valueBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
+
+                    if (totalBounds.IsEmpty)
                     {
-                        TextSize = textSize,
-                        IsAntialias = true,
-                        FakeBoldText = true,
-                        Color = valueColor,
-                        IsStroke = false,
-                        TextAlign = horizontalAlignment,
-                        Typeface = typeface
-                    })
+                        totalBounds = valueBounds.Standardized;
+                    }
+                    else
                     {
-                        var bounds = new SKRect();
-                        var text = value;
-                        paint.MeasureText(text, ref bounds);
-
-                        var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) + space;
-
-                        canvas.DrawText(text, point.X, y, paint);
-
-                        var valueBounds = GetAbsolutePositionRect(point.X, y, bounds, horizontalAlignment);
-
-                        if (totalBounds.IsEmpty)
-                        {
-                            totalBounds = valueBounds.Standardized;
-                        }
-                        else
-                        {
-                            totalBounds.Union(valueBounds.Standardized);
-                        }
+                        totalBounds.Union(valueBounds.Standardized);
                     }
                 }
             }
@@ -143,12 +137,14 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="text">The text to display</param>
+        /// <param name="textAlign">The text alignment</param>
+        /// <param name="font">The font to use for text and calculations</param>
         /// <param name="paint">The paint to use for text and calculations</param>
         /// <param name="point">The baseLine point where to vertically draw</param>
         /// <remarks>https://stackoverflow.com/questions/27631736/meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font</remarks>
-        public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKPaint paint, SKPoint point)
+        public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKTextAlign textAlign, SKFont font, SKPaint paint, SKPoint point)
         {
-            canvas.DrawTextCenteredVertically(text, paint, point.X, point.Y);
+            canvas.DrawTextCenteredVertically(text, textAlign, font, paint, point.X, point.Y);
         }
 
         /// <summary>
@@ -156,14 +152,16 @@ namespace Microcharts
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="text">The text to display</param>
+        /// <param name="textAlign">The text alignment</param>
+        /// <param name="font">The font to use for text and calculations</param>
         /// <param name="paint">The paint to use for text and calculations</param>
         /// <param name="x">The baseLine point x where to vertically draw</param>
         /// <param name="y">The baseLine point y where to vertically draw</param>
         /// <remarks>https://stackoverflow.com/questions/27631736/meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font</remarks>
-        public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKPaint paint, float x, float y)
+        public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKTextAlign textAlign, SKFont font, SKPaint paint, float x, float y)
         {
-            var textY = y + (((-paint.FontMetrics.Ascent + paint.FontMetrics.Descent) / 2) - paint.FontMetrics.Descent);
-            canvas.DrawText(text, x, textY, paint);
+            var textY = y + (((-font.Metrics.Ascent + font.Metrics.Descent) / 2) - font.Metrics.Descent);
+            canvas.DrawText(text, x, textY, textAlign, font, paint);
         }
 
         /// <summary>

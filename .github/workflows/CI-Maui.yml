@@ -1,0 +1,58 @@
+name: Publish Microcharts NuGet packages to GitHub
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  Maui-nuget-Builds:
+
+    runs-on: windows-latest
+
+    steps:
+
+    - name: Clone source
+      uses: actions/checkout@v4.0.0
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+        source-url: https://nuget.pkg.github.com/follesoe/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Install .NET MAUI Workloads
+      run: |
+        dotnet workload install android
+        dotnet workload install ios
+        dotnet workload install maccatalyst
+        dotnet workload install maui
+        dotnet workload list
+
+    - name: Build and pack Microcharts.Core
+      run: |
+        dotnet pack --configuration=Release -p:VersionPrelease=.${{ github.run_number }} Sources\Microcharts\Microcharts.csproj
+
+    - name: Build and pack Microcharts.Maui
+      run: |
+        dotnet pack --configuration=Release -p:VersionPrelease=.${{ github.run_number }} Sources\Microcharts.Maui\Microcharts.Maui.csproj
+
+    - name: Build and pack Microcharts.iOS
+      run: |
+        dotnet pack --configuration=Release -p:VersionPrelease=.${{ github.run_number }} Sources\Microcharts.iOS\Microcharts.iOS.csproj
+
+    - name: Build and pack Microcharts.Droid
+      run: |
+        dotnet pack --configuration=Release -p:VersionPrelease=.${{ github.run_number }} Sources\Microcharts.Droid\Microcharts.Droid.csproj
+
+    - name: Build and pack Microcharts.Metapackage
+      run: |
+        dotnet pack --configuration=Release -p:VersionPrelease=.${{ github.run_number }} Sources\Microcharts.Metapackage\Microcharts.Metapackage.csproj
+
+    - name: Publish packages to GitHub
+      run: |
+        dotnet nuget add source --username follesoe --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/follesoe/index.json"
+        dotnet nuget push artifacts\*.nupkg --skip-duplicate --no-symbols  --source "github"

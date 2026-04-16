@@ -12,18 +12,16 @@ namespace Microcharts
         /// <returns>The texts bounds.</returns>
         internal static SKRect[] MeasureTexts(string[] texts, float textSize)
         {
-            using (var paint = new SKPaint())
-            {
-                paint.TextSize = textSize;
-                return MeasureTexts(texts, paint);
-            }
+            using var font = new SKFont();
+            font.Size = textSize;
+            return MeasureTexts(texts, font);
         }
 
         /// <summary>
         /// Measures the text values.
         /// </summary>
         /// <returns>The texts bounds.</returns>
-        internal static SKRect[] MeasureTexts(string[] texts, SKPaint paint)
+        internal static SKRect[] MeasureTexts(string[] texts, SKFont font)
         {
             return texts.Select(text =>
             {
@@ -32,8 +30,7 @@ namespace Microcharts
                     return SKRect.Empty;
                 }
 
-                var bounds = new SKRect();
-                paint.MeasureText(text, ref bounds);
+                font.MeasureText(text, out var bounds);
                 return bounds;
             }).ToArray();
         }
@@ -68,7 +65,7 @@ namespace Microcharts
             return result;
         }
 
-        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
+        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, SKFont yAxisTextFont, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
         {
             yAxisXShift = 0.0f;
             yAxisIntervalLabels = new List<float>();
@@ -106,7 +103,7 @@ namespace Microcharts
                     .ToList();
 
                 var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
-                var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
+                var longestYAxisLabelWidth = MeasureTexts([longestYAxisLabel], yAxisTextFont).Select(b => b.Width).FirstOrDefault();
                 yAxisWidth = (int)(width - longestYAxisLabelWidth) - 10;
                 if (yAxisPosition == Position.Left)
                 {

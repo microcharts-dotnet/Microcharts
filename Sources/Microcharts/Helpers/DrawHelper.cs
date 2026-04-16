@@ -16,18 +16,20 @@ namespace Microcharts
 
     internal static class DrawHelper
     {
-        
+
         internal static void DrawLabel(SKCanvas canvas, Orientation orientation, YPositionBehavior yPositionBehavior, SKSize itemSize, SKPoint point, SKColor color, SKRect bounds, string text, float textSize, SKTypeface typeface)
         {
             using (new SKAutoCanvasRestore(canvas))
             {
+                using (var font = new  SKFont())
                 using (var paint = new SKPaint())
                 {
-                    paint.TextSize = textSize;
+                    font.Size = textSize;
+                    font.Typeface = typeface;
+
                     paint.IsAntialias = true;
                     paint.Color = color;
                     paint.IsStroke = false;
-                    paint.Typeface = typeface;
 
                     if (orientation == Orientation.Vertical)
                     {
@@ -57,13 +59,13 @@ namespace Microcharts
                         if (bounds.Width > itemSize.Width)
                         {
                             text = text.Substring(0, Math.Min(3, text.Length));
-                            paint.MeasureText(text, ref bounds);
+                            font.MeasureText(text, out bounds);
                         }
 
                         if (bounds.Width > itemSize.Width)
                         {
                             text = text.Substring(0, Math.Min(1, text.Length));
-                            paint.MeasureText(text, ref bounds);
+                            font.MeasureText(text, out bounds);
                         }
 
                         var y = point.Y;
@@ -87,12 +89,12 @@ namespace Microcharts
                         canvas.Translate(point.X - (bounds.Width / 2), y);
                     }
 
-                    canvas.DrawText(text, 0, 0, paint);
+                    canvas.DrawText(text, 0, 0, font, paint);
                 }
             }
         }
 
-        internal static void DrawYAxis(bool showYAxisText, bool showYAxisLines, Position yAxisPosition, SKPaint yAxisTextPaint, SKPaint yAxisLinesPaint, float margin, float animationProgress, float maxValue, float valueRange, SKCanvas canvas, int width, float yAxisXShift, List<float> yAxisIntervalLabels, float headerHeight, SKSize itemSize, float origin)
+        internal static void DrawYAxis(bool showYAxisText, bool showYAxisLines, Position yAxisPosition, SKFont yAxisTextFont, SKPaint yAxisTextPaint, SKPaint yAxisLinesPaint, float margin, float animationProgress, float maxValue, float valueRange, SKCanvas canvas, int width, float yAxisXShift, List<float> yAxisIntervalLabels, float headerHeight, SKSize itemSize, float origin)
         {
             if (showYAxisText || showYAxisLines)
             {
@@ -107,7 +109,7 @@ namespace Microcharts
 
                 if (showYAxisText)
                 {
-                    DrawYAxisText(yAxisTextPaint, yAxisPosition, canvas, intervals);
+                    DrawYAxisText(yAxisTextFont, yAxisTextPaint, yAxisPosition, canvas, intervals);
                 }
 
                 if (showYAxisLines)
@@ -129,17 +131,17 @@ namespace Microcharts
         /// <summary>
         /// Shows a Y axis
         /// </summary>
+        /// <param name="yAxisTextFont"></param>
         /// <param name="yAxisTextPaint"></param>
         /// <param name="yAxisPosition"></param>
         /// <param name="canvas"></param>
         /// <param name="intervals"></param>
-        private static void DrawYAxisText(SKPaint yAxisTextPaint, Position yAxisPosition, SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
+        private static void DrawYAxisText(SKFont yAxisTextFont, SKPaint yAxisTextPaint, Position yAxisPosition, SKCanvas canvas, IEnumerable<(string Label, SKPoint Point)> intervals)
         {
-            var pt = yAxisTextPaint.Clone();
-            pt.TextAlign = yAxisPosition == Position.Left ? SKTextAlign.Right : SKTextAlign.Left;
+            var textAlign = yAxisPosition == Position.Left ? SKTextAlign.Right : SKTextAlign.Left;
 
             foreach (var @int in intervals)
-                canvas.DrawTextCenteredVertically(@int.Label, pt, @int.Point.X, @int.Point.Y);
+                canvas.DrawTextCenteredVertically(@int.Label, textAlign, yAxisTextFont, yAxisTextPaint, @int.Point.X, @int.Point.Y);
         }
 
         /// <summary>

@@ -1,17 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
-
 namespace Microcharts.Samples.Maui
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChartConfigurationPage : ContentPage
+    public partial class ChartConfigurationPage
     {
         public ChartConfigurationPage(string chartType)
         {
@@ -24,8 +14,8 @@ namespace Microcharts.Samples.Maui
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            Frame frame = (sender as Frame);
-            ExampleChartItem exChartItem = frame.BindingContext as ExampleChartItem;
+            var border = sender as Border;
+            ExampleChartItem exChartItem = border.BindingContext as ExampleChartItem;
             Navigation.PushAsync(new ChartPage(exChartItem));
         }
     }

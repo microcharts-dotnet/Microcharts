@@ -6,7 +6,7 @@
 
     <PropertyGroup>
         <!-- Change these two values to control the version -->
-        <VersionMain>1.0.1</VersionMain>
+        <VersionMain>2.0.0</VersionMain>
         <VersionPrelease></VersionPrelease>
     </PropertyGroup>
 
@@ -21,6 +21,7 @@
         <!-- Common NuGet package metadata -->
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Microcharts Team</Authors>
+        <Owners>Microcharts Team</Owners>
         <NeutralLanguage>en</NeutralLanguage>
         <RepositoryUrl>https://github.com/microcharts-dotnet/Microcharts.git</RepositoryUrl>
         <PackageProjectUrl>https://github.com/microcharts-dotnet/Microcharts</PackageProjectUrl>
@@ -29,7 +30,12 @@
         <PackageVersion>$(VersionMain)$(VersionPrelease)</PackageVersion>
         <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts</PackageOutputPath>
         <LicenseFile>$(MSBuildThisFileDirectory)..\LICENSE</LicenseFile>
+        <PackageIcon>Icon.png</PackageIcon>
     </PropertyGroup>
+
+    <ItemGroup Label="PackageIcon">
+        <None Include="$(MSBuildThisFileDirectory)/../Assets/Icon.png" Pack="true" Visible="false" PackagePath=""/>
+    </ItemGroup>
 
     <Target Name="PrintRID"
          BeforeTargets="BeforeBuild">

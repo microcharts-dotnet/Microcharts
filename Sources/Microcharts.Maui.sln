@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35323.107
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts", "Microcharts\Microcharts.csproj", "{D0547D7F-A592-4FD6-91F6-90D328E2AA05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Maui", "Microcharts.Maui\Microcharts.Maui.csproj", "{096EC994-36F1-4D94-AAD2-8F71EBF71EA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Maui", "Microcharts.Samples.Maui\Microcharts.Samples.Maui.csproj", "{0759549D-1389-4897-80BC-86A036DA6CB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples", "Microcharts.Samples\Microcharts.Samples.csproj", "{2141A78D-A0BC-4EEF-BB0D-8AABAD9FCFE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.iOS", "Microcharts.iOS\Microcharts.iOS.csproj", "{77AFDC26-5996-4E66-8785-3CC8DBB47DDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.iOS", "Microcharts.Samples.iOS\Microcharts.Samples.iOS.csproj", "{E8626BE1-E233-4F4A-9084-673A987B9231}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Droid", "Microcharts.Droid\Microcharts.Droid.csproj", "{90610D02-4BD9-4B73-9F66-03F9F5FCDD28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Android", "Microcharts.Samples.Android\Microcharts.Samples.Android.csproj", "{887811AC-20D3-4315-BC0B-815EE557FC08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0547D7F-A592-4FD6-91F6-90D328E2AA05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0547D7F-A592-4FD6-91F6-90D328E2AA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0547D7F-A592-4FD6-91F6-90D328E2AA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0547D7F-A592-4FD6-91F6-90D328E2AA05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096EC994-36F1-4D94-AAD2-8F71EBF71EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096EC994-36F1-4D94-AAD2-8F71EBF71EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096EC994-36F1-4D94-AAD2-8F71EBF71EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096EC994-36F1-4D94-AAD2-8F71EBF71EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0759549D-1389-4897-80BC-86A036DA6CB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0759549D-1389-4897-80BC-86A036DA6CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0759549D-1389-4897-80BC-86A036DA6CB2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0759549D-1389-4897-80BC-86A036DA6CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0759549D-1389-4897-80BC-86A036DA6CB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0759549D-1389-4897-80BC-86A036DA6CB2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2141A78D-A0BC-4EEF-BB0D-8AABAD9FCFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2141A78D-A0BC-4EEF-BB0D-8AABAD9FCFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2141A78D-A0BC-4EEF-BB0D-8AABAD9FCFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2141A78D-A0BC-4EEF-BB0D-8AABAD9FCFE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AFDC26-5996-4E66-8785-3CC8DBB47DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AFDC26-5996-4E66-8785-3CC8DBB47DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AFDC26-5996-4E66-8785-3CC8DBB47DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AFDC26-5996-4E66-8785-3CC8DBB47DDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8626BE1-E233-4F4A-9084-673A987B9231}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{E8626BE1-E233-4F4A-9084-673A987B9231}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{E8626BE1-E233-4F4A-9084-673A987B9231}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{E8626BE1-E233-4F4A-9084-673A987B9231}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
+		{90610D02-4BD9-4B73-9F66-03F9F5FCDD28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90610D02-4BD9-4B73-9F66-03F9F5FCDD28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90610D02-4BD9-4B73-9F66-03F9F5FCDD28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90610D02-4BD9-4B73-9F66-03F9F5FCDD28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{887811AC-20D3-4315-BC0B-815EE557FC08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{887811AC-20D3-4315-BC0B-815EE557FC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{887811AC-20D3-4315-BC0B-815EE557FC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{887811AC-20D3-4315-BC0B-815EE557FC08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0CF869A5-8461-4A12-A01C-16AD16276352}
+	EndGlobalSection
+EndGlobal

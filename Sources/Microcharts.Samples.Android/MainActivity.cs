@@ -1,12 +1,9 @@
-using Android.App;
-using Android.OS;
-using AndroidX.AppCompat.App;
 using Microcharts.Droid;
 
 namespace Microcharts.Samples.Android
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    [Activity(Label = "@string/app_name", MainLauncher = true)]
+    public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {

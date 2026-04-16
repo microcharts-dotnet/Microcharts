@@ -3,8 +3,6 @@
 [![Mac Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-MacOS.yml)
 [![Windows Builds](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml/badge.svg)](https://github.com/dotnet-ad/Microcharts/actions/workflows/CI-Windows.yml)
 
-[Looking for more contributors](https://github.com/microcharts-dotnet/Microcharts/discussions/274)
-
 ## Version 1.0.0 Beta is now available
 
 [![NuGet](https://img.shields.io/nuget/vpre/Microcharts.Forms.svg?label=Microcharts.Forms)](https://www.nuget.org/packages/Microcharts.Forms/)
@@ -24,7 +22,7 @@ read our [wiki](https://github.com/dotnet-ad/Microcharts/wiki) to learn more abo
 
 ## About
 
-This project is just simple drawing on top of the awesome [SkiaSharp](https://github.com/mono/SkiaSharp) library. The purpose is not to have an heavily customizable charting library. If you want so, simply fork the code, since all of this is fairly simple. Their is no interaction, nor animation at the moment.
+This project is just simple drawing on top of the awesome [SkiaSharp](https://github.com/mono/SkiaSharp) library. The purpose is not to have an heavily customizable charting library. If you want so, simply fork the code, since all of this is fairly simple.
 
 ## Contributions
 
@@ -44,21 +42,15 @@ More info on how you can help can be found [here](https://github.com/dotnet-ad/M
 
 Available on NuGet
 
-**NET Standard 2.0, Xamarin.iOS, Xamarin.Android, UWP**
-
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts/)
-
-
-**Xamarin.Forms (.NET Standard 2.0)**
-
-[![NuGet](https://img.shields.io/nuget/v/Microcharts.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microcharts.Forms/)
+* [Microcharts](https://www.nuget.org/packages/Microcharts/)
+* [Microcharts.Core](https://www.nuget.org/packages/Microcharts.Core/)
+* [Microcharts.Maui](https://www.nuget.org/packages/Microcharts.Maui/)
+* [Microcharts.iOS](https://www.nuget.org/packages/Microcharts.iOS/)
+* [Microcharts.Android](https://www.nuget.org/packages/Microcharts.Droid/)
 
 **.NET MAUI**
 
-Not yet available through NuGet.
-
-> [!IMPORTANT]
-> Don't forget to call `UseMicrocharts()` on `MauiAppBuilder` in the `MauiProgram` class.
+Don't forget to call `UseMicrocharts()` on `MauiAppBuilder` in the `MauiProgram` class.
 
 ## Tutorials
 
@@ -68,12 +60,9 @@ Not yet available through NuGet.
 
 Built in views are provided for:
 
-* **UWP**
-* **Xamarin.Forms**, **Xamarin.iOS** and **Xamarin.Android**, **Xamarin.macOS**
-* **.NET MAUI** (Windows, Android, iOS, and macOS)
-* **WinUI** (Windows App SDK)
-* And any other **.NET Standard 2.0** [SkiaSharp](https://github.com/mono/SkiaSharp) supported platform is also compatible (see one of the included `ChartView` implementations for more details).
+* .NET 9.0 (on all platforms)
+* MAUI (Windows, Android, iOS, and macOS Catalyst)
 
 ## License
 
-MIT © [Aloïs Deniel](https://aloisdeniel.com) & [Ed Lomonaco](https://edlomonaco.dev)
+MIT © [Aloïs Deniel](https://aloisdeniel.com), [Ed Lomonaco](https://edlomonaco.dev) & [Jonas Follesø](https://github.com/follesoe)

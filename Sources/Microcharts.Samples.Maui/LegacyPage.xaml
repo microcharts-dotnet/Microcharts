@@ -2,8 +2,10 @@
 <ContentPage x:Class="Microcharts.Samples.Maui.LegacyPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Microcharts.Samples.Forms"
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:model="clr-namespace:Microcharts.Samples.Maui.Model;assembly=Microcharts.Samples.Maui"
+             xmlns:local="clr-namespace:Microcharts.Samples.Maui;assembly=Microcharts.Samples.Maui"
+             x:DataType="local:LegacyPage"
              x:Name="Page"
              Title="Legacy charts">
     <Grid RowDefinitions="Auto, Auto, *">
@@ -20,16 +22,18 @@
                 <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:ChartItem">
                     <Grid Margin="0" Padding="0">
-                        <Frame Margin="10"
+                        <Border Margin="10"
                                Padding="5"
                                BackgroundColor="White"
-                               BorderColor="LightGray"
-                               CornerRadius="10">
-                            <Frame.GestureRecognizers>
+                               Stroke="LightGray">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                            </Frame.GestureRecognizers>
+                            </Border.GestureRecognizers>
                             <Grid Margin="0"
                                   Padding="0"
                                   ColumnDefinitions="*, Auto"
@@ -39,7 +43,7 @@
                                        Text="{Binding Name}"
                                        TextColor="Black"
                                        VerticalOptions="Center" />
-                                <Frame Grid.Column="1"
+                                <Border Grid.Column="1"
                                        Margin="5,3"
                                        Padding="10,3"
                                        BackgroundColor="Red"
@@ -48,7 +52,7 @@
                                     <Label FontSize="Small"
                                            Text="SERIES"
                                            TextColor="White" />
-                                </Frame>
+                                </Border>
                                 <microcharts:ChartView x:Name="chartView"
                                                        Grid.Row="1"
                                                        Grid.ColumnSpan="2"
@@ -56,7 +60,7 @@
                                                        Chart="{Binding Chart}"
                                                        HeightRequest="250" />
                             </Grid>
-                        </Frame>
+                        </Border>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "Microcharts.Sample.Uno.Windows": {
-      "commandName": "MsixPackage"
-    }
-  }
-}

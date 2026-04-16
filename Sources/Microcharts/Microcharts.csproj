@@ -1,16 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageId>Microcharts.Core</PackageId>
-        <Description>Core components for Microcharts.</Description>
-        <PackageTags>microcharts</PackageTags>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <NoWarn>$(NoWarn);CS1591</NoWarn>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="SkiaSharp" Version="2.88.3" />
-        <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    </ItemGroup>
+  <PropertyGroup>
+    <PackageId>Microcharts.Core</PackageId>
+    <Description>Core components for Microcharts.</Description>
+    <TargetFrameworks>net10.0;net10.0-ios;net10.0-maccatalyst;net10.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PackageTags>microcharts</PackageTags>
+    <UseMaui>true</UseMaui>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="3.116.1" />
+  </ItemGroup>
 </Project>

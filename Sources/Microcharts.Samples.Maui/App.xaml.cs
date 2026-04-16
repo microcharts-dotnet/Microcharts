@@ -1,15 +1,13 @@
-using Microsoft.Maui.Controls;
-using Application = Microsoft.Maui.Controls.Application;
-
 namespace Microcharts.Samples.Maui
 {
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new MainPage());
         }
+
+        protected override Window CreateWindow(IActivationState activationState) =>
+            new(new NavigationPage(new MainPage()));
     }
 }

@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="SkiaSharp.Views.WinUI" Version="2.88.3" />
+        <PackageReference Include="SkiaSharp.Views.WinUI" Version="3.116.1" />
         <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
     </ItemGroup>
 

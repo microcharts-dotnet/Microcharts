@@ -8,21 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4F0AFDCA-C6AB-43A5-9F52-C271DCDC46FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Forms", "Microcharts.Forms\Microcharts.Forms.csproj", "{09B1401F-E6C1-42E9-A721-8A4FCD77B14A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Forms", "Microcharts.Samples.Forms\Microcharts.Samples.Forms\Microcharts.Samples.Forms.csproj", "{72AAF4AA-B414-4E26-BCE2-C25DBC0F498C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples", "Microcharts.Samples\Microcharts.Samples.csproj", "{299BCEF9-2A16-4AA0-81EE-1DC075F18FED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.Android", "Microcharts.Samples.Forms\Microcharts.Samples.Forms.Android\Microcharts.Samples.Forms.Android.csproj", "{57F645D7-DBC4-432D-85BE-865900B02AEF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Forms.iOS", "Microcharts.Samples.Forms\Microcharts.Samples.Forms.iOS\Microcharts.Samples.Forms.iOS.csproj", "{28DC5F01-070C-4117-A46F-C4855430DB4A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Avalonia", "Microcharts.Avalonia\Microcharts.Avalonia.csproj", "{7255A6CD-3F59-44AB-9CA4-5269D8E9D762}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Droid", "Microcharts.Droid\Microcharts.Droid.csproj", "{18125022-45E6-46EC-855C-B36E4D41484D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Eto", "Microcharts.Eto\Microcharts.Eto.csproj", "{9F697786-6B47-4D76-A1B1-756246AA8EAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.iOS", "Microcharts.iOS\Microcharts.iOS.csproj", "{8657B9BF-9D8E-4D3A-A5B2-23E9C0161909}"
 EndProject
@@ -30,19 +18,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.macOS", "Microc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Maui", "Microcharts.Maui\Microcharts.Maui.csproj", "{D0E9420B-C2D7-4556-9117-4F7C9009C0EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Uno", "Microcharts.Uno\Microcharts.Uno.csproj", "{3841C36D-39A6-4F3B-8CC6-702CDA252EF5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Uno.WinUI", "Microcharts.Uno.WinUI\Microcharts.Uno.WinUI.csproj", "{F8293FD5-928F-40F4-A54B-764C6BE21993}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Uwp", "Microcharts.Uwp\Microcharts.Uwp.csproj", "{4E28FCDE-60F6-45AE-B444-701D5F30BEFF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.WinUI", "Microcharts.WinUI\Microcharts.WinUI.csproj", "{7AF9A20B-09BD-4EE1-8CB1-E1C8E090DC8B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Android", "Microcharts.Samples.Android\Microcharts.Samples.Android.csproj", "{CC996DF4-E262-45B8-A450-D1E881FBE54D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Avalonia", "Microcharts.Samples.Avalonia\Microcharts.Samples.Avalonia.csproj", "{582B34F4-B6A1-414E-96ED-608FEF7EABBA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Eto", "Microcharts.Samples.Eto\Microcharts.Samples.Eto.csproj", "{2DC35D6A-9581-4491-9B76-9CDA37B05E8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.iOS", "Microcharts.Samples.iOS\Microcharts.Samples.iOS.csproj", "{E8626BE1-E233-4F4A-9084-673A987B9231}"
 EndProject
@@ -50,17 +30,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.macOS",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Maui", "Microcharts.Samples.Maui\Microcharts.Samples.Maui.csproj", "{5B563D75-B77C-437F-92AE-0AE4BA3E4E52}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Uno.Mobile", "Microcharts.Samples.Uno\Microcharts.Samples.Uno.Mobile\Microcharts.Samples.Uno.Mobile.csproj", "{96546BD0-8097-4643-8E55-A6DF95563957}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Uno.Skia.Gtk", "Microcharts.Samples.Uno\Microcharts.Samples.Uno.Skia.Gtk\Microcharts.Samples.Uno.Skia.Gtk.csproj", "{E47F45AD-7EB7-4FCA-AD2F-13A1E1FCCE8F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.Uno.Windows", "Microcharts.Samples.Uno\Microcharts.Samples.Uno.Windows\Microcharts.Samples.Uno.Windows.csproj", "{DDE822A1-E422-4DD3-9D93-97FF9ECF0ED7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microcharts.Samples.Uwp", "Microcharts.Samples.Uwp\Microcharts.Samples.Uwp.csproj", "{33901013-B4A3-4182-9048-49F2CF940429}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts.Samples.WinUI", "Microcharts.Samples.WinUI\Microcharts.Samples.WinUI.csproj", "{3BC8F77F-992B-4E0F-962F-C60C28C1DA7F}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microcharts.Samples.Uno.Shared", "Microcharts.Samples.Uno\Microcharts.Samples.Uno.Shared\Microcharts.Samples.Uno.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0AF5E95-DCE8-44D6-B2F1-CBEC22A07345}"
 	ProjectSection(SolutionItems) = preProject
@@ -1877,11 +1849,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCCD19D6-0567-4462-A494-5848BD95715F}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Microcharts.Samples.Uno\Microcharts.Samples.Uno.Shared\Microcharts.Samples.Uno.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
-		Microcharts.Samples.Uno\Microcharts.Samples.Uno.Shared\Microcharts.Samples.Uno.Shared.projitems*{96546bd0-8097-4643-8e55-a6df95563957}*SharedItemsImports = 5
-		Microcharts.Samples.Uno\Microcharts.Samples.Uno.Shared\Microcharts.Samples.Uno.Shared.projitems*{dde822a1-e422-4dd3-9d93-97ff9ecf0ed7}*SharedItemsImports = 5
-		Microcharts.Samples.Uno\Microcharts.Samples.Uno.Shared\Microcharts.Samples.Uno.Shared.projitems*{e47f45ad-7eb7-4fca-ad2f-13a1e1fcce8f}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

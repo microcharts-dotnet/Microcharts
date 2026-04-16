@@ -1,4 +1,4 @@
-﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microcharts.Abstracts;
@@ -7,6 +7,7 @@ namespace Microcharts
 {
     using System;
     using System.Threading.Tasks;
+    using ITimer = Abstracts.ITimer;
 
     /// <summary>
     /// A timer based on Task.Delay.

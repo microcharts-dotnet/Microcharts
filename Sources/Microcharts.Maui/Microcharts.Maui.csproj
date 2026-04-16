@@ -1,23 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <!-- iOS, Android, MacCatalyst -->
-        <TargetFrameworks>net7.0-ios;net7.0-android;net7.0-maccatalyst</TargetFrameworks>
-        <TargetFrameworks Condition="$(IsWindows)">$(TargetFrameworks);net7.0-windows10.0.19041</TargetFrameworks>
-        <TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
-        <PackagingPlatform Condition="$(TargetFramework.Contains('-windows'))">net7.0-windows</PackagingPlatform>
-        <UseMaui>true</UseMaui>
-
-        <Description>Simple, cross-platform chart library for .NET MAUI.</Description>
-        <PackageTags>maui dotnet chart skia skiasharp</PackageTags>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <!-- iOS, Android, MacCatalyst -->
+    <TargetFrameworks>net10.0;net10.0-ios;net10.0-maccatalyst;net10.0-android</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseMaui>true</UseMaui>
+    <Nullable>disable</Nullable>
+    <Description>Simple, cross-platform chart library for .NET MAUI.</Description>
+    <PackageTags>maui dotnet chart skia skiasharp</PackageTags>
+    <RepositoryUrl>https://github.com/follesoe/Microcharts.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/follesoe/Microcharts.git</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+  </ItemGroup>
 </Project>

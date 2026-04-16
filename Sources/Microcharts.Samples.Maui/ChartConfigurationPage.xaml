@@ -2,6 +2,9 @@
 <ContentPage x:Class="Microcharts.Samples.Maui.ChartConfigurationPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Microcharts.Samples.Maui;assembly=Microcharts.Samples.Maui"
+             xmlns:samples="clr-namespace:Microcharts.Samples;assembly=Microcharts.Samples"
+             x:DataType="local:ChartConfigurationPage"
              x:Name="Page">
     <Grid RowDefinitions="Auto, Auto, *">
         <Label Margin="20,0,0,0"
@@ -13,31 +16,31 @@
                FontSize="Subtitle"
                TextColor="Gray"
                Text="Tap on item to see the chart" />
-        <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Items,
-                                              Source={x:Reference Page}}">
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Items, Source={x:Reference Page}}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="10"
                                    Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="samples:ExampleChartItem">
                     <Grid Margin="0"
                           Padding="0">
-                        <Frame Margin="10"
+                        <Border Margin="10"
                                Padding="5"
                                BackgroundColor="White"
-                               BorderColor="LightGray"
-                               CornerRadius="10">
-                            <Frame.GestureRecognizers>
+                               Stroke="LightGray">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                            </Frame.GestureRecognizers>
+                            </Border.GestureRecognizers>
                             <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto" Margin="10,0">
                                 <Label FontSize="Large"
                                        LineBreakMode="WordWrap"
                                        Text="{Binding ExampleName}"
                                        TextColor="Black" />
-                                <Frame Grid.Column="1"
+                                <Border Grid.Column="1"
                                        Margin="5,3"
                                        Padding="10,3"
                                        BackgroundColor="Red"
@@ -46,8 +49,8 @@
                                     <Label FontSize="Small"
                                            Text="SERIES"
                                            TextColor="White" />
-                                </Frame>
-                                <Frame Grid.Column="1"
+                                </Border>
+                                <Border Grid.Column="1"
                                        Margin="5,3"
                                        Padding="10,3"
                                        BackgroundColor="DarkGreen"
@@ -56,14 +59,14 @@
                                     <Label FontSize="Small"
                                            Text="SIMPLE"
                                            TextColor="White" />
-                                </Frame>
+                                </Border>
                                 <Label FontSize="Medium"
                                        Grid.Row="1"
                                        Grid.ColumnSpan="2"
                                        TextColor="Gray"
                                        Text="{Binding ExampleTextDescription}" />
                             </Grid>
-                        </Frame>
+                        </Border>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
