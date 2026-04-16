@@ -33,18 +33,11 @@ jobs:
           dotnet workload install maui
           dotnet workload list
 
-      - name: Select Xcode 26.3
+      - name: Select latest Xcode
         if: matrix.os == 'macos-latest'
-        run: |
-          if [ -d "/Applications/Xcode_26.3.app" ]; then
-            sudo xcode-select -s /Applications/Xcode_26.3.app/Contents/Developer
-          elif [ -d "/Applications/Xcode_26.3_beta.app" ]; then
-            sudo xcode-select -s /Applications/Xcode_26.3_beta.app/Contents/Developer
-          else
-            echo "Available Xcode versions:"
-            ls -d /Applications/Xcode*.app 2>/dev/null || echo "None found"
-            echo "::warning::Xcode 26.3 not found. iOS/macCatalyst sample builds may fail."
-          fi
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
 
       - name: "Build solution"
         run: dotnet build Sources/Microcharts.Maui.sln --configuration Release
