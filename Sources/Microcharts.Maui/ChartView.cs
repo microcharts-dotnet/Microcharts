@@ -59,7 +59,7 @@ namespace Microcharts.Maui
 
             if (view.chart != null)
             {
-                view.handler = view.chart.ObserveInvalidate(view, (v) => v.InvalidateSurface());
+                view.handler = view.chart.ObserveInvalidate(view, (v) => v.Dispatcher.Dispatch(v.InvalidateSurface));
             }
         }
 
