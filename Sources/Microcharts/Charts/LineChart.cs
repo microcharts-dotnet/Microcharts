@@ -190,8 +190,7 @@ namespace Microcharts
                             using (var shader = CreateXGradient(points, s.Entries, s.Color))
                                 paint.Shader = shader;
 
-                        var path = new SKPath();
-                        //path.MoveTo(points.First());
+                        using var path = new SKPathBuilder();
 
                         var isFirst = true;
                         var entries = s.Entries;
@@ -229,7 +228,10 @@ namespace Microcharts
                             }
                         }
 
-                        canvas.DrawPath(path, paint);
+                        using (var linePath = path.Detach())
+                        {
+                            canvas.DrawPath(linePath, paint);
+                        }
                     }
                 }
             }
@@ -251,7 +253,7 @@ namespace Microcharts
                     {
                         paint.Shader = EnableYFadeOutGradient ? SKShader.CreateCompose(shaderY, shaderX, SKBlendMode.SrcOut) : shaderX;
 
-                        var path = new SKPath();
+                        using var path = new SKPathBuilder();
 
                         var isFirst = true;
                         var entries = serie.Entries;
@@ -296,7 +298,10 @@ namespace Microcharts
 
                         path.LineTo(lastPoint.X, origin);
                         path.Close();
-                        canvas.DrawPath(path, paint);
+                        using (var areaPath = path.Detach())
+                        {
+                            canvas.DrawPath(areaPath, paint);
+                        }
                     }
                 }
             }
