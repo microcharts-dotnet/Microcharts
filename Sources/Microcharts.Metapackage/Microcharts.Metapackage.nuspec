@@ -17,34 +17,34 @@
     <dependencies>
       <group targetFramework="net10.0">
         <dependency id="Microcharts.Core" version="$version$" />
-        <dependency id="SkiaSharp" version="3.119.4" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
       </group>
       <group targetFramework="net10.0-android36.0">
         <dependency id="Microcharts.Core" version="$version$" />
         <dependency id="Microcharts.Maui" version="$version$" />
-        <dependency id="SkiaSharp" version="3.119.4" />
-        <dependency id="SkiaSharp.Views" version="3.119.4" />
-        <dependency id="SkiaSharp.Views.Maui.Controls" version="3.119.4" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
       <group targetFramework="net10.0-ios19.0">
         <dependency id="Microcharts.Core" version="$version$" />
         <dependency id="Microcharts.Maui" version="$version$" />
-        <dependency id="SkiaSharp" version="3.119.4" />
-        <dependency id="SkiaSharp.Views" version="3.119.4" />
-        <dependency id="SkiaSharp.Views.Maui.Controls" version="3.119.4" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
       <group targetFramework="net10.0-maccatalyst19.0">
         <dependency id="Microcharts.Core" version="$version$" />
         <dependency id="Microcharts.Maui" version="$version$" />
-        <dependency id="SkiaSharp" version="3.119.4" />
-        <dependency id="SkiaSharp.Views" version="3.119.4" />
-        <dependency id="SkiaSharp.Views.Maui.Controls" version="3.119.4" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
       <group targetFramework="net10.0-windows10.0.19041.0">
         <dependency id="Microcharts.Core" version="$version$" />
         <dependency id="Microcharts.Maui" version="$version$" />
-        <dependency id="SkiaSharp" version="3.119.4" />
-        <dependency id="SkiaSharp.Views.Maui.Controls" version="3.119.4" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
     </dependencies>
   </metadata>
