@@ -35,7 +35,7 @@ namespace Microcharts
 
             using var path = new SKPathBuilder();
 
-            // the the sector is a full circle, then do that
+            // if the sector is a full circle, then do that
             if (end - start == 1.0f)
             {
                 path.AddCircle(0, 0, outerRadius, SKPathDirection.Clockwise);
@@ -48,10 +48,6 @@ namespace Microcharts
             var startAngle = (TotalAngle * start) - UprightAngle;
             var endAngle = (TotalAngle * end) - UprightAngle;
             var large = endAngle - startAngle > PI ? SKPathArcSize.Large : SKPathArcSize.Small;
-            var sectorCenterAngle = ((endAngle - startAngle) / 2f) + startAngle;
-
-            // get the radius bits
-            var cectorCenterRadius = ((outerRadius - innerRadius) / 2f) + innerRadius;
 
             // calculate the angle for the margins
             var offsetR = outerRadius == 0 ? 0 : ((margin / (TotalAngle * outerRadius)) * TotalAngle);

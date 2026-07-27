@@ -296,6 +296,13 @@ namespace Microcharts
                             }
                         }
 
+                        // Every entry was null, so no point was ever added to the path and
+                        // lastPoint still holds the placeholder used for null points.
+                        if (isFirst)
+                        {
+                            return;
+                        }
+
                         path.LineTo(lastPoint.X, origin);
                         path.Close();
                         using (var areaPath = path.Detach())
