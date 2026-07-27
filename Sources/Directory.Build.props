@@ -6,8 +6,13 @@
 
     <PropertyGroup>
         <!-- Change these two values to control the version -->
-        <VersionMain>2.0.0</VersionMain>
-        <VersionPrelease></VersionPrelease>
+        <VersionMain>3.0.0</VersionMain>
+        <VersionPrelease>-preview</VersionPrelease>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Single source of truth for the SkiaSharp package family version -->
+        <SkiaSharpVersion>4.150.1</SkiaSharpVersion>
     </PropertyGroup>
 
     <PropertyGroup>

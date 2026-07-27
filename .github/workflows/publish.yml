@@ -40,22 +40,22 @@ jobs:
         dotnet workload list
 
     - name: "Restore and build solution"
-      run: dotnet build Sources/Microcharts.slnx --configuration Release -p:VersionPrelease=.${{ github.run_number }}
+      run: dotnet build Sources/Microcharts.slnx --configuration Release -p:VersionPrelease=-preview.${{ github.run_number }}
 
     - name: "Pack Microcharts Core"
-      run: dotnet pack Sources/Microcharts/Microcharts.csproj --configuration Release --no-build -p:VersionPrelease=.${{ github.run_number }}
+      run: dotnet pack Sources/Microcharts/Microcharts.csproj --configuration Release --no-build -p:VersionPrelease=-preview.${{ github.run_number }}
 
     - name: "Pack Microcharts Droid"
-      run: dotnet pack Sources/Microcharts.Droid/Microcharts.Droid.csproj --configuration Release --no-build -p:VersionPrelease=.${{ github.run_number }}
+      run: dotnet pack Sources/Microcharts.Droid/Microcharts.Droid.csproj --configuration Release --no-build -p:VersionPrelease=-preview.${{ github.run_number }}
 
     - name: "Pack Microcharts iOS"
-      run: dotnet pack Sources/Microcharts.iOS/Microcharts.iOS.csproj --configuration Release --no-build -p:VersionPrelease=.${{ github.run_number }}
+      run: dotnet pack Sources/Microcharts.iOS/Microcharts.iOS.csproj --configuration Release --no-build -p:VersionPrelease=-preview.${{ github.run_number }}
 
     - name: "Pack Microcharts MAUI"
-      run: dotnet pack Sources/Microcharts.Maui/Microcharts.Maui.csproj --configuration Release --no-build -p:VersionPrelease=.${{ github.run_number }}
+      run: dotnet pack Sources/Microcharts.Maui/Microcharts.Maui.csproj --configuration Release --no-build -p:VersionPrelease=-preview.${{ github.run_number }}
 
     - name: "Pack Microcharts Meta-package"
-      run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj --configuration Release -p:VersionPrelease=.${{ github.run_number }}
+      run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj --configuration Release -p:VersionPrelease=-preview.${{ github.run_number }}
 
     # Always publish the build to GitHub Packages (prerelease/CI feed).
     - name: Publish packages to GitHub Packages

@@ -70,11 +70,14 @@ namespace Microcharts
                 IsAntialias = true,
             })
             {
-                using (SKPath path = new SKPath())
+                using (var builder = new SKPathBuilder())
                 {
                     var sweepAngle = AnimationProgress * 360 * (Math.Abs(value) - AbsoluteMinimum) / ValueRange;
-                    path.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), StartAngle, sweepAngle);
-                    canvas.DrawPath(path, paint);
+                    builder.AddArc(SKRect.Create(cx - radius, cy - radius, 2 * radius, 2 * radius), StartAngle, sweepAngle);
+                    using (var path = builder.Detach())
+                    {
+                        canvas.DrawPath(path, paint);
+                    }
                 }
             }
         }
