@@ -12,7 +12,7 @@
 
     <PropertyGroup>
         <!-- Single source of truth for the SkiaSharp package family version -->
-        <SkiaSharpVersion>4.150.1</SkiaSharpVersion>
+        <SkiaSharpVersion>4.152.1</SkiaSharpVersion>
     </PropertyGroup>
 
     <PropertyGroup>

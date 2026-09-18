@@ -28,7 +28,7 @@ There are no test projects in this repository.
 
 ## Architecture
 
-Microcharts is a cross-platform charting library built on **SkiaSharp 3.x** targeting **.NET 10**. All chart rendering is platform-agnostic SkiaSharp drawing; platform projects provide thin `ChartView` wrappers.
+Microcharts is a cross-platform charting library built on **SkiaSharp 4.x** targeting **.NET 10**. All chart rendering is platform-agnostic SkiaSharp drawing; platform projects provide thin `ChartView` wrappers.
 
 ### Project Dependency Graph
 
