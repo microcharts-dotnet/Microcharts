@@ -25,18 +25,17 @@ jobs:
       with:
         fetch-depth: 0
 
+    # Pinned to match pull-request.yml. The workload set decides $(MauiVersion), which
+    # becomes the Microsoft.Maui.Controls floor of the published Microcharts.Maui package.
     - name: Install .NET SDK
       uses: actions/setup-dotnet@v6
       with:
         dotnet-version: |
-          10.0.x
+          10.0.401
 
     - name: "Install .NET workloads"
       run: |
-        dotnet workload install android
-        dotnet workload install ios
-        dotnet workload install maccatalyst
-        dotnet workload install maui
+        dotnet workload install android ios maccatalyst maui --version 10.0.401
         dotnet workload list
 
     - name: "Restore and build solution"
