@@ -103,9 +103,11 @@ namespace Microcharts
 
                 DrawBorder(canvas, center, radius);
 
-                using (var clip = new SKPath())
+                using var clipBuilder = new SKPathBuilder();
+                clipBuilder.AddCircle(center.X, center.Y, radius, SKPathDirection.Clockwise);
+
+                using (var clip = clipBuilder.Detach())
                 {
-                    clip.AddCircle(center.X, center.Y, radius);
 
                     
                     for (int i = 0; i < total; i++)

@@ -4,7 +4,8 @@
     <NuspecFile>Microcharts.Metapackage.nuspec</NuspecFile>
     <!-- Feed $version$ in the nuspec (package version + Microcharts.* deps) from the
          computed PackageVersion so the meta-package tracks the platform packages,
-         both for CI builds (2.0.0.<run>) and clean releases (2.0.0). -->
-    <NuspecProperties>version=$(PackageVersion)</NuspecProperties>
+         both for CI builds (3.0.0-preview.<run>) and clean releases (3.0.0).
+         $skiasharpversion$ keeps the SkiaSharp deps in lockstep with the projects. -->
+    <NuspecProperties>version=$(PackageVersion);skiasharpversion=$(SkiaSharpVersion)</NuspecProperties>
   </PropertyGroup>
 </Project>

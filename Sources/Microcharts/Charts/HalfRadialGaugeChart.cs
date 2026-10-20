@@ -56,10 +56,13 @@ namespace Microcharts
                 IsAntialias = true,
             })
             {
-                using (SKPath path = new SKPath())
+                using (var builder = new SKPathBuilder())
                 {
-                    path.AddArc(SKRect.Create(cx - radius * 2, cy - radius * 2, 4 * radius, 4 * radius), 180, 180);
-                    canvas.DrawPath(path, paint);
+                    builder.AddArc(SKRect.Create(cx - radius * 2, cy - radius * 2, 4 * radius, 4 * radius), 180, 180);
+                    using (var path = builder.Detach())
+                    {
+                        canvas.DrawPath(path, paint);
+                    }
                 }
             }
         }
@@ -75,11 +78,14 @@ namespace Microcharts
                 IsAntialias = true,
             })
             {
-                using (SKPath path = new SKPath())
+                using (var builder = new SKPathBuilder())
                 {
                     var sweepAngle =  AnimationProgress * 180 * (Math.Abs(value) - AbsoluteMinimum) / ValueRange;
-                    path.AddArc(SKRect.Create(cx - radius * 2, cy - radius * 2, 4 * radius, 4 * radius), 180, sweepAngle);
-                    canvas.DrawPath(path, paint);
+                    builder.AddArc(SKRect.Create(cx - radius * 2, cy - radius * 2, 4 * radius, 4 * radius), 180, sweepAngle);
+                    using (var path = builder.Detach())
+                    {
+                        canvas.DrawPath(path, paint);
+                    }
                 }
             }
         }

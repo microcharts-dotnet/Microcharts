@@ -27,13 +27,13 @@ namespace Microcharts
 
         public static SKPath CreateSectorPath(float start, float end, float outerRadius, float innerRadius = 0.0f, float margin = 0.0f)
         {
-            var path = new SKPath();
-
             // if the sector has no size, then it has no path
             if (start == end)
             {
-                return path;
+                return new SKPath();
             }
+
+            using var path = new SKPathBuilder();
 
             // if the sector is a full circle, then do that
             if (end - start == 1.0f)
@@ -41,7 +41,7 @@ namespace Microcharts
                 path.AddCircle(0, 0, outerRadius, SKPathDirection.Clockwise);
                 path.AddCircle(0, 0, innerRadius, SKPathDirection.Clockwise);
                 path.FillType = SKPathFillType.EvenOdd;
-                return path;
+                return path.Detach();
             }
 
             // calculate the angles
@@ -76,7 +76,7 @@ namespace Microcharts
 
             path.Close();
 
-            return path;
+            return path.Detach();
         }
 
         #endregion

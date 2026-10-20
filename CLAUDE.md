@@ -28,7 +28,7 @@ There are no test projects in this repository.
 
 ## Architecture
 
-Microcharts is a cross-platform charting library built on **SkiaSharp 3.x** targeting **.NET 10**. All chart rendering is platform-agnostic SkiaSharp drawing; platform projects provide thin `ChartView` wrappers.
+Microcharts is a cross-platform charting library built on **SkiaSharp 4.x** targeting **.NET 10**. All chart rendering is platform-agnostic SkiaSharp drawing; platform projects provide thin `ChartView` wrappers.
 
 ### Project Dependency Graph
 
@@ -74,5 +74,7 @@ Version is managed centrally in `Sources/Directory.Build.props` (`VersionMain` p
 
 ## CI/CD
 
-- **pull-request.yml** - Runs on pull requests (and manual dispatch); builds on `windows-latest` and `macos-26` (with Xcode `latest-stable` via `maxim-lobanov/setup-xcode@v1`)
+- **pull-request.yml** - Runs on pull requests (and manual dispatch); builds on `windows-latest` and `macos-26` (with Xcode `26.6` via `maxim-lobanov/setup-xcode@v1`)
 - **publish.yml** - Manual trigger (`workflow_dispatch`); always publishes packages to GitHub Packages (`microcharts-dotnet` org), and additionally to nuget.org when the `publish_to_nuget` input is set (OIDC trusted publishing)
+
+Both workflows pin .NET SDK `10.0.401` and workload set `10.0.401` (iOS 26.5, MAUI 10.0.20). Newer workload sets bring the iOS 27 workload, which needs Xcode 27, and raise `$(MauiVersion)` — the `Microsoft.Maui.Controls` floor of the published `Microcharts.Maui` package. Bump the SDK, workload set and Xcode together.
