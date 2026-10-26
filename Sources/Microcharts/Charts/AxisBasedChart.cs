@@ -174,7 +174,9 @@ namespace Microcharts
         /// <param name="height">The height of the chart.</param>
         public override void DrawContent(SKCanvas canvas, int width, int height)
         {
-            if (Series != null && entries != null)
+            // An empty series has nothing to draw, and the layout below takes the Max of
+            // the grouped entries, which throws on an empty sequence.
+            if (Series != null && entries != null && entries.Any())
             {
                 //Caching the min/max values for performance
                 bool fixedRange = InternalMaxValue.HasValue || InternalMinValue.HasValue;
