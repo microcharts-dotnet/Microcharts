@@ -7,8 +7,6 @@
     <OutputType>Library</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageTags>microcharts</PackageTags>
-    <UseMaui>true</UseMaui>
-    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
