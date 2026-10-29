@@ -1,0 +1,75 @@
+import { ScrollView } from "std-widgets.slint";
+import { ChartView } from "chart-view.slint";
+
+export struct ChartItem {
+    title: string,
+    chart: image,
+}
+
+export component Gallery inherits Window {
+    title: "Microcharts on Slint";
+    preferred-width: 720px;
+    preferred-height: 900px;
+    background: #eef0f3;
+
+    in property <[ChartItem]> charts;
+    callback chart-resized(index: int, width: length, height: length);
+    callback replay();
+
+    ScrollView {
+        x: root.safe-area-insets.left;
+        y: root.safe-area-insets.top;
+        width: root.width - root.safe-area-insets.left - root.safe-area-insets.right;
+        height: root.height - root.safe-area-insets.top - root.safe-area-insets.bottom;
+
+        VerticalLayout {
+            padding: 12px;
+            spacing: 12px;
+
+            HorizontalLayout {
+                Text {
+                    text: "Microcharts on Slint";
+                    font-size: 22px;
+                    font-weight: 600;
+                    color: #263040;
+                }
+                Text {
+                    text: "Tap a chart to replay";
+                    horizontal-alignment: right;
+                    vertical-alignment: center;
+                    color: #6a7380;
+                }
+            }
+
+            for item[index] in root.charts: Rectangle {
+                height: 280px;
+                background: white;
+                border-radius: 10px;
+                clip: true;
+
+                VerticalLayout {
+                    padding: 10px;
+                    spacing: 4px;
+                    Text {
+                        text: item.title;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: #263040;
+                    }
+                    ChartView {
+                        source: item.chart;
+                        resized(width, height) => {
+                            root.chart-resized(index, width, height);
+                        }
+                    }
+                }
+
+                TouchArea {
+                    clicked => {
+                        root.replay();
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Like Microcharts.Core, so that an Android app gets the Android build of Slint, with SlintActivity. -->
+    <TargetFrameworks>net10.0;net10.0-android;net10.0-ios</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Description>Simple, cross-platform chart library for Slint.</Description>
+    <PackageTags>slint dotnet chart skia skiasharp</PackageTags>
+    <RepositoryUrl>https://github.com/microcharts-dotnet/Microcharts.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/microcharts-dotnet/Microcharts.git</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
+  </ItemGroup>
+  <Import Project="SlintReference.targets" />
+</Project>

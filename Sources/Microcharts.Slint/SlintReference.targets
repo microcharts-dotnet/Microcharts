@@ -1,0 +1,18 @@
+<Project>
+  <!--
+    The Slint for .NET package, or with SlintRepository set, the bindings of a Slint checkout, such as for a change to both:
+    dotnet build -p:SlintRepository=$HOME/src/slint
+    A project that has .slint files references the package itself, since its build files reach only direct references.
+  -->
+  <PropertyGroup>
+    <SlintNetPackageId Condition="'$(SlintNetPackageId)' == ''">yurkinh.slint.net</SlintNetPackageId>
+    <SlintNetVersion Condition="'$(SlintNetVersion)' == ''">1.19.0-preview.10</SlintNetVersion>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(SlintRepository)' == ''">
+    <PackageReference Include="$(SlintNetPackageId)" Version="$(SlintNetVersion)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(SlintRepository)' != ''">
+    <ProjectReference Include="$(SlintRepository)/api/dotnet/Slint/Slint.csproj" />
+  </ItemGroup>
+  <Import Project="$(SlintRepository)/api/dotnet/Slint/build/Slint.targets" Condition="'$(SlintRepository)' != ''" />
+</Project>

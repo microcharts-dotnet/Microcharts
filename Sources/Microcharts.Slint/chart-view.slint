@@ -1,0 +1,17 @@
+// Copyright (c) Aloïs DENIEL. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+// Shows the images of a ChartRenderer, and reports the size to pass to its Resize.
+export component ChartView inherits Image {
+    callback resized(width: length, height: length);
+
+    init => {
+        root.resized(self.width, self.height);
+    }
+    changed width => {
+        root.resized(self.width, self.height);
+    }
+    changed height => {
+        root.resized(self.width, self.height);
+    }
+}
