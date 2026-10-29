@@ -40,6 +40,40 @@ The native iOS and Android views — `Microcharts.iOS` and `Microcharts.Droid` �
 
 Don't forget to call `UseMicrocharts()` on `MauiAppBuilder` in the `MauiProgram` class.
 
+**Slint**
+
+[Slint](https://slint.dev) apps show a chart in a `ChartView` from `Sources/Microcharts.Slint/chart-view.slint`,
+an `Image` that reports its size, and draw it with a `ChartRenderer` from `Microcharts.Slint`:
+
+```slint
+import { ChartView } from "chart-view.slint";
+
+export component AppWindow inherits Window {
+    in property <image> sales-chart;
+    callback sales-chart-resized(length, length);
+
+    ChartView {
+        source: root.sales-chart;
+        resized(width, height) => { root.sales-chart-resized(width, height); }
+    }
+}
+```
+
+```csharp
+SlintTimer.Install(); // before creating charts, so that they animate on the Slint thread
+using var app = AppWindow.Create();
+var renderer = new ChartRenderer(app.Window, image => app.SalesChart = image)
+{
+    Chart = new BarChart { Entries = entries },
+};
+app.OnSalesChartResized(renderer.Resize);
+app.Run();
+```
+
+The chart's sizes, such as `LabelTextSize`, are in logical pixels, like Slint's lengths,
+and the renderer draws at the window's scale factor.
+`Sources/Microcharts.Samples.Slint` has a gallery for the desktop, Android, and iOS.
+
 ## Tutorials
 
 * [Video: Charts for Xamarin.Forms](https://www.youtube.com/watch?v=tmymWdmf1y4) by [@HoussemDellai](https://github.com/HoussemDellai) *(legacy Xamarin.Forms; the charting concepts still apply)*
@@ -51,6 +85,11 @@ Built-in views are provided for the following, all targeting .NET 10 and rendere
 * .NET MAUI (Windows, Android, iOS, and Mac Catalyst)
 * .NET for iOS — native `Microcharts.iOS` view
 * .NET for Android — native `Microcharts.Droid` view
+* [Slint](https://slint.dev) (macOS, Linux, Windows, Android, and iOS) — `Microcharts.Slint`, a `ChartRenderer` for a Slint `Image`
+
+| Android | iOS |
+| --- | --- |
+| ![Microcharts on Slint, Android](assets/slint-android.jpg) | ![Microcharts on Slint, iOS](assets/slint-ios.jpg) |
 
 ## License
 

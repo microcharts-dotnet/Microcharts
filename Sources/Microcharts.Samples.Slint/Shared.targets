@@ -1,0 +1,17 @@
+<Project>
+  <!-- The gallery's UI and logic, which the projects for the desktop, Android, and iOS each compile. -->
+  <PropertyGroup>
+    <RootNamespace>Microcharts.Samples.Slint</RootNamespace>
+    <SlintIncludePaths>$(MSBuildThisFileDirectory)../Microcharts.Slint</SlintIncludePaths>
+  </PropertyGroup>
+  <ItemGroup>
+    <SlintFile Include="$(MSBuildThisFileDirectory)ui/gallery.slint" />
+    <SlintFile Include="$(MSBuildThisFileDirectory)../Microcharts.Slint/chart-view.slint" Generate="false" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gallery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)../Microcharts.Slint/Microcharts.Slint.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)../Microcharts.Samples/Microcharts.Samples.csproj" />
+  </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)../Microcharts.Slint/SlintReference.targets" />
+</Project>
