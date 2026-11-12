@@ -5,11 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build Commands
 
 ```bash
-# Build the full solution (preferred)
+# Build the full solution on Windows
 dotnet build Sources/Microcharts.slnx --configuration Release
 
-# Pack all NuGet packages (macOS/Linux)
-./buildpackages-maui.sh
+# Build the core and MAUI libraries for both frameworks
+dotnet build Sources/Microcharts.Maui/Microcharts.Maui.csproj --configuration Release
+
+# Pack both frameworks and build matching samples on macOS
+bash buildpackages-maui.sh net10.0  # Xcode 26.0
+bash buildpackages-maui.sh net11.0  # Xcode 27.2
 
 # Clean all bin/obj directories
 ./clean.sh
@@ -28,12 +32,12 @@ There are no test projects in this repository.
 
 ## Architecture
 
-Microcharts is a cross-platform charting library built on **SkiaSharp 4.x** targeting **.NET 10**. All chart rendering is platform-agnostic SkiaSharp drawing; platform projects provide thin `ChartView` wrappers.
+Microcharts is a cross-platform charting library built on **SkiaSharp 4.x** targeting **.NET 10 and .NET 11**. All chart rendering is platform-agnostic SkiaSharp drawing; platform projects provide thin `ChartView` wrappers. Building the repository requires the .NET 11 SDK pinned in `global.json`.
 
 ### Project Dependency Graph
 
 ```
-Microcharts.Core (net10.0, net10.0-ios, net10.0-android, net10.0-maccatalyst, net10.0-windows)
+Microcharts.Core (.NET 10 + .NET 11: base, iOS, Android, Mac Catalyst, Windows)
   ^           ^            ^
   |           |            |
   Maui      iOS         Droid
@@ -74,7 +78,7 @@ Version is managed centrally in `Sources/Directory.Build.props` (`VersionMain` p
 
 ## CI/CD
 
-- **pull-request.yml** - Runs on pull requests (and manual dispatch); builds on `windows-latest` and `macos-26` (with Xcode `26.6` via `maxim-lobanov/setup-xcode@v1`)
+- **pull-request.yml** - Runs on pull requests (and manual dispatch); builds both framework versions on `windows-latest`, `macos-26`, and `xcode-27`. Apple samples build separately: .NET 10 with Xcode `26.0.1`, .NET 11 with Xcode `27.2`.
 - **publish.yml** - Manual trigger (`workflow_dispatch`); always publishes packages to GitHub Packages (`microcharts-dotnet` org), and additionally to nuget.org when the `publish_to_nuget` input is set (OIDC trusted publishing)
 
-Both workflows pin .NET SDK `10.0.401` and workload set `10.0.401` (iOS 26.5, MAUI 10.0.20). Newer workload sets bring the iOS 27 workload, which needs Xcode 27, and raise `$(MauiVersion)` — the `Microsoft.Maui.Controls` floor of the published `Microcharts.Maui` package. Bump the SDK, workload set and Xcode together.
+Both workflows use .NET SDK `11.0.100` and workload set `11.0.100.1`, pinned in `global.json` with `sdk.version` and `sdk.workloadVersion`. Its .NET 10 Apple workloads require Xcode 26.0; the .NET 11 workloads require Xcode 27.2. Bump the SDK, workload set and Xcode together. NuGet dependency versions are pinned independently in `Sources/Directory.Build.props`: `SkiaSharpVersion` for the SkiaSharp family and `MauiVersion` for MAUI packages, selected per target framework so .NET 10 consumers use MAUI 10 and .NET 11 consumers use MAUI 11.

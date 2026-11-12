@@ -12,48 +12,68 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-26]
+        include:
+          - os: windows-latest
+          - os: macos-26
+            xcode: '26.0.1'
+            sample-framework: net10.0
+          - os: xcode-27
+            xcode: '27.2'
+            sample-framework: net11.0
     steps:
       - name: Clone source
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      # The SDK, workload set and Xcode are pinned as a set (iOS 26.5 + MAUI 10.0.20 on
-      # Xcode 26.6). Newer workload sets ship the iOS 27 workload, which needs Xcode 27
-      # (not on macos-26), and raise $(MauiVersion), the Microsoft.Maui.Controls floor
-      # of the published Microcharts.Maui package. Keep publish.yml in sync.
+      # Build both .NET 10 and .NET 11 with the SDK/workload set in global.json.
+      # Apple samples need separate Xcode versions for the .NET 10 and 11 workloads.
+      # Keep publish.yml in sync; NuGet versions live in Sources/Directory.Build.props.
       - name: Install .NET SDK
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: |
-            10.0.401
+          global-json-file: global.json
 
       - name: "Install .NET workloads"
         run: |
-          dotnet workload install android ios maccatalyst maui --version 10.0.401
+          dotnet workload install android ios maccatalyst maui
           dotnet workload list
 
+      - name: Install Android SDK dependencies
+        run: |
+          dotnet build Sources/Microcharts.Samples.Maui/Microcharts.Samples.Maui.csproj -t:InstallAndroidDependencies -f net10.0-android -p:AcceptAndroidSDKLicenses=true
+          dotnet build Sources/Microcharts.Samples.Maui/Microcharts.Samples.Maui.csproj -t:InstallAndroidDependencies -f net11.0-android -p:AcceptAndroidSDKLicenses=true
+
       - name: Select Xcode
-        if: matrix.os == 'macos-26'
+        if: runner.os == 'macOS'
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '26.6'
+          xcode-version: ${{ matrix.xcode }}
 
       - name: "Build solution"
+        if: runner.os == 'Windows'
         run: dotnet build Sources/Microcharts.slnx --configuration Release
 
+      - name: Build and pack both frameworks; build matching Apple samples
+        if: runner.os == 'macOS'
+        run: bash buildpackages-maui.sh ${{ matrix.sample-framework }}
+
       - name: "Pack Microcharts Core"
+        if: runner.os == 'Windows'
         run: dotnet pack Sources/Microcharts/Microcharts.csproj --configuration Release --no-build
 
       - name: "Pack Microcharts Droid"
+        if: runner.os == 'Windows'
         run: dotnet pack Sources/Microcharts.Droid/Microcharts.Droid.csproj --configuration Release --no-build
 
       - name: "Pack Microcharts iOS"
+        if: runner.os == 'Windows'
         run: dotnet pack Sources/Microcharts.iOS/Microcharts.iOS.csproj --configuration Release --no-build
 
       - name: "Pack Microcharts MAUI"
+        if: runner.os == 'Windows'
         run: dotnet pack Sources/Microcharts.Maui/Microcharts.Maui.csproj --configuration Release --no-build
 
       - name: "Pack Microcharts Meta-package"
+        if: runner.os == 'Windows'
         run: dotnet pack Sources/Microcharts.Metapackage/Microcharts.Metapackage.csproj --configuration Release

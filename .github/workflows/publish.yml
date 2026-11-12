@@ -25,18 +25,22 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Pinned to match pull-request.yml. The workload set decides $(MauiVersion), which
-    # becomes the Microsoft.Maui.Controls floor of the published Microcharts.Maui package.
+    # Use the same SDK/workload set as pull-request.yml to package both .NET targets.
+    # NuGet versions are pinned independently in Sources/Directory.Build.props.
     - name: Install .NET SDK
       uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: |
-          10.0.401
+        global-json-file: global.json
 
     - name: "Install .NET workloads"
       run: |
-        dotnet workload install android ios maccatalyst maui --version 10.0.401
+        dotnet workload install android ios maccatalyst maui
         dotnet workload list
+
+    - name: Install Android SDK dependencies
+      run: |
+        dotnet build Sources/Microcharts.Samples.Maui/Microcharts.Samples.Maui.csproj -t:InstallAndroidDependencies -f net10.0-android -p:AcceptAndroidSDKLicenses=true
+        dotnet build Sources/Microcharts.Samples.Maui/Microcharts.Samples.Maui.csproj -t:InstallAndroidDependencies -f net11.0-android -p:AcceptAndroidSDKLicenses=true
 
     - name: "Restore and build solution"
       run: dotnet build Sources/Microcharts.slnx --configuration Release -p:VersionPrelease=-preview.${{ github.run_number }}

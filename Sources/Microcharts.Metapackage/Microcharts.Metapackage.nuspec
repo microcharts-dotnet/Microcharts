@@ -26,14 +26,14 @@
         <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
         <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
-      <group targetFramework="net10.0-ios19.0">
+      <group targetFramework="net10.0-ios26.0">
         <dependency id="Microcharts.Core" version="$version$" />
         <dependency id="Microcharts.Maui" version="$version$" />
         <dependency id="SkiaSharp" version="$skiasharpversion$" />
         <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
         <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
-      <group targetFramework="net10.0-maccatalyst19.0">
+      <group targetFramework="net10.0-maccatalyst26.0">
         <dependency id="Microcharts.Core" version="$version$" />
         <dependency id="Microcharts.Maui" version="$version$" />
         <dependency id="SkiaSharp" version="$skiasharpversion$" />
@@ -46,14 +46,50 @@
         <dependency id="SkiaSharp" version="$skiasharpversion$" />
         <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
       </group>
+      <group targetFramework="net11.0">
+        <dependency id="Microcharts.Core" version="$version$" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+      </group>
+      <group targetFramework="net11.0-android37.0">
+        <dependency id="Microcharts.Core" version="$version$" />
+        <dependency id="Microcharts.Maui" version="$version$" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
+      </group>
+      <group targetFramework="net11.0-ios27.2">
+        <dependency id="Microcharts.Core" version="$version$" />
+        <dependency id="Microcharts.Maui" version="$version$" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
+      </group>
+      <group targetFramework="net11.0-maccatalyst27.2">
+        <dependency id="Microcharts.Core" version="$version$" />
+        <dependency id="Microcharts.Maui" version="$version$" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
+      </group>
+      <group targetFramework="net11.0-windows10.0.19041.0">
+        <dependency id="Microcharts.Core" version="$version$" />
+        <dependency id="Microcharts.Maui" version="$version$" />
+        <dependency id="SkiaSharp" version="$skiasharpversion$" />
+        <dependency id="SkiaSharp.Views.Maui.Controls" version="$skiasharpversion$" />
+      </group>
     </dependencies>
   </metadata>
   <files>
     <file src="../../assets/Icon.png" target="assets/" />
     <file src="_._" target="lib/net10.0" />
     <file src="_._" target="lib/net10.0-android36.0" />
-    <file src="_._" target="lib/net10.0-ios19.0" />
-    <file src="_._" target="lib/net10.0-maccatalyst19.0" />
+    <file src="_._" target="lib/net10.0-ios26.0" />
+    <file src="_._" target="lib/net10.0-maccatalyst26.0" />
     <file src="_._" target="lib/net10.0-windows10.0.19041.0" />
+    <file src="_._" target="lib/net11.0" />
+    <file src="_._" target="lib/net11.0-android37.0" />
+    <file src="_._" target="lib/net11.0-ios27.2" />
+    <file src="_._" target="lib/net11.0-maccatalyst27.2" />
+    <file src="_._" target="lib/net11.0-windows10.0.19041.0" />
   </files>
 </package>
