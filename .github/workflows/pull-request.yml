@@ -50,6 +50,15 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode }}
 
+      # macos-26 retains Xcode 26.0.1 but only preinstalls newer simulator runtimes.
+      # Download the runtime compatible with the selected Xcode before actool runs.
+      - name: Install iOS simulator runtime for .NET 10
+        if: runner.os == 'macOS' && matrix.sample-framework == 'net10.0'
+        run: |
+          xcrun simctl list > /dev/null
+          xcodebuild -downloadPlatform iOS -architectureVariant universal
+          xcrun simctl list runtimes
+
       - name: "Build solution"
         if: runner.os == 'Windows'
         run: dotnet build Sources/Microcharts.slnx --configuration Release
